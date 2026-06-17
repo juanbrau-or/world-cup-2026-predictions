@@ -45,11 +45,12 @@ cd ~/projects/world-cup-2026-predictions
 cp .env.example .env
 uv sync --group dev
 uv run wc2026 doctor
-uv run pytest
 uv run ruff check .
+uv run mypy src
+uv run pytest
 ```
 
-## 5. Inicializar Git y GitHub
+## 5. Opcional: inicializar Git y GitHub
 
 ```bash
 git init
@@ -65,6 +66,9 @@ gh repo create world-cup-2026-predictions \
 ```
 
 Puedes sustituir `--public` por `--private`.
+
+Estos comandos son solo para publicar tu propia copia del repositorio. No son necesarios para
+instalar, ejecutar `doctor` ni pasar las verificaciones locales.
 
 ## 6. Flujo de trabajo recomendado
 

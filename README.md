@@ -17,8 +17,9 @@ entrenar modelos probabilísticos y publicar predicciones actualizadas del Mundi
 cp .env.example .env
 uv sync --group dev
 uv run wc2026 doctor
-uv run pytest
 uv run ruff check .
+uv run mypy src
+uv run pytest
 ```
 
 ## Flujo previsto
