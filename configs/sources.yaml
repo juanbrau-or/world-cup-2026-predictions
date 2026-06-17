@@ -1,0 +1,11 @@
+historical:
+  provider: null
+  enabled: false
+
+world_cup_2026:
+  provider: null
+  enabled: false
+
+weather:
+  provider: open_meteo
+  enabled: false

@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Environments
+.venv/
+.env
+.env.*
+!.env.example
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data generated locally
+/data/raw/**
+!/data/raw/.gitkeep
+/data/interim/**
+!/data/interim/.gitkeep
+/data/processed/**
+!/data/processed/.gitkeep
+/data/cache/**
+!/data/cache/.gitkeep
+
+# Generated artifacts
+/artifacts/models/**
+!/artifacts/models/.gitkeep
+/predictions/latest.*
+/predictions/history/**
+!/predictions/history/.gitkeep
+
+# Logs and temporary files
+logs/
+*.log
+*.tmp

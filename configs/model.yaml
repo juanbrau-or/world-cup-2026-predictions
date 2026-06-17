@@ -1,0 +1,19 @@
+project:
+  random_seed: 2026
+  timezone: UTC
+
+validation:
+  strategy: expanding_window
+  primary_metrics:
+    - log_loss
+    - brier_score
+    - ranked_probability_score
+
+elo:
+  initial_rating: 1500
+  k_factor: 20
+  host_advantage_points: 0
+
+poisson:
+  max_goals: 10
+  time_decay_half_life_days: 365

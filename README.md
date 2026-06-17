@@ -1,0 +1,35 @@
+# World Cup 2026 Predictions
+
+Repositorio reproducible para obtener datos, construir variables disponibles antes de cada partido,
+entrenar modelos probabilísticos y publicar predicciones actualizadas del Mundial 2026.
+
+## Principios
+
+- Separar datos crudos, transformaciones, features, modelos y predicciones.
+- No utilizar información posterior al instante de predicción.
+- Conservar snapshots y el `data_cutoff` de cada pronóstico.
+- Validar de forma temporal, nunca con un split aleatorio de partidos.
+- Empezar con baselines interpretables antes de modelos complejos.
+
+## Inicio rápido
+
+```bash
+cp .env.example .env
+uv sync --group dev
+uv run wc2026 doctor
+uv run pytest
+uv run ruff check .
+```
+
+## Flujo previsto
+
+```bash
+uv run wc2026 ingest
+uv run wc2026 build-features
+uv run wc2026 train
+uv run wc2026 predict
+uv run wc2026 simulate
+```
+
+Los comandos posteriores a `doctor` son contratos previstos y se implementarán por fases.
+Consulta `docs/ROADMAP.md` y `prompts/CODEX_PROMPTS.md`.
