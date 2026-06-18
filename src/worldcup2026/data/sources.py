@@ -51,10 +51,12 @@ class RawSnapshotManifest(BaseModel):
     schema_version: Literal["raw_snapshot_manifest_v1"] = RAW_SNAPSHOT_MANIFEST_VERSION
     source: NonEmptyStr
     logical_uri: NonEmptyStr
+    source_revision: NonEmptyStr
     retrieved_at_utc: datetime
     content_sha256: Sha256Hex
     cache_key: NonEmptyStr
     raw_path: Path
+    input_uri: NonEmptyStr
 
     @field_validator("retrieved_at_utc")
     @classmethod

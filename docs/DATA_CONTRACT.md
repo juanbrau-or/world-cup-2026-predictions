@@ -80,20 +80,45 @@ Antes de implementar Fase 1B el usuario debe confirmar:
 - Si la fuente provee zonas horarias, solo fechas o horas locales sin zona.
 - Si los identificadores de la fuente son estables entre descargas.
 
+Decision de Fase 1B: la fuente principal es `martj42/international_results`, configurada en
+`configs/sources.yaml`. La ingesta usa `results.csv` como tabla principal y `shootouts.csv` como
+archivo auxiliar de la misma fuente para detectar partidos que no pueden representarse fielmente con
+el contrato actual. La revision remota fijada es
+`c44451d1a07f736502f364a62b6fbc947a544809` y el timestamp reproducible del snapshot es
+`2026-06-18T00:00:00Z`. La licencia declarada por el repositorio fuente es `CC0-1.0`.
+
+Limitaciones de mapeo en Fase 1B:
+
+- `results.csv` provee solo fecha, no hora ni zona horaria; por tanto `kickoff_time_status` es
+  `date_only` y `kickoff_utc`, `kickoff_local_time`, `kickoff_timezone` son nulos.
+- La fuente documenta `home_score` y `away_score` como marcador final incluyendo tiempo extra, sin
+  penales. Como el contrato separa marcador a 90, prorroga y penales, las filas presentes en
+  `shootouts.csv` se cuarentenan. Los partidos con prorroga sin shootout no pueden detectarse solo
+  con estos archivos y quedan como riesgo documentado.
+- La fuente no provee estadio ni fase; `venue_name_original` y `stage` son nulos.
+- La fuente no provee identificador nativo por partido; `source_match_id` se deriva de fecha,
+  equipos, torneo, ciudad y pais. Los duplicados exactos conservan la primera fila y trazan las
+  copias; los duplicados conflictivos se cuarentenan completos.
+- La normalizacion de equipos exige una fila explicita vigente en `data/static/team_aliases.csv`.
+  Los nombres sin alias no se convierten automaticamente y se escriben en cuarentena.
+
 La interfaz tipada de Fase 1A define:
 
 - `HistoricalFetchRequest`: fuente, URI logica y directorio de cache.
-- `RawSnapshotManifest`: fuente, URI logica, `retrieved_at_utc`, checksum SHA-256, cache key y ruta
-  raw.
+- `RawSnapshotManifest`: fuente, URI logica, revision explicita de la fuente,
+  `retrieved_at_utc`, checksum SHA-256, cache key, ruta raw y URI efectiva de entrada.
 - `RawSnapshot`: bytes originales mas manifiesto.
 - `HistoricalSourceRecord`: registro parseado previo a normalizacion canonica.
 - `HistoricalDataClient` y `HistoricalMatchAdapter`: protocolos para obtener snapshots y adaptar
   registros a `CanonicalMatch`.
 
-La idempotencia de snapshots se basa en `(source, logical_uri, content_sha256, schema_version)`.
+La idempotencia de snapshots se basa en
+`(source, logical_uri, source_revision, content_sha256, schema_version)`.
 Fase 1B debe escribir respuestas originales en `data/raw/<source>/<retrieved_at>/` con manifiesto y
-nunca mutar esos bytes. La cache puede reutilizar un snapshot si el checksum y la URI logica
-coinciden.
+nunca mutar esos bytes. `results.csv` y `shootouts.csv` se guardan como un bundle de snapshot unico.
+La cache puede reutilizar un snapshot si el checksum, la URI logica, la revision y el timestamp
+coinciden. `--dry-run` descarga o lee los bytes en memoria, pero no escribe snapshots raw ni
+artefactos derivados.
 
 ## Reglas temporales
 
