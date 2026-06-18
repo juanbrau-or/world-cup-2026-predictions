@@ -39,6 +39,7 @@ historical:
       processed_output: "data/processed/international_matches.parquet"
       quarantine_output: "data/interim/historical_ingest_invalid_records.jsonl"
       report_output: "data/interim/historical_ingest_report.json"
+      teams_path: "data/static/teams.csv"
       aliases_path: "data/static/team_aliases.csv"
 
 world_cup_2026:

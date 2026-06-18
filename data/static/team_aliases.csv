@@ -1,14 +1,342 @@
-canonical_team_id,canonical_name,source,source_name,valid_from,valid_to
-arg,Argentina,synthetic_fixture,Argentina,1902-07-20,
-deu,Germany,synthetic_fixture,Germany,1990-10-03,
-deu,Germany,synthetic_fixture,West Germany,1949-05-23,1990-10-02
-civ,Cote d'Ivoire,synthetic_fixture,Ivory Coast,1960-08-07,
-usa,United States,synthetic_fixture,USA,1916-08-20,
-arg,Argentina,international_results_csv,Argentina,1902-07-20,
-bra,Brazil,international_results_csv,Brazil,1914-09-20,
-civ,Cote d'Ivoire,international_results_csv,Ivory Coast,1960-08-07,
-deu,Germany,international_results_csv,Germany,1990-10-03,
-eng,England,international_results_csv,England,1872-11-30,
-fra,France,international_results_csv,France,1904-05-01,
-sco,Scotland,international_results_csv,Scotland,1872-11-30,
-usa,United States,international_results_csv,United States,1885-11-28,
+canonical_team_id,source,source_name,valid_from,valid_to,notes
+argentina,synthetic_fixture,Argentina,1902-07-20,,
+germany,synthetic_fixture,Germany,1908-04-05,,
+german_dr,synthetic_fixture,German DR,1952-09-21,1990-09-12,Historical entity kept separate from Germany.
+ivory_coast,synthetic_fixture,Ivory Coast,1960-04-14,,
+united_states,synthetic_fixture,USA,1885-11-28,,Fixture-only abbreviation for United States.
+abkhazia,international_results_csv,Abkhazia,,,Exact observed source name from martj42/international_results.
+afghanistan,international_results_csv,Afghanistan,,,Exact observed source name from martj42/international_results.
+albania,international_results_csv,Albania,,,Exact observed source name from martj42/international_results.
+alderney,international_results_csv,Alderney,,,Exact observed source name from martj42/international_results.
+algeria,international_results_csv,Algeria,,,Exact observed source name from martj42/international_results.
+ambazonia,international_results_csv,Ambazonia,,,Exact observed source name from martj42/international_results.
+american_samoa,international_results_csv,American Samoa,,,Exact observed source name from martj42/international_results.
+andalusia,international_results_csv,Andalusia,,,Exact observed source name from martj42/international_results.
+andorra,international_results_csv,Andorra,,,Exact observed source name from martj42/international_results.
+angola,international_results_csv,Angola,,,Exact observed source name from martj42/international_results.
+anguilla,international_results_csv,Anguilla,,,Exact observed source name from martj42/international_results.
+antigua_and_barbuda,international_results_csv,Antigua and Barbuda,,,Exact observed source name from martj42/international_results.
+arameans_suryoye,international_results_csv,Arameans Suryoye,,,Exact observed source name from martj42/international_results.
+argentina,international_results_csv,Argentina,,,Exact observed source name from martj42/international_results.
+armenia,international_results_csv,Armenia,,,Exact observed source name from martj42/international_results.
+artsakh,international_results_csv,Artsakh,,,Exact observed source name from martj42/international_results.
+aruba,international_results_csv,Aruba,,,Exact observed source name from martj42/international_results.
+asturias,international_results_csv,Asturias,,,Exact observed source name from martj42/international_results.
+australia,international_results_csv,Australia,,,Exact observed source name from martj42/international_results.
+austria,international_results_csv,Austria,,,Exact observed source name from martj42/international_results.
+aymara,international_results_csv,Aymara,,,Exact observed source name from martj42/international_results.
+azerbaijan,international_results_csv,Azerbaijan,,,Exact observed source name from martj42/international_results.
+bahamas,international_results_csv,Bahamas,,,Exact observed source name from martj42/international_results.
+bahrain,international_results_csv,Bahrain,,,Exact observed source name from martj42/international_results.
+bangladesh,international_results_csv,Bangladesh,,,Exact observed source name from martj42/international_results.
+barawa,international_results_csv,Barawa,,,Exact observed source name from martj42/international_results.
+barbados,international_results_csv,Barbados,,,Exact observed source name from martj42/international_results.
+basque_country,international_results_csv,Basque Country,,,Exact observed source name from martj42/international_results.
+belarus,international_results_csv,Belarus,,,Exact observed source name from martj42/international_results.
+belgium,international_results_csv,Belgium,,,Exact observed source name from martj42/international_results.
+belize,international_results_csv,Belize,,,Exact observed source name from martj42/international_results.
+benin,international_results_csv,Benin,,,Exact observed source name from martj42/international_results.
+bermuda,international_results_csv,Bermuda,,,Exact observed source name from martj42/international_results.
+bhutan,international_results_csv,Bhutan,,,Exact observed source name from martj42/international_results.
+biafra,international_results_csv,Biafra,,,Exact observed source name from martj42/international_results.
+bolivia,international_results_csv,Bolivia,,,Exact observed source name from martj42/international_results.
+bonaire,international_results_csv,Bonaire,,,Exact observed source name from martj42/international_results.
+bosnia_and_herzegovina,international_results_csv,Bosnia and Herzegovina,,,Exact observed source name from martj42/international_results.
+botswana,international_results_csv,Botswana,,,Exact observed source name from martj42/international_results.
+brazil,international_results_csv,Brazil,,,Exact observed source name from martj42/international_results.
+british_virgin_islands,international_results_csv,British Virgin Islands,,,Exact observed source name from martj42/international_results.
+brittany,international_results_csv,Brittany,,,Exact observed source name from martj42/international_results.
+brunei,international_results_csv,Brunei,,,Exact observed source name from martj42/international_results.
+bulgaria,international_results_csv,Bulgaria,,,Exact observed source name from martj42/international_results.
+burkina_faso,international_results_csv,Burkina Faso,,,Exact observed source name from martj42/international_results.
+burundi,international_results_csv,Burundi,,,Exact observed source name from martj42/international_results.
+cambodia,international_results_csv,Cambodia,,,Exact observed source name from martj42/international_results.
+cameroon,international_results_csv,Cameroon,,,Exact observed source name from martj42/international_results.
+canada,international_results_csv,Canada,,,Exact observed source name from martj42/international_results.
+canary_islands,international_results_csv,Canary Islands,,,Exact observed source name from martj42/international_results.
+cape_verde,international_results_csv,Cape Verde,,,Exact observed source name from martj42/international_results.
+cascadia,international_results_csv,Cascadia,,,Exact observed source name from martj42/international_results.
+catalonia,international_results_csv,Catalonia,,,Exact observed source name from martj42/international_results.
+cayman_islands,international_results_csv,Cayman Islands,,,Exact observed source name from martj42/international_results.
+central_african_republic,international_results_csv,Central African Republic,,,Exact observed source name from martj42/international_results.
+central_spain,international_results_csv,Central Spain,,,Exact observed source name from martj42/international_results.
+chad,international_results_csv,Chad,,,Exact observed source name from martj42/international_results.
+chagos_islands,international_results_csv,Chagos Islands,,,Exact observed source name from martj42/international_results.
+chameria,international_results_csv,Chameria,,,Exact observed source name from martj42/international_results.
+chechnya,international_results_csv,Chechnya,,,Exact observed source name from martj42/international_results.
+chile,international_results_csv,Chile,,,Exact observed source name from martj42/international_results.
+china,international_results_csv,China,,,Exact observed source name from martj42/international_results.
+cilento,international_results_csv,Cilento,,,Exact observed source name from martj42/international_results.
+colombia,international_results_csv,Colombia,,,Exact observed source name from martj42/international_results.
+comoros,international_results_csv,Comoros,,,Exact observed source name from martj42/international_results.
+congo,international_results_csv,Congo,,,Exact observed source name from martj42/international_results.
+cook_islands,international_results_csv,Cook Islands,,,Exact observed source name from martj42/international_results.
+corsica,international_results_csv,Corsica,,,Exact observed source name from martj42/international_results.
+costa_rica,international_results_csv,Costa Rica,,,Exact observed source name from martj42/international_results.
+county_of_nice,international_results_csv,County of Nice,,,Exact observed source name from martj42/international_results.
+crimea,international_results_csv,Crimea,,,Exact observed source name from martj42/international_results.
+croatia,international_results_csv,Croatia,,,Exact observed source name from martj42/international_results.
+cuba,international_results_csv,Cuba,,,Exact observed source name from martj42/international_results.
+curacao,international_results_csv,Curaçao,,,Exact observed source name from martj42/international_results.
+cyprus,international_results_csv,Cyprus,,,Exact observed source name from martj42/international_results.
+czech_republic,international_results_csv,Czech Republic,,,Exact observed source name from martj42/international_results.
+czechoslovakia,international_results_csv,Czechoslovakia,,,Exact observed source name from martj42/international_results.
+dr_congo,international_results_csv,DR Congo,,,Exact observed source name from martj42/international_results.
+darfur,international_results_csv,Darfur,,,Exact observed source name from martj42/international_results.
+denmark,international_results_csv,Denmark,,,Exact observed source name from martj42/international_results.
+djibouti,international_results_csv,Djibouti,,,Exact observed source name from martj42/international_results.
+dominica,international_results_csv,Dominica,,,Exact observed source name from martj42/international_results.
+dominican_republic,international_results_csv,Dominican Republic,,,Exact observed source name from martj42/international_results.
+donetsk_pr,international_results_csv,Donetsk PR,,,Exact observed source name from martj42/international_results.
+delvidek,international_results_csv,Délvidék,,,Exact observed source name from martj42/international_results.
+east_turkestan,international_results_csv,East Turkestan,,,Exact observed source name from martj42/international_results.
+ecuador,international_results_csv,Ecuador,,,Exact observed source name from martj42/international_results.
+egypt,international_results_csv,Egypt,,,Exact observed source name from martj42/international_results.
+el_salvador,international_results_csv,El Salvador,,,Exact observed source name from martj42/international_results.
+elba_island,international_results_csv,Elba Island,,,Exact observed source name from martj42/international_results.
+ellan_vannin,international_results_csv,Ellan Vannin,,,Exact observed source name from martj42/international_results.
+england,international_results_csv,England,,,Exact observed source name from martj42/international_results.
+equatorial_guinea,international_results_csv,Equatorial Guinea,,,Exact observed source name from martj42/international_results.
+eritrea,international_results_csv,Eritrea,,,Exact observed source name from martj42/international_results.
+estonia,international_results_csv,Estonia,,,Exact observed source name from martj42/international_results.
+eswatini,international_results_csv,Eswatini,,,Exact observed source name from martj42/international_results.
+ethiopia,international_results_csv,Ethiopia,,,Exact observed source name from martj42/international_results.
+falkland_islands,international_results_csv,Falkland Islands,,,Exact observed source name from martj42/international_results.
+faroe_islands,international_results_csv,Faroe Islands,,,Exact observed source name from martj42/international_results.
+felvidek,international_results_csv,Felvidék,,,Exact observed source name from martj42/international_results.
+fiji,international_results_csv,Fiji,,,Exact observed source name from martj42/international_results.
+finland,international_results_csv,Finland,,,Exact observed source name from martj42/international_results.
+france,international_results_csv,France,,,Exact observed source name from martj42/international_results.
+franconia,international_results_csv,Franconia,,,Exact observed source name from martj42/international_results.
+french_guiana,international_results_csv,French Guiana,,,Exact observed source name from martj42/international_results.
+froya,international_results_csv,Frøya,,,Exact observed source name from martj42/international_results.
+gabon,international_results_csv,Gabon,,,Exact observed source name from martj42/international_results.
+galicia,international_results_csv,Galicia,,,Exact observed source name from martj42/international_results.
+gambia,international_results_csv,Gambia,,,Exact observed source name from martj42/international_results.
+georgia,international_results_csv,Georgia,,,Exact observed source name from martj42/international_results.
+german_dr,international_results_csv,German DR,,,Exact observed source name from martj42/international_results.
+germany,international_results_csv,Germany,,,Exact observed source name from martj42/international_results.
+ghana,international_results_csv,Ghana,,,Exact observed source name from martj42/international_results.
+gibraltar,international_results_csv,Gibraltar,,,Exact observed source name from martj42/international_results.
+gotland,international_results_csv,Gotland,,,Exact observed source name from martj42/international_results.
+gozo,international_results_csv,Gozo,,,Exact observed source name from martj42/international_results.
+greece,international_results_csv,Greece,,,Exact observed source name from martj42/international_results.
+greenland,international_results_csv,Greenland,,,Exact observed source name from martj42/international_results.
+grenada,international_results_csv,Grenada,,,Exact observed source name from martj42/international_results.
+guadeloupe,international_results_csv,Guadeloupe,,,Exact observed source name from martj42/international_results.
+guam,international_results_csv,Guam,,,Exact observed source name from martj42/international_results.
+guatemala,international_results_csv,Guatemala,,,Exact observed source name from martj42/international_results.
+guernsey,international_results_csv,Guernsey,,,Exact observed source name from martj42/international_results.
+guinea,international_results_csv,Guinea,,,Exact observed source name from martj42/international_results.
+guinea_bissau,international_results_csv,Guinea-Bissau,,,Exact observed source name from martj42/international_results.
+guyana,international_results_csv,Guyana,,,Exact observed source name from martj42/international_results.
+gagauzia,international_results_csv,Găgăuzia,,,Exact observed source name from martj42/international_results.
+haiti,international_results_csv,Haiti,,,Exact observed source name from martj42/international_results.
+hitra,international_results_csv,Hitra,,,Exact observed source name from martj42/international_results.
+hmong,international_results_csv,Hmong,,,Exact observed source name from martj42/international_results.
+honduras,international_results_csv,Honduras,,,Exact observed source name from martj42/international_results.
+hong_kong,international_results_csv,Hong Kong,,,Exact observed source name from martj42/international_results.
+hungary,international_results_csv,Hungary,,,Exact observed source name from martj42/international_results.
+iceland,international_results_csv,Iceland,,,Exact observed source name from martj42/international_results.
+india,international_results_csv,India,,,Exact observed source name from martj42/international_results.
+indonesia,international_results_csv,Indonesia,,,Exact observed source name from martj42/international_results.
+iran,international_results_csv,Iran,,,Exact observed source name from martj42/international_results.
+iraq,international_results_csv,Iraq,,,Exact observed source name from martj42/international_results.
+iraqi_kurdistan,international_results_csv,Iraqi Kurdistan,,,Exact observed source name from martj42/international_results.
+isle_of_man,international_results_csv,Isle of Man,,,Exact observed source name from martj42/international_results.
+isle_of_wight,international_results_csv,Isle of Wight,,,Exact observed source name from martj42/international_results.
+israel,international_results_csv,Israel,,,Exact observed source name from martj42/international_results.
+italy,international_results_csv,Italy,,,Exact observed source name from martj42/international_results.
+ivory_coast,international_results_csv,Ivory Coast,,,Exact observed source name from martj42/international_results.
+jamaica,international_results_csv,Jamaica,,,Exact observed source name from martj42/international_results.
+japan,international_results_csv,Japan,,,Exact observed source name from martj42/international_results.
+jersey,international_results_csv,Jersey,,,Exact observed source name from martj42/international_results.
+jordan,international_results_csv,Jordan,,,Exact observed source name from martj42/international_results.
+kabylia,international_results_csv,Kabylia,,,Exact observed source name from martj42/international_results.
+kazakhstan,international_results_csv,Kazakhstan,,,Exact observed source name from martj42/international_results.
+kenya,international_results_csv,Kenya,,,Exact observed source name from martj42/international_results.
+kernow,international_results_csv,Kernow,,,Exact observed source name from martj42/international_results.
+kiribati,international_results_csv,Kiribati,,,Exact observed source name from martj42/international_results.
+kosovo,international_results_csv,Kosovo,,,Exact observed source name from martj42/international_results.
+kurdistan,international_results_csv,Kurdistan,,,Exact observed source name from martj42/international_results.
+kuwait,international_results_csv,Kuwait,,,Exact observed source name from martj42/international_results.
+kyrgyzstan,international_results_csv,Kyrgyzstan,,,Exact observed source name from martj42/international_results.
+karpatalja,international_results_csv,Kárpátalja,,,Exact observed source name from martj42/international_results.
+laos,international_results_csv,Laos,,,Exact observed source name from martj42/international_results.
+latvia,international_results_csv,Latvia,,,Exact observed source name from martj42/international_results.
+lebanon,international_results_csv,Lebanon,,,Exact observed source name from martj42/international_results.
+lesotho,international_results_csv,Lesotho,,,Exact observed source name from martj42/international_results.
+liberia,international_results_csv,Liberia,,,Exact observed source name from martj42/international_results.
+libya,international_results_csv,Libya,,,Exact observed source name from martj42/international_results.
+liechtenstein,international_results_csv,Liechtenstein,,,Exact observed source name from martj42/international_results.
+lithuania,international_results_csv,Lithuania,,,Exact observed source name from martj42/international_results.
+luhansk_pr,international_results_csv,Luhansk PR,,,Exact observed source name from martj42/international_results.
+luxembourg,international_results_csv,Luxembourg,,,Exact observed source name from martj42/international_results.
+macau,international_results_csv,Macau,,,Exact observed source name from martj42/international_results.
+madagascar,international_results_csv,Madagascar,,,Exact observed source name from martj42/international_results.
+madrid,international_results_csv,Madrid,,,Exact observed source name from martj42/international_results.
+malawi,international_results_csv,Malawi,,,Exact observed source name from martj42/international_results.
+malaysia,international_results_csv,Malaysia,,,Exact observed source name from martj42/international_results.
+maldives,international_results_csv,Maldives,,,Exact observed source name from martj42/international_results.
+mali,international_results_csv,Mali,,,Exact observed source name from martj42/international_results.
+malta,international_results_csv,Malta,,,Exact observed source name from martj42/international_results.
+manchukuo,international_results_csv,Manchukuo,,,Exact observed source name from martj42/international_results.
+mapuche,international_results_csv,Mapuche,,,Exact observed source name from martj42/international_results.
+marshall_islands,international_results_csv,Marshall Islands,,,Exact observed source name from martj42/international_results.
+martinique,international_results_csv,Martinique,,,Exact observed source name from martj42/international_results.
+matabeleland,international_results_csv,Matabeleland,,,Exact observed source name from martj42/international_results.
+maule_sur,international_results_csv,Maule Sur,,,Exact observed source name from martj42/international_results.
+mauritania,international_results_csv,Mauritania,,,Exact observed source name from martj42/international_results.
+mauritius,international_results_csv,Mauritius,,,Exact observed source name from martj42/international_results.
+mayotte,international_results_csv,Mayotte,,,Exact observed source name from martj42/international_results.
+menorca,international_results_csv,Menorca,,,Exact observed source name from martj42/international_results.
+mexico,international_results_csv,Mexico,,,Exact observed source name from martj42/international_results.
+micronesia,international_results_csv,Micronesia,,,Exact observed source name from martj42/international_results.
+moldova,international_results_csv,Moldova,,,Exact observed source name from martj42/international_results.
+monaco,international_results_csv,Monaco,,,Exact observed source name from martj42/international_results.
+mongolia,international_results_csv,Mongolia,,,Exact observed source name from martj42/international_results.
+montenegro,international_results_csv,Montenegro,,,Exact observed source name from martj42/international_results.
+montserrat,international_results_csv,Montserrat,,,Exact observed source name from martj42/international_results.
+morocco,international_results_csv,Morocco,,,Exact observed source name from martj42/international_results.
+mozambique,international_results_csv,Mozambique,,,Exact observed source name from martj42/international_results.
+myanmar,international_results_csv,Myanmar,,,Exact observed source name from martj42/international_results.
+namibia,international_results_csv,Namibia,,,Exact observed source name from martj42/international_results.
+nepal,international_results_csv,Nepal,,,Exact observed source name from martj42/international_results.
+netherlands,international_results_csv,Netherlands,,,Exact observed source name from martj42/international_results.
+new_caledonia,international_results_csv,New Caledonia,,,Exact observed source name from martj42/international_results.
+new_zealand,international_results_csv,New Zealand,,,Exact observed source name from martj42/international_results.
+nicaragua,international_results_csv,Nicaragua,,,Exact observed source name from martj42/international_results.
+niger,international_results_csv,Niger,,,Exact observed source name from martj42/international_results.
+nigeria,international_results_csv,Nigeria,,,Exact observed source name from martj42/international_results.
+niue,international_results_csv,Niue,,,Exact observed source name from martj42/international_results.
+north_korea,international_results_csv,North Korea,,,Exact observed source name from martj42/international_results.
+north_macedonia,international_results_csv,North Macedonia,,,Exact observed source name from martj42/international_results.
+north_vietnam,international_results_csv,North Vietnam,,,Exact observed source name from martj42/international_results.
+northern_cyprus,international_results_csv,Northern Cyprus,,,Exact observed source name from martj42/international_results.
+northern_ireland,international_results_csv,Northern Ireland,,,Exact observed source name from martj42/international_results.
+northern_mariana_islands,international_results_csv,Northern Mariana Islands,,,Exact observed source name from martj42/international_results.
+norway,international_results_csv,Norway,,,Exact observed source name from martj42/international_results.
+occitania,international_results_csv,Occitania,,,Exact observed source name from martj42/international_results.
+oman,international_results_csv,Oman,,,Exact observed source name from martj42/international_results.
+orkney,international_results_csv,Orkney,,,Exact observed source name from martj42/international_results.
+padania,international_results_csv,Padania,,,Exact observed source name from martj42/international_results.
+pakistan,international_results_csv,Pakistan,,,Exact observed source name from martj42/international_results.
+palau,international_results_csv,Palau,,,Exact observed source name from martj42/international_results.
+palestine,international_results_csv,Palestine,,,Exact observed source name from martj42/international_results.
+panama,international_results_csv,Panama,,,Exact observed source name from martj42/international_results.
+panjab,international_results_csv,Panjab,,,Exact observed source name from martj42/international_results.
+papua_new_guinea,international_results_csv,Papua New Guinea,,,Exact observed source name from martj42/international_results.
+paraguay,international_results_csv,Paraguay,,,Exact observed source name from martj42/international_results.
+parishes_of_jersey,international_results_csv,Parishes of Jersey,,,Exact observed source name from martj42/international_results.
+peru,international_results_csv,Peru,,,Exact observed source name from martj42/international_results.
+philippines,international_results_csv,Philippines,,,Exact observed source name from martj42/international_results.
+poland,international_results_csv,Poland,,,Exact observed source name from martj42/international_results.
+portugal,international_results_csv,Portugal,,,Exact observed source name from martj42/international_results.
+provence,international_results_csv,Provence,,,Exact observed source name from martj42/international_results.
+puerto_rico,international_results_csv,Puerto Rico,,,Exact observed source name from martj42/international_results.
+qatar,international_results_csv,Qatar,,,Exact observed source name from martj42/international_results.
+quebec,international_results_csv,Quebec,,,Exact observed source name from martj42/international_results.
+raetia,international_results_csv,Raetia,,,Exact observed source name from martj42/international_results.
+republic_of_ireland,international_results_csv,Republic of Ireland,,,Exact observed source name from martj42/international_results.
+republic_of_st_pauli,international_results_csv,Republic of St. Pauli,,,Exact observed source name from martj42/international_results.
+rhodes,international_results_csv,Rhodes,,,Exact observed source name from martj42/international_results.
+romani_people,international_results_csv,Romani people,,,Exact observed source name from martj42/international_results.
+romania,international_results_csv,Romania,,,Exact observed source name from martj42/international_results.
+russia,international_results_csv,Russia,,,Exact observed source name from martj42/international_results.
+rwanda,international_results_csv,Rwanda,,,Exact observed source name from martj42/international_results.
+ryukyu,international_results_csv,Ryūkyū,,,Exact observed source name from martj42/international_results.
+reunion,international_results_csv,Réunion,,,Exact observed source name from martj42/international_results.
+saare_county,international_results_csv,Saare County,,,Exact observed source name from martj42/international_results.
+saarland,international_results_csv,Saarland,,,Exact observed source name from martj42/international_results.
+saint_barthelemy,international_results_csv,Saint Barthélemy,,,Exact observed source name from martj42/international_results.
+saint_helena,international_results_csv,Saint Helena,,,Exact observed source name from martj42/international_results.
+saint_kitts_and_nevis,international_results_csv,Saint Kitts and Nevis,,,Exact observed source name from martj42/international_results.
+saint_lucia,international_results_csv,Saint Lucia,,,Exact observed source name from martj42/international_results.
+saint_martin,international_results_csv,Saint Martin,,,Exact observed source name from martj42/international_results.
+saint_pierre_and_miquelon,international_results_csv,Saint Pierre and Miquelon,,,Exact observed source name from martj42/international_results.
+saint_vincent_and_the_grenadines,international_results_csv,Saint Vincent and the Grenadines,,,Exact observed source name from martj42/international_results.
+samoa,international_results_csv,Samoa,,,Exact observed source name from martj42/international_results.
+san_marino,international_results_csv,San Marino,,,Exact observed source name from martj42/international_results.
+sark,international_results_csv,Sark,,,Exact observed source name from martj42/international_results.
+saudi_arabia,international_results_csv,Saudi Arabia,,,Exact observed source name from martj42/international_results.
+saugeais,international_results_csv,Saugeais,,,Exact observed source name from martj42/international_results.
+scotland,international_results_csv,Scotland,,,Exact observed source name from martj42/international_results.
+sealand,international_results_csv,Sealand,,,Exact observed source name from martj42/international_results.
+seborga,international_results_csv,Seborga,,,Exact observed source name from martj42/international_results.
+senegal,international_results_csv,Senegal,,,Exact observed source name from martj42/international_results.
+serbia,international_results_csv,Serbia,,,Exact observed source name from martj42/international_results.
+seychelles,international_results_csv,Seychelles,,,Exact observed source name from martj42/international_results.
+shetland,international_results_csv,Shetland,,,Exact observed source name from martj42/international_results.
+sierra_leone,international_results_csv,Sierra Leone,,,Exact observed source name from martj42/international_results.
+silesia,international_results_csv,Silesia,,,Exact observed source name from martj42/international_results.
+singapore,international_results_csv,Singapore,,,Exact observed source name from martj42/international_results.
+sint_maarten,international_results_csv,Sint Maarten,,,Exact observed source name from martj42/international_results.
+slovakia,international_results_csv,Slovakia,,,Exact observed source name from martj42/international_results.
+slovenia,international_results_csv,Slovenia,,,Exact observed source name from martj42/international_results.
+solomon_islands,international_results_csv,Solomon Islands,,,Exact observed source name from martj42/international_results.
+somalia,international_results_csv,Somalia,,,Exact observed source name from martj42/international_results.
+somaliland,international_results_csv,Somaliland,,,Exact observed source name from martj42/international_results.
+south_africa,international_results_csv,South Africa,,,Exact observed source name from martj42/international_results.
+south_korea,international_results_csv,South Korea,,,Exact observed source name from martj42/international_results.
+south_ossetia,international_results_csv,South Ossetia,,,Exact observed source name from martj42/international_results.
+south_sudan,international_results_csv,South Sudan,,,Exact observed source name from martj42/international_results.
+south_yemen,international_results_csv,South Yemen,,,Exact observed source name from martj42/international_results.
+spain,international_results_csv,Spain,,,Exact observed source name from martj42/international_results.
+sri_lanka,international_results_csv,Sri Lanka,,,Exact observed source name from martj42/international_results.
+sudan,international_results_csv,Sudan,,,Exact observed source name from martj42/international_results.
+suriname,international_results_csv,Suriname,,,Exact observed source name from martj42/international_results.
+surrey,international_results_csv,Surrey,,,Exact observed source name from martj42/international_results.
+sweden,international_results_csv,Sweden,,,Exact observed source name from martj42/international_results.
+switzerland,international_results_csv,Switzerland,,,Exact observed source name from martj42/international_results.
+syria,international_results_csv,Syria,,,Exact observed source name from martj42/international_results.
+szekely_land,international_results_csv,Székely Land,,,Exact observed source name from martj42/international_results.
+sapmi,international_results_csv,Sápmi,,,Exact observed source name from martj42/international_results.
+sao_tome_and_principe,international_results_csv,São Tomé and Príncipe,,,Exact observed source name from martj42/international_results.
+tahiti,international_results_csv,Tahiti,,,Exact observed source name from martj42/international_results.
+taiwan,international_results_csv,Taiwan,,,Exact observed source name from martj42/international_results.
+tajikistan,international_results_csv,Tajikistan,,,Exact observed source name from martj42/international_results.
+tamil_eelam,international_results_csv,Tamil Eelam,,,Exact observed source name from martj42/international_results.
+tanzania,international_results_csv,Tanzania,,,Exact observed source name from martj42/international_results.
+thailand,international_results_csv,Thailand,,,Exact observed source name from martj42/international_results.
+tibet,international_results_csv,Tibet,,,Exact observed source name from martj42/international_results.
+ticino,international_results_csv,Ticino,,,Exact observed source name from martj42/international_results.
+timor_leste,international_results_csv,Timor-Leste,,,Exact observed source name from martj42/international_results.
+togo,international_results_csv,Togo,,,Exact observed source name from martj42/international_results.
+tonga,international_results_csv,Tonga,,,Exact observed source name from martj42/international_results.
+trinidad_and_tobago,international_results_csv,Trinidad and Tobago,,,Exact observed source name from martj42/international_results.
+tunisia,international_results_csv,Tunisia,,,Exact observed source name from martj42/international_results.
+turkey,international_results_csv,Turkey,,,Exact observed source name from martj42/international_results.
+turkmenistan,international_results_csv,Turkmenistan,,,Exact observed source name from martj42/international_results.
+turks_and_caicos_islands,international_results_csv,Turks and Caicos Islands,,,Exact observed source name from martj42/international_results.
+tuvalu,international_results_csv,Tuvalu,,,Exact observed source name from martj42/international_results.
+two_sicilies,international_results_csv,Two Sicilies,,,Exact observed source name from martj42/international_results.
+uganda,international_results_csv,Uganda,,,Exact observed source name from martj42/international_results.
+ukraine,international_results_csv,Ukraine,,,Exact observed source name from martj42/international_results.
+united_arab_emirates,international_results_csv,United Arab Emirates,,,Exact observed source name from martj42/international_results.
+united_koreans_in_japan,international_results_csv,United Koreans in Japan,,,Exact observed source name from martj42/international_results.
+united_states,international_results_csv,United States,,,Exact observed source name from martj42/international_results.
+united_states_virgin_islands,international_results_csv,United States Virgin Islands,,,Exact observed source name from martj42/international_results.
+uruguay,international_results_csv,Uruguay,,,Exact observed source name from martj42/international_results.
+uzbekistan,international_results_csv,Uzbekistan,,,Exact observed source name from martj42/international_results.
+vanuatu,international_results_csv,Vanuatu,,,Exact observed source name from martj42/international_results.
+vatican_city,international_results_csv,Vatican City,,,Exact observed source name from martj42/international_results.
+venezuela,international_results_csv,Venezuela,,,Exact observed source name from martj42/international_results.
+vietnam,international_results_csv,Vietnam,,,Exact observed source name from martj42/international_results.
+vietnam_republic,international_results_csv,Vietnam Republic,,,Exact observed source name from martj42/international_results.
+wales,international_results_csv,Wales,,,Exact observed source name from martj42/international_results.
+wallis_islands_and_futuna,international_results_csv,Wallis Islands and Futuna,,,Exact observed source name from martj42/international_results.
+west_papua,international_results_csv,West Papua,,,Exact observed source name from martj42/international_results.
+western_armenia,international_results_csv,Western Armenia,,,Exact observed source name from martj42/international_results.
+western_australia,international_results_csv,Western Australia,,,Exact observed source name from martj42/international_results.
+western_isles,international_results_csv,Western Isles,,,Exact observed source name from martj42/international_results.
+western_sahara,international_results_csv,Western Sahara,,,Exact observed source name from martj42/international_results.
+yemen,international_results_csv,Yemen,,,Exact observed source name from martj42/international_results.
+yemen_dpr,international_results_csv,Yemen DPR,,,Exact observed source name from martj42/international_results.
+ynys_mon,international_results_csv,Ynys Môn,,,Exact observed source name from martj42/international_results.
+yorkshire,international_results_csv,Yorkshire,,,Exact observed source name from martj42/international_results.
+yoruba_nation,international_results_csv,Yoruba Nation,,,Exact observed source name from martj42/international_results.
+yugoslavia,international_results_csv,Yugoslavia,,,Exact observed source name from martj42/international_results.
+zambia,international_results_csv,Zambia,,,Exact observed source name from martj42/international_results.
+zanzibar,international_results_csv,Zanzibar,,,Exact observed source name from martj42/international_results.
+zimbabwe,international_results_csv,Zimbabwe,,,Exact observed source name from martj42/international_results.
+aland_islands,international_results_csv,Åland Islands,,,Exact observed source name from martj42/international_results.

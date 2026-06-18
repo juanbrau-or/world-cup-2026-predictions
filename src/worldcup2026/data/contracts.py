@@ -84,17 +84,50 @@ class MatchType(StrEnum):
     OTHER = "other"
 
 
+class TeamStatus(StrEnum):
+    """Lifecycle status of a canonical team entity."""
+
+    CURRENT = "current"
+    HISTORICAL = "historical"
+    SPECIAL = "special"
+
+
+class TeamType(StrEnum):
+    """Auditable high-level type for a canonical team entity."""
+
+    NATIONAL_TEAM = "national_team"
+    TERRITORY_TEAM = "territory_team"
+    DEFUNCT_STATE_TEAM = "defunct_state_team"
+    REGIONAL_REPRESENTATIVE = "regional_representative"
+    PEOPLE_REPRESENTATIVE = "people_representative"
+    DISPUTED_STATE_TEAM = "disputed_state_team"
+    CLUB_REPRESENTATIVE = "club_representative"
+    OTHER_SPECIAL = "other_special"
+
+
+class CanonicalTeam(BaseModel):
+    """Canonical team entity separated from source-specific aliases."""
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    canonical_team_id: CanonicalTeamId
+    canonical_name: NonEmptyStr
+    team_status: TeamStatus
+    team_type: TeamType
+    notes: NonEmptyStr | None = None
+
+
 class TeamAlias(BaseModel):
     """Canonical team alias valid for a source name and optional date range."""
 
     model_config = ConfigDict(extra="forbid", frozen=True)
 
     canonical_team_id: CanonicalTeamId
-    canonical_name: NonEmptyStr
     source: NonEmptyStr
     source_name: NonEmptyStr
     valid_from: date | None = None
     valid_to: date | None = None
+    notes: NonEmptyStr | None = None
 
     @model_validator(mode="after")
     def validate_validity_range(self) -> Self:
@@ -384,6 +417,118 @@ def validate_match_records(
     return matches
 
 
+def validate_team_catalog(
+    teams: Iterable[CanonicalTeam | Mapping[str, Any]],
+) -> list[CanonicalTeam]:
+    """Validate canonical team entries and reject duplicate identifiers."""
+
+    catalog = [
+        team if isinstance(team, CanonicalTeam) else CanonicalTeam.model_validate(team)
+        for team in teams
+    ]
+    seen: set[str] = set()
+    duplicates: set[str] = set()
+    for team in catalog:
+        if team.canonical_team_id in seen:
+            duplicates.add(team.canonical_team_id)
+        seen.add(team.canonical_team_id)
+    if duplicates:
+        duplicate_list = ", ".join(sorted(duplicates))
+        msg = f"duplicate canonical_team_id values: {duplicate_list}"
+        raise ValueError(msg)
+    return catalog
+
+
+def validate_team_aliases(
+    aliases: Iterable[TeamAlias | Mapping[str, Any]],
+    *,
+    teams: Iterable[CanonicalTeam | Mapping[str, Any]],
+) -> list[TeamAlias]:
+    """Validate aliases against the canonical catalog.
+
+    The validation is intentionally exact: it rejects aliases pointing to unknown canonical IDs,
+    duplicate alias windows, and overlapping windows that could make a source name ambiguous.
+    """
+
+    catalog = validate_team_catalog(teams)
+    known_team_ids = {team.canonical_team_id for team in catalog}
+    parsed_aliases = [
+        alias if isinstance(alias, TeamAlias) else TeamAlias.model_validate(alias)
+        for alias in aliases
+    ]
+    unknown_team_ids = sorted(
+        {alias.canonical_team_id for alias in parsed_aliases} - known_team_ids
+    )
+    if unknown_team_ids:
+        msg = "team aliases reference unknown canonical_team_id values: " + ", ".join(
+            unknown_team_ids
+        )
+        raise ValueError(msg)
+
+    seen_alias_windows: set[tuple[str, str, date | None, date | None]] = set()
+    duplicate_alias_windows: set[tuple[str, str, date | None, date | None]] = set()
+    for alias in parsed_aliases:
+        key = (alias.source, alias.source_name, alias.valid_from, alias.valid_to)
+        if key in seen_alias_windows:
+            duplicate_alias_windows.add(key)
+        seen_alias_windows.add(key)
+    if duplicate_alias_windows:
+        duplicate_list = ", ".join(
+            f"{source}:{source_name} [{valid_from or '*'}..{valid_to or '*'}]"
+            for source, source_name, valid_from, valid_to in sorted(duplicate_alias_windows)
+        )
+        msg = f"duplicate team alias windows: {duplicate_list}"
+        raise ValueError(msg)
+
+    aliases_by_source_name: dict[tuple[str, str], list[TeamAlias]] = {}
+    for alias in parsed_aliases:
+        aliases_by_source_name.setdefault((alias.source, alias.source_name), []).append(alias)
+    conflicts: list[str] = []
+    for (source, source_name), source_aliases in aliases_by_source_name.items():
+        ordered_aliases = sorted(
+            source_aliases,
+            key=lambda alias: (alias.valid_from or date.min, alias.valid_to or date.max),
+        )
+        for index, left in enumerate(ordered_aliases):
+            for right in ordered_aliases[index + 1 :]:
+                if not _date_ranges_overlap(
+                    left.valid_from,
+                    left.valid_to,
+                    right.valid_from,
+                    right.valid_to,
+                ):
+                    continue
+                if left.canonical_team_id == right.canonical_team_id:
+                    continue
+                conflicts.append(
+                    f"{source}:{source_name} maps to both "
+                    f"{left.canonical_team_id} and {right.canonical_team_id}"
+                )
+    if conflicts:
+        msg = "conflicting team aliases: " + "; ".join(conflicts)
+        raise ValueError(msg)
+    return parsed_aliases
+
+
+def find_orphan_canonical_team_ids(
+    teams: Iterable[CanonicalTeam | Mapping[str, Any]],
+    aliases: Iterable[TeamAlias | Mapping[str, Any]],
+) -> list[str]:
+    """Return canonical team IDs that have no alias row."""
+
+    catalog = validate_team_catalog(teams)
+    parsed_aliases = [
+        alias if isinstance(alias, TeamAlias) else TeamAlias.model_validate(alias)
+        for alias in aliases
+    ]
+    referenced_team_ids = {alias.canonical_team_id for alias in parsed_aliases}
+    return sorted(
+        team.canonical_team_id
+        for team in catalog
+        if team.canonical_team_id not in referenced_team_ids
+    )
+
+
 def resolve_team_alias(
     *,
     source: str,
@@ -406,6 +551,19 @@ def resolve_team_alias(
         msg = f"ambiguous team alias for {source}:{source_name} on {match_date.isoformat()}"
         raise ValueError(msg)
     return matches[0].canonical_team_id
+
+
+def _date_ranges_overlap(
+    left_from: date | None,
+    left_to: date | None,
+    right_from: date | None,
+    right_to: date | None,
+) -> bool:
+    left_start = left_from or date.min
+    left_end = left_to or date.max
+    right_start = right_from or date.min
+    right_end = right_to or date.max
+    return left_start <= right_end and right_start <= left_end
 
 
 def _result_from_scores(home_goals: int, away_goals: int) -> Result90:

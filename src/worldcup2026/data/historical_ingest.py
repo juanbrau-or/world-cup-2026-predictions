@@ -26,14 +26,18 @@ from pydantic import (
 from worldcup2026.data.contracts import (
     MATCH_SCHEMA_VERSION,
     CanonicalMatch,
+    CanonicalTeam,
     HomeAdvantageStatus,
     KickoffTimeStatus,
     MatchStatus,
     MatchType,
     Result90,
     TeamAlias,
+    find_orphan_canonical_team_ids,
     resolve_team_alias,
     validate_match_records,
+    validate_team_aliases,
+    validate_team_catalog,
 )
 from worldcup2026.data.sources import RawSnapshot, RawSnapshotManifest, sha256_bytes
 
@@ -69,6 +73,7 @@ class HistoricalCsvSourceConfig(BaseModel):
     processed_output: Path
     quarantine_output: Path
     report_output: Path
+    teams_path: Path
     aliases_path: Path
 
     @model_validator(mode="after")
@@ -119,6 +124,37 @@ class InvalidHistoricalRecord(BaseModel):
     payload: Mapping[str, object]
 
 
+class TeamNameResolution(BaseModel):
+    """Resolution status for one original team name observed in a source."""
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    source_name: str
+    match_count: int
+    first_seen: date
+    last_seen: date
+    canonical_team_id: str | None
+
+
+class TeamAliasAuditReport(BaseModel):
+    """Audit report for source team aliases and the canonical team catalog."""
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    source: str
+    source_homepage: str
+    source_revision: str
+    catalog_rows: int
+    alias_rows: int
+    original_team_names: int
+    resolved_team_names: int
+    unresolved_team_names: tuple[TeamNameResolution, ...]
+    result_rows: int
+    rows_with_resolved_team_names: int
+    team_name_row_coverage: float
+    orphan_canonical_team_ids: tuple[str, ...]
+
+
 class HistoricalIngestReport(BaseModel):
     """Quality report emitted by the historical ingestion pipeline."""
 
@@ -135,6 +171,11 @@ class HistoricalIngestReport(BaseModel):
     invalid_rows: int
     duplicate_rows: int
     normalized_rows: int
+    original_team_names: int
+    resolved_team_names: int
+    unresolved_team_names: tuple[TeamNameResolution, ...]
+    rows_with_resolved_team_names: int
+    team_name_row_coverage: float
     snapshot_manifests: tuple[RawSnapshotManifest, ...]
     output_path: Path | None
     quarantine_path: Path | None
@@ -182,6 +223,15 @@ class ParsedCsvSnapshot:
     row_count: int
     rows: tuple[ParsedHistoricalRow, ...]
     invalid_records: tuple[InvalidHistoricalRecord, ...]
+
+
+@dataclass
+class TeamNameStats:
+    """Mutable aggregate for one observed source team name."""
+
+    match_count: int
+    first_seen: date
+    last_seen: date
 
 
 def load_historical_source_config(
@@ -277,7 +327,15 @@ def run_historical_ingest(
         shootout_rows,
         result_keys=result_keys,
     )
-    aliases = load_team_aliases(config.aliases_path)
+    teams = load_team_catalog(config.teams_path)
+    aliases = load_team_aliases(config.aliases_path, teams=teams)
+    alias_audit = _audit_rows_against_aliases(
+        result_rows,
+        teams=teams,
+        aliases=aliases,
+        source_homepage=config.homepage,
+        source_revision=config.source_revision,
+    )
 
     deduplicated_rows, duplicate_records = _deduplicate_rows(processing_rows)
     matches: list[CanonicalMatch] = []
@@ -333,6 +391,11 @@ def run_historical_ingest(
         invalid_rows=len(invalid_records),
         duplicate_rows=len(duplicate_records),
         normalized_rows=len(sorted_matches),
+        original_team_names=alias_audit.original_team_names,
+        resolved_team_names=alias_audit.resolved_team_names,
+        unresolved_team_names=alias_audit.unresolved_team_names,
+        rows_with_resolved_team_names=alias_audit.rows_with_resolved_team_names,
+        team_name_row_coverage=alias_audit.team_name_row_coverage,
         snapshot_manifests=(results_snapshot.manifest, shootouts_snapshot.manifest),
         output_path=None if dry_run else effective_output_path,
         quarantine_path=None if dry_run else effective_quarantine_path,
@@ -351,7 +414,42 @@ def run_historical_ingest(
     )
 
 
-def load_team_aliases(path: Path) -> list[TeamAlias]:
+def load_team_catalog(path: Path) -> list[CanonicalTeam]:
+    """Load the canonical team catalog from the repository static CSV."""
+
+    teams: list[CanonicalTeam] = []
+    try:
+        with path.open(encoding="utf-8", newline="") as handle:
+            for row in csv.DictReader(handle):
+                teams.append(
+                    CanonicalTeam.model_validate(
+                        {
+                            "canonical_team_id": row["canonical_team_id"],
+                            "canonical_name": row["canonical_name"],
+                            "team_status": row["team_status"],
+                            "team_type": row["team_type"],
+                            "notes": row.get("notes") or None,
+                        }
+                    )
+                )
+    except OSError as exc:
+        msg = f"failed to read team catalog {path}: {exc}"
+        raise HistoricalIngestError(msg) from exc
+    except (KeyError, ValidationError, ValueError) as exc:
+        msg = f"team catalog file {path} is invalid: {exc}"
+        raise HistoricalIngestError(msg) from exc
+    try:
+        return validate_team_catalog(teams)
+    except ValueError as exc:
+        msg = f"team catalog file {path} is invalid: {exc}"
+        raise HistoricalIngestError(msg) from exc
+
+
+def load_team_aliases(
+    path: Path,
+    *,
+    teams: Iterable[CanonicalTeam] | None = None,
+) -> list[TeamAlias]:
     """Load explicit team aliases from the repository static CSV."""
 
     aliases: list[TeamAlias] = []
@@ -362,11 +460,11 @@ def load_team_aliases(path: Path) -> list[TeamAlias]:
                     TeamAlias.model_validate(
                         {
                             "canonical_team_id": row["canonical_team_id"],
-                            "canonical_name": row["canonical_name"],
                             "source": row["source"],
                             "source_name": row["source_name"],
                             "valid_from": row["valid_from"] or None,
                             "valid_to": row["valid_to"] or None,
+                            "notes": row.get("notes") or None,
                         }
                     )
                 )
@@ -376,7 +474,187 @@ def load_team_aliases(path: Path) -> list[TeamAlias]:
     except (KeyError, ValidationError) as exc:
         msg = f"team aliases file {path} is invalid: {exc}"
         raise HistoricalIngestError(msg) from exc
-    return aliases
+    if teams is None:
+        return aliases
+    try:
+        return validate_team_aliases(aliases, teams=teams)
+    except ValueError as exc:
+        msg = f"team aliases file {path} is invalid: {exc}"
+        raise HistoricalIngestError(msg) from exc
+
+
+def audit_team_aliases(
+    config: HistoricalCsvSourceConfig,
+    *,
+    results_file: Path | None = None,
+    report_path: Path | None = None,
+) -> TeamAliasAuditReport:
+    """Audit source team names against the canonical team catalog and aliases."""
+
+    teams = load_team_catalog(config.teams_path)
+    aliases = load_team_aliases(config.aliases_path, teams=teams)
+    results_config = config.files["results"]
+    if results_file is None:
+        content = _download_bytes(
+            results_config.url,
+            timeout_seconds=config.timeout_seconds,
+            retries=config.retries,
+        )
+        input_uri = results_config.url
+    else:
+        try:
+            content = results_file.read_bytes()
+        except OSError as exc:
+            msg = f"failed to read local source file {results_file}: {exc}"
+            raise HistoricalIngestError(msg) from exc
+        input_uri = results_file.resolve().as_uri()
+    snapshot = RawSnapshot(
+        manifest=RawSnapshotManifest(
+            source=SOURCE_NAME,
+            logical_uri=results_config.logical_uri,
+            source_revision=config.source_revision,
+            retrieved_at_utc=config.snapshot_retrieved_at_utc,
+            content_sha256=sha256_bytes(content),
+            cache_key="alias-audit",
+            raw_path=Path(results_config.filename),
+            input_uri=input_uri,
+        ),
+        content=content,
+    )
+    parsed = _parse_csv_snapshot(
+        snapshot,
+        file_config=results_config,
+        source_revision=config.source_revision,
+    )
+    report = _audit_rows_against_aliases(
+        list(parsed.rows),
+        teams=teams,
+        aliases=aliases,
+        source_homepage=config.homepage,
+        source_revision=config.source_revision,
+    )
+    if report_path is not None:
+        report_path.parent.mkdir(parents=True, exist_ok=True)
+        report_path.write_text(
+            json.dumps(report.model_dump(mode="json"), indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
+    return report
+
+
+def _audit_rows_against_aliases(
+    rows: Iterable[ParsedHistoricalRow],
+    *,
+    teams: Iterable[CanonicalTeam],
+    aliases: Iterable[TeamAlias],
+    source_homepage: str,
+    source_revision: str,
+) -> TeamAliasAuditReport:
+    row_list = list(rows)
+    resolutions = _team_name_resolutions(row_list, aliases=aliases)
+    unresolved = tuple(
+        resolution for resolution in resolutions if resolution.canonical_team_id is None
+    )
+    resolved_names = len(resolutions) - len(unresolved)
+    rows_with_resolved_team_names = sum(
+        1
+        for row in row_list
+        if _row_team_names_are_resolved(row.payload, aliases=aliases)
+    )
+    row_count = len(row_list)
+    coverage = rows_with_resolved_team_names / row_count if row_count else 1.0
+    orphan_ids = tuple(find_orphan_canonical_team_ids(teams, aliases))
+    catalog = list(teams)
+    alias_list = list(aliases)
+    return TeamAliasAuditReport(
+        source=SOURCE_NAME,
+        source_homepage=source_homepage,
+        source_revision=source_revision,
+        catalog_rows=len(catalog),
+        alias_rows=len(alias_list),
+        original_team_names=len(resolutions),
+        resolved_team_names=resolved_names,
+        unresolved_team_names=unresolved,
+        result_rows=row_count,
+        rows_with_resolved_team_names=rows_with_resolved_team_names,
+        team_name_row_coverage=coverage,
+        orphan_canonical_team_ids=orphan_ids,
+    )
+
+
+def _team_name_resolutions(
+    rows: Iterable[ParsedHistoricalRow],
+    *,
+    aliases: Iterable[TeamAlias],
+) -> tuple[TeamNameResolution, ...]:
+    alias_list = list(aliases)
+    stats: dict[str, TeamNameStats] = {}
+    for row in rows:
+        match_date = _parse_match_date(row.payload["date"])
+        for field_name in ("home_team", "away_team"):
+            source_name = _require_text(row.payload, field_name)
+            source_stats = stats.setdefault(
+                source_name,
+                TeamNameStats(match_count=0, first_seen=match_date, last_seen=match_date),
+            )
+            source_stats.match_count += 1
+            source_stats.first_seen = min(source_stats.first_seen, match_date)
+            source_stats.last_seen = max(source_stats.last_seen, match_date)
+
+    resolutions: list[TeamNameResolution] = []
+    for source_name, source_stats in sorted(stats.items()):
+        first_seen = source_stats.first_seen
+        last_seen = source_stats.last_seen
+        canonical_ids: set[str] = set()
+        for alias in alias_list:
+            if alias.source != SOURCE_NAME or alias.source_name != source_name:
+                continue
+            if _validity_windows_overlap(alias.valid_from, alias.valid_to, first_seen, last_seen):
+                canonical_ids.add(alias.canonical_team_id)
+        canonical_team_id = next(iter(canonical_ids)) if len(canonical_ids) == 1 else None
+        resolutions.append(
+            TeamNameResolution(
+                source_name=source_name,
+                match_count=source_stats.match_count,
+                first_seen=first_seen,
+                last_seen=last_seen,
+                canonical_team_id=canonical_team_id,
+            )
+        )
+    return tuple(resolutions)
+
+
+def _row_team_names_are_resolved(
+    row: Mapping[str, object],
+    *,
+    aliases: Iterable[TeamAlias],
+) -> bool:
+    match_date = _parse_match_date(row["date"])
+    alias_list = list(aliases)
+    for field_name in ("home_team", "away_team"):
+        try:
+            resolve_team_alias(
+                source=SOURCE_NAME,
+                source_name=_require_text(row, field_name),
+                match_date=match_date,
+                aliases=alias_list,
+            )
+        except ValueError:
+            return False
+    return True
+
+
+def _validity_windows_overlap(
+    left_from: date | None,
+    left_to: date | None,
+    right_from: date | None,
+    right_to: date | None,
+) -> bool:
+    left_start = left_from or date.min
+    left_end = left_to or date.max
+    right_start = right_from or date.min
+    right_end = right_to or date.max
+    return left_start <= right_end and right_start <= left_end
 
 
 def write_matches_parquet(matches: Iterable[CanonicalMatch], path: Path) -> None:
