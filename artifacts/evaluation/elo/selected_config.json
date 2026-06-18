@@ -1,0 +1,54 @@
+{
+  "features": [
+    "elo_difference_pre",
+    "home_advantage_eligible",
+    "neutral",
+    "competition_category"
+  ],
+  "final_holdout_start": "2026-01-01",
+  "notes": [
+    "2026 matches are excluded from retrospective parameter selection.",
+    "Each fold trains on matches strictly before the fold start date."
+  ],
+  "probability_columns": [
+    "prob_home_win",
+    "prob_draw",
+    "prob_away_win"
+  ],
+  "rating_parameters": {
+    "competition_importance": {
+      "confederation_championship": 3.0,
+      "confederation_qualifier": 2.0,
+      "friendly": 1.0,
+      "nations_league": 2.0,
+      "other": 1.0,
+      "other_official": 2.0,
+      "world_cup": 3.0,
+      "world_cup_qualifier": 2.0
+    },
+    "competition_weight_profile": "compressed",
+    "home_advantage": 50.0,
+    "k_base": 20.0,
+    "margin_of_victory": {
+      "enabled": true,
+      "goal_difference_weight": 0.15,
+      "name": "modest"
+    },
+    "rating_regression_after_inactivity": {
+      "enabled": false,
+      "inactivity_days": 365,
+      "name": "off",
+      "regression_fraction": 0.0
+    }
+  },
+  "selected_by": "mean_validation_log_loss",
+  "selected_method": "ordinal_logistic",
+  "validation_brier_score": 0.5574478457188872,
+  "validation_folds": [
+    "world_cup_2018",
+    "world_cup_2022",
+    "euro_2024",
+    "copa_america_2024"
+  ],
+  "validation_log_loss": 0.9470535498424107
+}

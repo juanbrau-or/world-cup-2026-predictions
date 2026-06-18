@@ -35,6 +35,88 @@ elo:
   output_current_ratings_path: data/processed/elo_current_ratings.parquet
   report_output: data/interim/elo_ratings_report.json
 
+elo_evaluation:
+  input_matches_path: data/processed/modeling_matches.parquet
+  random_seed: 2026
+  calibration_bins: 10
+  final_holdout_start: "2026-01-01"
+  folds:
+    - name: world_cup_2018
+      start: "2018-06-14"
+      end: "2018-07-15"
+      competitions:
+        - FIFA World Cup
+    - name: world_cup_2022
+      start: "2022-11-20"
+      end: "2022-12-18"
+      competitions:
+        - FIFA World Cup
+    - name: euro_2024
+      start: "2024-06-14"
+      end: "2024-07-14"
+      competitions:
+        - UEFA Euro
+    - name: copa_america_2024
+      start: "2024-06-20"
+      end: "2024-07-14"
+      competitions:
+        - Copa América
+  search:
+    k_base:
+      - 15
+      - 20
+      - 25
+    home_advantage:
+      - 50
+      - 75
+    competition_weight_profiles:
+      - name: default
+        weights:
+          friendly: 1
+          world_cup_qualifier: 4
+          confederation_qualifier: 3
+          world_cup: 5
+          confederation_championship: 4
+          nations_league: 2
+          other_official: 2
+          other: 1
+      - name: compressed
+        weights:
+          friendly: 1
+          world_cup_qualifier: 2
+          confederation_qualifier: 2
+          world_cup: 3
+          confederation_championship: 3
+          nations_league: 2
+          other_official: 2
+          other: 1
+    margin_of_victory:
+      - name: "off"
+        enabled: false
+        goal_difference_weight: 0.0
+      - name: modest
+        enabled: true
+        goal_difference_weight: 0.15
+    rating_regression_after_inactivity:
+      - name: "off"
+        enabled: false
+        inactivity_days: 365
+        regression_fraction: 0.0
+      - name: two_years_10pct
+        enabled: true
+        inactivity_days: 730
+        regression_fraction: 0.10
+  outputs:
+    root: artifacts/evaluation/elo
+    selected_config_path: artifacts/evaluation/elo/selected_config.json
+    search_metrics_path: artifacts/evaluation/elo/search_metrics.csv
+    metrics_by_fold_path: artifacts/evaluation/elo/metrics_by_fold.csv
+    segment_metrics_path: artifacts/evaluation/elo/metrics_by_segment.csv
+    out_of_fold_predictions_path: artifacts/evaluation/elo/predictions_out_of_fold.parquet
+    prospective_2026_predictions_path: artifacts/evaluation/elo/predictions_2026_prospective.parquet
+    calibration_curves_path: artifacts/evaluation/elo/calibration_curves.csv
+    report_path: artifacts/evaluation/elo/report.md
+
 poisson:
   max_goals: 10
   time_decay_half_life_days: 365
