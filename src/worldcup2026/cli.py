@@ -15,10 +15,16 @@ from worldcup2026.data.historical_ingest import (
     load_historical_source_config,
     run_historical_ingest,
 )
+from worldcup2026.data.modeling_dataset import (
+    ModelingDatasetError,
+    load_modeling_dataset_config,
+    run_modeling_dataset_preparation,
+)
 
 app = typer.Typer(no_args_is_help=True)
 ingest_app = typer.Typer(no_args_is_help=True)
 audit_app = typer.Typer(no_args_is_help=True)
+prepare_app = typer.Typer(no_args_is_help=True)
 console = Console()
 
 MIN_PYTHON = (3, 11)
@@ -52,6 +58,7 @@ def main() -> None:
 
 app.add_typer(ingest_app, name="ingest", help="Ingest source data into project contracts.")
 app.add_typer(audit_app, name="audit", help="Audit source data and static normalization tables.")
+app.add_typer(prepare_app, name="prepare", help="Prepare deterministic derived datasets.")
 
 
 @app.command()
@@ -241,6 +248,66 @@ def audit_aliases(
         console.print(f"Audit report: {report_path}")
     if report.unresolved_team_names or report.orphan_canonical_team_ids:
         raise typer.Exit(code=1)
+
+
+@prepare_app.command("modeling-data")
+def prepare_modeling_data(
+    config_path: Annotated[
+        Path,
+        typer.Option(
+            "--config",
+            help="Path to the declarative modeling dataset configuration.",
+        ),
+    ] = Path("configs/modeling_data.yaml"),
+    input_path: Annotated[
+        Path | None,
+        typer.Option(
+            "--input",
+            help="Override the canonical historical Parquet input path.",
+        ),
+    ] = None,
+    output_path: Annotated[
+        Path | None,
+        typer.Option(
+            "--output",
+            help="Override the modeling Parquet output path.",
+        ),
+    ] = None,
+    report_path: Annotated[
+        Path | None,
+        typer.Option(
+            "--report",
+            help="Override the modeling data quality report JSON path.",
+        ),
+    ] = None,
+) -> None:
+    """Prepare the deterministic modeling dataset from normalized historical matches."""
+
+    try:
+        config = load_modeling_dataset_config(config_path)
+        result = run_modeling_dataset_preparation(
+            config,
+            input_path=input_path,
+            output_path=output_path,
+            report_path=report_path,
+        )
+    except ModelingDatasetError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise typer.Exit(code=1) from exc
+
+    report = result.report
+    console.print(f"Rows total: {report.total_rows}")
+    console.print(f"Rows eligible: {report.eligible_rows}")
+    console.print(f"Date range: {report.date_range['min']} to {report.date_range['max']}")
+    console.print(f"Teams included: {report.teams_included}")
+    console.print(f"Neutral matches: {report.neutral_matches}")
+    console.print(f"Modeling dataset: {report.output_path}")
+    console.print(f"Quality report: {report_path or config.report_output}")
+    if report.unresolved_competitions:
+        console.print(
+            "[yellow]Unresolved competitions: "
+            f"{len(report.unresolved_competitions)}[/yellow]"
+        )
 
 
 if __name__ == "__main__":

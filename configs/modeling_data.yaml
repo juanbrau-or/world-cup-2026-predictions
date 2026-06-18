@@ -1,0 +1,34 @@
+modeling_data:
+  rating_history_start: "2000-01-01"
+  evaluation_start: "2014-01-01"
+  allowed_team_statuses:
+    - current
+    - historical
+  allowed_team_types:
+    - national_team
+    - territory_team
+    - defunct_state_team
+  allowed_competition_categories:
+    - friendly
+    - world_cup_qualifier
+    - confederation_qualifier
+    - world_cup
+    - confederation_championship
+    - nations_league
+    - other_official
+  neutral_match_policy: include
+  incomplete_record_policy: exclude
+  competition_importance:
+    friendly: 1
+    world_cup_qualifier: 4
+    confederation_qualifier: 3
+    world_cup: 5
+    confederation_championship: 4
+    nations_league: 2
+    other_official: 2
+    other: 1
+  input_matches_path: "data/processed/international_matches.parquet"
+  output_matches_path: "data/processed/modeling_matches.parquet"
+  report_output: "data/interim/modeling_data_report.json"
+  teams_path: "data/static/teams.csv"
+  competition_mapping_path: "configs/competition_categories.yaml"
