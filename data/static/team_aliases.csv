@@ -1,1 +1,6 @@
 canonical_team_id,canonical_name,source,source_name,valid_from,valid_to
+arg,Argentina,synthetic_fixture,Argentina,1902-07-20,
+deu,Germany,synthetic_fixture,Germany,1990-10-03,
+deu,Germany,synthetic_fixture,West Germany,1949-05-23,1990-10-02
+civ,Cote d'Ivoire,synthetic_fixture,Ivory Coast,1960-08-07,
+usa,United States,synthetic_fixture,USA,1916-08-20,
