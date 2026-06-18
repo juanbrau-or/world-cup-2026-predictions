@@ -1,0 +1,20 @@
+{
+  "final_holdout_start": "2026-01-01",
+  "max_goals": 10,
+  "notes": [
+    "The exact Elo folds are reused for 2018, 2022, and 2024 validation.",
+    "No 2026 result is used to select half-life, model type, or regularization.",
+    "score_probabilities_json stores the truncated score matrix; residual_probability stores mass outside max_goals."
+  ],
+  "regularization_strength": 0.05,
+  "selected_by": "mean_validation_log_loss",
+  "selected_half_life_days": 730.0,
+  "selected_model_type": "poisson",
+  "validation_folds": [
+    "world_cup_2018",
+    "world_cup_2022",
+    "euro_2024",
+    "copa_america_2024"
+  ],
+  "validation_log_loss": 0.9295320628406879
+}

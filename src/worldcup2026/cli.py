@@ -20,12 +20,20 @@ from worldcup2026.data.modeling_dataset import (
     load_modeling_dataset_config,
     run_modeling_dataset_preparation,
 )
+from worldcup2026.evaluation.dixon_coles_backtest import (
+    DixonColesBacktestError,
+    load_dixon_coles_config,
+    load_dixon_coles_evaluation_config,
+    run_dixon_coles_evaluation,
+    run_dixon_coles_model,
+)
 from worldcup2026.evaluation.elo_backtest import (
     EloEvaluationError,
     load_elo_evaluation_config,
     run_elo_evaluation,
 )
 from worldcup2026.features.elo import EloRatingsError, load_elo_ratings_config, run_elo_ratings
+from worldcup2026.models.dixon_coles import DixonColesModelError
 
 app = typer.Typer(no_args_is_help=True)
 ingest_app = typer.Typer(no_args_is_help=True)
@@ -392,6 +400,33 @@ def model_elo_ratings(
             )
 
 
+@model_app.command("dixon-coles")
+def model_dixon_coles(
+    config_path: Annotated[
+        Path,
+        typer.Option(
+            "--config",
+            help="Path to the declarative model configuration.",
+        ),
+    ] = Path("configs/model.yaml"),
+) -> None:
+    """Fit the configured Poisson or Dixon-Coles goal model."""
+
+    try:
+        config = load_dixon_coles_config(config_path)
+        result = run_dixon_coles_model(config)
+    except (DixonColesBacktestError, DixonColesModelError) as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise typer.Exit(code=1) from exc
+
+    console.print(f"Model type: {result.model_type}")
+    console.print(f"Half-life days: {result.half_life_days}")
+    console.print(f"Training matches: {result.training_matches}")
+    console.print(f"Teams: {result.teams}")
+    console.print(f"Model: {result.model_path}")
+    console.print(f"Report: {result.report_path}")
+
+
 @evaluate_app.command("elo")
 def evaluate_elo(
     config_path: Annotated[
@@ -419,6 +454,43 @@ def evaluate_elo(
     console.print(f"Fold metrics: {result.metrics_by_fold_path}")
     console.print(f"Out-of-fold predictions: {result.out_of_fold_predictions_path}")
     console.print(f"Calibration curves: {result.calibration_curves_path}")
+    console.print(f"Report: {result.report_path}")
+
+
+@evaluate_app.command("dixon-coles")
+def evaluate_dixon_coles(
+    config_path: Annotated[
+        Path,
+        typer.Option(
+            "--config",
+            help="Path to the declarative model and evaluation configuration.",
+        ),
+    ] = Path("configs/model.yaml"),
+) -> None:
+    """Evaluate Poisson and Dixon-Coles goal models with the Elo temporal folds."""
+
+    try:
+        model_config, elo_evaluation_config, evaluation_config = (
+            load_dixon_coles_evaluation_config(config_path)
+        )
+        result = run_dixon_coles_evaluation(
+            model_config,
+            elo_evaluation_config,
+            evaluation_config,
+        )
+    except DixonColesBacktestError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise typer.Exit(code=1) from exc
+
+    console.print(f"Selected model: {result.selected_model_type}")
+    console.print(f"Selected half-life days: {result.selected_half_life_days}")
+    console.print(f"Validation log loss: {result.validation_log_loss:.6f}")
+    console.print(f"Validation matches: {result.validation_matches}")
+    console.print(f"Prospective 2026 matches: {result.prospective_2026_matches}")
+    console.print(f"Selected config: {result.selected_config_path}")
+    console.print(f"Fold metrics: {result.metrics_by_fold_path}")
+    console.print(f"Comparison with Elo: {result.comparison_with_elo_path}")
+    console.print(f"Out-of-fold predictions: {result.out_of_fold_predictions_path}")
     console.print(f"Report: {result.report_path}")
 
 
