@@ -1,0 +1,337 @@
+canonical_team_id,canonical_name,team_status,team_type,notes
+abkhazia,Abkhazia,special,disputed_state_team,Non-standard or disputed representative team in the source.
+afghanistan,Afghanistan,current,national_team,
+albania,Albania,current,national_team,
+alderney,Alderney,special,regional_representative,Regional representative team; not merged with a state team.
+algeria,Algeria,current,national_team,
+ambazonia,Ambazonia,special,disputed_state_team,Non-standard or disputed representative team in the source.
+american_samoa,American Samoa,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+andalusia,Andalusia,special,regional_representative,Regional representative team; not merged with a state team.
+andorra,Andorra,current,national_team,
+angola,Angola,current,national_team,
+anguilla,Anguilla,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+antigua_and_barbuda,Antigua and Barbuda,current,national_team,
+arameans_suryoye,Arameans Suryoye,special,people_representative,People or diaspora representative team; not merged with a state team.
+argentina,Argentina,current,national_team,
+armenia,Armenia,current,national_team,
+artsakh,Artsakh,special,disputed_state_team,Non-standard or disputed representative team in the source.
+aruba,Aruba,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+asturias,Asturias,special,regional_representative,Regional representative team; not merged with a state team.
+australia,Australia,current,national_team,
+austria,Austria,current,national_team,
+aymara,Aymara,special,people_representative,People or diaspora representative team; not merged with a state team.
+azerbaijan,Azerbaijan,current,national_team,
+bahamas,Bahamas,current,national_team,
+bahrain,Bahrain,current,national_team,
+bangladesh,Bangladesh,current,national_team,
+barawa,Barawa,special,regional_representative,Regional representative team; not merged with a state team.
+barbados,Barbados,current,national_team,
+basque_country,Basque Country,special,regional_representative,Regional representative team; not merged with a state team.
+belarus,Belarus,current,national_team,
+belgium,Belgium,current,national_team,
+belize,Belize,current,national_team,
+benin,Benin,current,national_team,
+bermuda,Bermuda,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+bhutan,Bhutan,current,national_team,
+biafra,Biafra,special,disputed_state_team,Non-standard or disputed representative team in the source.
+bolivia,Bolivia,current,national_team,
+bonaire,Bonaire,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+bosnia_and_herzegovina,Bosnia and Herzegovina,current,national_team,
+botswana,Botswana,current,national_team,
+brazil,Brazil,current,national_team,
+british_virgin_islands,British Virgin Islands,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+brittany,Brittany,special,regional_representative,Regional representative team; not merged with a state team.
+brunei,Brunei,current,national_team,
+bulgaria,Bulgaria,current,national_team,
+burkina_faso,Burkina Faso,current,national_team,
+burundi,Burundi,current,national_team,
+cambodia,Cambodia,current,national_team,
+cameroon,Cameroon,current,national_team,
+canada,Canada,current,national_team,
+canary_islands,Canary Islands,special,regional_representative,Regional representative team; not merged with a state team.
+cape_verde,Cape Verde,current,national_team,
+cascadia,Cascadia,special,regional_representative,Regional representative team; not merged with a state team.
+catalonia,Catalonia,special,regional_representative,Regional representative team; not merged with a state team.
+cayman_islands,Cayman Islands,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+central_african_republic,Central African Republic,current,national_team,
+central_spain,Central Spain,special,regional_representative,Regional representative team; not merged with a state team.
+chad,Chad,current,national_team,
+chagos_islands,Chagos Islands,special,regional_representative,Regional representative team; not merged with a state team.
+chameria,Chameria,special,regional_representative,Regional representative team; not merged with a state team.
+chechnya,Chechnya,special,disputed_state_team,Non-standard or disputed representative team in the source.
+chile,Chile,current,national_team,
+china,China,current,national_team,
+cilento,Cilento,special,regional_representative,Regional representative team; not merged with a state team.
+colombia,Colombia,current,national_team,
+comoros,Comoros,current,national_team,
+congo,Congo,current,national_team,
+cook_islands,Cook Islands,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+corsica,Corsica,special,regional_representative,Regional representative team; not merged with a state team.
+costa_rica,Costa Rica,current,national_team,
+county_of_nice,County of Nice,special,regional_representative,Regional representative team; not merged with a state team.
+crimea,Crimea,special,disputed_state_team,Non-standard or disputed representative team in the source.
+croatia,Croatia,current,national_team,
+cuba,Cuba,current,national_team,
+curacao,Curaçao,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+cyprus,Cyprus,current,national_team,
+czech_republic,Czech Republic,current,national_team,
+czechoslovakia,Czechoslovakia,historical,defunct_state_team,Kept separate from successor or similarly named teams.
+dr_congo,DR Congo,current,national_team,
+darfur,Darfur,special,disputed_state_team,Non-standard or disputed representative team in the source.
+denmark,Denmark,current,national_team,
+djibouti,Djibouti,current,national_team,
+dominica,Dominica,current,national_team,
+dominican_republic,Dominican Republic,current,national_team,
+donetsk_pr,Donetsk PR,special,disputed_state_team,Non-standard or disputed representative team in the source.
+delvidek,Délvidék,special,regional_representative,Regional representative team; not merged with a state team.
+east_turkestan,East Turkestan,special,disputed_state_team,Non-standard or disputed representative team in the source.
+ecuador,Ecuador,current,national_team,
+egypt,Egypt,current,national_team,
+el_salvador,El Salvador,current,national_team,
+elba_island,Elba Island,special,regional_representative,Regional representative team; not merged with a state team.
+ellan_vannin,Ellan Vannin,special,regional_representative,Regional representative team; not merged with a state team.
+england,England,current,national_team,
+equatorial_guinea,Equatorial Guinea,current,national_team,
+eritrea,Eritrea,current,national_team,
+estonia,Estonia,current,national_team,
+eswatini,Eswatini,current,national_team,
+ethiopia,Ethiopia,current,national_team,
+falkland_islands,Falkland Islands,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+faroe_islands,Faroe Islands,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+felvidek,Felvidék,special,regional_representative,Regional representative team; not merged with a state team.
+fiji,Fiji,current,national_team,
+finland,Finland,current,national_team,
+france,France,current,national_team,
+franconia,Franconia,special,regional_representative,Regional representative team; not merged with a state team.
+french_guiana,French Guiana,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+froya,Frøya,special,regional_representative,Regional representative team; not merged with a state team.
+gabon,Gabon,current,national_team,
+galicia,Galicia,special,regional_representative,Regional representative team; not merged with a state team.
+gambia,Gambia,current,national_team,
+georgia,Georgia,current,national_team,
+german_dr,German DR,historical,defunct_state_team,Kept separate from successor or similarly named teams.
+germany,Germany,current,national_team,
+ghana,Ghana,current,national_team,
+gibraltar,Gibraltar,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+gotland,Gotland,special,regional_representative,Regional representative team; not merged with a state team.
+gozo,Gozo,special,regional_representative,Regional representative team; not merged with a state team.
+greece,Greece,current,national_team,
+greenland,Greenland,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+grenada,Grenada,current,national_team,
+guadeloupe,Guadeloupe,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+guam,Guam,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+guatemala,Guatemala,current,national_team,
+guernsey,Guernsey,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+guinea,Guinea,current,national_team,
+guinea_bissau,Guinea-Bissau,current,national_team,
+guyana,Guyana,current,national_team,
+gagauzia,Găgăuzia,special,regional_representative,Regional representative team; not merged with a state team.
+haiti,Haiti,current,national_team,
+hitra,Hitra,special,regional_representative,Regional representative team; not merged with a state team.
+hmong,Hmong,special,people_representative,People or diaspora representative team; not merged with a state team.
+honduras,Honduras,current,national_team,
+hong_kong,Hong Kong,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+hungary,Hungary,current,national_team,
+iceland,Iceland,current,national_team,
+india,India,current,national_team,
+indonesia,Indonesia,current,national_team,
+iran,Iran,current,national_team,
+iraq,Iraq,current,national_team,
+iraqi_kurdistan,Iraqi Kurdistan,special,disputed_state_team,Non-standard or disputed representative team in the source.
+isle_of_man,Isle of Man,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+isle_of_wight,Isle of Wight,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+israel,Israel,current,national_team,
+italy,Italy,current,national_team,
+ivory_coast,Ivory Coast,current,national_team,
+jamaica,Jamaica,current,national_team,
+japan,Japan,current,national_team,
+jersey,Jersey,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+jordan,Jordan,current,national_team,
+kabylia,Kabylia,special,regional_representative,Regional representative team; not merged with a state team.
+kazakhstan,Kazakhstan,current,national_team,
+kenya,Kenya,current,national_team,
+kernow,Kernow,special,regional_representative,Regional representative team; not merged with a state team.
+kiribati,Kiribati,current,national_team,
+kosovo,Kosovo,current,national_team,
+kurdistan,Kurdistan,special,disputed_state_team,Non-standard or disputed representative team in the source.
+kuwait,Kuwait,current,national_team,
+kyrgyzstan,Kyrgyzstan,current,national_team,
+karpatalja,Kárpátalja,special,regional_representative,Regional representative team; not merged with a state team.
+laos,Laos,current,national_team,
+latvia,Latvia,current,national_team,
+lebanon,Lebanon,current,national_team,
+lesotho,Lesotho,current,national_team,
+liberia,Liberia,current,national_team,
+libya,Libya,current,national_team,
+liechtenstein,Liechtenstein,current,national_team,
+lithuania,Lithuania,current,national_team,
+luhansk_pr,Luhansk PR,special,disputed_state_team,Non-standard or disputed representative team in the source.
+luxembourg,Luxembourg,current,national_team,
+macau,Macau,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+madagascar,Madagascar,current,national_team,
+madrid,Madrid,special,regional_representative,Regional representative team; not merged with a state team.
+malawi,Malawi,current,national_team,
+malaysia,Malaysia,current,national_team,
+maldives,Maldives,current,national_team,
+mali,Mali,current,national_team,
+malta,Malta,current,national_team,
+manchukuo,Manchukuo,historical,defunct_state_team,Kept separate from successor or similarly named teams.
+mapuche,Mapuche,special,people_representative,People or diaspora representative team; not merged with a state team.
+marshall_islands,Marshall Islands,current,national_team,
+martinique,Martinique,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+matabeleland,Matabeleland,special,regional_representative,Regional representative team; not merged with a state team.
+maule_sur,Maule Sur,special,regional_representative,Regional representative team; not merged with a state team.
+mauritania,Mauritania,current,national_team,
+mauritius,Mauritius,current,national_team,
+mayotte,Mayotte,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+menorca,Menorca,special,regional_representative,Regional representative team; not merged with a state team.
+mexico,Mexico,current,national_team,
+micronesia,Micronesia,current,national_team,
+moldova,Moldova,current,national_team,
+monaco,Monaco,current,national_team,
+mongolia,Mongolia,current,national_team,
+montenegro,Montenegro,current,national_team,
+montserrat,Montserrat,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+morocco,Morocco,current,national_team,
+mozambique,Mozambique,current,national_team,
+myanmar,Myanmar,current,national_team,
+namibia,Namibia,current,national_team,
+nepal,Nepal,current,national_team,
+netherlands,Netherlands,current,national_team,
+new_caledonia,New Caledonia,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+new_zealand,New Zealand,current,national_team,
+nicaragua,Nicaragua,current,national_team,
+niger,Niger,current,national_team,
+nigeria,Nigeria,current,national_team,
+niue,Niue,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+north_korea,North Korea,current,national_team,
+north_macedonia,North Macedonia,current,national_team,
+north_vietnam,North Vietnam,historical,defunct_state_team,Kept separate from successor or similarly named teams.
+northern_cyprus,Northern Cyprus,special,disputed_state_team,Non-standard or disputed representative team in the source.
+northern_ireland,Northern Ireland,current,national_team,
+northern_mariana_islands,Northern Mariana Islands,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+norway,Norway,current,national_team,
+occitania,Occitania,special,regional_representative,Regional representative team; not merged with a state team.
+oman,Oman,current,national_team,
+orkney,Orkney,special,regional_representative,Regional representative team; not merged with a state team.
+padania,Padania,special,regional_representative,Regional representative team; not merged with a state team.
+pakistan,Pakistan,current,national_team,
+palau,Palau,current,national_team,
+palestine,Palestine,current,national_team,
+panama,Panama,current,national_team,
+panjab,Panjab,special,regional_representative,Regional representative team; not merged with a state team.
+papua_new_guinea,Papua New Guinea,current,national_team,
+paraguay,Paraguay,current,national_team,
+parishes_of_jersey,Parishes of Jersey,special,regional_representative,Regional representative team; not merged with a state team.
+peru,Peru,current,national_team,
+philippines,Philippines,current,national_team,
+poland,Poland,current,national_team,
+portugal,Portugal,current,national_team,
+provence,Provence,special,regional_representative,Regional representative team; not merged with a state team.
+puerto_rico,Puerto Rico,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+qatar,Qatar,current,national_team,
+quebec,Quebec,special,regional_representative,Regional representative team; not merged with a state team.
+raetia,Raetia,special,regional_representative,Regional representative team; not merged with a state team.
+republic_of_ireland,Republic of Ireland,current,national_team,
+republic_of_st_pauli,Republic of St. Pauli,special,club_representative,Club/community representative team; not a national team.
+rhodes,Rhodes,special,regional_representative,Regional representative team; not merged with a state team.
+romani_people,Romani people,special,people_representative,People or diaspora representative team; not merged with a state team.
+romania,Romania,current,national_team,
+russia,Russia,current,national_team,
+rwanda,Rwanda,current,national_team,
+ryukyu,Ryūkyū,special,regional_representative,Regional representative team; not merged with a state team.
+reunion,Réunion,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+saare_county,Saare County,special,regional_representative,Regional representative team; not merged with a state team.
+saarland,Saarland,historical,defunct_state_team,Kept separate from successor or similarly named teams.
+saint_barthelemy,Saint Barthélemy,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+saint_helena,Saint Helena,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+saint_kitts_and_nevis,Saint Kitts and Nevis,current,national_team,
+saint_lucia,Saint Lucia,current,national_team,
+saint_martin,Saint Martin,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+saint_pierre_and_miquelon,Saint Pierre and Miquelon,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+saint_vincent_and_the_grenadines,Saint Vincent and the Grenadines,current,national_team,
+samoa,Samoa,current,national_team,
+san_marino,San Marino,current,national_team,
+sark,Sark,special,regional_representative,Regional representative team; not merged with a state team.
+saudi_arabia,Saudi Arabia,current,national_team,
+saugeais,Saugeais,special,regional_representative,Regional representative team; not merged with a state team.
+scotland,Scotland,current,national_team,
+sealand,Sealand,special,regional_representative,Regional representative team; not merged with a state team.
+seborga,Seborga,special,regional_representative,Regional representative team; not merged with a state team.
+senegal,Senegal,current,national_team,
+serbia,Serbia,current,national_team,
+seychelles,Seychelles,current,national_team,
+shetland,Shetland,special,regional_representative,Regional representative team; not merged with a state team.
+sierra_leone,Sierra Leone,current,national_team,
+silesia,Silesia,special,regional_representative,Regional representative team; not merged with a state team.
+singapore,Singapore,current,national_team,
+sint_maarten,Sint Maarten,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+slovakia,Slovakia,current,national_team,
+slovenia,Slovenia,current,national_team,
+solomon_islands,Solomon Islands,current,national_team,
+somalia,Somalia,current,national_team,
+somaliland,Somaliland,special,disputed_state_team,Non-standard or disputed representative team in the source.
+south_africa,South Africa,current,national_team,
+south_korea,South Korea,current,national_team,
+south_ossetia,South Ossetia,special,disputed_state_team,Non-standard or disputed representative team in the source.
+south_sudan,South Sudan,current,national_team,
+south_yemen,South Yemen,historical,defunct_state_team,Kept separate from successor or similarly named teams.
+spain,Spain,current,national_team,
+sri_lanka,Sri Lanka,current,national_team,
+sudan,Sudan,current,national_team,
+suriname,Suriname,current,national_team,
+surrey,Surrey,special,regional_representative,Regional representative team; not merged with a state team.
+sweden,Sweden,current,national_team,
+switzerland,Switzerland,current,national_team,
+syria,Syria,current,national_team,
+szekely_land,Székely Land,special,regional_representative,Regional representative team; not merged with a state team.
+sapmi,Sápmi,special,regional_representative,Regional representative team; not merged with a state team.
+sao_tome_and_principe,São Tomé and Príncipe,current,national_team,
+tahiti,Tahiti,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+taiwan,Taiwan,current,national_team,
+tajikistan,Tajikistan,current,national_team,
+tamil_eelam,Tamil Eelam,special,disputed_state_team,Non-standard or disputed representative team in the source.
+tanzania,Tanzania,current,national_team,
+thailand,Thailand,current,national_team,
+tibet,Tibet,special,disputed_state_team,Non-standard or disputed representative team in the source.
+ticino,Ticino,special,regional_representative,Regional representative team; not merged with a state team.
+timor_leste,Timor-Leste,current,national_team,
+togo,Togo,current,national_team,
+tonga,Tonga,current,national_team,
+trinidad_and_tobago,Trinidad and Tobago,current,national_team,
+tunisia,Tunisia,current,national_team,
+turkey,Turkey,current,national_team,
+turkmenistan,Turkmenistan,current,national_team,
+turks_and_caicos_islands,Turks and Caicos Islands,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+tuvalu,Tuvalu,current,national_team,
+two_sicilies,Two Sicilies,special,regional_representative,Regional representative team; not merged with a state team.
+uganda,Uganda,current,national_team,
+ukraine,Ukraine,current,national_team,
+united_arab_emirates,United Arab Emirates,current,national_team,
+united_koreans_in_japan,United Koreans in Japan,special,people_representative,People or diaspora representative team; not merged with a state team.
+united_states,United States,current,national_team,
+united_states_virgin_islands,United States Virgin Islands,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+uruguay,Uruguay,current,national_team,
+uzbekistan,Uzbekistan,current,national_team,
+vanuatu,Vanuatu,current,national_team,
+vatican_city,Vatican City,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+venezuela,Venezuela,current,national_team,
+vietnam,Vietnam,current,national_team,
+vietnam_republic,Vietnam Republic,historical,defunct_state_team,Kept separate from successor or similarly named teams.
+wales,Wales,current,national_team,
+wallis_islands_and_futuna,Wallis Islands and Futuna,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+west_papua,West Papua,special,disputed_state_team,Non-standard or disputed representative team in the source.
+western_armenia,Western Armenia,special,disputed_state_team,Non-standard or disputed representative team in the source.
+western_australia,Western Australia,special,regional_representative,Regional representative team; not merged with a state team.
+western_isles,Western Isles,special,regional_representative,Regional representative team; not merged with a state team.
+western_sahara,Western Sahara,special,disputed_state_team,Non-standard or disputed representative team in the source.
+yemen,Yemen,current,national_team,
+yemen_dpr,Yemen DPR,historical,defunct_state_team,Kept separate from successor or similarly named teams.
+ynys_mon,Ynys Môn,special,regional_representative,Regional representative team; not merged with a state team.
+yorkshire,Yorkshire,special,regional_representative,Regional representative team; not merged with a state team.
+yoruba_nation,Yoruba Nation,special,people_representative,People or diaspora representative team; not merged with a state team.
+yugoslavia,Yugoslavia,historical,defunct_state_team,Kept separate from successor or similarly named teams.
+zambia,Zambia,current,national_team,
+zanzibar,Zanzibar,current,territory_team,Territory or dependent-area representative team kept as its own entity.
+zimbabwe,Zimbabwe,current,national_team,
+aland_islands,Åland Islands,special,regional_representative,Regional representative team; not merged with a state team.

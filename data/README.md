@@ -24,3 +24,22 @@ estáticas pequeñas; no subas API keys ni dumps innecesarios.
 Los directorios `raw/`, `interim/` y `processed/` estan ignorados por Git. Para desarrollo o tests
 sin red usa `--results-file` y `--shootouts-file` con CSVs equivalentes pequenos. `--dry-run`
 ejecuta la descarga o lectura, parseo y validacion sin escribir snapshots ni artefactos derivados.
+
+## Catalogo y alias de equipos
+
+- `data/static/teams.csv`: catalogo canonico de equipos con estado y tipo auditable.
+- `data/static/team_aliases.csv`: alias exactos por fuente hacia el catalogo canonico.
+
+`uv run wc2026 audit aliases` valida cobertura de nombres originales, alias duplicados o
+conflictivos, alias hacia IDs inexistentes e IDs canonicos sin alias.
+
+En la revision fijada, alias e ingesta miden coberturas distintas:
+
+- Alias: 336/336 nombres originales y 49,477/49,477 filas de `results.csv` resuelven equipos,
+  equivalente a 100.00%.
+- Ingesta valida: 48,746/49,477 filas producen registros canonicos, equivalente a 98.52%.
+
+La diferencia no viene de alias faltantes. `shootouts.csv` tiene 678 filas: 677 coinciden con
+`results.csv` y provocan cuarentena por falta de marcador a 90 minutos y penales anotados, y una no
+tiene partido correspondiente. Tambien hay 52 filas con marcador faltante y 2 duplicados
+conflictivos en `results.csv`.

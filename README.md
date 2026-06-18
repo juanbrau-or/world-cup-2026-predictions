@@ -26,6 +26,7 @@ uv run pytest
 
 ```bash
 uv run wc2026 ingest historical
+uv run wc2026 audit aliases
 uv run wc2026 build-features
 uv run wc2026 train
 uv run wc2026 predict

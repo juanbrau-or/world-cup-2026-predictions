@@ -99,8 +99,19 @@ Limitaciones de mapeo en Fase 1B:
 - La fuente no provee identificador nativo por partido; `source_match_id` se deriva de fecha,
   equipos, torneo, ciudad y pais. Los duplicados exactos conservan la primera fila y trazan las
   copias; los duplicados conflictivos se cuarentenan completos.
-- La normalizacion de equipos exige una fila explicita vigente en `data/static/team_aliases.csv`.
-  Los nombres sin alias no se convierten automaticamente y se escriben en cuarentena.
+- La normalizacion de equipos exige una entidad canonica en `data/static/teams.csv` y una fila
+  explicita vigente en `data/static/team_aliases.csv`. Los nombres sin alias no se convierten
+  automaticamente y se reportan como no resueltos.
+
+Conteos confirmados para la revision fijada:
+
+- `results.csv` contiene 49,477 filas. La ingesta valida 48,746/49,477 filas, equivalente a
+  98.52% de cobertura valida para producir `matches.parquet`.
+- `shootouts.csv` contiene 678 filas. De ellas, 677 coinciden con partidos de `results.csv` y
+  provocan cuarentena porque la fuente no separa marcador a 90 minutos y goles de penales; una fila
+  de `shootouts.csv` no tiene partido correspondiente en `results.csv`.
+- Ademas de las cuarentenas asociadas a shootouts, existen 52 filas con marcador faltante
+  (`home_score='NA'`) y 2 filas de duplicado conflictivo en `results.csv`.
 
 La interfaz tipada de Fase 1A define:
 
@@ -174,27 +185,66 @@ Si `neutral_site=true`, `home_advantage_status` debe ser `neutral` o `shared_hos
 `neutral_site=false`, `home_advantage_status` no puede ser `neutral`. Si la fuente no permite saber
 si la sede fue neutral, `neutral_site` debe ser nulo.
 
-## Identificadores y alias
+## Catalogo, identificadores y alias
 
 Los identificadores canonicos de equipos deben ser estables y separarse de los nombres originales.
-La tabla inicial de demostracion es `data/static/team_aliases.csv`:
+El catalogo canonico vive en `data/static/teams.csv`:
 
 | Campo | Descripcion |
 |---|---|
 | `canonical_team_id` | Identificador canonico usado en contratos derivados. |
-| `canonical_name` | Nombre canonico vigente o preferido. |
+| `canonical_name` | Nombre canonico preferido para la entidad del proyecto. |
+| `team_status` | `current`, `historical` o `special`. |
+| `team_type` | Tipo auditable: seleccion nacional, territorio, estado desaparecido, regional, pueblo/diaspora, entidad disputada, club/comunidad u otro caso especial. |
+| `notes` | Justificacion breve para casos historicos o especiales. |
+
+Los alias exactos por fuente viven en `data/static/team_aliases.csv`:
+
+| Campo | Descripcion |
+|---|---|
+| `canonical_team_id` | Identificador canonico al que resuelve el alias. |
 | `source` | Fuente o contexto donde aparece el alias. |
 | `source_name` | Nombre exacto observado en esa fuente. |
 | `valid_from` | Fecha desde la cual aplica el alias, si se conoce. |
 | `valid_to` | Fecha final de vigencia, si se conoce. |
+| `notes` | Justificacion breve para alias no obvios. |
 
-Esta tabla no intenta resolver todos los paises en Fase 1A. Su objetivo es demostrar como preservar
-nombres historicos o alternativos como `West Germany` sin perder el identificador canonico usado por
-el proyecto.
+Fase 1C cubre todos los nombres exactos observados en `home_team` y `away_team` de
+`martj42/international_results` para la revision configurada. No se infieren equivalencias por
+similitud textual. Entidades historicas o especiales como `German DR`, `Czechoslovakia`,
+`Yugoslavia`, `South Yemen`, equipos regionales y equipos de pueblos/diaspora se conservan como IDs
+propios salvo alias explicito documentado.
 
 Los identificadores canonicos deben usar el patron `^[a-z][a-z0-9_]*$`. Cuando se proporcione una
 tabla de alias a la validacion de colecciones, cada par `(source, source_name, match_date)` debe
 resolver a un unico `canonical_team_id` vigente por `valid_from` y `valid_to`.
+
+La auditoria de alias se ejecuta con:
+
+```bash
+uv run wc2026 audit aliases
+```
+
+El comando reporta nombres no resueltos, alias duplicados o conflictivos, alias que apuntan a IDs
+inexistentes e identificadores canonicos sin alias.
+
+Para la revision configurada, la resolucion de alias es completa: 336/336 nombres originales
+observados resuelven a un ID canonico y 49,477/49,477 filas de `results.csv` tienen ambos nombres
+resueltos, es decir, 100.00%. Esta cobertura de alias no es la misma metrica que la cobertura valida
+de ingesta: una fila puede tener equipos resueltos y aun asi quedar en cuarentena por shootout,
+marcador faltante o duplicado conflictivo.
+
+## Limitaciones historicas de identidad deportiva
+
+Algunos nombres modernos aparecen en registros antiguos de la fuente con identidad deportiva
+incierta. En Fase 1C esos nombres se resuelven por alias exacto para preservar trazabilidad, pero no
+deben reasignarse automaticamente a entidades historicas por continuidad politica o estatal. En
+particular, `Russia`, `Serbia`, `Ukraine` u otras selecciones no se remapean a entidades historicas
+sin evidencia explicita en la fuente o en una regla documentada.
+
+El dataset de modelado moderno definira una fecha minima y reglas de elegibilidad antes de entrenar
+features o modelos. El historico crudo debe preservarse sin alteraciones; cualquier correccion o
+reconciliacion historica pertenece a capas derivadas y auditables.
 
 ## Validacion de colecciones
 

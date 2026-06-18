@@ -72,6 +72,10 @@ def test_historical_ingest_from_local_fixture_is_idempotent(tmp_path: Path) -> N
     assert first.report.valid_rows == 2
     assert first.report.invalid_rows == 4
     assert first.report.duplicate_rows == 1
+    assert first.report.original_team_names == 7
+    assert first.report.resolved_team_names == 6
+    assert [name.source_name for name in first.report.unresolved_team_names] == ["Atlantis"]
+    assert first.report.rows_with_resolved_team_names == 4
     assert [match.match_id for match in first.matches] == [
         match.match_id for match in second.matches
     ]
@@ -492,3 +496,55 @@ def test_historical_ingest_cli_reports_missing_local_file(tmp_path: Path) -> Non
 
     assert result.exit_code == 1
     assert "failed to read local source file" in result.stdout
+
+
+def test_alias_audit_cli_reports_fixture_coverage(tmp_path: Path) -> None:
+    clean_results = tmp_path / "results-clean.csv"
+    clean_results.write_text(
+        "\n".join(
+            [
+                "date,home_team,away_team,home_score,away_score,tournament,city,country,neutral",
+                "1872-11-30,Scotland,England,0,0,Friendly,Glasgow,Scotland,FALSE",
+                "2024-03-21,United States,Brazil,2,1,Friendly,Austin,United States,FALSE",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    report_path = tmp_path / "alias-audit.json"
+    runner = CliRunner()
+
+    result = runner.invoke(
+        app,
+        [
+            "audit",
+            "aliases",
+            "--results-file",
+            str(clean_results),
+            "--report",
+            str(report_path),
+        ],
+    )
+
+    assert result.exit_code == 0
+    assert "Original team names: 4" in result.stdout
+    assert "Resolved team names: 4" in result.stdout
+    assert "Rows with resolved team names: 2/2 (100.00%)" in result.stdout
+    assert json.loads(report_path.read_text(encoding="utf-8"))["unresolved_team_names"] == []
+
+
+def test_alias_audit_cli_fails_when_names_are_unresolved() -> None:
+    runner = CliRunner()
+
+    result = runner.invoke(
+        app,
+        [
+            "audit",
+            "aliases",
+            "--results-file",
+            str(RESULTS_FIXTURE),
+        ],
+    )
+
+    assert result.exit_code == 1
+    assert "Unresolved team names: 1" in result.stdout

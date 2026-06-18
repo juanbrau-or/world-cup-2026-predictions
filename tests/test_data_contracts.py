@@ -12,9 +12,12 @@ from worldcup2026.data import (
     RawSnapshotManifest,
     Result90,
     TeamAlias,
+    find_orphan_canonical_team_ids,
     resolve_team_alias,
     sha256_bytes,
     validate_match_records,
+    validate_team_aliases,
+    validate_team_catalog,
 )
 
 FIXTURE_PATH = Path(__file__).parent / "fixtures" / "canonical_matches.json"
@@ -31,44 +34,79 @@ def valid_played_record() -> dict[str, Any]:
 def fixture_aliases() -> list[dict[str, Any]]:
     return [
         {
-            "canonical_team_id": "arg",
-            "canonical_name": "Argentina",
+            "canonical_team_id": "argentina",
             "source": "synthetic_fixture",
             "source_name": "Argentina",
             "valid_from": "1902-07-20",
             "valid_to": None,
         },
         {
-            "canonical_team_id": "deu",
-            "canonical_name": "Germany",
+            "canonical_team_id": "germany",
             "source": "synthetic_fixture",
             "source_name": "Germany",
-            "valid_from": "1990-10-03",
+            "valid_from": "1908-04-05",
             "valid_to": None,
         },
         {
-            "canonical_team_id": "deu",
-            "canonical_name": "Germany",
+            "canonical_team_id": "german_dr",
             "source": "synthetic_fixture",
-            "source_name": "West Germany",
-            "valid_from": "1949-05-23",
-            "valid_to": "1990-10-02",
+            "source_name": "German DR",
+            "valid_from": "1952-09-21",
+            "valid_to": "1990-09-12",
         },
         {
-            "canonical_team_id": "civ",
-            "canonical_name": "Cote d'Ivoire",
+            "canonical_team_id": "ivory_coast",
             "source": "synthetic_fixture",
             "source_name": "Ivory Coast",
             "valid_from": "1960-08-07",
             "valid_to": None,
         },
         {
-            "canonical_team_id": "usa",
-            "canonical_name": "United States",
+            "canonical_team_id": "united_states",
             "source": "synthetic_fixture",
             "source_name": "USA",
             "valid_from": "1916-08-20",
             "valid_to": None,
+        },
+    ]
+
+
+def fixture_teams() -> list[dict[str, Any]]:
+    return [
+        {
+            "canonical_team_id": "argentina",
+            "canonical_name": "Argentina",
+            "team_status": "current",
+            "team_type": "national_team",
+            "notes": None,
+        },
+        {
+            "canonical_team_id": "germany",
+            "canonical_name": "Germany",
+            "team_status": "current",
+            "team_type": "national_team",
+            "notes": None,
+        },
+        {
+            "canonical_team_id": "german_dr",
+            "canonical_name": "German DR",
+            "team_status": "historical",
+            "team_type": "defunct_state_team",
+            "notes": "Kept separate from Germany.",
+        },
+        {
+            "canonical_team_id": "ivory_coast",
+            "canonical_name": "Ivory Coast",
+            "team_status": "current",
+            "team_type": "national_team",
+            "notes": None,
+        },
+        {
+            "canonical_team_id": "united_states",
+            "canonical_name": "United States",
+            "team_status": "current",
+            "team_type": "national_team",
+            "notes": None,
         },
     ]
 
@@ -272,22 +310,104 @@ def test_team_aliases_resolve_by_source_name_and_date() -> None:
     assert (
         resolve_team_alias(
             source="synthetic_fixture",
-            source_name="West Germany",
+            source_name="German DR",
             match_date=CanonicalMatch.model_validate(valid_played_record()).match_date.replace(
                 year=1986
             ),
             aliases=aliases,
         )
-        == "deu"
+        == "german_dr"
     )
+
+
+def test_historical_team_aliases_stay_separate_from_successor_names() -> None:
+    aliases = [TeamAlias.model_validate(alias) for alias in fixture_aliases()]
+
+    assert (
+        resolve_team_alias(
+            source="synthetic_fixture",
+            source_name="Germany",
+            match_date=CanonicalMatch.model_validate(valid_played_record()).match_date.replace(
+                year=1986
+            ),
+            aliases=aliases,
+        )
+        == "germany"
+    )
+    assert (
+        resolve_team_alias(
+            source="synthetic_fixture",
+            source_name="German DR",
+            match_date=CanonicalMatch.model_validate(valid_played_record()).match_date.replace(
+                year=1986
+            ),
+            aliases=aliases,
+        )
+        == "german_dr"
+    )
+
+
+def test_team_alias_catalog_rejects_unknown_canonical_ids() -> None:
+    aliases = fixture_aliases()
+    aliases[0] = aliases[0].copy()
+    aliases[0]["canonical_team_id"] = "missing_team"
+
+    with pytest.raises(ValueError, match="unknown canonical_team_id"):
+        validate_team_aliases(aliases, teams=fixture_teams())
+
+
+def test_team_alias_catalog_rejects_duplicate_alias_windows() -> None:
+    aliases = [*fixture_aliases(), fixture_aliases()[0]]
+
+    with pytest.raises(ValueError, match="duplicate team alias windows"):
+        validate_team_aliases(aliases, teams=fixture_teams())
+
+
+def test_team_alias_catalog_rejects_conflicting_overlapping_aliases() -> None:
+    aliases = [
+        *fixture_aliases(),
+        {
+            "canonical_team_id": "german_dr",
+            "source": "synthetic_fixture",
+            "source_name": "Germany",
+            "valid_from": "1980-01-01",
+            "valid_to": "1989-12-31",
+            "notes": None,
+        },
+    ]
+
+    with pytest.raises(ValueError, match="conflicting team aliases"):
+        validate_team_aliases(aliases, teams=fixture_teams())
+
+
+def test_team_catalog_reports_canonical_ids_without_aliases() -> None:
+    teams = [
+        *fixture_teams(),
+        {
+            "canonical_team_id": "orphan_team",
+            "canonical_name": "Orphan Team",
+            "team_status": "special",
+            "team_type": "other_special",
+            "notes": None,
+        },
+    ]
+
+    assert find_orphan_canonical_team_ids(teams, fixture_aliases()) == ["orphan_team"]
+
+
+def test_team_catalog_rejects_duplicate_canonical_ids() -> None:
+    teams = [*fixture_teams(), fixture_teams()[0]]
+
+    with pytest.raises(ValueError, match="duplicate canonical_team_id"):
+        validate_team_catalog(teams)
 
 
 def test_collection_rejects_team_id_that_conflicts_with_alias() -> None:
     records = load_fixture_records()[:1]
     records[0] = records[0].copy()
-    records[0]["home_team_id"] = "usa"
+    records[0]["home_team_id"] = "united_states"
 
-    with pytest.raises(ValueError, match="home_team_id usa does not match alias"):
+    with pytest.raises(ValueError, match="home_team_id united_states does not match alias"):
         validate_match_records(records, team_aliases=fixture_aliases())
 
 

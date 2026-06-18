@@ -11,12 +11,14 @@ from rich.console import Console
 from worldcup2026.config import get_settings
 from worldcup2026.data.historical_ingest import (
     HistoricalIngestError,
+    audit_team_aliases,
     load_historical_source_config,
     run_historical_ingest,
 )
 
 app = typer.Typer(no_args_is_help=True)
 ingest_app = typer.Typer(no_args_is_help=True)
+audit_app = typer.Typer(no_args_is_help=True)
 console = Console()
 
 MIN_PYTHON = (3, 11)
@@ -49,6 +51,7 @@ def main() -> None:
 
 
 app.add_typer(ingest_app, name="ingest", help="Ingest source data into project contracts.")
+app.add_typer(audit_app, name="audit", help="Audit source data and static normalization tables.")
 
 
 @app.command()
@@ -183,6 +186,61 @@ def ingest_historical(
     else:
         console.print(f"Canonical dataset: {report.output_path}")
         console.print(f"Quarantine: {report.quarantine_path}")
+
+
+@audit_app.command("aliases")
+def audit_aliases(
+    config_path: Annotated[
+        Path,
+        typer.Option(
+            "--config",
+            help="Path to the declarative source configuration.",
+        ),
+    ] = Path("configs/sources.yaml"),
+    results_file: Annotated[
+        Path | None,
+        typer.Option(
+            "--results-file",
+            help="Use a local results.csv equivalent instead of downloading it.",
+        ),
+    ] = None,
+    report_path: Annotated[
+        Path | None,
+        typer.Option(
+            "--report",
+            help="Write the alias audit report as JSON.",
+        ),
+    ] = None,
+) -> None:
+    """Audit exact source team aliases against the canonical team catalog."""
+
+    try:
+        config = load_historical_source_config(config_path)
+        report = audit_team_aliases(
+            config,
+            results_file=results_file,
+            report_path=report_path,
+        )
+    except HistoricalIngestError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise typer.Exit(code=1) from exc
+
+    console.print(f"Source: {report.source}")
+    console.print(f"Canonical teams: {report.catalog_rows}")
+    console.print(f"Alias rows: {report.alias_rows}")
+    console.print(f"Original team names: {report.original_team_names}")
+    console.print(f"Resolved team names: {report.resolved_team_names}")
+    console.print(f"Unresolved team names: {len(report.unresolved_team_names)}")
+    console.print(
+        "Rows with resolved team names: "
+        f"{report.rows_with_resolved_team_names}/{report.result_rows} "
+        f"({report.team_name_row_coverage:.2%})"
+    )
+    console.print(f"Orphan canonical IDs: {len(report.orphan_canonical_team_ids)}")
+    if report_path is not None:
+        console.print(f"Audit report: {report_path}")
+    if report.unresolved_team_names or report.orphan_canonical_team_ids:
+        raise typer.Exit(code=1)
 
 
 if __name__ == "__main__":
