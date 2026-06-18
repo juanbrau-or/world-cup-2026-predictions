@@ -11,8 +11,29 @@ validation:
 
 elo:
   initial_rating: 1500
-  k_factor: 20
-  host_advantage_points: 0
+  k_base: 20
+  home_advantage: 75
+  competition_importance:
+    friendly: 1
+    world_cup_qualifier: 4
+    confederation_qualifier: 3
+    world_cup: 5
+    confederation_championship: 4
+    nations_league: 2
+    other_official: 2
+    other: 1
+  margin_of_victory:
+    enabled: false
+    goal_difference_weight: 0.0
+  rating_regression_after_inactivity:
+    enabled: false
+    inactivity_days: 365
+    regression_fraction: 0.0
+  model_version: elo_v1
+  input_matches_path: data/processed/modeling_matches.parquet
+  output_match_ratings_path: data/processed/elo_match_ratings.parquet
+  output_current_ratings_path: data/processed/elo_current_ratings.parquet
+  report_output: data/interim/elo_ratings_report.json
 
 poisson:
   max_goals: 10

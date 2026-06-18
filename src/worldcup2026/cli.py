@@ -20,11 +20,13 @@ from worldcup2026.data.modeling_dataset import (
     load_modeling_dataset_config,
     run_modeling_dataset_preparation,
 )
+from worldcup2026.features.elo import EloRatingsError, load_elo_ratings_config, run_elo_ratings
 
 app = typer.Typer(no_args_is_help=True)
 ingest_app = typer.Typer(no_args_is_help=True)
 audit_app = typer.Typer(no_args_is_help=True)
 prepare_app = typer.Typer(no_args_is_help=True)
+model_app = typer.Typer(no_args_is_help=True)
 console = Console()
 
 MIN_PYTHON = (3, 11)
@@ -59,6 +61,7 @@ def main() -> None:
 app.add_typer(ingest_app, name="ingest", help="Ingest source data into project contracts.")
 app.add_typer(audit_app, name="audit", help="Audit source data and static normalization tables.")
 app.add_typer(prepare_app, name="prepare", help="Prepare deterministic derived datasets.")
+app.add_typer(model_app, name="model", help="Build model-stage derived artifacts.")
 
 
 @app.command()
@@ -308,6 +311,78 @@ def prepare_modeling_data(
             "[yellow]Unresolved competitions: "
             f"{len(report.unresolved_competitions)}[/yellow]"
         )
+
+
+@model_app.command("elo-ratings")
+def model_elo_ratings(
+    config_path: Annotated[
+        Path,
+        typer.Option(
+            "--config",
+            help="Path to the declarative model configuration.",
+        ),
+    ] = Path("configs/model.yaml"),
+    input_path: Annotated[
+        Path | None,
+        typer.Option(
+            "--input",
+            help="Override the modeling matches Parquet input path.",
+        ),
+    ] = None,
+    output_match_ratings_path: Annotated[
+        Path | None,
+        typer.Option(
+            "--match-ratings-output",
+            help="Override the per-match Elo ratings Parquet output path.",
+        ),
+    ] = None,
+    output_current_ratings_path: Annotated[
+        Path | None,
+        typer.Option(
+            "--current-ratings-output",
+            help="Override the current Elo ratings Parquet output path.",
+        ),
+    ] = None,
+    report_path: Annotated[
+        Path | None,
+        typer.Option(
+            "--report",
+            help="Override the Elo ratings report JSON path.",
+        ),
+    ] = None,
+) -> None:
+    """Build chronological Elo ratings from the modeling match dataset."""
+
+    try:
+        config = load_elo_ratings_config(config_path)
+        result = run_elo_ratings(
+            config,
+            input_path=input_path,
+            output_match_ratings_path=output_match_ratings_path,
+            output_current_ratings_path=output_current_ratings_path,
+            report_path=report_path,
+        )
+    except EloRatingsError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise typer.Exit(code=1) from exc
+
+    report = result.report
+    console.print(f"Model version: {report.model_version}")
+    console.print(f"Input rows: {report.total_rows}")
+    console.print(f"Matches processed: {report.processed_matches}")
+    console.print(f"Matches excluded: {report.excluded_matches}")
+    console.print(f"Date range: {report.date_range['min']} to {report.date_range['max']}")
+    console.print(f"Teams rated: {report.teams_rated}")
+    console.print(f"Match ratings: {report.match_ratings_path}")
+    console.print(f"Current ratings: {report.current_ratings_path}")
+    console.print(f"Quality report: {report_path or config.report_output}")
+    if report.top_ratings:
+        console.print("Top ratings:")
+        for row in report.top_ratings[:5]:
+            console.print(
+                f"  {row['canonical_team_id']}: {row['elo_rating']} "
+                f"({row['matches_processed']} matches)"
+            )
 
 
 if __name__ == "__main__":
