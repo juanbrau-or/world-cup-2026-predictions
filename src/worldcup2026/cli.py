@@ -20,6 +20,11 @@ from worldcup2026.data.modeling_dataset import (
     load_modeling_dataset_config,
     run_modeling_dataset_preparation,
 )
+from worldcup2026.evaluation.elo_backtest import (
+    EloEvaluationError,
+    load_elo_evaluation_config,
+    run_elo_evaluation,
+)
 from worldcup2026.features.elo import EloRatingsError, load_elo_ratings_config, run_elo_ratings
 
 app = typer.Typer(no_args_is_help=True)
@@ -27,6 +32,7 @@ ingest_app = typer.Typer(no_args_is_help=True)
 audit_app = typer.Typer(no_args_is_help=True)
 prepare_app = typer.Typer(no_args_is_help=True)
 model_app = typer.Typer(no_args_is_help=True)
+evaluate_app = typer.Typer(no_args_is_help=True)
 console = Console()
 
 MIN_PYTHON = (3, 11)
@@ -62,6 +68,7 @@ app.add_typer(ingest_app, name="ingest", help="Ingest source data into project c
 app.add_typer(audit_app, name="audit", help="Audit source data and static normalization tables.")
 app.add_typer(prepare_app, name="prepare", help="Prepare deterministic derived datasets.")
 app.add_typer(model_app, name="model", help="Build model-stage derived artifacts.")
+app.add_typer(evaluate_app, name="evaluate", help="Evaluate probabilistic model stages.")
 
 
 @app.command()
@@ -383,6 +390,36 @@ def model_elo_ratings(
                 f"  {row['canonical_team_id']}: {row['elo_rating']} "
                 f"({row['matches_processed']} matches)"
             )
+
+
+@evaluate_app.command("elo")
+def evaluate_elo(
+    config_path: Annotated[
+        Path,
+        typer.Option(
+            "--config",
+            help="Path to the declarative model and evaluation configuration.",
+        ),
+    ] = Path("configs/model.yaml"),
+) -> None:
+    """Run walk-forward validation and calibration for Elo 1X2 probabilities."""
+
+    try:
+        base_elo_config, evaluation_config = load_elo_evaluation_config(config_path)
+        result = run_elo_evaluation(base_elo_config, evaluation_config)
+    except EloEvaluationError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise typer.Exit(code=1) from exc
+
+    console.print(f"Selected method: {result.selected_method}")
+    console.print(f"Validation log loss: {result.validation_log_loss:.6f}")
+    console.print(f"Validation matches: {result.validation_matches}")
+    console.print(f"Prospective 2026 matches: {result.prospective_2026_matches}")
+    console.print(f"Selected config: {result.selected_config_path}")
+    console.print(f"Fold metrics: {result.metrics_by_fold_path}")
+    console.print(f"Out-of-fold predictions: {result.out_of_fold_predictions_path}")
+    console.print(f"Calibration curves: {result.calibration_curves_path}")
+    console.print(f"Report: {result.report_path}")
 
 
 if __name__ == "__main__":
