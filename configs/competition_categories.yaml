@@ -1,0 +1,203 @@
+competition_categories:
+  friendly:
+    - Friendly
+  world_cup_qualifier:
+    - FIFA World Cup qualification
+  confederation_qualifier:
+    - AFC Asian Cup qualification
+    - AFC Challenge Cup qualification
+    - AFF Championship qualification
+    - ASEAN Championship qualification
+    - African Cup of Nations qualification
+    - Arab Cup qualification
+    - CFU Caribbean Cup qualification
+    - CONCACAF Championship qualification
+    - Copa América qualification
+    - COSAFA Cup qualification
+    - EAFF Championship qualification
+    - Gold Cup qualification
+    - Oceania Nations Cup qualification
+    - UEFA Euro qualification
+  world_cup:
+    - FIFA World Cup
+  confederation_championship:
+    - AFC Asian Cup
+    - AFC Challenge Cup
+    - AFC Solidarity Cup
+    - AFF Championship
+    - ASEAN Championship
+    - African Cup of Nations
+    - Amílcar Cabral Cup
+    - Arab Cup
+    - CAFA Nations Cup
+    - CCCF Championship
+    - CECAFA Cup
+    - CFU Caribbean Cup
+    - CONCACAF Championship
+    - Copa América
+    - COSAFA Cup
+    - EAFF Championship
+    - Gold Cup
+    - Gulf Cup
+    - Melanesia Cup
+    - NAFC Championship
+    - NAFU Championship
+    - Oceania Nations Cup
+    - SAFF Cup
+    - UDEAC Cup
+    - UEFA Euro
+    - UNCAF Cup
+    - UNIFFAC Cup
+    - WAFF Championship
+    - West African Cup
+  nations_league:
+    - CONCACAF Nations League
+    - CONCACAF Nations League qualification
+    - UEFA Nations League
+  other_official:
+    - ABCS Tournament
+    - African Friendship Games
+    - Afro-Asian Games
+    - All-African Games
+    - Asian Games
+    - Balkan Cup
+    - Baltic Cup
+    - Bolivarian Games
+    - British Home Championship
+    - Central American and Caribbean Games
+    - Central European International Cup
+    - Confederations Cup
+    - CONMEBOL–UEFA Cup of Champions
+    - Copa Artigas
+    - Copa Bernardo O'Higgins
+    - Copa Carlos Dittborn
+    - Copa Chevallier Boutell
+    - Copa Félix Bogado
+    - Copa Juan Pinto Durán
+    - Copa Lipton
+    - Copa Newton
+    - Copa Oswaldo Cruz
+    - Copa Paz del Chaco
+    - Copa Premio Honor Argentino
+    - Copa Premio Honor Uruguayo
+    - Copa Ramón Castilla
+    - Copa Rio Branco
+    - Copa Roca
+    - Copa del Pacífico
+    - Coupe de l'Outre-Mer
+    - Diamond Jubilee International Football Tournament
+    - Dynasty Cup
+    - East Asian Games
+    - Far Eastern Championship Games
+    - FIFA Series
+    - GaNEFo
+    - Indian Ocean Island Games
+    - Inter-Allied Games
+    - Inter Games
+    - Island Games
+    - Kuneitra Cup
+    - MSG Prime Minister's Cup
+    - Muratti Vase
+    - Nordic Championship
+    - Olympic Games
+    - Pacific Games
+    - Pacific Mini Games
+    - Palestine Cup
+    - Pan American Championship
+    - Phillip Seaga Cup
+    - Simba Tournament
+    - Soccer Ashes
+    - South Asian Games
+    - South Asian Super Cup
+    - South Pacific Games
+    - South Pacific Mini Games
+    - Southeast Asian Games
+    - Southeast Asian Peninsular Games
+    - Superclásico de las Américas
+    - Trans-Tasman Cup
+    - VFF Cup
+    - Vietnam Independence Cup
+    - Windward Islands Tournament
+    - Évence Coppée Trophy
+  other:
+    - Al Ain International Cup
+    - Atlantic Cup
+    - Atlantic Heritage Cup
+    - Beijing International Friendship Tournament
+    - Benedikt Fontana Cup
+    - Brazil Independence Cup
+    - Canadian Shield
+    - CONCACAF Series
+    - CONIFA Africa Football Cup
+    - CONIFA Asia Cup
+    - CONIFA European Football Cup
+    - CONIFA South America Football Cup
+    - CONIFA World Cup qualification
+    - CONIFA World Football Cup
+    - CONIFA World Football Cup qualification
+    - ConIFA Challenger Cup
+    - Corsica Cup
+    - Cup of Ancient Civilizations
+    - Cyprus International Tournament
+    - Dragon Cup
+    - Dunhill Cup
+    - ELF Cup
+    - FIFI Wild Cup
+    - Four Nations Tournament
+    - Great Wall Cup
+    - Guangzhou International Friendship Tournament
+    - Hungary Heritage Cup
+    - Indonesia Tournament
+    - Intercontinental Cup
+    - International Tournament of Peoples, Cultures and Tribes
+    - Joe Robbie Cup
+    - Jordan International Tournament
+    - King Hassan II Tournament
+    - King's Cup
+    - Kirin Challenge Cup
+    - Kirin Cup
+    - Korea Cup
+    - Lunar New Year Cup
+    - Mahinda Rajapaksa Cup
+    - Malta International Tournament
+    - Mapinduzi Cup
+    - Marianas Cup
+    - Marlboro Cup
+    - Matthews Cup
+    - Mauritius Four Nations Cup
+    - Merdeka Tournament
+    - Merlion Cup
+    - Miami Cup
+    - Millennium Cup
+    - Morocco, Capital of African Football
+    - Mukuru 4 Nations
+    - Mundialito
+    - Nations Cup
+    - Navruz Cup
+    - Nehru Cup
+    - Niamh Challenge Cup
+    - Nile Basin Tournament
+    - Open International Championship
+    - OSN Cup
+    - Outrigger Challenge Cup
+    - Palestine International Championship
+    - Peace Cup
+    - Philippine Peace Cup
+    - Prime Minister's Cup
+    - Rous Cup
+    - SKN Football Festival
+    - Scania 100 Tournament
+    - The Other Final
+    - Three Nations Cup
+    - Tournament Burkina Faso
+    - Tournoi de France
+    - Tri Nation Tournament
+    - Tri-Nations Cup
+    - Tri-Nations Series
+    - Tynwald Hill Tournament
+    - United Arab Emirates Friendship Tournament
+    - Unity Cup
+    - USA Cup
+    - Viva World Cup
+    - World Unity Cup
+    - Zambian Independence Tournament
