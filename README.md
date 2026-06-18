@@ -25,12 +25,22 @@ uv run pytest
 ## Flujo previsto
 
 ```bash
-uv run wc2026 ingest
+uv run wc2026 ingest historical
 uv run wc2026 build-features
 uv run wc2026 train
 uv run wc2026 predict
 uv run wc2026 simulate
 ```
 
-Los comandos posteriores a `doctor` son contratos previstos y se implementarán por fases.
+La ingesta histórica de Fase 1B puede ejecutarse contra la fuente pública configurada o contra
+archivos locales equivalentes:
+
+```bash
+uv run wc2026 ingest historical
+uv run wc2026 ingest historical \
+  --results-file tests/fixtures/international_results/results.csv \
+  --shootouts-file tests/fixtures/international_results/shootouts.csv
+```
+
+Los comandos posteriores a `ingest historical` son contratos previstos y se implementarán por fases.
 Consulta `docs/ROADMAP.md` y `prompts/CODEX_PROMPTS.md`.

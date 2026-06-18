@@ -1,6 +1,45 @@
 historical:
-  provider: null
-  enabled: false
+  provider: international_results_csv
+  enabled: true
+  sources:
+    international_results_csv:
+      description: "martj42/international_results CSV snapshot of men's full international matches."
+      license: "CC0-1.0"
+      homepage: "https://github.com/martj42/international_results"
+      source_revision: "c44451d1a07f736502f364a62b6fbc947a544809"
+      snapshot_retrieved_at_utc: "2026-06-18T00:00:00Z"
+      timeout_seconds: 20
+      retries: 2
+      files:
+        results:
+          logical_uri: "github://martj42/international_results/results.csv@c44451d1a07f736502f364a62b6fbc947a544809"
+          url: "https://raw.githubusercontent.com/martj42/international_results/c44451d1a07f736502f364a62b6fbc947a544809/results.csv"
+          filename: "results.csv"
+          expected_columns:
+            - date
+            - home_team
+            - away_team
+            - home_score
+            - away_score
+            - tournament
+            - city
+            - country
+            - neutral
+        shootouts:
+          logical_uri: "github://martj42/international_results/shootouts.csv@c44451d1a07f736502f364a62b6fbc947a544809"
+          url: "https://raw.githubusercontent.com/martj42/international_results/c44451d1a07f736502f364a62b6fbc947a544809/shootouts.csv"
+          filename: "shootouts.csv"
+          expected_columns:
+            - date
+            - home_team
+            - away_team
+            - winner
+            - first_shooter
+      raw_root: "data/raw"
+      processed_output: "data/processed/international_matches.parquet"
+      quarantine_output: "data/interim/historical_ingest_invalid_records.jsonl"
+      report_output: "data/interim/historical_ingest_report.json"
+      aliases_path: "data/static/team_aliases.csv"
 
 world_cup_2026:
   provider: null

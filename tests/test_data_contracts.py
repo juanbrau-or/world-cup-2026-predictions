@@ -335,10 +335,12 @@ def test_raw_snapshot_manifest_uses_sha256_and_utc_timestamp() -> None:
         {
             "source": "international_results_csv",
             "logical_uri": "local-fixture://results.csv",
+            "source_revision": "c44451d1a07f736502f364a62b6fbc947a544809",
             "retrieved_at_utc": "2026-01-01T00:00:00Z",
             "content_sha256": sha256_bytes(b"fixture"),
             "cache_key": "international_results_csv:fixture",
             "raw_path": "data/raw/international_results_csv/2026-01-01/results.csv",
+            "input_uri": "file:///tmp/results.csv",
         }
     )
 
@@ -346,3 +348,4 @@ def test_raw_snapshot_manifest_uses_sha256_and_utc_timestamp() -> None:
         "f16d05ec6b29248d2c61adb1e9263f78"
         "e4f7bace1b955014a2d17872cfe4064d"
     )
+    assert manifest.source_revision == "c44451d1a07f736502f364a62b6fbc947a544809"
