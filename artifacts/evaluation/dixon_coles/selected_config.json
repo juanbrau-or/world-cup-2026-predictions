@@ -1,11 +1,16 @@
 {
+  "bootstrap_iterations": 10000,
   "final_holdout_start": "2026-01-01",
+  "folds_version": "tournament_validation_v1",
+  "holdout_2026_status": "holdout_2026",
   "max_goals": 10,
   "notes": [
     "The exact Elo folds are reused for 2018, 2022, and 2024 validation.",
     "No 2026 result is used to select half-life, model type, or regularization.",
+    "2026 rows are a retrospective holdout because observed results are present.",
     "score_probabilities_json stores the truncated score matrix; residual_probability stores mass outside max_goals."
   ],
+  "random_seed": 2026,
   "regularization_strength": 0.05,
   "selected_by": "mean_validation_log_loss",
   "selected_half_life_days": 730.0,

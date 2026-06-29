@@ -1,0 +1,586 @@
+brier_score_delta,competition,fold,log_loss_delta,match_date,match_id,model_a,model_b,pair,ranked_probability_score_delta
+0.00046122321065755756,FIFA World Cup,world_cup_2022,0.0008153726167383635,2022-12-01,international_results_csv-00a27f9ad5aa23730c88,poisson,dixon_coles,poisson_minus_dixon_coles,5.382732413355962e-05
+-0.0002779858166471888,UEFA Euro,euro_2024,-0.0004256499533855096,2024-06-14,international_results_csv-00ca9eb2da1f93dafa93,poisson,dixon_coles,poisson_minus_dixon_coles,-6.11083293404896e-05
+-0.0004584877574430324,UEFA Euro,euro_2024,-0.000526126623519807,2024-06-30,international_results_csv-01d853487e40e06b0dd6,poisson,dixon_coles,poisson_minus_dixon_coles,-7.456212390118122e-05
+-0.0001967262650771351,Copa América,copa_america_2024,-0.00018750828353719662,2024-06-25,international_results_csv-053c6c578ca7842cf4aa,poisson,dixon_coles,poisson_minus_dixon_coles,-6.841952172667587e-06
+0.00042650376492014974,FIFA World Cup,world_cup_2022,0.00048443373635409515,2022-11-30,international_results_csv-05bce2d6de741ae77f75,poisson,dixon_coles,poisson_minus_dixon_coles,6.9862866697884e-05
+0.0004743544874334926,FIFA World Cup,world_cup_2022,0.0017993779664191578,2022-11-30,international_results_csv-064a18ffdf283cf53f0d,poisson,dixon_coles,poisson_minus_dixon_coles,0.00012762340621119694
+-0.001433702049123492,FIFA World Cup,world_cup_2018,-0.0018292055883052383,2018-07-02,international_results_csv-06e35fd48600c0af0762,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00030762738650353533
+0.0007242171423391675,Copa América,copa_america_2024,0.0025214922640248716,2024-06-24,international_results_csv-078d38951aa268590396,poisson,dixon_coles,poisson_minus_dixon_coles,0.00011802627701773538
+0.0007976390309344383,FIFA World Cup,world_cup_2022,0.001926492669473312,2022-12-01,international_results_csv-083a7495e6b01a59a23e,poisson,dixon_coles,poisson_minus_dixon_coles,0.00028087110611951793
+-0.0015518690913212119,FIFA World Cup,world_cup_2018,-0.0019162322899081152,2018-06-26,international_results_csv-08704102bb3f34a36601,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00017810220597425097
+0.0004375344031082862,FIFA World Cup,world_cup_2022,0.000548132938241852,2022-11-26,international_results_csv-0c11873de872f27abde2,poisson,dixon_coles,poisson_minus_dixon_coles,5.595404675826088e-05
+-0.0005571384790830081,Copa América,copa_america_2024,-0.0008450085176704425,2024-07-01,international_results_csv-0ccde3f3b100ac5784d7,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00010298048589182929
+-9.57391145101627e-05,Copa América,copa_america_2024,-7.61679961998607e-05,2024-06-20,international_results_csv-0da3fdd58b0bcb55a9c3,poisson,dixon_coles,poisson_minus_dixon_coles,7.590799434298301e-06
+0.00040107279235446214,FIFA World Cup,world_cup_2022,0.001374328941605718,2022-12-10,international_results_csv-0e7928798157c7c63e46,poisson,dixon_coles,poisson_minus_dixon_coles,6.10480673269298e-05
+0.00024224613462547895,FIFA World Cup,world_cup_2022,0.0002949237675688998,2022-12-04,international_results_csv-0f95621134a4fb0d6bf9,poisson,dixon_coles,poisson_minus_dixon_coles,1.8128483011914387e-05
+-0.0007489587796709607,UEFA Euro,euro_2024,-0.0030734375521064283,2024-06-17,international_results_csv-0fa1a1ae832ba71ee709,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00022581398604759606
+-0.0001296115352827018,UEFA Euro,euro_2024,-0.0001932664476411161,2024-06-30,international_results_csv-11619d81a979cc5fe28d,poisson,dixon_coles,poisson_minus_dixon_coles,-1.3730339217563753e-05
+0.00017994770455359577,FIFA World Cup,world_cup_2022,0.00018477476015343886,2022-12-01,international_results_csv-11e2bd3b4a7ef125ac5f,poisson,dixon_coles,poisson_minus_dixon_coles,-1.1337617816048473e-05
+-0.0012642646878211483,FIFA World Cup,world_cup_2022,-0.002069448664234974,2022-11-23,international_results_csv-1252b10377cebb51c211,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0002080048605664908
+0.00026006352552512824,FIFA World Cup,world_cup_2022,0.0003207965877973784,2022-12-13,international_results_csv-12c013cde27369d2c962,poisson,dixon_coles,poisson_minus_dixon_coles,4.435075440659825e-05
+-0.0015764994671011723,FIFA World Cup,world_cup_2018,-0.0016684692291927261,2018-06-24,international_results_csv-14b18a7085e0239d664b,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0002587207616692594
+0.00022175168087160135,FIFA World Cup,world_cup_2022,0.00023113251208872754,2022-12-02,international_results_csv-161dcc18bad0fded5fb3,poisson,dixon_coles,poisson_minus_dixon_coles,2.615275308479048e-05
+-0.00215421251984671,FIFA World Cup,world_cup_2018,-0.003921799201735521,2018-06-30,international_results_csv-18df55c3b1141842f275,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0003329572072150455
+-0.001164859893657777,FIFA World Cup,world_cup_2022,-0.0020064852527501564,2022-11-22,international_results_csv-18fbcaa0c3182f0c0566,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0001990261662870585
+4.970864181338963e-05,FIFA World Cup,world_cup_2022,5.6276797646914734e-05,2022-11-29,international_results_csv-196eb4a0f0050406cf68,poisson,dixon_coles,poisson_minus_dixon_coles,-2.6931617263428742e-05
+0.0003631325142783859,FIFA World Cup,world_cup_2022,0.0004029558330270744,2022-11-24,international_results_csv-1c49ea36172f315bb21e,poisson,dixon_coles,poisson_minus_dixon_coles,3.850462043714087e-05
+-0.0011047709784671733,FIFA World Cup,world_cup_2022,-0.0019222569635626297,2022-11-22,international_results_csv-1e226147e62452b3ea57,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0001798421520579907
+-0.0010817545040372467,FIFA World Cup,world_cup_2022,-0.0019275055950453979,2022-11-28,international_results_csv-22190c2529f0255220ef,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00017467049983746485
+-0.001374389059991321,FIFA World Cup,world_cup_2018,-0.002178055032276971,2018-06-25,international_results_csv-233980863f63a0dec852,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00013585707199673114
+-0.00038088100798849833,Copa América,copa_america_2024,-0.000408585617886037,2024-06-29,international_results_csv-23d53bd9024994449cfa,poisson,dixon_coles,poisson_minus_dixon_coles,-6.381293046169023e-05
+0.00023872792647056107,FIFA World Cup,world_cup_2022,0.00024979011611925284,2022-12-14,international_results_csv-2407444965a7eba16705,poisson,dixon_coles,poisson_minus_dixon_coles,-2.208470181155886e-05
+-0.0006870647256441709,UEFA Euro,euro_2024,-0.0018195648599943492,2024-06-25,international_results_csv-24c2c52b47c2ed90ed03,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00013901937840882228
+-0.0010383841047332254,UEFA Euro,euro_2024,-0.001467719314684257,2024-06-15,international_results_csv-24f86e3c6e66608c5c74,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0002367452747081833
+-0.0010365511194776467,FIFA World Cup,world_cup_2022,-0.0020076541996731923,2022-12-01,international_results_csv-27247d6b90ecb388da92,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00017009675552631665
+-0.0006731703066307215,UEFA Euro,euro_2024,-0.0015882700091700563,2024-06-29,international_results_csv-2827401cd7c0cbf3b964,poisson,dixon_coles,poisson_minus_dixon_coles,-9.599255934605866e-05
+-0.00036018896616399343,Copa América,copa_america_2024,-0.0004347835078539197,2024-06-22,international_results_csv-289f7040a7fe85079367,poisson,dixon_coles,poisson_minus_dixon_coles,-5.731340534535778e-05
+-0.00012944389354944963,Copa América,copa_america_2024,-0.00014395343834572305,2024-07-06,international_results_csv-28d8e0b020f13d8fa6ec,poisson,dixon_coles,poisson_minus_dixon_coles,-7.027099093163958e-06
+0.0003698353822993994,FIFA World Cup,world_cup_2022,0.0005578857611976407,2022-11-26,international_results_csv-298391a54cc47ab0d485,poisson,dixon_coles,poisson_minus_dixon_coles,3.107823157433298e-05
+0.00014223436596666472,FIFA World Cup,world_cup_2022,0.00014367459486608336,2022-11-21,international_results_csv-2bba41828f4e577b6277,poisson,dixon_coles,poisson_minus_dixon_coles,-2.2000816416539726e-05
+-0.0025994919326899346,FIFA World Cup,world_cup_2018,-0.0033776463455218453,2018-07-15,international_results_csv-2df80065485235a27c37,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0005289052166060904
+-0.00023998304167108242,Copa América,copa_america_2024,-0.0002899482050668367,2024-06-23,international_results_csv-309ada293c57c2d80d6c,poisson,dixon_coles,poisson_minus_dixon_coles,-3.580281833305554e-05
+6.094473812090495e-05,FIFA World Cup,world_cup_2022,0.0002653445541915822,2022-11-27,international_results_csv-30ed4182efd761210802,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00011332919838080713
+-0.0005340760341491224,UEFA Euro,euro_2024,-0.0007578119545498252,2024-06-29,international_results_csv-333cb5e5a3ea47ecedc7,poisson,dixon_coles,poisson_minus_dixon_coles,-9.636317257089022e-05
+-0.0013767478897610541,FIFA World Cup,world_cup_2018,-0.004284680193084478,2018-06-17,international_results_csv-33da39b79b9b27736b6f,poisson,dixon_coles,poisson_minus_dixon_coles,-7.257725677611848e-05
+-9.57391145101627e-05,Copa América,copa_america_2024,-7.61679961998607e-05,2024-07-09,international_results_csv-346aebd88aafddb08f57,poisson,dixon_coles,poisson_minus_dixon_coles,7.590799434298301e-06
+-0.0002861927634838779,UEFA Euro,euro_2024,-0.00029601948402990796,2024-06-22,international_results_csv-34c2e4049c0ad5037d57,poisson,dixon_coles,poisson_minus_dixon_coles,-1.973042131406949e-05
+0.000327372550617544,FIFA World Cup,world_cup_2022,0.0006290844111196403,2022-12-02,international_results_csv-35717f8071b5f4211215,poisson,dixon_coles,poisson_minus_dixon_coles,2.9049938123804075e-05
+0.0006304533576205751,FIFA World Cup,world_cup_2022,0.0008691625714264406,2022-11-28,international_results_csv-35896ed19631ca5a0b21,poisson,dixon_coles,poisson_minus_dixon_coles,0.0001545070979615537
+0.0018865773858567358,UEFA Euro,euro_2024,0.0033810693801641367,2024-06-25,international_results_csv-35c4816ffbbfa1cddaee,poisson,dixon_coles,poisson_minus_dixon_coles,0.0003468673059986993
+0.0002606873226480566,FIFA World Cup,world_cup_2022,0.0004493605993555194,2022-12-17,international_results_csv-35c6633f76d276ba2e53,poisson,dixon_coles,poisson_minus_dixon_coles,-4.099897510934092e-05
+0.006025575851788312,FIFA World Cup,world_cup_2018,0.010458382296361757,2018-06-15,international_results_csv-36afee440f9a514e91ce,poisson,dixon_coles,poisson_minus_dixon_coles,0.001008394395066392
+-0.0008001313920504849,Copa América,copa_america_2024,-0.0014261316870758378,2024-07-02,international_results_csv-375c5266c31284ecab1b,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00017821811117146868
+-0.00030016816750366715,UEFA Euro,euro_2024,-0.003023881219996305,2024-06-26,international_results_csv-37b4552ad95a2a573ddc,poisson,dixon_coles,poisson_minus_dixon_coles,-8.711735481314875e-05
+0.0017868614159144425,UEFA Euro,euro_2024,0.0033126236874967407,2024-06-22,international_results_csv-394a96637e654dc19cce,poisson,dixon_coles,poisson_minus_dixon_coles,0.0002973311707422377
+-0.001524109890700509,FIFA World Cup,world_cup_2018,-0.0018727425410358656,2018-06-15,international_results_csv-3a3f96c0a49521e3fc84,poisson,dixon_coles,poisson_minus_dixon_coles,0.00021692639064907482
+0.0006235567324801017,FIFA World Cup,world_cup_2022,0.0007602747652198927,2022-11-21,international_results_csv-3cb529d3b76aa52f433f,poisson,dixon_coles,poisson_minus_dixon_coles,0.00013435561821045772
+0.0007447412812512377,FIFA World Cup,world_cup_2022,0.0016360232718122258,2022-11-27,international_results_csv-3d80035efd18e54e8f66,poisson,dixon_coles,poisson_minus_dixon_coles,0.0002491867145257842
+0.0001757421570460771,FIFA World Cup,world_cup_2022,0.003584494378403136,2022-12-02,international_results_csv-3dbdd6db150f012fe6ac,poisson,dixon_coles,poisson_minus_dixon_coles,6.612226970725832e-05
+-0.0005622319167045697,UEFA Euro,euro_2024,-0.001468299525952066,2024-07-02,international_results_csv-3e4906bb3d0a6c9878ef,poisson,dixon_coles,poisson_minus_dixon_coles,-8.676842377819405e-05
+0.0020403915485471824,UEFA Euro,euro_2024,0.0034430994506047252,2024-06-20,international_results_csv-412816b6da7660a82823,poisson,dixon_coles,poisson_minus_dixon_coles,0.0003515730114801441
+-0.0005483906701091446,UEFA Euro,euro_2024,-0.0008935250317103627,2024-07-14,international_results_csv-425042cdb61725c4ce1d,poisson,dixon_coles,poisson_minus_dixon_coles,-2.0769601180248287e-05
+0.0008834476114248924,FIFA World Cup,world_cup_2022,0.001506289527877236,2022-11-23,international_results_csv-42770c114dfcbdab344a,poisson,dixon_coles,poisson_minus_dixon_coles,0.00032626601081503503
+-0.0004784969301202535,Copa América,copa_america_2024,-0.0005589980623255109,2024-07-14,international_results_csv-42887385aa7147490c72,poisson,dixon_coles,poisson_minus_dixon_coles,-4.238674936940523e-05
+-0.00022698472687182614,UEFA Euro,euro_2024,-0.0004280152928622938,2024-07-05,international_results_csv-42fe435cac357dd1e008,poisson,dixon_coles,poisson_minus_dixon_coles,2.3126746971663392e-05
+-0.0008436218271174328,FIFA World Cup,world_cup_2018,-0.001118921235095105,2018-06-27,international_results_csv-43e7d573120c11c89643,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00014440965023405916
+0.0019595272717468637,UEFA Euro,euro_2024,0.003174041246393422,2024-06-24,international_results_csv-45b545616685abb8f8a6,poisson,dixon_coles,poisson_minus_dixon_coles,0.0003284117197201175
+0.0003089059415406492,FIFA World Cup,world_cup_2022,0.000424963669301226,2022-11-20,international_results_csv-466216ee9a5e2c3fc300,poisson,dixon_coles,poisson_minus_dixon_coles,5.2530884610435535e-05
+0.0006710267186182395,FIFA World Cup,world_cup_2022,0.0009155014492679969,2022-11-26,international_results_csv-472f71ee4301875a403b,poisson,dixon_coles,poisson_minus_dixon_coles,0.00016690441804045886
+-0.001223277128589273,FIFA World Cup,world_cup_2022,-0.0019724279083455087,2022-11-25,international_results_csv-48eb64712c77094c0faf,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00020874496745487692
+-0.0005829645855618404,UEFA Euro,euro_2024,-0.0009448784777275065,2024-07-09,international_results_csv-4932c88aa7fd2f79f650,poisson,dixon_coles,poisson_minus_dixon_coles,-5.83398583033079e-05
+-0.0009139515058608771,UEFA Euro,euro_2024,-0.001297967224810237,2024-07-10,international_results_csv-4ab1e50f59e6f2bae34b,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00021475769356615881
+-0.0006079258652883501,UEFA Euro,euro_2024,-0.0007816846386236032,2024-06-15,international_results_csv-4f1d5472bcd4fd8cfe55,poisson,dixon_coles,poisson_minus_dixon_coles,-9.530194908585754e-05
+-0.0006241731795037508,UEFA Euro,euro_2024,-0.0008531354491196907,2024-06-21,international_results_csv-4fa4c3967ebed6758154,poisson,dixon_coles,poisson_minus_dixon_coles,-6.468482877000636e-05
+-0.00032358178776226154,Copa América,copa_america_2024,-0.00036417691862916657,2024-06-26,international_results_csv-50a81cdbee8b6179cac8,poisson,dixon_coles,poisson_minus_dixon_coles,-4.738678037628785e-05
+-0.00033233758650880185,UEFA Euro,euro_2024,-0.0003720468402054755,2024-07-02,international_results_csv-51ad039cd8b4efa28464,poisson,dixon_coles,poisson_minus_dixon_coles,-3.253332121631869e-05
+-0.0033094025154571938,FIFA World Cup,world_cup_2018,-0.0051402808232685615,2018-06-27,international_results_csv-535d71d52b980784bdda,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0008800733493207757
+-0.0021909761274262474,FIFA World Cup,world_cup_2018,-0.0026162335891593003,2018-06-15,international_results_csv-53af7e4b5d01c3836fc7,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0003621445598529782
+-0.0011015361602915164,FIFA World Cup,world_cup_2022,-0.00198996897009196,2022-11-24,international_results_csv-54a80e3db86efdc713b1,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00017639955333281776
+0.0018443797534968276,UEFA Euro,euro_2024,0.0034923954149141956,2024-06-25,international_results_csv-55e899b80c818dc9399e,poisson,dixon_coles,poisson_minus_dixon_coles,0.00032452004902458476
+-0.0005310878989683854,Copa América,copa_america_2024,-0.000789771004770845,2024-07-01,international_results_csv-5b17e087e7fd65aed5d5,poisson,dixon_coles,poisson_minus_dixon_coles,-8.726008104759098e-05
+-0.0005990665643341719,UEFA Euro,euro_2024,-0.0007412306895698828,2024-06-17,international_results_csv-5bc5ac0d77a465d6843f,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00010492669335684934
+0.00010749450529851101,FIFA World Cup,world_cup_2022,0.00010528069240678395,2022-11-22,international_results_csv-5c8b78d320eff170410d,poisson,dixon_coles,poisson_minus_dixon_coles,-5.2480515884939516e-05
+-0.0008660109465035148,UEFA Euro,euro_2024,-0.0012796916704966854,2024-06-21,international_results_csv-5cee46756bbaba3f4a9c,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00018058976986815023
+-0.0009323527115610852,FIFA World Cup,world_cup_2018,-0.001213383584869554,2018-06-20,international_results_csv-5effeef45349fc2c37ee,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00014804150023001866
+0.00012058896915921602,FIFA World Cup,world_cup_2022,0.00016307082667352257,2022-11-24,international_results_csv-5fc599a3b72c6e236a25,poisson,dixon_coles,poisson_minus_dixon_coles,1.6287601286801845e-05
+0.0014701251437233553,Copa América,copa_america_2024,0.0022979360797745763,2024-06-21,international_results_csv-60590b0bc0dc565d18cc,poisson,dixon_coles,poisson_minus_dixon_coles,0.0002466211961362347
+-0.00019619072662098447,UEFA Euro,euro_2024,-0.00023420534792162329,2024-06-24,international_results_csv-615209ed8d6c11d8fe43,poisson,dixon_coles,poisson_minus_dixon_coles,-2.0662805990511596e-05
+0.0006612155576288803,FIFA World Cup,world_cup_2022,0.000945614771091563,2022-11-29,international_results_csv-63ba0233243234273d1d,poisson,dixon_coles,poisson_minus_dixon_coles,0.00012288535339236017
+-0.0006474430318922364,Copa América,copa_america_2024,-0.001323599407632381,2024-06-22,international_results_csv-6413dd39c541f6647695,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00012379274600599066
+-0.00043146839233954015,UEFA Euro,euro_2024,-0.0006838214885327432,2024-06-18,international_results_csv-64bd65869cd26e5055db,poisson,dixon_coles,poisson_minus_dixon_coles,-4.509458412721434e-05
+-0.001702335542347666,FIFA World Cup,world_cup_2018,-0.0018068537627338177,2018-06-28,international_results_csv-673171d8c4a4f215e7eb,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00014306189282126125
+0.0004660180801050462,FIFA World Cup,world_cup_2022,0.0005778630989726752,2022-12-06,international_results_csv-679c244d7721a5fc2646,poisson,dixon_coles,poisson_minus_dixon_coles,0.00010469403015787859
+-0.0012983122600831454,FIFA World Cup,world_cup_2018,-0.0015314117840239394,2018-06-24,international_results_csv-6806da97e0f8aa306b0e,poisson,dixon_coles,poisson_minus_dixon_coles,-6.493457768438904e-05
+-0.0012287454156920952,FIFA World Cup,world_cup_2018,-0.001421258936315728,2018-06-26,international_results_csv-6d22081c7606fab3a9fe,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0001678185307289054
+0.0019538445601768872,UEFA Euro,euro_2024,0.003409639542918841,2024-06-21,international_results_csv-6e6c455b52aecb25bee5,poisson,dixon_coles,poisson_minus_dixon_coles,0.00033059421693354407
+0.0003017770122919483,FIFA World Cup,world_cup_2022,0.0029291380426341718,2022-11-22,international_results_csv-6fdf96ce42ea51cec9a2,poisson,dixon_coles,poisson_minus_dixon_coles,0.00010053332265824722
+0.00021998594984976028,FIFA World Cup,world_cup_2022,0.00022262967311476034,2022-11-23,international_results_csv-709042582351ff39048d,poisson,dixon_coles,poisson_minus_dixon_coles,2.1049943418977035e-05
+-0.0018114718605183322,FIFA World Cup,world_cup_2018,-0.0021179176407628564,2018-06-20,international_results_csv-7220b26f091bb1713172,poisson,dixon_coles,poisson_minus_dixon_coles,-6.818202156619324e-05
+-0.001104724547782432,FIFA World Cup,world_cup_2022,-0.00203834022663818,2022-11-27,international_results_csv-7230e2c38e1cf0aa1bb2,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00018818075239857013
+0.000563400665907321,FIFA World Cup,world_cup_2022,0.0006597751496866255,2022-11-25,international_results_csv-72cd74710980a6aed7db,poisson,dixon_coles,poisson_minus_dixon_coles,8.117327029907861e-05
+0.00011968724214118237,FIFA World Cup,world_cup_2022,0.00017697339949418467,2022-12-05,international_results_csv-73073bf324a9e07483a7,poisson,dixon_coles,poisson_minus_dixon_coles,2.038785169344512e-05
+-0.0008182877653567511,UEFA Euro,euro_2024,-0.001866842411151648,2024-06-17,international_results_csv-74af73ebd43cebf41349,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0001794403496602759
+-0.0004961672129191186,UEFA Euro,euro_2024,-0.0011362053642041126,2024-06-26,international_results_csv-76d609de336e8c47ce51,poisson,dixon_coles,poisson_minus_dixon_coles,-5.9053405353393096e-05
+0.00027695513956560447,FIFA World Cup,world_cup_2022,0.0009701236330814655,2022-11-27,international_results_csv-772cfcf8fffe31988653,poisson,dixon_coles,poisson_minus_dixon_coles,-3.456647881366903e-05
+-0.0019640790860248614,FIFA World Cup,world_cup_2018,-0.0021246344470072787,2018-06-18,international_results_csv-77c327471d01e00248ee,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0003316019239304885
+-0.0007418080162343577,UEFA Euro,euro_2024,-0.0010355737392111486,2024-06-23,international_results_csv-7a3a25ceedcb6ec379e8,poisson,dixon_coles,poisson_minus_dixon_coles,-9.255221202431052e-05
+-0.00046455762696678837,UEFA Euro,euro_2024,-0.0005849786994519546,2024-06-20,international_results_csv-7bb00acc7cb75e5d3fd2,poisson,dixon_coles,poisson_minus_dixon_coles,-1.8738539608126326e-05
+0.004965568101514828,FIFA World Cup,world_cup_2018,0.009324638786822215,2018-06-17,international_results_csv-7bead77ef0e1296b0283,poisson,dixon_coles,poisson_minus_dixon_coles,0.0008627396069831872
+-0.00039026096316763237,UEFA Euro,euro_2024,-0.0004945727122334098,2024-06-18,international_results_csv-7e8d07244f9800a0e7f7,poisson,dixon_coles,poisson_minus_dixon_coles,-5.91210438824763e-05
+0.00017427326095589835,FIFA World Cup,world_cup_2022,0.00023255710289277198,2022-11-28,international_results_csv-7ee6e6bd07c61e97a834,poisson,dixon_coles,poisson_minus_dixon_coles,3.063589713803161e-05
+-0.0027344460652706237,FIFA World Cup,world_cup_2018,-0.005159371561524129,2018-07-11,international_results_csv-7f6d0baefe5e4585cc80,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00048004452227806693
+-1.0602385879632248e-05,FIFA World Cup,world_cup_2022,2.6347298186846224e-05,2022-11-23,international_results_csv-85b306be7f875d48a960,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00010235522029530819
+0.00043081519644272426,FIFA World Cup,world_cup_2022,0.0009976013369321635,2022-11-29,international_results_csv-86e9a2fa6ecc8fd65bad,poisson,dixon_coles,poisson_minus_dixon_coles,7.518057205702089e-05
+0.005051453515339754,FIFA World Cup,world_cup_2018,0.008431235011329807,2018-06-26,international_results_csv-88c4020dfd8f41f0372c,poisson,dixon_coles,poisson_minus_dixon_coles,0.0008057216551764501
+0.000367727100693771,FIFA World Cup,world_cup_2022,0.00040016905531969904,2022-11-29,international_results_csv-8ee0379aa2a963eb3558,poisson,dixon_coles,poisson_minus_dixon_coles,5.9909294374924094e-05
+-0.0006230618146837452,UEFA Euro,euro_2024,-0.0007894218266627506,2024-06-16,international_results_csv-8f9ece726a78cd47bec5,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00012575263536046544
+-0.0019013781810755526,FIFA World Cup,world_cup_2018,-0.0023111294179025688,2018-07-07,international_results_csv-8fc851994cffb600ee8e,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00016673109693346455
+0.0016165904393639074,UEFA Euro,euro_2024,0.00301753486164702,2024-06-19,international_results_csv-8fd8c14dd0cbc763278d,poisson,dixon_coles,poisson_minus_dixon_coles,0.0002528183795716954
+0.001844943634672691,UEFA Euro,euro_2024,0.0028700996572332826,2024-06-26,international_results_csv-907df97a123fa51e2aa5,poisson,dixon_coles,poisson_minus_dixon_coles,0.0003091835589938141
+-0.00033667579317672724,Copa América,copa_america_2024,-0.00033924883010799656,2024-06-24,international_results_csv-90b913a78e6db81750cf,poisson,dixon_coles,poisson_minus_dixon_coles,-4.9084201905053026e-05
+-0.0002428672500204565,UEFA Euro,euro_2024,-0.00033204028199157465,2024-06-22,international_results_csv-917e94482d304004e95f,poisson,dixon_coles,poisson_minus_dixon_coles,-3.52477971415216e-05
+-0.0013128282233184907,FIFA World Cup,world_cup_2018,-0.001820158615352785,2018-06-14,international_results_csv-9211415def4a2a518ae5,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00029987481598078847
+-0.0013417160147054796,FIFA World Cup,world_cup_2018,-0.0017328870343922276,2018-06-18,international_results_csv-926cd3d892bf57860297,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0002723610761621101
+-0.002383666032597209,FIFA World Cup,world_cup_2018,-0.003339394118944017,2018-07-06,international_results_csv-949d0947c96b819ca878,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0005344708102461293
+0.0019183423342824524,UEFA Euro,euro_2024,0.003135844003425703,2024-06-20,international_results_csv-94f0a2eadb71e4c7cf8b,poisson,dixon_coles,poisson_minus_dixon_coles,0.0003248191713067783
+-0.0009578255447301176,FIFA World Cup,world_cup_2022,-0.0018066366462077266,2022-11-25,international_results_csv-9abe840e02d1f5251cd0,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00013849624720341236
+-0.0016666048758627872,FIFA World Cup,world_cup_2018,-0.002045918517017409,2018-06-23,international_results_csv-9de7492b83a49078ffc6,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0002202949114910313
+0.0059130702028036275,FIFA World Cup,world_cup_2018,0.009475297365037605,2018-06-24,international_results_csv-a2fc1a4244d90c0c330f,poisson,dixon_coles,poisson_minus_dixon_coles,0.0010147298677966876
+-0.00045793809193531154,UEFA Euro,euro_2024,-0.0004740282449586797,2024-06-15,international_results_csv-a32e3412f868dc2973fe,poisson,dixon_coles,poisson_minus_dixon_coles,-6.213342762419194e-05
+-0.000636418950224038,Copa América,copa_america_2024,-0.0011504572831977367,2024-06-26,international_results_csv-a34dd70bd3878672430b,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00012144253743362476
+0.0002444844360983134,FIFA World Cup,world_cup_2022,0.0002562443649852808,2022-12-04,international_results_csv-a4541c399fbb00659c3b,poisson,dixon_coles,poisson_minus_dixon_coles,2.1718360524794478e-05
+-0.0018704521817567432,FIFA World Cup,world_cup_2018,-0.005100569402825217,2018-06-25,international_results_csv-a4ad52584a6b0ca1e9ef,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0001732993156347562
+-0.0026259885693770135,FIFA World Cup,world_cup_2018,-0.003484086807107878,2018-06-28,international_results_csv-a5522d7c007e5f722a3a,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00044277914854959355
+-0.002966245591786376,FIFA World Cup,world_cup_2018,-0.0047251045774514555,2018-07-03,international_results_csv-a70c2997fd3870579b26,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0006444189933357269
+-0.0025868832405038233,FIFA World Cup,world_cup_2018,-0.004350827687315206,2018-06-28,international_results_csv-a8e86526d67c35f1355f,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0005496984325671361
+-0.0004288672343200073,Copa América,copa_america_2024,-0.0006346348036589955,2024-07-10,international_results_csv-a90e8651082210abd4ae,poisson,dixon_coles,poisson_minus_dixon_coles,-2.9403140255346294e-05
+0.00460430930177036,FIFA World Cup,world_cup_2018,0.008643825386774662,2018-06-25,international_results_csv-aa701ce5d92317f620df,poisson,dixon_coles,poisson_minus_dixon_coles,0.0006518961929987965
+-0.0013875676887626087,FIFA World Cup,world_cup_2018,-0.0017702350290128566,2018-06-16,international_results_csv-ad7447caa6303f5f6c01,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0002730443298189361
+0.00015604948797817708,FIFA World Cup,world_cup_2022,0.00019286355360947915,2022-11-30,international_results_csv-aed43639a932a8d679d9,poisson,dixon_coles,poisson_minus_dixon_coles,1.8613242110623873e-05
+-0.000863886141116918,FIFA World Cup,world_cup_2018,-0.0013040323376901919,2018-06-22,international_results_csv-b0081ac08a471b778e35,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00018229958265953208
+0.0012831261138902539,Copa América,copa_america_2024,0.002260818213956073,2024-06-29,international_results_csv-b05d7666237e5f555fa9,poisson,dixon_coles,poisson_minus_dixon_coles,0.00020644775656064596
+-0.0021675891315450224,FIFA World Cup,world_cup_2018,-0.003540693210509538,2018-06-19,international_results_csv-b19e93760c27e10672da,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0003464020678991542
+-0.0002316262158199578,Copa América,copa_america_2024,-0.001913981148585986,2024-06-27,international_results_csv-b24f74e0627f4f161344,poisson,dixon_coles,poisson_minus_dixon_coles,-2.9663026894111155e-05
+0.0003524179262914817,FIFA World Cup,world_cup_2022,0.0006318778293838978,2022-12-10,international_results_csv-b35074520e7ee28c8baf,poisson,dixon_coles,poisson_minus_dixon_coles,2.05662141595786e-05
+-0.0034994389404313653,FIFA World Cup,world_cup_2018,-0.005767683249893851,2018-06-16,international_results_csv-b3b504dc8f5a615011a8,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0009395528694721711
+-0.0013369620208889543,FIFA World Cup,world_cup_2018,-0.0017248537744499748,2018-06-23,international_results_csv-b6bd59352f17b1237c95,poisson,dixon_coles,poisson_minus_dixon_coles,-5.5445205768223094e-05
+0.00013567709236345094,FIFA World Cup,world_cup_2022,0.00011640227961040583,2022-11-26,international_results_csv-b6d4165dd6f52d3da850,poisson,dixon_coles,poisson_minus_dixon_coles,-1.2376436669556123e-05
+-0.0029770008711945684,FIFA World Cup,world_cup_2018,-0.005050973981019613,2018-06-30,international_results_csv-b982aaf023e38ad7fc0b,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0008198224162935808
+-0.0014329646768307391,FIFA World Cup,world_cup_2018,-0.006505778836179088,2018-06-19,international_results_csv-bae62f2d66dd7275cb0b,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00015934510982029693
+-0.00010676740632035997,Copa América,copa_america_2024,-0.00010741466745944894,2024-06-28,international_results_csv-bc285e992f98e3abae2e,poisson,dixon_coles,poisson_minus_dixon_coles,-1.53937776140034e-06
+0.00022010479679171469,FIFA World Cup,world_cup_2022,0.00027706046966852194,2022-11-24,international_results_csv-bde63dc1d6dfa511872d,poisson,dixon_coles,poisson_minus_dixon_coles,4.1561113948582196e-05
+-0.0020811081925242725,FIFA World Cup,world_cup_2018,-0.002641464212759903,2018-06-26,international_results_csv-c1799009628103a8554b,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00038371634382122766
+-0.0027767695043076634,FIFA World Cup,world_cup_2018,-0.0038489184152455946,2018-06-17,international_results_csv-c28b97b118f8bc501322,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0006186806382123544
+-0.00016379568294050406,Copa América,copa_america_2024,-0.00022630690356956196,2024-06-27,international_results_csv-c2aa1d09d239a0d7b57c,poisson,dixon_coles,poisson_minus_dixon_coles,-2.5302653650541296e-05
+0.006118881173927226,FIFA World Cup,world_cup_2018,0.009811976489432217,2018-06-27,international_results_csv-c39087354641bba83f4b,poisson,dixon_coles,poisson_minus_dixon_coles,0.0010466676959906274
+0.000685044610587715,FIFA World Cup,world_cup_2022,0.001522033263560818,2022-11-30,international_results_csv-c40011fdeae18f4c1407,poisson,dixon_coles,poisson_minus_dixon_coles,0.0002148735894658138
+-0.00018287807450398375,Copa América,copa_america_2024,-0.00027495398835308826,2024-06-23,international_results_csv-c49039c4fa2756d70931,poisson,dixon_coles,poisson_minus_dixon_coles,-3.410491895386447e-05
+0.00038492726366623486,FIFA World Cup,world_cup_2022,0.0006450407738052277,2022-11-25,international_results_csv-c8b1e1a89845dc945a1a,poisson,dixon_coles,poisson_minus_dixon_coles,6.0875907085672365e-05
+-0.0019052190167818672,FIFA World Cup,world_cup_2018,-0.0029779014264731396,2018-07-10,international_results_csv-c9a36471e1e33828b6ae,poisson,dixon_coles,poisson_minus_dixon_coles,-0.000355199702859077
+-0.000578298469477101,UEFA Euro,euro_2024,-0.000750756601646918,2024-06-16,international_results_csv-cb152b0aac6751a183de,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00010791829433032252
+0.0014574971961991423,Copa América,copa_america_2024,0.002478430117046182,2024-07-02,international_results_csv-cb32c51c5cbd5650cdb4,poisson,dixon_coles,poisson_minus_dixon_coles,0.00024381327035088995
+0.0004924481389679825,FIFA World Cup,world_cup_2022,0.0012673683491157828,2022-11-28,international_results_csv-ce2db3329e96906526b5,poisson,dixon_coles,poisson_minus_dixon_coles,8.422938042856876e-05
+-0.0008593649509801571,UEFA Euro,euro_2024,-0.0013129092336618964,2024-07-01,international_results_csv-d007886c9cd08939c43c,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00018836955162848668
+0.0015074323339254736,UEFA Euro,euro_2024,0.0030968589156041837,2024-06-23,international_results_csv-d0c7eb3a9724a7bafc90,poisson,dixon_coles,poisson_minus_dixon_coles,0.0002570538044745774
+8.68136220816551e-05,FIFA World Cup,world_cup_2022,5.84704424773097e-05,2022-12-03,international_results_csv-d15c85d894a88d116e61,poisson,dixon_coles,poisson_minus_dixon_coles,-1.6848985402238836e-05
+-0.001358915494644286,FIFA World Cup,world_cup_2018,-0.007224346321080155,2018-07-06,international_results_csv-d18a68e830f98cdd94ca,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00025303425838563154
+0.00036860141763833676,FIFA World Cup,world_cup_2022,0.0005407694568333454,2022-12-03,international_results_csv-d3542a07b8d05cecfa66,poisson,dixon_coles,poisson_minus_dixon_coles,3.694531649203747e-05
+0.005685425766154717,FIFA World Cup,world_cup_2018,0.009256064165715783,2018-06-21,international_results_csv-d3e4d3cd69e66fc203fe,poisson,dixon_coles,poisson_minus_dixon_coles,0.0009978674476718297
+0.0014470104822839058,Copa América,copa_america_2024,0.0024096275822622637,2024-06-30,international_results_csv-d41f137a93d1d79dc3d6,poisson,dixon_coles,poisson_minus_dixon_coles,0.00024138026005970925
+-0.00272026341782583,FIFA World Cup,world_cup_2018,-0.0036228967574964965,2018-06-21,international_results_csv-d56866c78600bab449b9,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0006218149230357572
+-0.002205158073063318,FIFA World Cup,world_cup_2018,-0.0037261882906005628,2018-06-22,international_results_csv-d760b014c52ff0a5ade0,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0003479088302024147
+-0.0003065718260440303,Copa América,copa_america_2024,-0.0003891992197085914,2024-06-28,international_results_csv-d79bcd0cfb786e1ca100,poisson,dixon_coles,poisson_minus_dixon_coles,-6.113113609967219e-05
+-0.0025386337679696447,FIFA World Cup,world_cup_2018,-0.003442419485882642,2018-06-19,international_results_csv-d7d629d2c690a370b173,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0005131829232562224
+-0.00029437207527485687,UEFA Euro,euro_2024,-0.00039166827004349924,2024-07-06,international_results_csv-d8828b9f2335866424b4,poisson,dixon_coles,poisson_minus_dixon_coles,-3.587942577173986e-05
+0.0020234871637525575,UEFA Euro,euro_2024,0.003479219817454693,2024-06-19,international_results_csv-da8d7c1cede850151b72,poisson,dixon_coles,poisson_minus_dixon_coles,0.00034458851631630205
+-0.0005608595489462465,UEFA Euro,euro_2024,-0.0007710656651888637,2024-06-19,international_results_csv-df474f82905353106a15,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00014189643956050157
+0.00018606233917894954,FIFA World Cup,world_cup_2022,0.0013082571551776834,2022-12-02,international_results_csv-e346ab3a4e1d26deaffc,poisson,dixon_coles,poisson_minus_dixon_coles,-1.5637349343733398e-05
+-0.0005155985476442693,Copa América,copa_america_2024,-0.000595513317645735,2024-06-30,international_results_csv-e47ce2fa2a2f33f96a1f,poisson,dixon_coles,poisson_minus_dixon_coles,-9.007795030195609e-05
+-0.002604253880205465,FIFA World Cup,world_cup_2018,-0.006228320318270253,2018-06-21,international_results_csv-e47d1363922e08412ee3,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0005969445330230028
+0.00628561036847719,FIFA World Cup,world_cup_2018,0.009504758364446753,2018-06-25,international_results_csv-e7f5bbfd113a5507245f,poisson,dixon_coles,poisson_minus_dixon_coles,0.0010857884065664514
+-0.0009587680675329224,FIFA World Cup,world_cup_2018,-0.006952437060885774,2018-06-27,international_results_csv-ea2f4305b329a3f6a400,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0001182064060409882
+-0.0025868832405036013,FIFA World Cup,world_cup_2018,-0.004350827687314984,2018-07-14,international_results_csv-ea3941662c9cdfe83d15,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0005496984325670251
+0.001933052703429916,UEFA Euro,euro_2024,0.0030574885312750766,2024-06-16,international_results_csv-eaa2e5f67e37a2386b16,poisson,dixon_coles,poisson_minus_dixon_coles,0.00033360100464491227
+-0.0021665934007164545,FIFA World Cup,world_cup_2018,-0.0031044925055467854,2018-06-22,international_results_csv-eaf6870035d5be4a632b,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0003031402712845299
+-0.00275070271306993,FIFA World Cup,world_cup_2018,-0.0032229172898335934,2018-06-20,international_results_csv-ee9192c6070d95836525,poisson,dixon_coles,poisson_minus_dixon_coles,-0.000626267726849622
+-0.002602853479632794,FIFA World Cup,world_cup_2018,-0.003097791816521034,2018-06-16,international_results_csv-f1d739e65b655a691b61,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0004831070218352107
+-0.0024614879937847056,FIFA World Cup,world_cup_2018,-0.003071979813751624,2018-06-18,international_results_csv-f215c79ae29f188711bf,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0005612605226793244
+-0.001631044301200063,FIFA World Cup,world_cup_2018,-0.0021970071954309778,2018-07-02,international_results_csv-f37260854c9f5c04ed7b,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00038237868575771716
+-0.0024944023139073512,FIFA World Cup,world_cup_2018,-0.003581045275359851,2018-06-28,international_results_csv-f4b51b57c166fb06bfec,poisson,dixon_coles,poisson_minus_dixon_coles,-0.0006459687588375729
+-0.0017296570224225594,FIFA World Cup,world_cup_2018,-0.002187644988312032,2018-06-23,international_results_csv-f59235bb290bc59d94d8,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00036230774286447054
+0.0016170933126815612,UEFA Euro,euro_2024,0.003083644314492151,2024-06-26,international_results_csv-f5f11a88f78aa295e0f8,poisson,dixon_coles,poisson_minus_dixon_coles,0.0002488388128021324
+-0.000852630385051456,Copa América,copa_america_2024,-0.0014156791946722258,2024-06-25,international_results_csv-f610cfaeb74e2edae166,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00021631135584238015
+0.0019737760226272716,UEFA Euro,euro_2024,0.0033239926110852913,2024-06-25,international_results_csv-f7f5df8d85a2631577aa,poisson,dixon_coles,poisson_minus_dixon_coles,0.00032944882381946705
+0.003944735547851463,FIFA World Cup,world_cup_2018,0.009378641828670986,2018-06-16,international_results_csv-fa6505dfe75f6bf8b2f8,poisson,dixon_coles,poisson_minus_dixon_coles,0.0006008387682142624
+-0.0011925851950060906,FIFA World Cup,world_cup_2022,-0.001908214319795487,2022-11-21,international_results_csv-fd78c781f2ad2ca2aea6,poisson,dixon_coles,poisson_minus_dixon_coles,-0.00019557136235814898
+0.3522000955335589,FIFA World Cup,world_cup_2022,0.48582014823639486,2022-12-01,international_results_csv-00a27f9ad5aa23730c88,poisson,elo,poisson_minus_elo,0.15195979669270726
+0.007596065307022046,UEFA Euro,euro_2024,0.014241185836087744,2024-06-14,international_results_csv-00ca9eb2da1f93dafa93,poisson,elo,poisson_minus_elo,0.004326540154493033
+0.09024610945483956,UEFA Euro,euro_2024,0.13810195298081368,2024-06-30,international_results_csv-01d853487e40e06b0dd6,poisson,elo,poisson_minus_elo,0.03116158111612815
+0.11726081289552767,Copa América,copa_america_2024,0.2095925229316327,2024-06-25,international_results_csv-053c6c578ca7842cf4aa,poisson,elo,poisson_minus_elo,0.041032995158434865
+0.017082705460129355,FIFA World Cup,world_cup_2022,0.022986826903559354,2022-11-30,international_results_csv-05bce2d6de741ae77f75,poisson,elo,poisson_minus_elo,-0.013058973223742248
+-0.25886687571213285,FIFA World Cup,world_cup_2022,-0.30151750232891117,2022-11-30,international_results_csv-064a18ffdf283cf53f0d,poisson,elo,poisson_minus_elo,-0.15204660509446144
+0.013409793783153628,FIFA World Cup,world_cup_2018,0.014090019471812654,2018-07-02,international_results_csv-06e35fd48600c0af0762,poisson,elo,poisson_minus_elo,-0.0017727032678869353
+0.10813166749478653,Copa América,copa_america_2024,0.12628859707732598,2024-06-24,international_results_csv-078d38951aa268590396,poisson,elo,poisson_minus_elo,0.04115652088257937
+0.035302578578250254,FIFA World Cup,world_cup_2022,0.1360620837267712,2022-12-01,international_results_csv-083a7495e6b01a59a23e,poisson,elo,poisson_minus_elo,0.003288525108553819
+-0.1266315265017562,FIFA World Cup,world_cup_2018,-0.15900688884577585,2018-06-26,international_results_csv-08704102bb3f34a36601,poisson,elo,poisson_minus_elo,-0.07305441248753583
+-0.09679460596176692,FIFA World Cup,world_cup_2022,-0.11289467867022529,2022-11-26,international_results_csv-0c11873de872f27abde2,poisson,elo,poisson_minus_elo,-0.06739589577378408
+0.3599184895611073,Copa América,copa_america_2024,0.49291520211583967,2024-07-01,international_results_csv-0ccde3f3b100ac5784d7,poisson,elo,poisson_minus_elo,0.15976932403942679
+0.04988779165813034,Copa América,copa_america_2024,0.09579262106416694,2024-06-20,international_results_csv-0da3fdd58b0bcb55a9c3,poisson,elo,poisson_minus_elo,0.016482958815283045
+0.31782110267291774,FIFA World Cup,world_cup_2022,0.5711528269940038,2022-12-10,international_results_csv-0e7928798157c7c63e46,poisson,elo,poisson_minus_elo,0.14304821852021055
+0.031967358172310084,FIFA World Cup,world_cup_2022,0.043880233712176975,2022-12-04,international_results_csv-0f95621134a4fb0d6bf9,poisson,elo,poisson_minus_elo,0.006294961379580605
+-0.29722188365640356,UEFA Euro,euro_2024,-0.5393780403487671,2024-06-17,international_results_csv-0fa1a1ae832ba71ee709,poisson,elo,poisson_minus_elo,-0.1652997079486196
+0.01731099784140183,UEFA Euro,euro_2024,0.03624118347709679,2024-06-30,international_results_csv-11619d81a979cc5fe28d,poisson,elo,poisson_minus_elo,0.00571043550759423
+-0.1901728589557189,FIFA World Cup,world_cup_2022,-0.24716073449867892,2022-12-01,international_results_csv-11e2bd3b4a7ef125ac5f,poisson,elo,poisson_minus_elo,-0.10163434279831497
+-0.18375258093408875,FIFA World Cup,world_cup_2022,-0.32673557501393646,2022-11-23,international_results_csv-1252b10377cebb51c211,poisson,elo,poisson_minus_elo,-0.03149427744082803
+-0.011178042501653024,FIFA World Cup,world_cup_2022,-0.021318367376905845,2022-12-13,international_results_csv-12c013cde27369d2c962,poisson,elo,poisson_minus_elo,-0.012282512795700931
+0.07633942295778073,FIFA World Cup,world_cup_2018,0.10130531525834058,2018-06-24,international_results_csv-14b18a7085e0239d664b,poisson,elo,poisson_minus_elo,0.019131256380789212
+0.013004793719273572,FIFA World Cup,world_cup_2022,0.010609819104593021,2022-12-02,international_results_csv-161dcc18bad0fded5fb3,poisson,elo,poisson_minus_elo,-0.006738922929257415
+0.03083481394337373,FIFA World Cup,world_cup_2018,0.0674548861128288,2018-06-30,international_results_csv-18df55c3b1141842f275,poisson,elo,poisson_minus_elo,0.0011944332909565314
+-0.15520278211962868,FIFA World Cup,world_cup_2022,-0.2545763503563654,2022-11-22,international_results_csv-18fbcaa0c3182f0c0566,poisson,elo,poisson_minus_elo,-0.03295140828392129
+-0.0513894021243442,FIFA World Cup,world_cup_2022,-0.0750119900322394,2022-11-29,international_results_csv-196eb4a0f0050406cf68,poisson,elo,poisson_minus_elo,-0.02475886749511684
+0.0988054309718745,FIFA World Cup,world_cup_2022,0.1305380070113782,2022-11-24,international_results_csv-1c49ea36172f315bb21e,poisson,elo,poisson_minus_elo,0.02750872276527637
+-0.2782755000488488,FIFA World Cup,world_cup_2022,-0.46670939619966156,2022-11-22,international_results_csv-1e226147e62452b3ea57,poisson,elo,poisson_minus_elo,-0.06199845201743212
+-0.17693407854951548,FIFA World Cup,world_cup_2022,-0.35234030180299003,2022-11-28,international_results_csv-22190c2529f0255220ef,poisson,elo,poisson_minus_elo,-0.029138686430162652
+-0.073030021465742,FIFA World Cup,world_cup_2018,-0.09422004286306163,2018-06-25,international_results_csv-233980863f63a0dec852,poisson,elo,poisson_minus_elo,-0.03668697345929939
+0.14564474342441822,Copa América,copa_america_2024,0.25872686654413285,2024-06-29,international_results_csv-23d53bd9024994449cfa,poisson,elo,poisson_minus_elo,0.04927028546232157
+-0.05162504552209152,FIFA World Cup,world_cup_2022,-0.06223941873891958,2022-12-14,international_results_csv-2407444965a7eba16705,poisson,elo,poisson_minus_elo,-0.04336769843073568
+-0.1759178323674151,UEFA Euro,euro_2024,-0.2581135358903974,2024-06-25,international_results_csv-24c2c52b47c2ed90ed03,poisson,elo,poisson_minus_elo,-0.09649703888021421
+-0.17638125577885033,UEFA Euro,euro_2024,-0.22830381891739993,2024-06-15,international_results_csv-24f86e3c6e66608c5c74,poisson,elo,poisson_minus_elo,-0.09951459246852912
+0.00019600785777496021,FIFA World Cup,world_cup_2022,-0.06612481414945814,2022-12-01,international_results_csv-27247d6b90ecb388da92,poisson,elo,poisson_minus_elo,0.011305013022877675
+0.044775505255134185,UEFA Euro,euro_2024,0.09688905389872149,2024-06-29,international_results_csv-2827401cd7c0cbf3b964,poisson,elo,poisson_minus_elo,0.011322231994817022
+-0.11941380715600741,Copa América,copa_america_2024,-0.16513479434203504,2024-06-22,international_results_csv-289f7040a7fe85079367,poisson,elo,poisson_minus_elo,-0.05845480342507971
+-0.07186331331199584,Copa América,copa_america_2024,-0.12097370647383748,2024-07-06,international_results_csv-28d8e0b020f13d8fa6ec,poisson,elo,poisson_minus_elo,-0.033089451794559216
+0.19517485246502214,FIFA World Cup,world_cup_2022,0.26693680761760974,2022-11-26,international_results_csv-298391a54cc47ab0d485,poisson,elo,poisson_minus_elo,0.07761339776629489
+0.09030395419780385,FIFA World Cup,world_cup_2022,0.128339845430676,2022-11-21,international_results_csv-2bba41828f4e577b6277,poisson,elo,poisson_minus_elo,0.030038753526876766
+0.16776976733355103,FIFA World Cup,world_cup_2018,0.22545372837512445,2018-07-15,international_results_csv-2df80065485235a27c37,poisson,elo,poisson_minus_elo,0.0631147638729911
+-0.039803590928690596,Copa América,copa_america_2024,-0.06707470661756759,2024-06-23,international_results_csv-309ada293c57c2d80d6c,poisson,elo,poisson_minus_elo,-0.02114460311687906
+0.19753691870047407,FIFA World Cup,world_cup_2022,0.2703100432231531,2022-11-27,international_results_csv-30ed4182efd761210802,poisson,elo,poisson_minus_elo,0.08687491430735694
+0.20348811965813474,UEFA Euro,euro_2024,0.2831378286804678,2024-06-29,international_results_csv-333cb5e5a3ea47ecedc7,poisson,elo,poisson_minus_elo,0.0928295509432197
+-0.23250451409284023,FIFA World Cup,world_cup_2018,-0.3093437300519273,2018-06-17,international_results_csv-33da39b79b9b27736b6f,poisson,elo,poisson_minus_elo,-0.13188286021024187
+0.050435551648163546,Copa América,copa_america_2024,0.09710163468275565,2024-07-09,international_results_csv-346aebd88aafddb08f57,poisson,elo,poisson_minus_elo,0.0166961628193316
+0.013560313534546592,UEFA Euro,euro_2024,0.015021590520860106,2024-06-22,international_results_csv-34c2e4049c0ad5037d57,poisson,elo,poisson_minus_elo,8.91129834963561e-05
+0.1342337787099157,FIFA World Cup,world_cup_2022,0.1907590869370972,2022-12-02,international_results_csv-35717f8071b5f4211215,poisson,elo,poisson_minus_elo,0.05621515284754963
+0.00947730101605515,FIFA World Cup,world_cup_2022,0.027382920649902,2022-11-28,international_results_csv-35896ed19631ca5a0b21,poisson,elo,poisson_minus_elo,-0.013911466342482026
+-0.2125995119447761,UEFA Euro,euro_2024,-0.3661803771642329,2024-06-25,international_results_csv-35c4816ffbbfa1cddaee,poisson,elo,poisson_minus_elo,-0.04982525782425637
+-0.043977273343365875,FIFA World Cup,world_cup_2022,-0.029447745375540513,2022-12-17,international_results_csv-35c6633f76d276ba2e53,poisson,elo,poisson_minus_elo,-0.0418092960376919
+-0.0537808807595207,FIFA World Cup,world_cup_2018,-0.17089385961897685,2018-06-15,international_results_csv-36afee440f9a514e91ce,poisson,elo,poisson_minus_elo,0.003929354013837094
+0.2759658437658039,Copa América,copa_america_2024,0.41432372885342506,2024-07-02,international_results_csv-375c5266c31284ecab1b,poisson,elo,poisson_minus_elo,0.11295069480403938
+-0.0745304987392248,UEFA Euro,euro_2024,-0.06138185825359521,2024-06-26,international_results_csv-37b4552ad95a2a573ddc,poisson,elo,poisson_minus_elo,-0.04244059708524883
+-0.016723383853592955,UEFA Euro,euro_2024,-0.043622864693505514,2024-06-22,international_results_csv-394a96637e654dc19cce,poisson,elo,poisson_minus_elo,-0.0006391275073713565
+0.29906152878838604,FIFA World Cup,world_cup_2018,0.41619289503879664,2018-06-15,international_results_csv-3a3f96c0a49521e3fc84,poisson,elo,poisson_minus_elo,0.10639296538787768
+-0.10296568058653865,FIFA World Cup,world_cup_2022,-0.1243043932045681,2022-11-21,international_results_csv-3cb529d3b76aa52f433f,poisson,elo,poisson_minus_elo,-0.07358957973339286
+-0.07226864412269907,FIFA World Cup,world_cup_2022,-0.050080377609469595,2022-11-27,international_results_csv-3d80035efd18e54e8f66,poisson,elo,poisson_minus_elo,-0.04998975893056201
+-0.024187849934378614,FIFA World Cup,world_cup_2022,0.5116940479083993,2022-12-02,international_results_csv-3dbdd6db150f012fe6ac,poisson,elo,poisson_minus_elo,-0.018222175137718954
+-0.11022882406104006,UEFA Euro,euro_2024,-0.1559598793054482,2024-07-02,international_results_csv-3e4906bb3d0a6c9878ef,poisson,elo,poisson_minus_elo,-0.05989026522647434
+-0.03302578050814531,UEFA Euro,euro_2024,-0.09563318220663986,2024-06-20,international_results_csv-412816b6da7660a82823,poisson,elo,poisson_minus_elo,0.001466732037792906
+0.27585720589632073,UEFA Euro,euro_2024,0.37004443981003154,2024-07-14,international_results_csv-425042cdb61725c4ce1d,poisson,elo,poisson_minus_elo,0.12395199029165899
+0.06932527004365463,FIFA World Cup,world_cup_2022,0.11382358997918862,2022-11-23,international_results_csv-42770c114dfcbdab344a,poisson,elo,poisson_minus_elo,0.026817766869521975
+0.08229505490322825,Copa América,copa_america_2024,0.1080559839302101,2024-07-14,international_results_csv-42887385aa7147490c72,poisson,elo,poisson_minus_elo,0.02424008759859797
+-0.16511600915990865,UEFA Euro,euro_2024,-0.22431482199666808,2024-07-05,international_results_csv-42fe435cac357dd1e008,poisson,elo,poisson_minus_elo,-0.0722957618933493
+0.03404427934518375,FIFA World Cup,world_cup_2018,0.05756934306329234,2018-06-27,international_results_csv-43e7d573120c11c89643,poisson,elo,poisson_minus_elo,0.008485157031233672
+-0.09973003427920657,UEFA Euro,euro_2024,-0.1710044285489054,2024-06-24,international_results_csv-45b545616685abb8f8a6,poisson,elo,poisson_minus_elo,-0.01661579009697703
+-0.4380548463072872,FIFA World Cup,world_cup_2022,-0.5741147225557847,2022-11-20,international_results_csv-466216ee9a5e2c3fc300,poisson,elo,poisson_minus_elo,-0.2201737674691485
+0.02298398875207447,FIFA World Cup,world_cup_2022,0.04349435993618611,2022-11-26,international_results_csv-472f71ee4301875a403b,poisson,elo,poisson_minus_elo,-0.006934032985841138
+-0.17344450230450248,FIFA World Cup,world_cup_2022,-0.32587261413766333,2022-11-25,international_results_csv-48eb64712c77094c0faf,poisson,elo,poisson_minus_elo,-0.02671023495637634
+0.07911076818561219,UEFA Euro,euro_2024,0.10771372339425878,2024-07-09,international_results_csv-4932c88aa7fd2f79f650,poisson,elo,poisson_minus_elo,0.03405524844105248
+-0.1844722942600231,UEFA Euro,euro_2024,-0.2402244323524474,2024-07-10,international_results_csv-4ab1e50f59e6f2bae34b,poisson,elo,poisson_minus_elo,-0.09737953847718447
+-0.0925909349123763,UEFA Euro,euro_2024,-0.12169189161970206,2024-06-15,international_results_csv-4f1d5472bcd4fd8cfe55,poisson,elo,poisson_minus_elo,-0.047924022783900455
+0.008313426347145214,UEFA Euro,euro_2024,0.01649271558306664,2024-06-21,international_results_csv-4fa4c3967ebed6758154,poisson,elo,poisson_minus_elo,-0.00793621389200419
+-0.12762795243750433,Copa América,copa_america_2024,-0.18224674280441372,2024-06-26,international_results_csv-50a81cdbee8b6179cac8,poisson,elo,poisson_minus_elo,-0.0637609733714617
+0.057047268347185376,UEFA Euro,euro_2024,0.08401266037431931,2024-07-02,international_results_csv-51ad039cd8b4efa28464,poisson,elo,poisson_minus_elo,0.017906316501447313
+-0.4431803893880575,FIFA World Cup,world_cup_2018,-0.59686620010475,2018-06-27,international_results_csv-535d71d52b980784bdda,poisson,elo,poisson_minus_elo,-0.24621314008445672
+0.04406313164464737,FIFA World Cup,world_cup_2018,0.05970103534350035,2018-06-15,international_results_csv-53af7e4b5d01c3836fc7,poisson,elo,poisson_minus_elo,0.004139814812604503
+-0.05244943293469917,FIFA World Cup,world_cup_2022,-0.1977435148878306,2022-11-24,international_results_csv-54a80e3db86efdc713b1,poisson,elo,poisson_minus_elo,0.008569599056071187
+-0.47061009644390595,UEFA Euro,euro_2024,-0.7378635781787757,2024-06-25,international_results_csv-55e899b80c818dc9399e,poisson,elo,poisson_minus_elo,-0.13958962594096583
+0.025756475367014642,Copa América,copa_america_2024,0.03656638137463586,2024-07-01,international_results_csv-5b17e087e7fd65aed5d5,poisson,elo,poisson_minus_elo,0.008486936196101524
+0.12892765109676158,UEFA Euro,euro_2024,0.1822585368061464,2024-06-17,international_results_csv-5bc5ac0d77a465d6843f,poisson,elo,poisson_minus_elo,0.050064488570706334
+0.07256015606338648,FIFA World Cup,world_cup_2022,0.0990505712267773,2022-11-22,international_results_csv-5c8b78d320eff170410d,poisson,elo,poisson_minus_elo,0.023150891525781425
+0.10373186105128651,UEFA Euro,euro_2024,0.1408753152098916,2024-06-21,international_results_csv-5cee46756bbaba3f4a9c,poisson,elo,poisson_minus_elo,0.04283338171550288
+0.01887471725891629,FIFA World Cup,world_cup_2018,0.02741386931009937,2018-06-20,international_results_csv-5effeef45349fc2c37ee,poisson,elo,poisson_minus_elo,0.0038467298068243436
+-0.011590434909168432,FIFA World Cup,world_cup_2022,-0.02757141560036072,2022-11-24,international_results_csv-5fc599a3b72c6e236a25,poisson,elo,poisson_minus_elo,-0.008997900749932255
+-0.1401456886534055,Copa América,copa_america_2024,-0.23190045129339887,2024-06-21,international_results_csv-60590b0bc0dc565d18cc,poisson,elo,poisson_minus_elo,-0.024099659292258158
+0.06424272827855089,UEFA Euro,euro_2024,0.13864663611932918,2024-06-24,international_results_csv-615209ed8d6c11d8fe43,poisson,elo,poisson_minus_elo,0.021349673605170927
+0.073554069971831,FIFA World Cup,world_cup_2022,0.12213741362129704,2022-11-29,international_results_csv-63ba0233243234273d1d,poisson,elo,poisson_minus_elo,0.008517618892855988
+-0.16484498304821738,Copa América,copa_america_2024,-0.2060164934210138,2024-06-22,international_results_csv-6413dd39c541f6647695,poisson,elo,poisson_minus_elo,-0.10361569848259883
+0.04587609275961918,UEFA Euro,euro_2024,0.05930693910080731,2024-06-18,international_results_csv-64bd65869cd26e5055db,poisson,elo,poisson_minus_elo,0.02285412158622016
+-0.10388680439372494,FIFA World Cup,world_cup_2018,-0.13157019642776202,2018-06-28,international_results_csv-673171d8c4a4f215e7eb,poisson,elo,poisson_minus_elo,-0.07482070576471642
+-0.1557685208206181,FIFA World Cup,world_cup_2022,-0.20050540040789433,2022-12-06,international_results_csv-679c244d7721a5fc2646,poisson,elo,poisson_minus_elo,-0.08648694338678474
+-0.04786947750674864,FIFA World Cup,world_cup_2018,-0.059452801348510165,2018-06-24,international_results_csv-6806da97e0f8aa306b0e,poisson,elo,poisson_minus_elo,-0.0354188058437403
+-0.034198722942502646,FIFA World Cup,world_cup_2018,-0.05265333984596332,2018-06-26,international_results_csv-6d22081c7606fab3a9fe,poisson,elo,poisson_minus_elo,-0.02457478368373653
+-0.05748526799194709,UEFA Euro,euro_2024,-0.0893475547861069,2024-06-21,international_results_csv-6e6c455b52aecb25bee5,poisson,elo,poisson_minus_elo,-0.012323647606942378
+-0.1481439801918778,FIFA World Cup,world_cup_2022,-0.05625086106587629,2022-11-22,international_results_csv-6fdf96ce42ea51cec9a2,poisson,elo,poisson_minus_elo,-0.08681421909016718
+-0.04032509305885015,FIFA World Cup,world_cup_2022,-0.06696386331603355,2022-11-23,international_results_csv-709042582351ff39048d,poisson,elo,poisson_minus_elo,-0.029160509312060025
+0.32006443869193496,FIFA World Cup,world_cup_2018,0.43676137459915126,2018-06-20,international_results_csv-7220b26f091bb1713172,poisson,elo,poisson_minus_elo,0.12565896146850208
+-0.16530508905508545,FIFA World Cup,world_cup_2022,-0.24629772361963798,2022-11-27,international_results_csv-7230e2c38e1cf0aa1bb2,poisson,elo,poisson_minus_elo,-0.04232486283638809
+0.1384326956188513,FIFA World Cup,world_cup_2022,0.1864900319171524,2022-11-25,international_results_csv-72cd74710980a6aed7db,poisson,elo,poisson_minus_elo,0.035102425736262016
+-0.07043315636117088,FIFA World Cup,world_cup_2022,-0.13494092782872694,2022-12-05,international_results_csv-73073bf324a9e07483a7,poisson,elo,poisson_minus_elo,-0.03413217485271179
+-0.16016973859397599,UEFA Euro,euro_2024,-0.18572794930389924,2024-06-17,international_results_csv-74af73ebd43cebf41349,poisson,elo,poisson_minus_elo,-0.10161550710563877
+0.13321044147023686,UEFA Euro,euro_2024,0.18010892447299176,2024-06-26,international_results_csv-76d609de336e8c47ce51,poisson,elo,poisson_minus_elo,0.06704740159309575
+0.008241636976124345,FIFA World Cup,world_cup_2022,0.11237572633144777,2022-11-27,international_results_csv-772cfcf8fffe31988653,poisson,elo,poisson_minus_elo,-0.019311009392980527
+-0.0003609231639997712,FIFA World Cup,world_cup_2018,-0.0066054986823188555,2018-06-18,international_results_csv-77c327471d01e00248ee,poisson,elo,poisson_minus_elo,-0.01897588689838911
+-0.03389201255504559,UEFA Euro,euro_2024,-0.03815175249028613,2024-06-23,international_results_csv-7a3a25ceedcb6ec379e8,poisson,elo,poisson_minus_elo,-0.028186935890172404
+0.043174744763397555,UEFA Euro,euro_2024,0.0576500275849684,2024-06-20,international_results_csv-7bb00acc7cb75e5d3fd2,poisson,elo,poisson_minus_elo,0.013238708938794252
+-0.19422470472444764,FIFA World Cup,world_cup_2018,-0.40611357406003146,2018-06-17,international_results_csv-7bead77ef0e1296b0283,poisson,elo,poisson_minus_elo,-0.036551919206653544
+0.05491901786802586,UEFA Euro,euro_2024,0.08161211885720837,2024-06-18,international_results_csv-7e8d07244f9800a0e7f7,poisson,elo,poisson_minus_elo,0.02121918569657847
+-0.005869069391735579,FIFA World Cup,world_cup_2022,-0.018685727271504138,2022-11-28,international_results_csv-7ee6e6bd07c61e97a834,poisson,elo,poisson_minus_elo,-0.008215541917153839
+0.2156649433286908,FIFA World Cup,world_cup_2018,0.34503991275855095,2018-07-11,international_results_csv-7f6d0baefe5e4585cc80,poisson,elo,poisson_minus_elo,0.08069437641462013
+0.07145663327621127,FIFA World Cup,world_cup_2022,0.09688868680479534,2022-11-23,international_results_csv-85b306be7f875d48a960,poisson,elo,poisson_minus_elo,0.02841103396483119
+0.038935614738116464,FIFA World Cup,world_cup_2022,0.11850977980756827,2022-11-29,international_results_csv-86e9a2fa6ecc8fd65bad,poisson,elo,poisson_minus_elo,0.00035338192760031584
+-0.29214082070169556,FIFA World Cup,world_cup_2018,-0.46111277080657476,2018-06-26,international_results_csv-88c4020dfd8f41f0372c,poisson,elo,poisson_minus_elo,-0.06538197313067268
+0.11530919118232524,FIFA World Cup,world_cup_2022,0.1578232914541552,2022-11-29,international_results_csv-8ee0379aa2a963eb3558,poisson,elo,poisson_minus_elo,0.034197900164016554
+0.050425062626196115,UEFA Euro,euro_2024,0.06890244120700989,2024-06-16,international_results_csv-8f9ece726a78cd47bec5,poisson,elo,poisson_minus_elo,0.016956061881555254
+-0.010057384425084082,FIFA World Cup,world_cup_2018,-0.002619937804139605,2018-07-07,international_results_csv-8fc851994cffb600ee8e,poisson,elo,poisson_minus_elo,-0.028684493783294324
+-0.4497469298490483,UEFA Euro,euro_2024,-0.7095815964630285,2024-06-19,international_results_csv-8fd8c14dd0cbc763278d,poisson,elo,poisson_minus_elo,-0.12381062367881301
+-0.13774584816103796,UEFA Euro,euro_2024,-0.2376107638880376,2024-06-26,international_results_csv-907df97a123fa51e2aa5,poisson,elo,poisson_minus_elo,-0.02158193874813996
+0.12429335296729264,Copa América,copa_america_2024,0.18302033728141248,2024-06-24,international_results_csv-90b913a78e6db81750cf,poisson,elo,poisson_minus_elo,0.04018857057888603
+-0.03037112827397144,UEFA Euro,euro_2024,-0.049792996080962215,2024-06-22,international_results_csv-917e94482d304004e95f,poisson,elo,poisson_minus_elo,-0.015248376101751226
+-0.17849116529350878,FIFA World Cup,world_cup_2018,-0.24493565493673058,2018-06-14,international_results_csv-9211415def4a2a518ae5,poisson,elo,poisson_minus_elo,-0.08082821545987302
+-0.015705693701437706,FIFA World Cup,world_cup_2018,-0.027387856234878383,2018-06-18,international_results_csv-926cd3d892bf57860297,poisson,elo,poisson_minus_elo,-0.01283450510176204
+-0.035675747722659024,FIFA World Cup,world_cup_2018,-0.03586347742316287,2018-07-06,international_results_csv-949d0947c96b819ca878,poisson,elo,poisson_minus_elo,-0.029271392403963176
+-0.24999063297262913,UEFA Euro,euro_2024,-0.3718618980722359,2024-06-20,international_results_csv-94f0a2eadb71e4c7cf8b,poisson,elo,poisson_minus_elo,-0.05842253629821201
+-0.19090037265548987,FIFA World Cup,world_cup_2022,-0.2955862648000913,2022-11-25,international_results_csv-9abe840e02d1f5251cd0,poisson,elo,poisson_minus_elo,-0.04512152633128719
+0.023827146938374122,FIFA World Cup,world_cup_2018,0.03378123659024812,2018-06-23,international_results_csv-9de7492b83a49078ffc6,poisson,elo,poisson_minus_elo,-0.0011760111851517596
+-0.14376839620220305,FIFA World Cup,world_cup_2018,-0.2716439448654806,2018-06-24,international_results_csv-a2fc1a4244d90c0c330f,poisson,elo,poisson_minus_elo,-0.020953638542448694
+0.17004678076841354,UEFA Euro,euro_2024,0.2689545370523521,2024-06-15,international_results_csv-a32e3412f868dc2973fe,poisson,elo,poisson_minus_elo,0.06055235077795548
+-0.07128555756766164,Copa América,copa_america_2024,-0.07815458392607355,2024-06-26,international_results_csv-a34dd70bd3878672430b,poisson,elo,poisson_minus_elo,-0.04820855903792487
+-0.029008677957585882,FIFA World Cup,world_cup_2022,-0.044290063630818,2022-12-04,international_results_csv-a4541c399fbb00659c3b,poisson,elo,poisson_minus_elo,-0.02626322182996574
+0.24664051245558127,FIFA World Cup,world_cup_2018,0.3945971252306164,2018-06-25,international_results_csv-a4ad52584a6b0ca1e9ef,poisson,elo,poisson_minus_elo,0.10983336031547758
+-0.008343139919747888,FIFA World Cup,world_cup_2018,0.004662342300890798,2018-06-28,international_results_csv-a5522d7c007e5f722a3a,poisson,elo,poisson_minus_elo,-0.02759874746477628
+-0.023778830776712945,FIFA World Cup,world_cup_2018,0.0017766532778802357,2018-07-03,international_results_csv-a70c2997fd3870579b26,poisson,elo,poisson_minus_elo,-0.034540491992234246
+0.0681838270156776,FIFA World Cup,world_cup_2018,0.113570269929118,2018-06-28,international_results_csv-a8e86526d67c35f1355f,poisson,elo,poisson_minus_elo,0.019073670937220844
+-0.005010891511926685,Copa América,copa_america_2024,0.0034374287315191987,2024-07-10,international_results_csv-a90e8651082210abd4ae,poisson,elo,poisson_minus_elo,-0.016262548330273907
+-0.4184907214594996,FIFA World Cup,world_cup_2018,-0.6750149743419198,2018-06-25,international_results_csv-aa701ce5d92317f620df,poisson,elo,poisson_minus_elo,-0.10791415633492085
+-0.07172352122776363,FIFA World Cup,world_cup_2018,-0.10073826350846693,2018-06-16,international_results_csv-ad7447caa6303f5f6c01,poisson,elo,poisson_minus_elo,-0.03867531529080723
+0.010433010353042754,FIFA World Cup,world_cup_2022,0.012735289489795132,2022-11-30,international_results_csv-aed43639a932a8d679d9,poisson,elo,poisson_minus_elo,-0.0020191816319713035
+0.011890380623183844,FIFA World Cup,world_cup_2018,0.015931126393580075,2018-06-22,international_results_csv-b0081ac08a471b778e35,poisson,elo,poisson_minus_elo,0.00038647248860847194
+-0.053000316068212205,Copa América,copa_america_2024,-0.08476442293352893,2024-06-29,international_results_csv-b05d7666237e5f555fa9,poisson,elo,poisson_minus_elo,-0.01064725356296925
+0.07444023220961926,FIFA World Cup,world_cup_2018,0.12043181062094599,2018-06-19,international_results_csv-b19e93760c27e10672da,poisson,elo,poisson_minus_elo,0.020059880693083953
+0.01551499092164832,Copa América,copa_america_2024,0.05477390053583653,2024-06-27,international_results_csv-b24f74e0627f4f161344,poisson,elo,poisson_minus_elo,0.006789294141131719
+0.04142651830431021,FIFA World Cup,world_cup_2022,0.08517080447981396,2022-12-10,international_results_csv-b35074520e7ee28c8baf,poisson,elo,poisson_minus_elo,0.0021328257599042555
+-0.3646069185271752,FIFA World Cup,world_cup_2018,-0.4794516616487958,2018-06-16,international_results_csv-b3b504dc8f5a615011a8,poisson,elo,poisson_minus_elo,-0.21607086220525162
+0.22482168665687777,FIFA World Cup,world_cup_2018,0.31182759797465776,2018-06-23,international_results_csv-b6bd59352f17b1237c95,poisson,elo,poisson_minus_elo,0.09274356209903975
+0.036624881547474036,FIFA World Cup,world_cup_2022,0.049270819861470416,2022-11-26,international_results_csv-b6d4165dd6f52d3da850,poisson,elo,poisson_minus_elo,0.006775339841429917
+0.2441652363799951,FIFA World Cup,world_cup_2018,0.335339075776956,2018-06-30,international_results_csv-b982aaf023e38ad7fc0b,poisson,elo,poisson_minus_elo,0.1096204141271987
+0.1657443791852955,FIFA World Cup,world_cup_2018,0.3541942682235115,2018-06-19,international_results_csv-bae62f2d66dd7275cb0b,poisson,elo,poisson_minus_elo,0.07400305627387271
+0.00441425841986226,Copa América,copa_america_2024,0.0026487665468235555,2024-06-28,international_results_csv-bc285e992f98e3abae2e,poisson,elo,poisson_minus_elo,-0.0015133064983789135
+0.03980210653446711,FIFA World Cup,world_cup_2022,0.061184160177267966,2022-11-24,international_results_csv-bde63dc1d6dfa511872d,poisson,elo,poisson_minus_elo,0.009129362709695645
+0.11499421891841177,FIFA World Cup,world_cup_2018,0.15688070678984717,2018-06-26,international_results_csv-c1799009628103a8554b,poisson,elo,poisson_minus_elo,0.04181548245943045
+-0.3232192166835524,FIFA World Cup,world_cup_2018,-0.41140405903649757,2018-06-17,international_results_csv-c28b97b118f8bc501322,poisson,elo,poisson_minus_elo,-0.1764274733769682
+0.05658238854961447,Copa América,copa_america_2024,0.12189638527443633,2024-06-27,international_results_csv-c2aa1d09d239a0d7b57c,poisson,elo,poisson_minus_elo,0.019787984044419095
+-0.30658012808515256,FIFA World Cup,world_cup_2018,-0.46020814948532096,2018-06-27,international_results_csv-c39087354641bba83f4b,poisson,elo,poisson_minus_elo,-0.07225348214328048
+0.16918953957340355,FIFA World Cup,world_cup_2022,0.29673883074919116,2022-11-30,international_results_csv-c40011fdeae18f4c1407,poisson,elo,poisson_minus_elo,0.07089749972695147
+0.05414667386309637,Copa América,copa_america_2024,0.11434246496207678,2024-06-23,international_results_csv-c49039c4fa2756d70931,poisson,elo,poisson_minus_elo,0.020469206388463015
+-0.3154920377805561,FIFA World Cup,world_cup_2022,-0.42028624426080774,2022-11-25,international_results_csv-c8b1e1a89845dc945a1a,poisson,elo,poisson_minus_elo,-0.16707047267880315
+-0.027970088103781654,FIFA World Cup,world_cup_2018,-0.026309753895251253,2018-07-10,international_results_csv-c9a36471e1e33828b6ae,poisson,elo,poisson_minus_elo,-0.021575774572535816
+0.1282001374622706,UEFA Euro,euro_2024,0.18227161611657766,2024-06-16,international_results_csv-cb152b0aac6751a183de,poisson,elo,poisson_minus_elo,0.052283266891735486
+-0.037394067455236546,Copa América,copa_america_2024,-0.08956618802677685,2024-07-02,international_results_csv-cb32c51c5cbd5650cdb4,poisson,elo,poisson_minus_elo,-0.0016866452894573336
+-0.36743710795852513,FIFA World Cup,world_cup_2022,-0.5036104879513466,2022-11-28,international_results_csv-ce2db3329e96906526b5,poisson,elo,poisson_minus_elo,-0.2154295402617447
+0.2378966155083625,UEFA Euro,euro_2024,0.31783086629548174,2024-07-01,international_results_csv-d007886c9cd08939c43c,poisson,elo,poisson_minus_elo,0.10780134601974758
+-0.14013025035181115,UEFA Euro,euro_2024,-0.11271590351602234,2024-06-23,international_results_csv-d0c7eb3a9724a7bafc90,poisson,elo,poisson_minus_elo,-0.05276158767606354
+0.02489440342029181,FIFA World Cup,world_cup_2022,0.0350268094996114,2022-12-03,international_results_csv-d15c85d894a88d116e61,poisson,elo,poisson_minus_elo,0.004000147310259314
+0.27558989383475385,FIFA World Cup,world_cup_2018,0.5265669404782845,2018-07-06,international_results_csv-d18a68e830f98cdd94ca,poisson,elo,poisson_minus_elo,0.13601348594532248
+0.11100976389007078,FIFA World Cup,world_cup_2022,0.15324112522786015,2022-12-03,international_results_csv-d3542a07b8d05cecfa66,poisson,elo,poisson_minus_elo,0.04074031565366776
+-0.10559205868536714,FIFA World Cup,world_cup_2018,-0.22736388203409752,2018-06-21,international_results_csv-d3e4d3cd69e66fc203fe,poisson,elo,poisson_minus_elo,-0.010830718602741596
+-0.06944151967712808,Copa América,copa_america_2024,-0.12906259589475821,2024-06-30,international_results_csv-d41f137a93d1d79dc3d6,poisson,elo,poisson_minus_elo,-0.009953169984615096
+0.11827633986680414,FIFA World Cup,world_cup_2018,0.1610597104459247,2018-06-21,international_results_csv-d56866c78600bab449b9,poisson,elo,poisson_minus_elo,0.0405198141295916
+-0.12125427360428975,FIFA World Cup,world_cup_2018,-0.13714255855787516,2018-06-22,international_results_csv-d760b014c52ff0a5ade0,poisson,elo,poisson_minus_elo,-0.07457952688925862
+0.023508330599382954,Copa América,copa_america_2024,0.030360416439046356,2024-06-28,international_results_csv-d79bcd0cfb786e1ca100,poisson,elo,poisson_minus_elo,0.0025799716153030866
+0.13152317990354218,FIFA World Cup,world_cup_2018,0.17589882816259872,2018-06-19,international_results_csv-d7d629d2c690a370b173,poisson,elo,poisson_minus_elo,0.0546655832935688
+-0.04934436149629334,UEFA Euro,euro_2024,-0.07098216378856725,2024-07-06,international_results_csv-d8828b9f2335866424b4,poisson,elo,poisson_minus_elo,-0.021743982730833764
+-0.07533600624302272,UEFA Euro,euro_2024,-0.13661801979731192,2024-06-19,international_results_csv-da8d7c1cede850151b72,poisson,elo,poisson_minus_elo,-0.012665781310576524
+0.0791837243765361,UEFA Euro,euro_2024,0.12254815598984153,2024-06-19,international_results_csv-df474f82905353106a15,poisson,elo,poisson_minus_elo,0.0343856027934833
+0.1689380331962218,FIFA World Cup,world_cup_2022,0.4089246732712202,2022-12-02,international_results_csv-e346ab3a4e1d26deaffc,poisson,elo,poisson_minus_elo,0.07385998013123779
+-0.012904128308704799,Copa América,copa_america_2024,-0.020794035519214327,2024-06-30,international_results_csv-e47ce2fa2a2f33f96a1f,poisson,elo,poisson_minus_elo,-0.017816507565846032
+-0.07842435563823724,FIFA World Cup,world_cup_2018,-0.05499350189335028,2018-06-21,international_results_csv-e47d1363922e08412ee3,poisson,elo,poisson_minus_elo,-0.05642931606848134
+-0.23939233486884648,FIFA World Cup,world_cup_2018,-0.40913757430632236,2018-06-25,international_results_csv-e7f5bbfd113a5507245f,poisson,elo,poisson_minus_elo,-0.04161034044062398
+0.032150031785310285,FIFA World Cup,world_cup_2018,0.1788107210645271,2018-06-27,international_results_csv-ea2f4305b329a3f6a400,poisson,elo,poisson_minus_elo,0.008525739123862675
+0.34601305597554377,FIFA World Cup,world_cup_2018,0.4697774403169255,2018-07-14,international_results_csv-ea3941662c9cdfe83d15,poisson,elo,poisson_minus_elo,0.15419496408940056
+-0.14211954251735037,UEFA Euro,euro_2024,-0.2619075679995202,2024-06-16,international_results_csv-eaa2e5f67e37a2386b16,poisson,elo,poisson_minus_elo,-0.021137467275968908
+0.1679475098694605,FIFA World Cup,world_cup_2018,0.22932606645436404,2018-06-22,international_results_csv-eaf6870035d5be4a632b,poisson,elo,poisson_minus_elo,0.0648480806641728
+-0.12886405334753254,FIFA World Cup,world_cup_2018,-0.17140523514401607,2018-06-20,international_results_csv-ee9192c6070d95836525,poisson,elo,poisson_minus_elo,-0.0777782568043048
+0.10649528756285803,FIFA World Cup,world_cup_2018,0.14082388383878564,2018-06-16,international_results_csv-f1d739e65b655a691b61,poisson,elo,poisson_minus_elo,0.030970583860290807
+-0.3416749344043157,FIFA World Cup,world_cup_2018,-0.43546414192281524,2018-06-18,international_results_csv-f215c79ae29f188711bf,poisson,elo,poisson_minus_elo,-0.18245526382743057
+0.05445047323815427,FIFA World Cup,world_cup_2018,0.07817160294517445,2018-07-02,international_results_csv-f37260854c9f5c04ed7b,poisson,elo,poisson_minus_elo,0.02043202989316864
+-0.44925383238468186,FIFA World Cup,world_cup_2018,-0.5874986524545945,2018-06-28,international_results_csv-f4b51b57c166fb06bfec,poisson,elo,poisson_minus_elo,-0.2344560807773168
+0.07164710222022622,FIFA World Cup,world_cup_2018,0.10238219188660708,2018-06-23,international_results_csv-f59235bb290bc59d94d8,poisson,elo,poisson_minus_elo,0.024854671586468396
+-0.06528687410690148,UEFA Euro,euro_2024,-0.14235883016296658,2024-06-26,international_results_csv-f5f11a88f78aa295e0f8,poisson,elo,poisson_minus_elo,-0.008086241221554574
+0.05072678700536726,Copa América,copa_america_2024,0.08811933958496976,2024-06-25,international_results_csv-f610cfaeb74e2edae166,poisson,elo,poisson_minus_elo,0.01161763620527334
+-0.0863411869761257,UEFA Euro,euro_2024,-0.13058509306086075,2024-06-25,international_results_csv-f7f5df8d85a2631577aa,poisson,elo,poisson_minus_elo,-0.01843275219347623
+-0.09596271927263977,FIFA World Cup,world_cup_2018,-0.20389830578590096,2018-06-16,international_results_csv-fa6505dfe75f6bf8b2f8,poisson,elo,poisson_minus_elo,-0.020572572357601793
+-0.34102822451234327,FIFA World Cup,world_cup_2022,-0.531451838746291,2022-11-21,international_results_csv-fd78c781f2ad2ca2aea6,poisson,elo,poisson_minus_elo,-0.0762333803545765
+0.35173887232290135,FIFA World Cup,world_cup_2022,0.4850047756196565,2022-12-01,international_results_csv-00a27f9ad5aa23730c88,dixon_coles,elo,dixon_coles_minus_elo,0.1519059693685737
+0.007874051123669235,UEFA Euro,euro_2024,0.014666835789473254,2024-06-14,international_results_csv-00ca9eb2da1f93dafa93,dixon_coles,elo,dixon_coles_minus_elo,0.004387648483833523
+0.09070459721228259,UEFA Euro,euro_2024,0.1386280796043335,2024-06-30,international_results_csv-01d853487e40e06b0dd6,dixon_coles,elo,dixon_coles_minus_elo,0.03123614324002933
+0.1174575391606048,Copa América,copa_america_2024,0.2097800312151699,2024-06-25,international_results_csv-053c6c578ca7842cf4aa,dixon_coles,elo,dixon_coles_minus_elo,0.04103983711060753
+0.016656201695209205,FIFA World Cup,world_cup_2022,0.02250239316720526,2022-11-30,international_results_csv-05bce2d6de741ae77f75,dixon_coles,elo,dixon_coles_minus_elo,-0.013128836090440132
+-0.25934123019956634,FIFA World Cup,world_cup_2022,-0.3033168802953303,2022-11-30,international_results_csv-064a18ffdf283cf53f0d,dixon_coles,elo,dixon_coles_minus_elo,-0.15217422850067264
+0.01484349583227712,FIFA World Cup,world_cup_2018,0.015919225060117892,2018-07-02,international_results_csv-06e35fd48600c0af0762,dixon_coles,elo,dixon_coles_minus_elo,-0.0014650758813834
+0.10740745035244736,Copa América,copa_america_2024,0.12376710481330111,2024-06-24,international_results_csv-078d38951aa268590396,dixon_coles,elo,dixon_coles_minus_elo,0.04103849460556164
+0.034504939547315816,FIFA World Cup,world_cup_2022,0.1341355910572979,2022-12-01,international_results_csv-083a7495e6b01a59a23e,dixon_coles,elo,dixon_coles_minus_elo,0.0030076540024343013
+-0.12507965741043497,FIFA World Cup,world_cup_2018,-0.15709065655586774,2018-06-26,international_results_csv-08704102bb3f34a36601,dixon_coles,elo,dixon_coles_minus_elo,-0.07287631028156158
+-0.09723214036487521,FIFA World Cup,world_cup_2022,-0.11344281160846714,2022-11-26,international_results_csv-0c11873de872f27abde2,dixon_coles,elo,dixon_coles_minus_elo,-0.06745184982054234
+0.3604756280401903,Copa América,copa_america_2024,0.4937602106335101,2024-07-01,international_results_csv-0ccde3f3b100ac5784d7,dixon_coles,elo,dixon_coles_minus_elo,0.15987230452531861
+0.049983530772640505,Copa América,copa_america_2024,0.0958687890603668,2024-06-20,international_results_csv-0da3fdd58b0bcb55a9c3,dixon_coles,elo,dixon_coles_minus_elo,0.016475368015848747
+0.3174200298805633,FIFA World Cup,world_cup_2022,0.5697784980523981,2022-12-10,international_results_csv-0e7928798157c7c63e46,dixon_coles,elo,dixon_coles_minus_elo,0.14298717045288362
+0.031725112037684605,FIFA World Cup,world_cup_2022,0.043585309944608075,2022-12-04,international_results_csv-0f95621134a4fb0d6bf9,dixon_coles,elo,dixon_coles_minus_elo,0.00627683289656869
+-0.2964729248767326,UEFA Euro,euro_2024,-0.5363046027966607,2024-06-17,international_results_csv-0fa1a1ae832ba71ee709,dixon_coles,elo,dixon_coles_minus_elo,-0.165073893962572
+0.017440609376684534,UEFA Euro,euro_2024,0.036434449924737905,2024-06-30,international_results_csv-11619d81a979cc5fe28d,dixon_coles,elo,dixon_coles_minus_elo,0.005724165846811794
+-0.1903528066602725,FIFA World Cup,world_cup_2022,-0.24734550925883236,2022-12-01,international_results_csv-11e2bd3b4a7ef125ac5f,dixon_coles,elo,dixon_coles_minus_elo,-0.10162300518049892
+-0.1824883162462676,FIFA World Cup,world_cup_2022,-0.3246661263497015,2022-11-23,international_results_csv-1252b10377cebb51c211,dixon_coles,elo,dixon_coles_minus_elo,-0.03128627258026154
+-0.011438106027178152,FIFA World Cup,world_cup_2022,-0.021639163964703223,2022-12-13,international_results_csv-12c013cde27369d2c962,dixon_coles,elo,dixon_coles_minus_elo,-0.01232686355010753
+0.0779159224248819,FIFA World Cup,world_cup_2018,0.1029737844875333,2018-06-24,international_results_csv-14b18a7085e0239d664b,dixon_coles,elo,dixon_coles_minus_elo,0.01938997714245847
+0.01278304203840197,FIFA World Cup,world_cup_2022,0.010378686592504294,2022-12-02,international_results_csv-161dcc18bad0fded5fb3,dixon_coles,elo,dixon_coles_minus_elo,-0.006765075682342206
+0.03298902646322044,FIFA World Cup,world_cup_2018,0.07137668531456431,2018-06-30,international_results_csv-18df55c3b1141842f275,dixon_coles,elo,dixon_coles_minus_elo,0.001527390498171577
+-0.1540379222259709,FIFA World Cup,world_cup_2022,-0.25256986510361523,2022-11-22,international_results_csv-18fbcaa0c3182f0c0566,dixon_coles,elo,dixon_coles_minus_elo,-0.03275238211763423
+-0.05143911076615759,FIFA World Cup,world_cup_2022,-0.07506826682988632,2022-11-29,international_results_csv-196eb4a0f0050406cf68,dixon_coles,elo,dixon_coles_minus_elo,-0.02473193587785341
+0.09844229845759611,FIFA World Cup,world_cup_2022,0.1301350511783511,2022-11-24,international_results_csv-1c49ea36172f315bb21e,dixon_coles,elo,dixon_coles_minus_elo,0.02747021814483923
+-0.27717072907038165,FIFA World Cup,world_cup_2022,-0.46478713923609893,2022-11-22,international_results_csv-1e226147e62452b3ea57,dixon_coles,elo,dixon_coles_minus_elo,-0.06181860986537413
+-0.17585232404547824,FIFA World Cup,world_cup_2022,-0.35041279620794463,2022-11-28,international_results_csv-22190c2529f0255220ef,dixon_coles,elo,dixon_coles_minus_elo,-0.028964015930325188
+-0.07165563240575068,FIFA World Cup,world_cup_2018,-0.09204198783078466,2018-06-25,international_results_csv-233980863f63a0dec852,dixon_coles,elo,dixon_coles_minus_elo,-0.03655111638730266
+0.14602562443240671,Copa América,copa_america_2024,0.2591354521620189,2024-06-29,international_results_csv-23d53bd9024994449cfa,dixon_coles,elo,dixon_coles_minus_elo,0.04933409839278326
+-0.05186377344856208,FIFA World Cup,world_cup_2022,-0.062489208855038836,2022-12-14,international_results_csv-2407444965a7eba16705,dixon_coles,elo,dixon_coles_minus_elo,-0.04334561372892412
+-0.17523076764177092,UEFA Euro,euro_2024,-0.2562939710304031,2024-06-25,international_results_csv-24c2c52b47c2ed90ed03,dixon_coles,elo,dixon_coles_minus_elo,-0.09635801950180539
+-0.1753428716741171,UEFA Euro,euro_2024,-0.22683609960271567,2024-06-15,international_results_csv-24f86e3c6e66608c5c74,dixon_coles,elo,dixon_coles_minus_elo,-0.09927784719382093
+0.0012325589772526069,FIFA World Cup,world_cup_2022,-0.06411715994978495,2022-12-01,international_results_csv-27247d6b90ecb388da92,dixon_coles,elo,dixon_coles_minus_elo,0.011475109778403991
+0.045448675561764906,UEFA Euro,euro_2024,0.09847732390789155,2024-06-29,international_results_csv-2827401cd7c0cbf3b964,dixon_coles,elo,dixon_coles_minus_elo,0.011418224554163081
+-0.11905361818984342,Copa América,copa_america_2024,-0.16470001083418112,2024-06-22,international_results_csv-289f7040a7fe85079367,dixon_coles,elo,dixon_coles_minus_elo,-0.05839749001973435
+-0.0717338694184464,Copa América,copa_america_2024,-0.12082975303549176,2024-07-06,international_results_csv-28d8e0b020f13d8fa6ec,dixon_coles,elo,dixon_coles_minus_elo,-0.03308242469546605
+0.19480501708272274,FIFA World Cup,world_cup_2022,0.2663789218564121,2022-11-26,international_results_csv-298391a54cc47ab0d485,dixon_coles,elo,dixon_coles_minus_elo,0.07758231953472056
+0.09016171983183718,FIFA World Cup,world_cup_2022,0.12819617083580992,2022-11-21,international_results_csv-2bba41828f4e577b6277,dixon_coles,elo,dixon_coles_minus_elo,0.030060754343293306
+0.17036925926624097,FIFA World Cup,world_cup_2018,0.2288313747206463,2018-07-15,international_results_csv-2df80065485235a27c37,dixon_coles,elo,dixon_coles_minus_elo,0.06364366908959719
+-0.039563607887019514,Copa América,copa_america_2024,-0.06678475841250076,2024-06-23,international_results_csv-309ada293c57c2d80d6c,dixon_coles,elo,dixon_coles_minus_elo,-0.021108800298546004
+0.19747597396235317,FIFA World Cup,world_cup_2022,0.2700446986689615,2022-11-27,international_results_csv-30ed4182efd761210802,dixon_coles,elo,dixon_coles_minus_elo,0.08698824350573775
+0.20402219569228386,UEFA Euro,euro_2024,0.2838956406350176,2024-06-29,international_results_csv-333cb5e5a3ea47ecedc7,dixon_coles,elo,dixon_coles_minus_elo,0.09292591411579058
+-0.23112776620307918,FIFA World Cup,world_cup_2018,-0.3050590498588428,2018-06-17,international_results_csv-33da39b79b9b27736b6f,dixon_coles,elo,dixon_coles_minus_elo,-0.13181028295346575
+0.05053129076267371,Copa América,copa_america_2024,0.09717780267895551,2024-07-09,international_results_csv-346aebd88aafddb08f57,dixon_coles,elo,dixon_coles_minus_elo,0.0166885720198973
+0.01384650629803047,UEFA Euro,euro_2024,0.015317610004890014,2024-06-22,international_results_csv-34c2e4049c0ad5037d57,dixon_coles,elo,dixon_coles_minus_elo,0.00010884340481042559
+0.13390640615929816,FIFA World Cup,world_cup_2022,0.19013000252597756,2022-12-02,international_results_csv-35717f8071b5f4211215,dixon_coles,elo,dixon_coles_minus_elo,0.05618610290942583
+0.008846847658434576,FIFA World Cup,world_cup_2022,0.026513758078475558,2022-11-28,international_results_csv-35896ed19631ca5a0b21,dixon_coles,elo,dixon_coles_minus_elo,-0.01406597344044358
+-0.21448608933063285,UEFA Euro,euro_2024,-0.36956144654439704,2024-06-25,international_results_csv-35c4816ffbbfa1cddaee,dixon_coles,elo,dixon_coles_minus_elo,-0.05017212513025507
+-0.04423796066601393,FIFA World Cup,world_cup_2022,-0.029897105974896032,2022-12-17,international_results_csv-35c6633f76d276ba2e53,dixon_coles,elo,dixon_coles_minus_elo,-0.04176829706258256
+-0.05980645661130901,FIFA World Cup,world_cup_2018,-0.1813522419153386,2018-06-15,international_results_csv-36afee440f9a514e91ce,dixon_coles,elo,dixon_coles_minus_elo,0.002920959618770702
+0.2767659751578544,Copa América,copa_america_2024,0.4157498605405009,2024-07-02,international_results_csv-375c5266c31284ecab1b,dixon_coles,elo,dixon_coles_minus_elo,0.11312891291521085
+-0.07423033057172113,UEFA Euro,euro_2024,-0.05835797703359891,2024-06-26,international_results_csv-37b4552ad95a2a573ddc,dixon_coles,elo,dixon_coles_minus_elo,-0.042353479730435684
+-0.018510245269507397,UEFA Euro,euro_2024,-0.046935488381002255,2024-06-22,international_results_csv-394a96637e654dc19cce,dixon_coles,elo,dixon_coles_minus_elo,-0.0009364586781135942
+0.30058563867908655,FIFA World Cup,world_cup_2018,0.4180656375798325,2018-06-15,international_results_csv-3a3f96c0a49521e3fc84,dixon_coles,elo,dixon_coles_minus_elo,0.1061760389972286
+-0.10358923731901876,FIFA World Cup,world_cup_2022,-0.125064667969788,2022-11-21,international_results_csv-3cb529d3b76aa52f433f,dixon_coles,elo,dixon_coles_minus_elo,-0.07372393535160332
+-0.0730133854039503,FIFA World Cup,world_cup_2022,-0.05171640088128182,2022-11-27,international_results_csv-3d80035efd18e54e8f66,dixon_coles,elo,dixon_coles_minus_elo,-0.050238945645087796
+-0.02436359209142469,FIFA World Cup,world_cup_2022,0.5081095535299962,2022-12-02,international_results_csv-3dbdd6db150f012fe6ac,dixon_coles,elo,dixon_coles_minus_elo,-0.018288297407426213
+-0.1096665921443355,UEFA Euro,euro_2024,-0.15449157977949612,2024-07-02,international_results_csv-3e4906bb3d0a6c9878ef,dixon_coles,elo,dixon_coles_minus_elo,-0.05980349680269614
+-0.03506617205669249,UEFA Euro,euro_2024,-0.09907628165724458,2024-06-20,international_results_csv-412816b6da7660a82823,dixon_coles,elo,dixon_coles_minus_elo,0.001115159026312762
+0.2764055965664299,UEFA Euro,euro_2024,0.3709379648417419,2024-07-14,international_results_csv-425042cdb61725c4ce1d,dixon_coles,elo,dixon_coles_minus_elo,0.12397275989283923
+0.06844182243222974,FIFA World Cup,world_cup_2022,0.11231730045131139,2022-11-23,international_results_csv-42770c114dfcbdab344a,dixon_coles,elo,dixon_coles_minus_elo,0.02649150085870694
+0.0827735518333485,Copa América,copa_america_2024,0.10861498199253561,2024-07-14,international_results_csv-42887385aa7147490c72,dixon_coles,elo,dixon_coles_minus_elo,0.024282474347967375
+-0.16488902443303682,UEFA Euro,euro_2024,-0.22388680670380579,2024-07-05,international_results_csv-42fe435cac357dd1e008,dixon_coles,elo,dixon_coles_minus_elo,-0.07231888864032096
+0.034887901172301186,FIFA World Cup,world_cup_2018,0.058688264298387444,2018-06-27,international_results_csv-43e7d573120c11c89643,dixon_coles,elo,dixon_coles_minus_elo,0.008629566681467731
+-0.10168956155095343,UEFA Euro,euro_2024,-0.17417846979529883,2024-06-24,international_results_csv-45b545616685abb8f8a6,dixon_coles,elo,dixon_coles_minus_elo,-0.016944201816697146
+-0.43836375224882784,FIFA World Cup,world_cup_2022,-0.5745396862250859,2022-11-20,international_results_csv-466216ee9a5e2c3fc300,dixon_coles,elo,dixon_coles_minus_elo,-0.22022629835375893
+0.02231296203345623,FIFA World Cup,world_cup_2022,0.042578858486918114,2022-11-26,international_results_csv-472f71ee4301875a403b,dixon_coles,elo,dixon_coles_minus_elo,-0.0071009374038815964
+-0.1722212251759132,FIFA World Cup,world_cup_2022,-0.3239001862293178,2022-11-25,international_results_csv-48eb64712c77094c0faf,dixon_coles,elo,dixon_coles_minus_elo,-0.02650148998892146
+0.07969373277117403,UEFA Euro,euro_2024,0.10865860187198628,2024-07-09,international_results_csv-4932c88aa7fd2f79f650,dixon_coles,elo,dixon_coles_minus_elo,0.03411358829935579
+-0.18355834275416222,UEFA Euro,euro_2024,-0.23892646512763716,2024-07-10,international_results_csv-4ab1e50f59e6f2bae34b,dixon_coles,elo,dixon_coles_minus_elo,-0.09716478078361832
+-0.09198300904708795,UEFA Euro,euro_2024,-0.12091020698107846,2024-06-15,international_results_csv-4f1d5472bcd4fd8cfe55,dixon_coles,elo,dixon_coles_minus_elo,-0.0478287208348146
+0.008937599526648965,UEFA Euro,euro_2024,0.017345851032186332,2024-06-21,international_results_csv-4fa4c3967ebed6758154,dixon_coles,elo,dixon_coles_minus_elo,-0.007871529063234184
+-0.12730437064974207,Copa América,copa_america_2024,-0.18188256588578455,2024-06-26,international_results_csv-50a81cdbee8b6179cac8,dixon_coles,elo,dixon_coles_minus_elo,-0.0637135865910854
+0.05737960593369418,UEFA Euro,euro_2024,0.08438470721452479,2024-07-02,international_results_csv-51ad039cd8b4efa28464,dixon_coles,elo,dixon_coles_minus_elo,0.01793884982266363
+-0.4398709868726003,FIFA World Cup,world_cup_2018,-0.5917259192814814,2018-06-27,international_results_csv-535d71d52b980784bdda,dixon_coles,elo,dixon_coles_minus_elo,-0.24533306673513594
+0.046254107772073616,FIFA World Cup,world_cup_2018,0.06231726893265965,2018-06-15,international_results_csv-53af7e4b5d01c3836fc7,dixon_coles,elo,dixon_coles_minus_elo,0.004501959372457481
+-0.05134789677440765,FIFA World Cup,world_cup_2022,-0.19575354591773864,2022-11-24,international_results_csv-54a80e3db86efdc713b1,dixon_coles,elo,dixon_coles_minus_elo,0.008745998609404004
+-0.4724544761974028,UEFA Euro,euro_2024,-0.7413559735936899,2024-06-25,international_results_csv-55e899b80c818dc9399e,dixon_coles,elo,dixon_coles_minus_elo,-0.1399141459899904
+0.026287563265983027,Copa América,copa_america_2024,0.037356152379406704,2024-07-01,international_results_csv-5b17e087e7fd65aed5d5,dixon_coles,elo,dixon_coles_minus_elo,0.008574196277149115
+0.12952671766109575,UEFA Euro,euro_2024,0.18299976749571628,2024-06-17,international_results_csv-5bc5ac0d77a465d6843f,dixon_coles,elo,dixon_coles_minus_elo,0.05016941526406318
+0.07245266155808797,FIFA World Cup,world_cup_2022,0.09894529053437051,2022-11-22,international_results_csv-5c8b78d320eff170410d,dixon_coles,elo,dixon_coles_minus_elo,0.023203372041666365
+0.10459787199779003,UEFA Euro,euro_2024,0.1421550068803883,2024-06-21,international_results_csv-5cee46756bbaba3f4a9c,dixon_coles,elo,dixon_coles_minus_elo,0.04301397148537103
+0.019807069970477376,FIFA World Cup,world_cup_2018,0.028627252894968924,2018-06-20,international_results_csv-5effeef45349fc2c37ee,dixon_coles,elo,dixon_coles_minus_elo,0.003994771307054362
+-0.011711023878327648,FIFA World Cup,world_cup_2022,-0.027734486427034244,2022-11-24,international_results_csv-5fc599a3b72c6e236a25,dixon_coles,elo,dixon_coles_minus_elo,-0.009014188351219057
+-0.14161581379712884,Copa América,copa_america_2024,-0.23419838737317344,2024-06-21,international_results_csv-60590b0bc0dc565d18cc,dixon_coles,elo,dixon_coles_minus_elo,-0.024346280488394392
+0.06443891900517187,UEFA Euro,euro_2024,0.1388808414672508,2024-06-24,international_results_csv-615209ed8d6c11d8fe43,dixon_coles,elo,dixon_coles_minus_elo,0.02137033641116144
+0.07289285441420212,FIFA World Cup,world_cup_2022,0.12119179885020548,2022-11-29,international_results_csv-63ba0233243234273d1d,dixon_coles,elo,dixon_coles_minus_elo,0.008394733539463628
+-0.16419754001632514,Copa América,copa_america_2024,-0.20469289401338142,2024-06-22,international_results_csv-6413dd39c541f6647695,dixon_coles,elo,dixon_coles_minus_elo,-0.10349190573659284
+0.04630756115195872,UEFA Euro,euro_2024,0.05999076058934005,2024-06-18,international_results_csv-64bd65869cd26e5055db,dixon_coles,elo,dixon_coles_minus_elo,0.022899216170347375
+-0.10218446885137727,FIFA World Cup,world_cup_2018,-0.1297633426650282,2018-06-28,international_results_csv-673171d8c4a4f215e7eb,dixon_coles,elo,dixon_coles_minus_elo,-0.07467764387189516
+-0.15623453890072314,FIFA World Cup,world_cup_2022,-0.201083263506867,2022-12-06,international_results_csv-679c244d7721a5fc2646,dixon_coles,elo,dixon_coles_minus_elo,-0.08659163741694262
+-0.04657116524666549,FIFA World Cup,world_cup_2018,-0.057921389564486225,2018-06-24,international_results_csv-6806da97e0f8aa306b0e,dixon_coles,elo,dixon_coles_minus_elo,-0.03535387126605591
+-0.03296997752681055,FIFA World Cup,world_cup_2018,-0.05123208090964759,2018-06-26,international_results_csv-6d22081c7606fab3a9fe,dixon_coles,elo,dixon_coles_minus_elo,-0.024406965153007623
+-0.059439112552123974,UEFA Euro,euro_2024,-0.09275719432902574,2024-06-21,international_results_csv-6e6c455b52aecb25bee5,dixon_coles,elo,dixon_coles_minus_elo,-0.012654241823875922
+-0.14844575720416975,FIFA World Cup,world_cup_2022,-0.05917999910851046,2022-11-22,international_results_csv-6fdf96ce42ea51cec9a2,dixon_coles,elo,dixon_coles_minus_elo,-0.08691475241282542
+-0.040545079008699914,FIFA World Cup,world_cup_2022,-0.0671864929891483,2022-11-23,international_results_csv-709042582351ff39048d,dixon_coles,elo,dixon_coles_minus_elo,-0.029181559255479002
+0.3218759105524533,FIFA World Cup,world_cup_2018,0.4388792922399141,2018-06-20,international_results_csv-7220b26f091bb1713172,dixon_coles,elo,dixon_coles_minus_elo,0.12572714349006825
+-0.16420036450730302,FIFA World Cup,world_cup_2022,-0.2442593833929998,2022-11-27,international_results_csv-7230e2c38e1cf0aa1bb2,dixon_coles,elo,dixon_coles_minus_elo,-0.04213668208398952
+0.13786929495294398,FIFA World Cup,world_cup_2022,0.18583025676746578,2022-11-25,international_results_csv-72cd74710980a6aed7db,dixon_coles,elo,dixon_coles_minus_elo,0.03502125246596294
+-0.07055284360331207,FIFA World Cup,world_cup_2022,-0.13511790122822112,2022-12-05,international_results_csv-73073bf324a9e07483a7,dixon_coles,elo,dixon_coles_minus_elo,-0.03415256270440524
+-0.15935145082861923,UEFA Euro,euro_2024,-0.1838611068927476,2024-06-17,international_results_csv-74af73ebd43cebf41349,dixon_coles,elo,dixon_coles_minus_elo,-0.1014360667559785
+0.13370660868315598,UEFA Euro,euro_2024,0.18124512983719587,2024-06-26,international_results_csv-76d609de336e8c47ce51,dixon_coles,elo,dixon_coles_minus_elo,0.06710645499844914
+0.00796468183655874,FIFA World Cup,world_cup_2022,0.1114056026983663,2022-11-27,international_results_csv-772cfcf8fffe31988653,dixon_coles,elo,dixon_coles_minus_elo,-0.019276442914166858
+0.0016031559220250902,FIFA World Cup,world_cup_2018,-0.004480864235311577,2018-06-18,international_results_csv-77c327471d01e00248ee,dixon_coles,elo,dixon_coles_minus_elo,-0.018644284974458622
+-0.033150204538811234,UEFA Euro,euro_2024,-0.03711617875107498,2024-06-23,international_results_csv-7a3a25ceedcb6ec379e8,dixon_coles,elo,dixon_coles_minus_elo,-0.028094383678148094
+0.04363930239036434,UEFA Euro,euro_2024,0.058235006284420354,2024-06-20,international_results_csv-7bb00acc7cb75e5d3fd2,dixon_coles,elo,dixon_coles_minus_elo,0.013257447478402379
+-0.19919027282596247,FIFA World Cup,world_cup_2018,-0.41543821284685367,2018-06-17,international_results_csv-7bead77ef0e1296b0283,dixon_coles,elo,dixon_coles_minus_elo,-0.03741465881363673
+0.05530927883119349,UEFA Euro,euro_2024,0.08210669156944178,2024-06-18,international_results_csv-7e8d07244f9800a0e7f7,dixon_coles,elo,dixon_coles_minus_elo,0.021278306740460946
+-0.006043342652691477,FIFA World Cup,world_cup_2022,-0.01891828437439691,2022-11-28,international_results_csv-7ee6e6bd07c61e97a834,dixon_coles,elo,dixon_coles_minus_elo,-0.00824617781429187
+0.21839938939396142,FIFA World Cup,world_cup_2018,0.3501992843200751,2018-07-11,international_results_csv-7f6d0baefe5e4585cc80,dixon_coles,elo,dixon_coles_minus_elo,0.0811744209368982
+0.0714672356620909,FIFA World Cup,world_cup_2022,0.0968623395066085,2022-11-23,international_results_csv-85b306be7f875d48a960,dixon_coles,elo,dixon_coles_minus_elo,0.028513389185126498
+0.03850479954167374,FIFA World Cup,world_cup_2022,0.11751217847063611,2022-11-29,international_results_csv-86e9a2fa6ecc8fd65bad,dixon_coles,elo,dixon_coles_minus_elo,0.00027820135554329495
+-0.2971922742170353,FIFA World Cup,world_cup_2018,-0.46954400581790456,2018-06-26,international_results_csv-88c4020dfd8f41f0372c,dixon_coles,elo,dixon_coles_minus_elo,-0.06618769478584913
+0.11494146408163147,FIFA World Cup,world_cup_2022,0.1574231223988355,2022-11-29,international_results_csv-8ee0379aa2a963eb3558,dixon_coles,elo,dixon_coles_minus_elo,0.03413799086964163
+0.05104812444087986,UEFA Euro,euro_2024,0.06969186303367264,2024-06-16,international_results_csv-8f9ece726a78cd47bec5,dixon_coles,elo,dixon_coles_minus_elo,0.01708181451691572
+-0.008156006244008529,FIFA World Cup,world_cup_2018,-0.0003088083862370361,2018-07-07,international_results_csv-8fc851994cffb600ee8e,dixon_coles,elo,dixon_coles_minus_elo,-0.02851776268636086
+-0.4513635202884122,UEFA Euro,euro_2024,-0.7125991313246756,2024-06-19,international_results_csv-8fd8c14dd0cbc763278d,dixon_coles,elo,dixon_coles_minus_elo,-0.12406344205838471
+-0.13959079179571066,UEFA Euro,euro_2024,-0.24048086354527087,2024-06-26,international_results_csv-907df97a123fa51e2aa5,dixon_coles,elo,dixon_coles_minus_elo,-0.021891122307133776
+0.12463002876046937,Copa América,copa_america_2024,0.18335958611152048,2024-06-24,international_results_csv-90b913a78e6db81750cf,dixon_coles,elo,dixon_coles_minus_elo,0.04023765478079108
+-0.030128261023950983,UEFA Euro,euro_2024,-0.04946095579897064,2024-06-22,international_results_csv-917e94482d304004e95f,dixon_coles,elo,dixon_coles_minus_elo,-0.015213128304609705
+-0.1771783370701903,FIFA World Cup,world_cup_2018,-0.2431154963213778,2018-06-14,international_results_csv-9211415def4a2a518ae5,dixon_coles,elo,dixon_coles_minus_elo,-0.08052834064389224
+-0.014363977686732227,FIFA World Cup,world_cup_2018,-0.025654969200486155,2018-06-18,international_results_csv-926cd3d892bf57860297,dixon_coles,elo,dixon_coles_minus_elo,-0.01256214402559993
+-0.033292081690061814,FIFA World Cup,world_cup_2018,-0.032524083304218854,2018-07-06,international_results_csv-949d0947c96b819ca878,dixon_coles,elo,dixon_coles_minus_elo,-0.028736921593717046
+-0.2519089753069116,UEFA Euro,euro_2024,-0.3749977420756616,2024-06-20,international_results_csv-94f0a2eadb71e4c7cf8b,dixon_coles,elo,dixon_coles_minus_elo,-0.058747355469518786
+-0.18994254711075975,FIFA World Cup,world_cup_2022,-0.2937796281538836,2022-11-25,international_results_csv-9abe840e02d1f5251cd0,dixon_coles,elo,dixon_coles_minus_elo,-0.044983030084083775
+0.02549375181423691,FIFA World Cup,world_cup_2018,0.03582715510726553,2018-06-23,international_results_csv-9de7492b83a49078ffc6,dixon_coles,elo,dixon_coles_minus_elo,-0.0009557162736607283
+-0.14968146640500668,FIFA World Cup,world_cup_2018,-0.2811192422305182,2018-06-24,international_results_csv-a2fc1a4244d90c0c330f,dixon_coles,elo,dixon_coles_minus_elo,-0.02196836841024538
+0.17050471886034885,UEFA Euro,euro_2024,0.2694285652973108,2024-06-15,international_results_csv-a32e3412f868dc2973fe,dixon_coles,elo,dixon_coles_minus_elo,0.060614484205579675
+-0.0706491386174376,Copa América,copa_america_2024,-0.07700412664287581,2024-06-26,international_results_csv-a34dd70bd3878672430b,dixon_coles,elo,dixon_coles_minus_elo,-0.048087116500491245
+-0.029253162393684196,FIFA World Cup,world_cup_2022,-0.04454630799580328,2022-12-04,international_results_csv-a4541c399fbb00659c3b,dixon_coles,elo,dixon_coles_minus_elo,-0.026284940190490533
+0.24851096463733802,FIFA World Cup,world_cup_2018,0.3996976946334416,2018-06-25,international_results_csv-a4ad52584a6b0ca1e9ef,dixon_coles,elo,dixon_coles_minus_elo,0.11000665963111234
+-0.005717151350370875,FIFA World Cup,world_cup_2018,0.008146429107998676,2018-06-28,international_results_csv-a5522d7c007e5f722a3a,dixon_coles,elo,dixon_coles_minus_elo,-0.027155968316226686
+-0.02081258518492657,FIFA World Cup,world_cup_2018,0.006501757855331691,2018-07-03,international_results_csv-a70c2997fd3870579b26,dixon_coles,elo,dixon_coles_minus_elo,-0.03389607299889852
+0.07077071025618142,FIFA World Cup,world_cup_2018,0.11792109761643321,2018-06-28,international_results_csv-a8e86526d67c35f1355f,dixon_coles,elo,dixon_coles_minus_elo,0.01962336936978798
+-0.004582024277606678,Copa América,copa_america_2024,0.004072063535178194,2024-07-10,international_results_csv-a90e8651082210abd4ae,dixon_coles,elo,dixon_coles_minus_elo,-0.01623314519001856
+-0.42309503076127,FIFA World Cup,world_cup_2018,-0.6836587997286945,2018-06-25,international_results_csv-aa701ce5d92317f620df,dixon_coles,elo,dixon_coles_minus_elo,-0.10856605252791965
+-0.07033595353900102,FIFA World Cup,world_cup_2018,-0.09896802847945407,2018-06-16,international_results_csv-ad7447caa6303f5f6c01,dixon_coles,elo,dixon_coles_minus_elo,-0.03840227096098829
+0.010276960865064577,FIFA World Cup,world_cup_2022,0.012542425936185653,2022-11-30,international_results_csv-aed43639a932a8d679d9,dixon_coles,elo,dixon_coles_minus_elo,-0.0020377948740819274
+0.012754266764300762,FIFA World Cup,world_cup_2018,0.017235158731270267,2018-06-22,international_results_csv-b0081ac08a471b778e35,dixon_coles,elo,dixon_coles_minus_elo,0.000568772071268004
+-0.05428344218210246,Copa América,copa_america_2024,-0.087025241147485,2024-06-29,international_results_csv-b05d7666237e5f555fa9,dixon_coles,elo,dixon_coles_minus_elo,-0.010853701319529896
+0.07660782134116428,FIFA World Cup,world_cup_2018,0.12397250383145553,2018-06-19,international_results_csv-b19e93760c27e10672da,dixon_coles,elo,dixon_coles_minus_elo,0.020406282760983108
+0.015746617137468277,Copa América,copa_america_2024,0.056687881684422514,2024-06-27,international_results_csv-b24f74e0627f4f161344,dixon_coles,elo,dixon_coles_minus_elo,0.00681895716802583
+0.04107410037801873,FIFA World Cup,world_cup_2022,0.08453892665043006,2022-12-10,international_results_csv-b35074520e7ee28c8baf,dixon_coles,elo,dixon_coles_minus_elo,0.002112259545744677
+-0.36110747958674383,FIFA World Cup,world_cup_2018,-0.473683978398902,2018-06-16,international_results_csv-b3b504dc8f5a615011a8,dixon_coles,elo,dixon_coles_minus_elo,-0.21513130933577945
+0.22615864867776672,FIFA World Cup,world_cup_2018,0.31355245174910773,2018-06-23,international_results_csv-b6bd59352f17b1237c95,dixon_coles,elo,dixon_coles_minus_elo,0.09279900730480797
+0.036489204455110585,FIFA World Cup,world_cup_2022,0.04915441758186001,2022-11-26,international_results_csv-b6d4165dd6f52d3da850,dixon_coles,elo,dixon_coles_minus_elo,0.006787716278099473
+0.24714223725118967,FIFA World Cup,world_cup_2018,0.3403900497579756,2018-06-30,international_results_csv-b982aaf023e38ad7fc0b,dixon_coles,elo,dixon_coles_minus_elo,0.11044023654349228
+0.16717734386212624,FIFA World Cup,world_cup_2018,0.3607000470596906,2018-06-19,international_results_csv-bae62f2d66dd7275cb0b,dixon_coles,elo,dixon_coles_minus_elo,0.07416240138369301
+0.00452102582618262,Copa América,copa_america_2024,0.0027561812142830044,2024-06-28,international_results_csv-bc285e992f98e3abae2e,dixon_coles,elo,dixon_coles_minus_elo,-0.0015117671206175132
+0.0395820017376754,FIFA World Cup,world_cup_2022,0.060907099707599444,2022-11-24,international_results_csv-bde63dc1d6dfa511872d,dixon_coles,elo,dixon_coles_minus_elo,0.009087801595747062
+0.11707532711093604,FIFA World Cup,world_cup_2018,0.15952217100260707,2018-06-26,international_results_csv-c1799009628103a8554b,dixon_coles,elo,dixon_coles_minus_elo,0.04219919880325168
+-0.32044244717924475,FIFA World Cup,world_cup_2018,-0.407555140621252,2018-06-17,international_results_csv-c28b97b118f8bc501322,dixon_coles,elo,dixon_coles_minus_elo,-0.17580879273875585
+0.05674618423255497,Copa América,copa_america_2024,0.12212269217800589,2024-06-27,international_results_csv-c2aa1d09d239a0d7b57c,dixon_coles,elo,dixon_coles_minus_elo,0.019813286698069636
+-0.3126990092590798,FIFA World Cup,world_cup_2018,-0.4700201259747532,2018-06-27,international_results_csv-c39087354641bba83f4b,dixon_coles,elo,dixon_coles_minus_elo,-0.0733001498392711
+0.16850449496281583,FIFA World Cup,world_cup_2022,0.29521679748563034,2022-11-30,international_results_csv-c40011fdeae18f4c1407,dixon_coles,elo,dixon_coles_minus_elo,0.07068262613748566
+0.054329551937600355,Copa América,copa_america_2024,0.11461741895042987,2024-06-23,international_results_csv-c49039c4fa2756d70931,dixon_coles,elo,dixon_coles_minus_elo,0.02050331130741688
+-0.31587696504422236,FIFA World Cup,world_cup_2022,-0.42093128503461297,2022-11-25,international_results_csv-c8b1e1a89845dc945a1a,dixon_coles,elo,dixon_coles_minus_elo,-0.16713134858588882
+-0.026064869086999787,FIFA World Cup,world_cup_2018,-0.023331852468778114,2018-07-10,international_results_csv-c9a36471e1e33828b6ae,dixon_coles,elo,dixon_coles_minus_elo,-0.02122057486967674
+0.1287784359317477,UEFA Euro,euro_2024,0.18302237271822458,2024-06-16,international_results_csv-cb152b0aac6751a183de,dixon_coles,elo,dixon_coles_minus_elo,0.05239118518606581
+-0.03885156465143569,Copa América,copa_america_2024,-0.09204461814382303,2024-07-02,international_results_csv-cb32c51c5cbd5650cdb4,dixon_coles,elo,dixon_coles_minus_elo,-0.0019304585598082236
+-0.3679295560974931,FIFA World Cup,world_cup_2022,-0.5048778563004623,2022-11-28,international_results_csv-ce2db3329e96906526b5,dixon_coles,elo,dixon_coles_minus_elo,-0.21551376964217328
+0.23875598045934265,UEFA Euro,euro_2024,0.31914377552914364,2024-07-01,international_results_csv-d007886c9cd08939c43c,dixon_coles,elo,dixon_coles_minus_elo,0.10798971557137607
+-0.14163768268573662,UEFA Euro,euro_2024,-0.11581276243162653,2024-06-23,international_results_csv-d0c7eb3a9724a7bafc90,dixon_coles,elo,dixon_coles_minus_elo,-0.053018641480538115
+0.024807589798210156,FIFA World Cup,world_cup_2022,0.03496833905713409,2022-12-03,international_results_csv-d15c85d894a88d116e61,dixon_coles,elo,dixon_coles_minus_elo,0.004016996295661553
+0.27694880932939814,FIFA World Cup,world_cup_2018,0.5337912867993646,2018-07-06,international_results_csv-d18a68e830f98cdd94ca,dixon_coles,elo,dixon_coles_minus_elo,0.1362665202037081
+0.11064116247243244,FIFA World Cup,world_cup_2022,0.1527003557710268,2022-12-03,international_results_csv-d3542a07b8d05cecfa66,dixon_coles,elo,dixon_coles_minus_elo,0.04070337033717572
+-0.11127748445152186,FIFA World Cup,world_cup_2018,-0.2366199461998133,2018-06-21,international_results_csv-d3e4d3cd69e66fc203fe,dixon_coles,elo,dixon_coles_minus_elo,-0.011828586050413425
+-0.07088853015941199,Copa América,copa_america_2024,-0.13147222347702048,2024-06-30,international_results_csv-d41f137a93d1d79dc3d6,dixon_coles,elo,dixon_coles_minus_elo,-0.010194550244674805
+0.12099660328462997,FIFA World Cup,world_cup_2018,0.1646826072034212,2018-06-21,international_results_csv-d56866c78600bab449b9,dixon_coles,elo,dixon_coles_minus_elo,0.04114162905262736
+-0.11904911553122643,FIFA World Cup,world_cup_2018,-0.1334163702672746,2018-06-22,international_results_csv-d760b014c52ff0a5ade0,dixon_coles,elo,dixon_coles_minus_elo,-0.0742316180590562
+0.023814902425426984,Copa América,copa_america_2024,0.030749615658754947,2024-06-28,international_results_csv-d79bcd0cfb786e1ca100,dixon_coles,elo,dixon_coles_minus_elo,0.002641102751402759
+0.13406181367151182,FIFA World Cup,world_cup_2018,0.17934124764848136,2018-06-19,international_results_csv-d7d629d2c690a370b173,dixon_coles,elo,dixon_coles_minus_elo,0.05517876621682502
+-0.049049989421018486,UEFA Euro,euro_2024,-0.07059049551852375,2024-07-06,international_results_csv-d8828b9f2335866424b4,dixon_coles,elo,dixon_coles_minus_elo,-0.021708103305062024
+-0.07735949340677528,UEFA Euro,euro_2024,-0.1400972396147666,2024-06-19,international_results_csv-da8d7c1cede850151b72,dixon_coles,elo,dixon_coles_minus_elo,-0.013010369826892826
+0.07974458392548235,UEFA Euro,euro_2024,0.1233192216550304,2024-06-19,international_results_csv-df474f82905353106a15,dixon_coles,elo,dixon_coles_minus_elo,0.0345274992330438
+0.16875197085704285,FIFA World Cup,world_cup_2022,0.4076164161160425,2022-12-02,international_results_csv-e346ab3a4e1d26deaffc,dixon_coles,elo,dixon_coles_minus_elo,0.07387561748058152
+-0.01238852976106053,Copa América,copa_america_2024,-0.02019852220156859,2024-06-30,international_results_csv-e47ce2fa2a2f33f96a1f,dixon_coles,elo,dixon_coles_minus_elo,-0.017726429615544076
+-0.07582010175803178,FIFA World Cup,world_cup_2018,-0.04876518157508003,2018-06-21,international_results_csv-e47d1363922e08412ee3,dixon_coles,elo,dixon_coles_minus_elo,-0.055832371535458336
+-0.24567794523732367,FIFA World Cup,world_cup_2018,-0.4186423326707691,2018-06-25,international_results_csv-e7f5bbfd113a5507245f,dixon_coles,elo,dixon_coles_minus_elo,-0.04269612884719043
+0.03310879985284321,FIFA World Cup,world_cup_2018,0.18576315812541289,2018-06-27,international_results_csv-ea2f4305b329a3f6a400,dixon_coles,elo,dixon_coles_minus_elo,0.008643945529903663
+0.34859993921604737,FIFA World Cup,world_cup_2018,0.47412826800424046,2018-07-14,international_results_csv-ea3941662c9cdfe83d15,dixon_coles,elo,dixon_coles_minus_elo,0.15474466252196759
+-0.1440525952207803,UEFA Euro,euro_2024,-0.2649650565307953,2024-06-16,international_results_csv-eaa2e5f67e37a2386b16,dixon_coles,elo,dixon_coles_minus_elo,-0.02147106828061382
+0.17011410327017695,FIFA World Cup,world_cup_2018,0.23243055895991083,2018-06-22,international_results_csv-eaf6870035d5be4a632b,dixon_coles,elo,dixon_coles_minus_elo,0.06515122093545733
+-0.1261133506344626,FIFA World Cup,world_cup_2018,-0.16818231785418247,2018-06-20,international_results_csv-ee9192c6070d95836525,dixon_coles,elo,dixon_coles_minus_elo,-0.07715198907745517
+0.10909814104249083,FIFA World Cup,world_cup_2018,0.14392167565530667,2018-06-16,international_results_csv-f1d739e65b655a691b61,dixon_coles,elo,dixon_coles_minus_elo,0.03145369088212602
+-0.33921344641053097,FIFA World Cup,world_cup_2018,-0.4323921621090636,2018-06-18,international_results_csv-f215c79ae29f188711bf,dixon_coles,elo,dixon_coles_minus_elo,-0.18189400330475125
+0.056081517539354336,FIFA World Cup,world_cup_2018,0.08036861014060542,2018-07-02,international_results_csv-f37260854c9f5c04ed7b,dixon_coles,elo,dixon_coles_minus_elo,0.020814408578926358
+-0.4467594300707745,FIFA World Cup,world_cup_2018,-0.5839176071792347,2018-06-28,international_results_csv-f4b51b57c166fb06bfec,dixon_coles,elo,dixon_coles_minus_elo,-0.23381011201847923
+0.07337675924264878,FIFA World Cup,world_cup_2018,0.10456983687491911,2018-06-23,international_results_csv-f59235bb290bc59d94d8,dixon_coles,elo,dixon_coles_minus_elo,0.025216979329332867
+-0.06690396741958304,UEFA Euro,euro_2024,-0.14544247447745873,2024-06-26,international_results_csv-f5f11a88f78aa295e0f8,dixon_coles,elo,dixon_coles_minus_elo,-0.008335080034356707
+0.051579417390418714,Copa América,copa_america_2024,0.08953501877964198,2024-06-25,international_results_csv-f610cfaeb74e2edae166,dixon_coles,elo,dixon_coles_minus_elo,0.01183394756111572
+-0.08831496299875297,UEFA Euro,euro_2024,-0.13390908567194604,2024-06-25,international_results_csv-f7f5df8d85a2631577aa,dixon_coles,elo,dixon_coles_minus_elo,-0.0187622010172957
+-0.09990745482049124,FIFA World Cup,world_cup_2018,-0.21327694761457194,2018-06-16,international_results_csv-fa6505dfe75f6bf8b2f8,dixon_coles,elo,dixon_coles_minus_elo,-0.021173411125816055
+-0.3398356393173372,FIFA World Cup,world_cup_2022,-0.5295436244264955,2022-11-21,international_results_csv-fd78c781f2ad2ca2aea6,dixon_coles,elo,dixon_coles_minus_elo,-0.07603780899221835

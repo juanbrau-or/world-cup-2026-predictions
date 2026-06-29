@@ -98,11 +98,13 @@ def test_elo_evaluation_writes_probabilities_that_sum_to_one(tmp_path: Path) -> 
     rows = pq.read_table(result.out_of_fold_predictions_path).to_pylist()
 
     assert rows
-    assert result.prospective_2026_matches == 1
+    assert result.holdout_2026_matches == 1
     for row in rows:
         total = row["prob_home_win"] + row["prob_draw"] + row["prob_away_win"]
         assert total == pytest.approx(1.0)
-        assert row["data_cutoff_utc"] == row["kickoff_utc"]
+        assert row["data_cutoff"] == "2020-02-01"
+        assert row["prediction_status"] == "out_of_fold"
+        assert row["generated_at"]
 
 
 def test_evaluate_elo_cli_writes_outputs(tmp_path: Path) -> None:
@@ -215,7 +217,7 @@ def _evaluation_config(tmp_path: Path, input_path: Path) -> EloEvaluationConfig:
             metrics_by_fold_path=root / "metrics_by_fold.csv",
             segment_metrics_path=root / "metrics_by_segment.csv",
             out_of_fold_predictions_path=root / "predictions_out_of_fold.parquet",
-            prospective_2026_predictions_path=root / "predictions_2026_prospective.parquet",
+            holdout_2026_predictions_path=root / "predictions_2026_holdout.parquet",
             calibration_curves_path=root / "calibration_curves.csv",
             report_path=root / "report.md",
         ),

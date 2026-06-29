@@ -6,9 +6,12 @@
     "competition_category"
   ],
   "final_holdout_start": "2026-01-01",
+  "folds_version": "tournament_validation_v1",
+  "holdout_2026_status": "holdout_2026",
   "notes": [
     "2026 matches are excluded from retrospective parameter selection.",
-    "Each fold trains on matches strictly before the fold start date."
+    "Each fold trains on matches strictly before the fold start date.",
+    "2026 rows are a retrospective holdout when observed results are present."
   ],
   "probability_columns": [
     "prob_home_win",

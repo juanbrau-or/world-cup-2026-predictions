@@ -36,7 +36,10 @@ Thumbs.db
 # Generated artifacts
 /artifacts/models/**
 !/artifacts/models/.gitkeep
+/artifacts/evaluation/**/predictions_*.parquet
 /predictions/latest.*
+/predictions/upcoming.md
+/predictions/prospective_evaluation.*
 /predictions/history/**
 !/predictions/history/.gitkeep
 

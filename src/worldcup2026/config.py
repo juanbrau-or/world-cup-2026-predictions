@@ -11,6 +11,15 @@ class Settings(BaseSettings):
 
     football_data_api_key: str | None = None
     api_football_key: str | None = None
+    world_cup_provider: str = "football_data"
+    football_data_base_url: str = "https://api.football-data.org/v4"
+    football_data_competition_code: str = "WC"
+    api_football_base_url: str = "https://v3.football.api-sports.io"
+    api_football_league_id: int = 1
+    world_cup_http_timeout_seconds: float = 15.0
+    world_cup_http_retries: int = 2
+    world_cup_rate_limit_seconds: float = 1.0
+    world_cup_cache_ttl_seconds: int = 300
     open_meteo_base_url: str = "https://api.open-meteo.com"
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")

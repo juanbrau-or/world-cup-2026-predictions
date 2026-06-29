@@ -41,6 +41,7 @@ class MatchStatus(StrEnum):
     """Lifecycle status for a canonical match record."""
 
     PLAYED = "played"
+    IN_PROGRESS = "in_progress"
     SCHEDULED = "scheduled"
     POSTPONED = "postponed"
     CANCELLED = "cancelled"
@@ -194,8 +195,10 @@ class CanonicalMatch(BaseModel):
     source: NonEmptyStr
     source_match_id: NonEmptyStr
     retrieved_at_utc: datetime
+    source_updated_at_utc: datetime | None = None
+    data_cutoff_utc: datetime | None = None
 
-    @field_validator("kickoff_utc", "retrieved_at_utc")
+    @field_validator("kickoff_utc", "retrieved_at_utc", "source_updated_at_utc", "data_cutoff_utc")
     @classmethod
     def datetime_must_be_utc(cls, value: datetime | None) -> datetime | None:
         """Require timezone-aware UTC datetimes whenever a timestamp is present."""
@@ -299,6 +302,18 @@ class CanonicalMatch(BaseModel):
                 raise ValueError(msg)
             if self.result_90 is None:
                 msg = "played matches require result_90"
+                raise ValueError(msg)
+            return
+
+        if self.match_status is MatchStatus.IN_PROGRESS:
+            if (self.home_goals_90 is None) != (self.away_goals_90 is None):
+                msg = "in-progress matches require both partial score fields or neither"
+                raise ValueError(msg)
+            if self.result_90 is not None:
+                msg = "in-progress matches must not include result_90"
+                raise ValueError(msg)
+            if self.extra_time_played or self.penalty_shootout:
+                msg = "in-progress matches must not include extra time or penalties"
                 raise ValueError(msg)
             return
 
