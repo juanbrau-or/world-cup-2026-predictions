@@ -7,7 +7,7 @@ import itertools
 import json
 import math
 from collections.abc import Iterable, Mapping, Sequence
-from datetime import date
+from datetime import UTC, date, datetime
 from pathlib import Path
 from typing import Any, Protocol, Self
 
@@ -42,6 +42,8 @@ FEATURE_COLUMNS = (
     "competition_category",
 )
 EPSILON = 1e-15
+OUT_OF_FOLD_STATUS = "out_of_fold"
+HOLDOUT_2026_STATUS = "holdout_2026"
 
 
 class BacktestFoldConfig(BaseModel):
@@ -152,8 +154,8 @@ class EloEvaluationOutputConfig(BaseModel):
     out_of_fold_predictions_path: Path = Path(
         "artifacts/evaluation/elo/predictions_out_of_fold.parquet"
     )
-    prospective_2026_predictions_path: Path = Path(
-        "artifacts/evaluation/elo/predictions_2026_prospective.parquet"
+    holdout_2026_predictions_path: Path = Path(
+        "artifacts/evaluation/elo/predictions_2026_holdout.parquet"
     )
     calibration_curves_path: Path = Path("artifacts/evaluation/elo/calibration_curves.csv")
     report_path: Path = Path("artifacts/evaluation/elo/report.md")
@@ -168,6 +170,7 @@ class EloEvaluationConfig(BaseModel):
     random_seed: int = 2026
     calibration_bins: int = 10
     final_holdout_start: date = date(2026, 1, 1)
+    folds_version: str = "tournament_validation_v1"
     folds: tuple[BacktestFoldConfig, ...]
     search: EloParameterSearchConfig
     outputs: EloEvaluationOutputConfig = Field(default_factory=EloEvaluationOutputConfig)
@@ -185,6 +188,9 @@ class EloEvaluationConfig(BaseModel):
         if any(fold.start >= self.final_holdout_start for fold in self.folds):
             msg = "retrospective validation folds must start before final_holdout_start"
             raise ValueError(msg)
+        if not self.folds_version.strip():
+            msg = "folds_version cannot be blank"
+            raise ValueError(msg)
         return self
 
 
@@ -198,13 +204,13 @@ class EloEvaluationResult(BaseModel):
     metrics_by_fold_path: Path
     segment_metrics_path: Path
     out_of_fold_predictions_path: Path
-    prospective_2026_predictions_path: Path
+    holdout_2026_predictions_path: Path
     calibration_curves_path: Path
     report_path: Path
     selected_method: str
     validation_log_loss: float
     validation_matches: int
-    prospective_2026_matches: int
+    holdout_2026_matches: int
 
 
 class EloEvaluationError(RuntimeError):
@@ -385,6 +391,7 @@ def run_elo_evaluation(
     best_key: tuple[float, str, str] | None = None
     best_parameter_set: dict[str, Any] | None = None
     best_method_name: str | None = None
+    generated_at = _generated_at()
 
     for parameter_set in parameter_grid:
         rating_rows_by_id = _rating_rows_by_id(eligible_rows, base_elo_config, parameter_set)
@@ -398,6 +405,7 @@ def run_elo_evaluation(
                     fold=fold,
                     method_name=method_name,
                     random_seed=evaluation_config.random_seed,
+                    generated_at=generated_at,
                 )
                 metrics = _metrics_for_predictions(prediction_rows)
                 metrics.update(
@@ -431,21 +439,20 @@ def run_elo_evaluation(
         bins=evaluation_config.calibration_bins,
         group_fields=("fold",),
     )
-    prospective_predictions = _predict_2026(
+    holdout_predictions = _predict_2026(
         eligible_rows,
         base_elo_config,
         best_parameter_set,
         method_name=best_method_name,
         holdout_start=evaluation_config.final_holdout_start,
         random_seed=evaluation_config.random_seed,
+        generated_at=generated_at,
     )
-    prospective_metrics = (
-        _metrics_for_predictions(prospective_predictions) if prospective_predictions else {}
-    )
+    holdout_metrics = _metrics_for_predictions(holdout_predictions) if holdout_predictions else {}
     segment_metrics = _segment_metrics(best_predictions, evaluation_set="validation")
-    if prospective_predictions:
+    if holdout_predictions:
         segment_metrics.extend(
-            _segment_metrics(prospective_predictions, evaluation_set="prospective_2026")
+            _segment_metrics(holdout_predictions, evaluation_set=HOLDOUT_2026_STATUS)
         )
 
     selected_config = {
@@ -455,12 +462,15 @@ def run_elo_evaluation(
         "validation_brier_score": best_mean_brier,
         "rating_parameters": _serializable_parameter_set(best_parameter_set),
         "validation_folds": [fold["name"] for fold in folds],
+        "folds_version": evaluation_config.folds_version,
         "final_holdout_start": evaluation_config.final_holdout_start.isoformat(),
+        "holdout_2026_status": HOLDOUT_2026_STATUS,
         "features": list(FEATURE_COLUMNS),
         "probability_columns": list(PROBABILITY_COLUMNS),
         "notes": [
             "2026 matches are excluded from retrospective parameter selection.",
             "Each fold trains on matches strictly before the fold start date.",
+            "2026 rows are a retrospective holdout when observed results are present.",
         ],
     }
 
@@ -471,16 +481,16 @@ def run_elo_evaluation(
     _write_csv(selected_fold_metrics, outputs.metrics_by_fold_path)
     _write_csv(segment_metrics, outputs.segment_metrics_path)
     _write_predictions(best_predictions, outputs.out_of_fold_predictions_path)
-    _write_predictions(prospective_predictions, outputs.prospective_2026_predictions_path)
+    _write_predictions(holdout_predictions, outputs.holdout_2026_predictions_path)
     _write_csv(calibration_curves, outputs.calibration_curves_path)
     _write_report(
         outputs.report_path,
         selected_config=selected_config,
         selected_fold_metrics=selected_fold_metrics,
         segment_metrics=segment_metrics,
-        prospective_metrics=prospective_metrics,
+        holdout_metrics=holdout_metrics,
         retrospective_matches=len(best_predictions),
-        prospective_matches=len(prospective_predictions),
+        holdout_matches=len(holdout_predictions),
     )
 
     return EloEvaluationResult(
@@ -489,13 +499,13 @@ def run_elo_evaluation(
         metrics_by_fold_path=outputs.metrics_by_fold_path,
         segment_metrics_path=outputs.segment_metrics_path,
         out_of_fold_predictions_path=outputs.out_of_fold_predictions_path,
-        prospective_2026_predictions_path=outputs.prospective_2026_predictions_path,
+        holdout_2026_predictions_path=outputs.holdout_2026_predictions_path,
         calibration_curves_path=outputs.calibration_curves_path,
         report_path=outputs.report_path,
         selected_method=best_method_name,
         validation_log_loss=best_score,
         validation_matches=len(best_predictions),
-        prospective_2026_matches=len(prospective_predictions),
+        holdout_2026_matches=len(holdout_predictions),
     )
 
 
@@ -618,6 +628,7 @@ def _predict_fold(
     fold: Mapping[str, Any],
     method_name: str,
     random_seed: int,
+    generated_at: str,
 ) -> list[dict[str, Any]]:
     train_rows = [
         row
@@ -644,6 +655,9 @@ def _predict_fold(
         rating_rows_by_id,
         probabilities,
         fold_name=str(fold["name"]),
+        data_cutoff=_require_date_mapping(fold, "start").isoformat(),
+        generated_at=generated_at,
+        prediction_status=OUT_OF_FOLD_STATUS,
     )
 
 
@@ -655,6 +669,7 @@ def _predict_2026(
     method_name: str,
     holdout_start: date,
     random_seed: int,
+    generated_at: str,
 ) -> list[dict[str, Any]]:
     rating_rows_by_id = _rating_rows_by_id(rows, base_config, parameter_set)
     train_rows = [
@@ -669,7 +684,7 @@ def _predict_2026(
     ]
     if not test_rows:
         return []
-    _assert_no_future_training(train_rows, fold_name="prospective_2026", cutoff=holdout_start)
+    _assert_no_future_training(train_rows, fold_name=HOLDOUT_2026_STATUS, cutoff=holdout_start)
     model = _new_model(method_name, random_seed=random_seed)
     model.fit(_feature_frame(train_rows, rating_rows_by_id), _target_array(train_rows))
     probabilities = model.predict_proba(_feature_frame(test_rows, rating_rows_by_id))
@@ -678,7 +693,10 @@ def _predict_2026(
         test_rows,
         rating_rows_by_id,
         probabilities,
-        fold_name="prospective_2026",
+        fold_name=HOLDOUT_2026_STATUS,
+        data_cutoff=holdout_start.isoformat(),
+        generated_at=generated_at,
+        prediction_status=HOLDOUT_2026_STATUS,
     )
 
 
@@ -732,6 +750,9 @@ def _prediction_rows(
     probabilities: np.ndarray,
     *,
     fold_name: str,
+    data_cutoff: str,
+    generated_at: str,
+    prediction_status: str,
 ) -> list[dict[str, Any]]:
     output_rows: list[dict[str, Any]] = []
     for index, row in enumerate(rows):
@@ -747,7 +768,10 @@ def _prediction_rows(
                 "match_id": match_id,
                 "match_date": _match_date(row).isoformat(),
                 "kickoff_utc": kickoff_iso,
-                "data_cutoff_utc": kickoff_iso,
+                "data_cutoff": data_cutoff,
+                "data_cutoff_utc": data_cutoff,
+                "generated_at": generated_at,
+                "prediction_status": prediction_status,
                 "home_team_id": _require_str(row, "home_team_id"),
                 "away_team_id": _require_str(row, "away_team_id"),
                 "competition": _require_str(row, "competition"),
@@ -1091,16 +1115,16 @@ def _write_report(
     selected_config: Mapping[str, Any],
     selected_fold_metrics: Sequence[Mapping[str, Any]],
     segment_metrics: Sequence[Mapping[str, Any]],
-    prospective_metrics: Mapping[str, Any],
+    holdout_metrics: Mapping[str, Any],
     retrospective_matches: int,
-    prospective_matches: int,
+    holdout_matches: int,
 ) -> None:
     lines = [
         "# Elo Backtest Report",
         "",
         f"Selected method: `{selected_config['selected_method']}`",
         f"Validation matches: {retrospective_matches}",
-        f"Prospective 2026 matches: {prospective_matches}",
+        f"Holdout 2026 matches: {holdout_matches}",
         "",
         "## Selected Rating Parameters",
         "",
@@ -1112,9 +1136,9 @@ def _write_report(
         "",
         _markdown_table(selected_fold_metrics),
         "",
-        "## Prospective 2026 Metrics",
+        "## Holdout 2026 Metrics",
         "",
-        _markdown_table([prospective_metrics]) if prospective_metrics else "No 2026 matches found.",
+        _markdown_table([holdout_metrics]) if holdout_metrics else "No 2026 matches found.",
         "",
         "## Segment Metrics",
         "",
@@ -1122,7 +1146,7 @@ def _write_report(
         "",
         (
             "Validation uses only matches strictly before each fold start. "
-            "The 2026 holdout is excluded from parameter selection."
+            "The 2026 holdout is retrospective and excluded from parameter selection."
         ),
         "",
     ]
@@ -1158,7 +1182,7 @@ def _ensure_output_dirs(outputs: EloEvaluationOutputConfig) -> None:
         outputs.metrics_by_fold_path,
         outputs.segment_metrics_path,
         outputs.out_of_fold_predictions_path,
-        outputs.prospective_2026_predictions_path,
+        outputs.holdout_2026_predictions_path,
         outputs.calibration_curves_path,
         outputs.report_path,
     ):
@@ -1200,6 +1224,20 @@ def _class_from_name(name: str) -> int:
     if name == "away_win":
         return AWAY_CLASS
     msg = f"unknown class name: {name}"
+    raise EloEvaluationError(msg)
+
+
+def _generated_at() -> str:
+    return datetime.now(UTC).replace(microsecond=0).isoformat()
+
+
+def _require_date_mapping(row: Mapping[str, Any], field_name: str) -> date:
+    value = row.get(field_name)
+    if isinstance(value, date):
+        return value
+    if isinstance(value, str):
+        return date.fromisoformat(value)
+    msg = f"required date field {field_name} is missing, got {value!r}"
     raise EloEvaluationError(msg)
 
 

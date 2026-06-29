@@ -1,0 +1,173 @@
+{
+  "artifact_policy": {
+    "regenerable_ignored": [
+      "artifacts/evaluation/**/predictions_*.parquet",
+      "artifacts/models/**"
+    ],
+    "regenerate_with": [
+      "uv run wc2026 model dixon-coles",
+      "uv run wc2026 evaluate dixon-coles"
+    ],
+    "versionable": [
+      "configs/model.yaml",
+      "artifacts/evaluation/dixon_coles/evaluation_summary.json",
+      "artifacts/evaluation/dixon_coles/paired_comparison_summary.csv",
+      "artifacts/evaluation/dixon_coles/fold_report.csv",
+      "artifacts/evaluation/dixon_coles/report.md"
+    ]
+  },
+  "artifact_schema": "evaluation_summary_v1",
+  "declared_selection": {
+    "folds_version": "tournament_validation_v1",
+    "max_goals": 10,
+    "metrics": [
+      "log_loss",
+      "brier_score",
+      "ranked_probability_score"
+    ],
+    "regularization_strength": 0.05,
+    "selected_by": "mean_validation_log_loss",
+    "selected_half_life_days": 730.0,
+    "selected_model_type": "poisson"
+  },
+  "evaluation_sets": {
+    "holdout_2026": {
+      "definition": "retrospective 2026 holdout with observed results present; not used for hyperparameter selection",
+      "matches": 287
+    },
+    "out_of_fold": {
+      "definition": "walk-forward tournament validation folds before 2026",
+      "matches": 195
+    }
+  },
+  "folds": [
+    {
+      "competitions": "Copa Am\u00e9rica",
+      "date_end": "2024-07-14",
+      "date_start": "2024-06-20",
+      "fold": "copa_america_2024",
+      "matches": 28
+    },
+    {
+      "competitions": "UEFA Euro",
+      "date_end": "2024-07-14",
+      "date_start": "2024-06-14",
+      "fold": "euro_2024",
+      "matches": 48
+    },
+    {
+      "competitions": "FIFA World Cup",
+      "date_end": "2018-07-15",
+      "date_start": "2018-06-14",
+      "fold": "world_cup_2018",
+      "matches": 60
+    },
+    {
+      "competitions": "FIFA World Cup",
+      "date_end": "2022-12-17",
+      "date_start": "2022-11-20",
+      "fold": "world_cup_2022",
+      "matches": 59
+    }
+  ],
+  "observed_selection": {
+    "max_goals": 10,
+    "regularization_strength": 0.05,
+    "selected_by": "mean_validation_log_loss",
+    "selected_half_life_days": 730.0,
+    "selected_model_type": "poisson",
+    "validation_log_loss": 0.9295320628406879
+  },
+  "paired_comparison_summary": [
+    {
+      "bootstrap_iterations": 10000,
+      "ci_high": 0.010593136393315024,
+      "ci_low": -0.059030049954841825,
+      "matches": 195,
+      "mean_delta": -0.0237933499946455,
+      "metric": "log_loss",
+      "pair": "dixon_coles_minus_elo",
+      "random_seed": 2026
+    },
+    {
+      "bootstrap_iterations": 10000,
+      "ci_high": 0.0024876512543266956,
+      "ci_low": -0.04317317174729652,
+      "matches": 195,
+      "mean_delta": -0.020332365656570737,
+      "metric": "brier_score",
+      "pair": "dixon_coles_minus_elo",
+      "random_seed": 2026
+    },
+    {
+      "bootstrap_iterations": 10000,
+      "ci_high": -0.0013635312722630056,
+      "ci_low": -0.021491683812310668,
+      "matches": 195,
+      "mean_delta": -0.011238744266073034,
+      "metric": "ranked_probability_score",
+      "pair": "dixon_coles_minus_elo",
+      "random_seed": 2026
+    },
+    {
+      "bootstrap_iterations": 10000,
+      "ci_high": 0.00014761849188339173,
+      "ci_low": -0.0006921222462336416,
+      "matches": 195,
+      "mean_delta": -0.0002814277329990343,
+      "metric": "log_loss",
+      "pair": "poisson_minus_dixon_coles",
+      "random_seed": 2026
+    },
+    {
+      "bootstrap_iterations": 10000,
+      "ci_high": 3.7057631403173684e-05,
+      "ci_low": -0.0004497148177397612,
+      "matches": 195,
+      "mean_delta": -0.00021403654166650624,
+      "metric": "brier_score",
+      "pair": "poisson_minus_dixon_coles",
+      "random_seed": 2026
+    },
+    {
+      "bootstrap_iterations": 10000,
+      "ci_high": 1.5760616902581788e-06,
+      "ci_low": -8.691215546173298e-05,
+      "matches": 195,
+      "mean_delta": -4.269249162886544e-05,
+      "metric": "ranked_probability_score",
+      "pair": "poisson_minus_dixon_coles",
+      "random_seed": 2026
+    },
+    {
+      "bootstrap_iterations": 10000,
+      "ci_high": 0.010567307231394917,
+      "ci_low": -0.0591410686368326,
+      "matches": 195,
+      "mean_delta": -0.024074777727644537,
+      "metric": "log_loss",
+      "pair": "poisson_minus_elo",
+      "random_seed": 2026
+    },
+    {
+      "bootstrap_iterations": 10000,
+      "ci_high": 0.0020611569051466943,
+      "ci_low": -0.04353763531443711,
+      "matches": 195,
+      "mean_delta": -0.02054640219823724,
+      "metric": "brier_score",
+      "pair": "poisson_minus_elo",
+      "random_seed": 2026
+    },
+    {
+      "bootstrap_iterations": 10000,
+      "ci_high": -0.00145488260215477,
+      "ci_low": -0.0212969550664237,
+      "matches": 195,
+      "mean_delta": -0.011281436757701898,
+      "metric": "ranked_probability_score",
+      "pair": "poisson_minus_elo",
+      "random_seed": 2026
+    }
+  ]
+}

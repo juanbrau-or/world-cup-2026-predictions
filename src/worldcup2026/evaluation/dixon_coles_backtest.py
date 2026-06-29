@@ -6,7 +6,7 @@ import csv
 import json
 import math
 from collections.abc import Iterable, Mapping, Sequence
-from datetime import date
+from datetime import UTC, date, datetime
 from pathlib import Path
 from typing import Any, Self
 
@@ -30,6 +30,9 @@ from worldcup2026.models.dixon_coles import (
 
 CLASS_LABELS = (HOME_CLASS, DRAW_CLASS, AWAY_CLASS)
 EPSILON = 1e-15
+OUT_OF_FOLD_STATUS = "out_of_fold"
+HOLDOUT_2026_STATUS = "holdout_2026"
+METRIC_NAMES = ("log_loss", "brier_score", "ranked_probability_score")
 
 
 class DixonColesBacktestError(RuntimeError):
@@ -106,6 +109,41 @@ class DixonColesSearchConfig(BaseModel):
         return self
 
 
+class GoalModelSelectionConfig(BaseModel):
+    """Declarative record of the currently selected goal-model configuration."""
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    selected_model_type: GoalModelType = "poisson"
+    selected_half_life_days: float | None = 730.0
+    regularization_strength: float = 0.05
+    max_goals: int = 10
+    folds_version: str = "tournament_validation_v1"
+    selected_by: str = "mean_validation_log_loss"
+    metrics: tuple[str, ...] = METRIC_NAMES
+
+    @model_validator(mode="after")
+    def validate_selection(self) -> Self:
+        """Require a usable declarative selection record."""
+
+        if self.selected_half_life_days is not None and self.selected_half_life_days <= 0:
+            msg = "selected_half_life_days must be positive or null"
+            raise ValueError(msg)
+        if self.regularization_strength < 0:
+            msg = "regularization_strength cannot be negative"
+            raise ValueError(msg)
+        if self.max_goals < 1:
+            msg = "max_goals must be at least 1"
+            raise ValueError(msg)
+        if not self.folds_version.strip():
+            msg = "folds_version cannot be blank"
+            raise ValueError(msg)
+        if not self.metrics:
+            msg = "metrics cannot be empty"
+            raise ValueError(msg)
+        return self
+
+
 class DixonColesEvaluationOutputConfig(BaseModel):
     """Output paths for Dixon-Coles evaluation artifacts."""
 
@@ -118,11 +156,19 @@ class DixonColesEvaluationOutputConfig(BaseModel):
     comparison_with_elo_path: Path = Path(
         "artifacts/evaluation/dixon_coles/comparison_with_elo.csv"
     )
+    fold_report_path: Path = Path("artifacts/evaluation/dixon_coles/fold_report.csv")
+    paired_match_comparisons_path: Path = Path(
+        "artifacts/evaluation/dixon_coles/paired_match_comparisons.csv"
+    )
+    paired_comparison_summary_path: Path = Path(
+        "artifacts/evaluation/dixon_coles/paired_comparison_summary.csv"
+    )
+    evaluation_summary_path: Path = Path("artifacts/evaluation/dixon_coles/evaluation_summary.json")
     out_of_fold_predictions_path: Path = Path(
         "artifacts/evaluation/dixon_coles/predictions_out_of_fold.parquet"
     )
-    prospective_2026_predictions_path: Path = Path(
-        "artifacts/evaluation/dixon_coles/predictions_2026_prospective.parquet"
+    holdout_2026_predictions_path: Path = Path(
+        "artifacts/evaluation/dixon_coles/predictions_2026_holdout.parquet"
     )
     report_path: Path = Path("artifacts/evaluation/dixon_coles/report.md")
 
@@ -134,10 +180,21 @@ class DixonColesEvaluationConfig(BaseModel):
 
     input_matches_path: Path = Path("data/processed/modeling_matches.parquet")
     random_seed: int = 2026
+    bootstrap_iterations: int = 10000
     search: DixonColesSearchConfig = Field(default_factory=DixonColesSearchConfig)
+    selection: GoalModelSelectionConfig = Field(default_factory=GoalModelSelectionConfig)
     outputs: DixonColesEvaluationOutputConfig = Field(
         default_factory=DixonColesEvaluationOutputConfig
     )
+
+    @model_validator(mode="after")
+    def validate_evaluation(self) -> Self:
+        """Require a positive bootstrap budget."""
+
+        if self.bootstrap_iterations < 1:
+            msg = "bootstrap_iterations must be at least 1"
+            raise ValueError(msg)
+        return self
 
 
 class DixonColesEvaluationResult(BaseModel):
@@ -149,14 +206,18 @@ class DixonColesEvaluationResult(BaseModel):
     search_metrics_path: Path
     metrics_by_fold_path: Path
     comparison_with_elo_path: Path
+    fold_report_path: Path
+    paired_match_comparisons_path: Path
+    paired_comparison_summary_path: Path
+    evaluation_summary_path: Path
     out_of_fold_predictions_path: Path
-    prospective_2026_predictions_path: Path
+    holdout_2026_predictions_path: Path
     report_path: Path
     selected_model_type: str
     selected_half_life_days: float | None
     validation_log_loss: float
     validation_matches: int
-    prospective_2026_matches: int
+    holdout_2026_matches: int
 
 
 class DixonColesModelResult(BaseModel):
@@ -265,6 +326,7 @@ def run_dixon_coles_evaluation(
     del model_config
     rows = _eligible_rows(_read_modeling_matches(evaluation_config.input_matches_path))
     folds = build_walk_forward_folds(rows, elo_evaluation_config.folds)
+    fold_inventory = _fold_inventory(rows, folds)
     parameter_grid = list(_iter_parameter_grid(evaluation_config.search))
     if not parameter_grid:
         msg = "Dixon-Coles parameter grid is empty"
@@ -275,11 +337,18 @@ def run_dixon_coles_evaluation(
     best_key: tuple[float, str, str, float] | None = None
     best_parameters: dict[str, Any] | None = None
     best_score = math.inf
+    best_by_model_type: dict[str, dict[str, Any]] = {}
+    generated_at = _generated_at()
 
     for parameter_set in parameter_grid:
         fold_predictions: list[dict[str, Any]] = []
         for fold in folds:
-            predictions = _predict_fold(rows, fold=fold, parameter_set=parameter_set)
+            predictions = _predict_fold(
+                rows,
+                fold=fold,
+                parameter_set=parameter_set,
+                generated_at=generated_at,
+            )
             metrics = _metrics_for_predictions(predictions)
             search_rows.append(
                 {
@@ -302,20 +371,68 @@ def run_dixon_coles_evaluation(
             best_score = mean_log_loss
             best_predictions = fold_predictions
             best_parameters = parameter_set
+        model_type = str(parameter_set["model_type"])
+        current_for_type = best_by_model_type.get(model_type)
+        if current_for_type is None or selection_key < current_for_type["selection_key"]:
+            best_by_model_type[model_type] = {
+                "selection_key": selection_key,
+                "validation_log_loss": mean_log_loss,
+                "parameters": parameter_set,
+                "predictions": fold_predictions,
+                "fold_metrics": fold_metrics,
+            }
 
     if best_parameters is None:
         msg = "no Dixon-Coles candidate produced predictions"
         raise DixonColesBacktestError(msg)
+    _assert_required_model_types(best_by_model_type)
 
-    selected_fold_metrics = _metrics_by_fold(best_predictions)
-    prospective_predictions = _predict_2026(
+    selected_fold_metrics = _metrics_by_fold(best_predictions, fold_inventory=fold_inventory)
+    holdout_predictions = _predict_2026(
         rows,
         holdout_start=elo_evaluation_config.final_holdout_start,
         parameter_set=best_parameters,
+        generated_at=generated_at,
     )
+    elo_predictions = _read_predictions(
+        elo_evaluation_config.outputs.out_of_fold_predictions_path,
+        model_name="elo",
+    )
+    model_predictions = {
+        "poisson": best_by_model_type["poisson"]["predictions"],
+        "dixon_coles": best_by_model_type["dixon_coles"]["predictions"],
+        "elo": elo_predictions,
+    }
+    _assert_same_prediction_matches(model_predictions)
     comparison_rows = _comparison_with_elo(
-        selected_fold_metrics,
-        elo_metrics_path=elo_evaluation_config.outputs.metrics_by_fold_path,
+        model_predictions["poisson"],
+        elo_predictions=model_predictions["elo"],
+        fold_inventory=fold_inventory,
+    )
+    fold_report = _fold_report(
+        model_predictions=model_predictions,
+        fold_inventory=fold_inventory,
+    )
+    paired_rows = _paired_match_comparisons(model_predictions)
+    paired_summary = _paired_comparison_summary(
+        paired_rows,
+        bootstrap_iterations=evaluation_config.bootstrap_iterations,
+        random_seed=evaluation_config.random_seed,
+    )
+    evaluation_summary = _evaluation_summary(
+        selection=evaluation_config.selection,
+        selected_config={
+            "selected_by": "mean_validation_log_loss",
+            "selected_model_type": best_parameters["model_type"],
+            "selected_half_life_days": best_parameters["half_life_days"],
+            "regularization_strength": best_parameters["regularization_strength"],
+            "max_goals": best_parameters["max_goals"],
+            "validation_log_loss": best_score,
+        },
+        fold_inventory=fold_inventory,
+        paired_summary=paired_summary,
+        validation_matches=len(best_predictions),
+        holdout_matches=len(holdout_predictions),
     )
     selected_config = {
         "selected_by": "mean_validation_log_loss",
@@ -324,11 +441,16 @@ def run_dixon_coles_evaluation(
         "regularization_strength": best_parameters["regularization_strength"],
         "max_goals": best_parameters["max_goals"],
         "validation_log_loss": best_score,
+        "folds_version": evaluation_config.selection.folds_version,
         "validation_folds": [fold["name"] for fold in folds],
         "final_holdout_start": elo_evaluation_config.final_holdout_start.isoformat(),
+        "holdout_2026_status": HOLDOUT_2026_STATUS,
+        "bootstrap_iterations": evaluation_config.bootstrap_iterations,
+        "random_seed": evaluation_config.random_seed,
         "notes": [
             "The exact Elo folds are reused for 2018, 2022, and 2024 validation.",
             "No 2026 result is used to select half-life, model type, or regularization.",
+            "2026 rows are a retrospective holdout because observed results are present.",
             "score_probabilities_json stores the truncated score matrix; residual_probability "
             "stores mass outside max_goals.",
         ],
@@ -337,32 +459,41 @@ def run_dixon_coles_evaluation(
     outputs = evaluation_config.outputs
     _ensure_output_dirs(outputs)
     _write_json(selected_config, outputs.selected_config_path)
+    _write_json(evaluation_summary, outputs.evaluation_summary_path)
     _write_csv(search_rows, outputs.search_metrics_path)
     _write_csv(selected_fold_metrics, outputs.metrics_by_fold_path)
     _write_csv(comparison_rows, outputs.comparison_with_elo_path)
+    _write_csv(fold_report, outputs.fold_report_path)
+    _write_csv(paired_rows, outputs.paired_match_comparisons_path)
+    _write_csv(paired_summary, outputs.paired_comparison_summary_path)
     _write_predictions(best_predictions, outputs.out_of_fold_predictions_path)
-    _write_predictions(prospective_predictions, outputs.prospective_2026_predictions_path)
+    _write_predictions(holdout_predictions, outputs.holdout_2026_predictions_path)
     _write_report(
         outputs.report_path,
         selected_config=selected_config,
-        selected_fold_metrics=selected_fold_metrics,
+        fold_report=fold_report,
         comparison_rows=comparison_rows,
+        paired_summary=paired_summary,
         validation_matches=len(best_predictions),
-        prospective_matches=len(prospective_predictions),
+        holdout_matches=len(holdout_predictions),
     )
     return DixonColesEvaluationResult(
         selected_config_path=outputs.selected_config_path,
         search_metrics_path=outputs.search_metrics_path,
         metrics_by_fold_path=outputs.metrics_by_fold_path,
         comparison_with_elo_path=outputs.comparison_with_elo_path,
+        fold_report_path=outputs.fold_report_path,
+        paired_match_comparisons_path=outputs.paired_match_comparisons_path,
+        paired_comparison_summary_path=outputs.paired_comparison_summary_path,
+        evaluation_summary_path=outputs.evaluation_summary_path,
         out_of_fold_predictions_path=outputs.out_of_fold_predictions_path,
-        prospective_2026_predictions_path=outputs.prospective_2026_predictions_path,
+        holdout_2026_predictions_path=outputs.holdout_2026_predictions_path,
         report_path=outputs.report_path,
         selected_model_type=str(best_parameters["model_type"]),
         selected_half_life_days=best_parameters["half_life_days"],
         validation_log_loss=best_score,
         validation_matches=len(best_predictions),
-        prospective_2026_matches=len(prospective_predictions),
+        holdout_2026_matches=len(holdout_predictions),
     )
 
 
@@ -371,6 +502,7 @@ def _predict_fold(
     *,
     fold: Mapping[str, Any],
     parameter_set: Mapping[str, Any],
+    generated_at: str,
 ) -> list[dict[str, Any]]:
     train_rows = [row for row in rows if _require_str(row, "match_id") in fold["train_ids"]]
     test_rows = [row for row in rows if _require_str(row, "match_id") in fold["test_ids"]]
@@ -382,6 +514,9 @@ def _predict_fold(
         test_rows,
         fold_name=str(fold["name"]),
         parameter_set=parameter_set,
+        data_cutoff=_require_date_mapping(fold, "start").isoformat(),
+        generated_at=generated_at,
+        prediction_status=OUT_OF_FOLD_STATUS,
     )
 
 
@@ -390,19 +525,23 @@ def _predict_2026(
     *,
     holdout_start: date,
     parameter_set: Mapping[str, Any],
+    generated_at: str,
 ) -> list[dict[str, Any]]:
     train_rows = [row for row in rows if _match_date(row) < holdout_start]
     test_rows = [row for row in rows if _match_date(row) >= holdout_start]
     if not test_rows:
         return []
-    _assert_no_future_training(train_rows, fold_name="prospective_2026", cutoff=holdout_start)
+    _assert_no_future_training(train_rows, fold_name=HOLDOUT_2026_STATUS, cutoff=holdout_start)
     model = _new_model(parameter_set)
     model.fit(train_rows, cutoff=holdout_start)
     return _prediction_rows(
         model,
         test_rows,
-        fold_name="prospective_2026",
+        fold_name=HOLDOUT_2026_STATUS,
         parameter_set=parameter_set,
+        data_cutoff=holdout_start.isoformat(),
+        generated_at=generated_at,
+        prediction_status=HOLDOUT_2026_STATUS,
     )
 
 
@@ -412,6 +551,9 @@ def _prediction_rows(
     *,
     fold_name: str,
     parameter_set: Mapping[str, Any],
+    data_cutoff: str,
+    generated_at: str,
+    prediction_status: str,
 ) -> list[dict[str, Any]]:
     output: list[dict[str, Any]] = []
     for row in rows:
@@ -433,7 +575,10 @@ def _prediction_rows(
                 "match_id": _require_str(row, "match_id"),
                 "match_date": _match_date(row).isoformat(),
                 "kickoff_utc": kickoff_iso,
-                "data_cutoff_utc": kickoff_iso,
+                "data_cutoff": data_cutoff,
+                "data_cutoff_utc": data_cutoff,
+                "generated_at": generated_at,
+                "prediction_status": prediction_status,
                 "home_team_id": _require_str(row, "home_team_id"),
                 "away_team_id": _require_str(row, "away_team_id"),
                 "competition": _require_str(row, "competition"),
@@ -468,14 +613,19 @@ def _prediction_rows(
     return output
 
 
-def _metrics_by_fold(predictions: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
+def _metrics_by_fold(
+    predictions: Sequence[Mapping[str, Any]],
+    *,
+    fold_inventory: Mapping[str, Mapping[str, Any]] | None = None,
+) -> list[dict[str, Any]]:
     grouped: dict[str, list[Mapping[str, Any]]] = {}
     for row in predictions:
         grouped.setdefault(str(row["fold"]), []).append(row)
-    return [
-        {"fold": fold, **_metrics_for_predictions(rows)}
-        for fold, rows in sorted(grouped.items())
-    ]
+    output = []
+    for fold, rows in sorted(grouped.items()):
+        inventory = dict(fold_inventory.get(fold, {})) if fold_inventory is not None else {}
+        output.append({"fold": fold, **inventory, **_metrics_for_predictions(rows)})
+    return output
 
 
 def _metrics_for_predictions(predictions: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
@@ -486,19 +636,25 @@ def _metrics_for_predictions(predictions: Sequence[Mapping[str, Any]]) -> dict[s
     targets = np.asarray([_class_from_name(str(row["actual_result"])) for row in predictions])
     true_probabilities = probabilities[np.arange(len(targets)), targets]
     one_hot = np.eye(len(CLASS_LABELS))[targets]
-    goal_log_likelihood = np.asarray(
-        [float(row["goal_log_likelihood"]) for row in predictions],
-        dtype=float,
-    )
-    return {
+    metrics = {
         "matches": len(predictions),
         "log_loss": float(-np.mean(np.log(np.clip(true_probabilities, EPSILON, 1.0)))),
         "brier_score": float(np.mean(np.sum(np.square(probabilities - one_hot), axis=1))),
         "ranked_probability_score": _ranked_probability_score(probabilities, targets),
-        "goals_log_likelihood": float(np.mean(goal_log_likelihood)),
-        "goals_negative_log_likelihood": float(-np.mean(goal_log_likelihood)),
         "accuracy": float(np.mean(np.argmax(probabilities, axis=1) == targets)),
     }
+    if all("goal_log_likelihood" in row for row in predictions):
+        goal_log_likelihood = np.asarray(
+            [float(row["goal_log_likelihood"]) for row in predictions],
+            dtype=float,
+        )
+        metrics.update(
+            {
+                "goals_log_likelihood": float(np.mean(goal_log_likelihood)),
+                "goals_negative_log_likelihood": float(-np.mean(goal_log_likelihood)),
+            }
+        )
+    return metrics
 
 
 def _ranked_probability_score(probabilities: np.ndarray, targets: np.ndarray) -> float:
@@ -518,44 +674,248 @@ def _ranked_probability_score(probabilities: np.ndarray, targets: np.ndarray) ->
     )
 
 
-def _comparison_with_elo(
-    goal_metrics: Sequence[Mapping[str, Any]],
-    *,
-    elo_metrics_path: Path,
-) -> list[dict[str, Any]]:
-    elo_rows = _read_csv_by_fold(elo_metrics_path)
-    output: list[dict[str, Any]] = []
-    for row in goal_metrics:
-        fold = str(row["fold"])
-        elo_row = elo_rows.get(fold)
-        comparison = {
-            "fold": fold,
-            "dixon_coles_log_loss": row["log_loss"],
-            "dixon_coles_brier_score": row["brier_score"],
-            "dixon_coles_ranked_probability_score": row["ranked_probability_score"],
-            "dixon_coles_goals_log_likelihood": row["goals_log_likelihood"],
+def _fold_inventory(
+    rows: Sequence[Mapping[str, Any]],
+    folds: Sequence[Mapping[str, Any]],
+) -> dict[str, dict[str, Any]]:
+    rows_by_id = {_require_str(row, "match_id"): row for row in rows}
+    output: dict[str, dict[str, Any]] = {}
+    for fold in folds:
+        fold_rows = [rows_by_id[match_id] for match_id in sorted(fold["test_ids"])]
+        if not fold_rows:
+            msg = f"fold {fold['name']} has no rows for fold inventory"
+            raise DixonColesBacktestError(msg)
+        competitions = sorted({_require_str(row, "competition") for row in fold_rows})
+        output[str(fold["name"])] = {
+            "matches": len(fold_rows),
+            "date_start": min(_match_date(row) for row in fold_rows).isoformat(),
+            "date_end": max(_match_date(row) for row in fold_rows).isoformat(),
+            "competitions": "; ".join(competitions),
         }
-        if elo_row is not None:
-            comparison.update(
-                {
-                    "elo_log_loss": float(elo_row["log_loss"]),
-                    "elo_brier_score": float(elo_row["brier_score"]),
-                    "elo_ranked_probability_score": float(elo_row["ranked_probability_score"]),
-                    "log_loss_delta_vs_elo": row["log_loss"] - float(elo_row["log_loss"]),
-                    "brier_delta_vs_elo": row["brier_score"] - float(elo_row["brier_score"]),
-                    "rps_delta_vs_elo": row["ranked_probability_score"]
-                    - float(elo_row["ranked_probability_score"]),
-                }
-            )
-        output.append(comparison)
     return output
 
 
-def _read_csv_by_fold(path: Path) -> dict[str, dict[str, str]]:
+def _fold_report(
+    *,
+    model_predictions: Mapping[str, Sequence[Mapping[str, Any]]],
+    fold_inventory: Mapping[str, Mapping[str, Any]],
+) -> list[dict[str, Any]]:
+    output: list[dict[str, Any]] = []
+    for model_name, predictions in sorted(model_predictions.items()):
+        rows = _metrics_by_fold(predictions, fold_inventory=fold_inventory)
+        for row in rows:
+            output.append(
+                {
+                    "model": model_name,
+                    "fold": row["fold"],
+                    "matches": row["matches"],
+                    "date_start": row["date_start"],
+                    "date_end": row["date_end"],
+                    "competitions": row["competitions"],
+                    "log_loss": row["log_loss"],
+                    "brier_score": row["brier_score"],
+                    "ranked_probability_score": row["ranked_probability_score"],
+                    "goals_log_likelihood": row.get("goals_log_likelihood", ""),
+                }
+            )
+    return output
+
+
+def _assert_required_model_types(best_by_model_type: Mapping[str, Mapping[str, Any]]) -> None:
+    missing = {"poisson", "dixon_coles"} - set(best_by_model_type)
+    if missing:
+        msg = "goal-model search did not evaluate required model types: " + ", ".join(
+            sorted(missing)
+        )
+        raise DixonColesBacktestError(msg)
+
+
+def _read_predictions(path: Path, *, model_name: str) -> list[dict[str, Any]]:
     if not path.is_file():
-        return {}
-    with path.open("r", encoding="utf-8", newline="") as file:
-        return {str(row["fold"]): dict(row) for row in csv.DictReader(file)}
+        msg = f"{model_name} prediction artifact is missing: {path}"
+        raise DixonColesBacktestError(msg)
+    try:
+        table = pq.read_table(path)  # type: ignore[no-untyped-call]
+    except (OSError, pa.ArrowInvalid) as exc:
+        msg = f"failed to read {model_name} predictions {path}: {exc}"
+        raise DixonColesBacktestError(msg) from exc
+    rows = [dict(row) for row in table.to_pylist()]
+    if not rows:
+        msg = f"{model_name} prediction artifact is empty: {path}"
+        raise DixonColesBacktestError(msg)
+    return rows
+
+
+def _assert_same_prediction_matches(
+    model_predictions: Mapping[str, Sequence[Mapping[str, Any]]],
+) -> None:
+    ids_by_model: dict[str, list[str]] = {}
+    fold_by_model: dict[str, dict[str, str]] = {}
+    for model_name, predictions in model_predictions.items():
+        ids = [_require_str(row, "match_id") for row in predictions]
+        duplicate_ids = sorted({match_id for match_id in ids if ids.count(match_id) > 1})
+        if duplicate_ids:
+            msg = f"{model_name} predictions contain duplicate match_id values: {duplicate_ids[:5]}"
+            raise DixonColesBacktestError(msg)
+        ids_by_model[model_name] = sorted(ids)
+        fold_by_model[model_name] = {
+            _require_str(row, "match_id"): str(row["fold"]) for row in predictions
+        }
+    reference_model = sorted(ids_by_model)[0]
+    reference_ids = ids_by_model[reference_model]
+    reference_folds = fold_by_model[reference_model]
+    for model_name, ids in sorted(ids_by_model.items()):
+        if ids != reference_ids:
+            missing = sorted(set(reference_ids) - set(ids))[:5]
+            extra = sorted(set(ids) - set(reference_ids))[:5]
+            msg = (
+                f"{model_name} predictions do not match {reference_model} match_id set; "
+                f"missing={missing}, extra={extra}"
+            )
+            raise DixonColesBacktestError(msg)
+        if fold_by_model[model_name] != reference_folds:
+            msg = f"{model_name} fold assignment differs from {reference_model}"
+            raise DixonColesBacktestError(msg)
+
+
+def _prediction_losses(predictions: Sequence[Mapping[str, Any]]) -> dict[str, dict[str, float]]:
+    output: dict[str, dict[str, float]] = {}
+    for row in predictions:
+        probabilities = np.asarray(
+            [row["prob_home_win"], row["prob_draw"], row["prob_away_win"]],
+            dtype=float,
+        )
+        target = _class_from_name(str(row["actual_result"]))
+        one_hot = np.eye(len(CLASS_LABELS))[target]
+        rps = _ranked_probability_score(probabilities.reshape(1, -1), np.asarray([target]))
+        output[_require_str(row, "match_id")] = {
+            "log_loss": float(-math.log(max(float(probabilities[target]), EPSILON))),
+            "brier_score": float(np.sum(np.square(probabilities - one_hot))),
+            "ranked_probability_score": rps,
+        }
+    return output
+
+
+def _paired_match_comparisons(
+    model_predictions: Mapping[str, Sequence[Mapping[str, Any]]],
+) -> list[dict[str, Any]]:
+    pairs = (
+        ("poisson", "dixon_coles"),
+        ("poisson", "elo"),
+        ("dixon_coles", "elo"),
+    )
+    rows_by_model = {
+        model_name: {_require_str(row, "match_id"): row for row in predictions}
+        for model_name, predictions in model_predictions.items()
+    }
+    losses_by_model = {
+        model_name: _prediction_losses(predictions)
+        for model_name, predictions in model_predictions.items()
+    }
+    output: list[dict[str, Any]] = []
+    for model_a, model_b in pairs:
+        for match_id in sorted(rows_by_model[model_a]):
+            row = rows_by_model[model_a][match_id]
+            base = {
+                "pair": f"{model_a}_minus_{model_b}",
+                "model_a": model_a,
+                "model_b": model_b,
+                "match_id": match_id,
+                "fold": row["fold"],
+                "match_date": row["match_date"],
+                "competition": row["competition"],
+            }
+            for metric in METRIC_NAMES:
+                base[f"{metric}_delta"] = (
+                    losses_by_model[model_a][match_id][metric]
+                    - losses_by_model[model_b][match_id][metric]
+                )
+            output.append(base)
+    return output
+
+
+def _paired_comparison_summary(
+    paired_rows: Sequence[Mapping[str, Any]],
+    *,
+    bootstrap_iterations: int,
+    random_seed: int,
+) -> list[dict[str, Any]]:
+    rng = np.random.default_rng(random_seed)
+    output: list[dict[str, Any]] = []
+    for pair in sorted({str(row["pair"]) for row in paired_rows}):
+        pair_rows = [row for row in paired_rows if row["pair"] == pair]
+        for metric in METRIC_NAMES:
+            deltas = np.asarray([float(row[f"{metric}_delta"]) for row in pair_rows], dtype=float)
+            ci_low, ci_high = _bootstrap_mean_ci(
+                deltas,
+                iterations=bootstrap_iterations,
+                rng=rng,
+            )
+            output.append(
+                {
+                    "pair": pair,
+                    "metric": metric,
+                    "matches": len(deltas),
+                    "mean_delta": float(np.mean(deltas)),
+                    "ci_low": ci_low,
+                    "ci_high": ci_high,
+                    "bootstrap_iterations": bootstrap_iterations,
+                    "random_seed": random_seed,
+                }
+            )
+    return output
+
+
+def _bootstrap_mean_ci(
+    deltas: np.ndarray,
+    *,
+    iterations: int,
+    rng: np.random.Generator,
+) -> tuple[float, float]:
+    if len(deltas) == 0:
+        msg = "cannot bootstrap an empty paired comparison"
+        raise DixonColesBacktestError(msg)
+    sample_indices = rng.integers(0, len(deltas), size=(iterations, len(deltas)))
+    means = np.mean(deltas[sample_indices], axis=1)
+    return (float(np.quantile(means, 0.025)), float(np.quantile(means, 0.975)))
+
+
+def _comparison_with_elo(
+    goal_predictions: Sequence[Mapping[str, Any]],
+    *,
+    elo_predictions: Sequence[Mapping[str, Any]],
+    fold_inventory: Mapping[str, Mapping[str, Any]],
+) -> list[dict[str, Any]]:
+    goal_metrics = _metrics_by_fold(goal_predictions, fold_inventory=fold_inventory)
+    elo_metrics = {
+        str(row["fold"]): row
+        for row in _metrics_by_fold(elo_predictions, fold_inventory=fold_inventory)
+    }
+    output: list[dict[str, Any]] = []
+    for row in goal_metrics:
+        fold = str(row["fold"])
+        elo_row = elo_metrics[fold]
+        output.append(
+            {
+                "fold": fold,
+                "matches": row["matches"],
+                "date_start": row["date_start"],
+                "date_end": row["date_end"],
+                "competitions": row["competitions"],
+                "poisson_log_loss": row["log_loss"],
+                "poisson_brier_score": row["brier_score"],
+                "poisson_ranked_probability_score": row["ranked_probability_score"],
+                "poisson_goals_log_likelihood": row["goals_log_likelihood"],
+                "elo_log_loss": elo_row["log_loss"],
+                "elo_brier_score": elo_row["brier_score"],
+                "elo_ranked_probability_score": elo_row["ranked_probability_score"],
+                "log_loss_delta_vs_elo": row["log_loss"] - elo_row["log_loss"],
+                "brier_delta_vs_elo": row["brier_score"] - elo_row["brier_score"],
+                "rps_delta_vs_elo": row["ranked_probability_score"]
+                - elo_row["ranked_probability_score"],
+            }
+        )
+    return output
 
 
 def _iter_parameter_grid(config: DixonColesSearchConfig) -> Iterable[dict[str, Any]]:
@@ -699,14 +1059,66 @@ def _write_json(payload: Mapping[str, Any], path: Path) -> None:
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
+def _evaluation_summary(
+    *,
+    selection: GoalModelSelectionConfig,
+    selected_config: Mapping[str, Any],
+    fold_inventory: Mapping[str, Mapping[str, Any]],
+    paired_summary: Sequence[Mapping[str, Any]],
+    validation_matches: int,
+    holdout_matches: int,
+) -> dict[str, Any]:
+    return {
+        "artifact_schema": "evaluation_summary_v1",
+        "evaluation_sets": {
+            OUT_OF_FOLD_STATUS: {
+                "matches": validation_matches,
+                "definition": "walk-forward tournament validation folds before 2026",
+            },
+            HOLDOUT_2026_STATUS: {
+                "matches": holdout_matches,
+                "definition": (
+                    "retrospective 2026 holdout with observed results present; "
+                    "not used for hyperparameter selection"
+                ),
+            },
+        },
+        "declared_selection": selection.model_dump(mode="json"),
+        "observed_selection": dict(selected_config),
+        "folds": [
+            {"fold": fold, **dict(values)}
+            for fold, values in sorted(fold_inventory.items())
+        ],
+        "paired_comparison_summary": [dict(row) for row in paired_summary],
+        "artifact_policy": {
+            "versionable": [
+                "configs/model.yaml",
+                "artifacts/evaluation/dixon_coles/evaluation_summary.json",
+                "artifacts/evaluation/dixon_coles/paired_comparison_summary.csv",
+                "artifacts/evaluation/dixon_coles/fold_report.csv",
+                "artifacts/evaluation/dixon_coles/report.md",
+            ],
+            "regenerable_ignored": [
+                "artifacts/evaluation/**/predictions_*.parquet",
+                "artifacts/models/**",
+            ],
+            "regenerate_with": [
+                "uv run wc2026 model dixon-coles",
+                "uv run wc2026 evaluate dixon-coles",
+            ],
+        },
+    }
+
+
 def _write_report(
     path: Path,
     *,
     selected_config: Mapping[str, Any],
-    selected_fold_metrics: Sequence[Mapping[str, Any]],
+    fold_report: Sequence[Mapping[str, Any]],
     comparison_rows: Sequence[Mapping[str, Any]],
+    paired_summary: Sequence[Mapping[str, Any]],
     validation_matches: int,
-    prospective_matches: int,
+    holdout_matches: int,
 ) -> None:
     lines = [
         "# Dixon-Coles Backtest Report",
@@ -714,19 +1126,23 @@ def _write_report(
         f"Selected model: `{selected_config['selected_model_type']}`",
         f"Selected half-life days: `{selected_config['selected_half_life_days']}`",
         f"Validation matches: {validation_matches}",
-        f"Prospective 2026 matches: {prospective_matches}",
+        f"Holdout 2026 matches: {holdout_matches}",
         "",
         "## Fold Metrics",
         "",
-        _markdown_table(selected_fold_metrics),
+        _markdown_table(fold_report),
         "",
-        "## Comparison With Elo",
+        "## Poisson Comparison With Elo",
         "",
         _markdown_table(comparison_rows),
         "",
+        "## Paired Comparison Summary",
+        "",
+        _markdown_table(paired_summary),
+        "",
         (
-            "Validation reuses the Elo temporal folds. The 2026 holdout is not used "
-            "for model selection."
+            "Validation reuses the Elo temporal folds. The 2026 rows are a retrospective "
+            "holdout, not prospective predictions, and are not used for model selection."
         ),
         "",
     ]
@@ -761,8 +1177,12 @@ def _ensure_output_dirs(outputs: DixonColesEvaluationOutputConfig) -> None:
         outputs.search_metrics_path,
         outputs.metrics_by_fold_path,
         outputs.comparison_with_elo_path,
+        outputs.fold_report_path,
+        outputs.paired_match_comparisons_path,
+        outputs.paired_comparison_summary_path,
+        outputs.evaluation_summary_path,
         outputs.out_of_fold_predictions_path,
-        outputs.prospective_2026_predictions_path,
+        outputs.holdout_2026_predictions_path,
         outputs.report_path,
     ):
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -781,6 +1201,20 @@ def _read_yaml_mapping(config_path: Path, *, label: str) -> dict[str, Any]:
         msg = f"{label} config {config_path} must contain a YAML mapping"
         raise DixonColesBacktestError(msg)
     return config
+
+
+def _generated_at() -> str:
+    return datetime.now(UTC).replace(microsecond=0).isoformat()
+
+
+def _require_date_mapping(row: Mapping[str, Any], field_name: str) -> date:
+    value = row.get(field_name)
+    if isinstance(value, date):
+        return value
+    if isinstance(value, str):
+        return date.fromisoformat(value)
+    msg = f"required date field {field_name} is missing, got {value!r}"
+    raise DixonColesBacktestError(msg)
 
 
 def _target_class(row: Mapping[str, Any]) -> int:

@@ -1,0 +1,40 @@
+{
+  "matches": [
+    {
+      "id": 1001,
+      "utcDate": "2026-06-21T18:00:00Z",
+      "status": "SCHEDULED",
+      "lastUpdated": "2026-06-20T12:00:00Z",
+      "stage": "GROUP_STAGE",
+      "venue": "Estadio Azteca",
+      "city": "Mexico City",
+      "homeTeam": {"name": "Mexico"},
+      "awayTeam": {"name": "South Africa"},
+      "score": {"duration": "REGULAR", "fullTime": {"home": null, "away": null}}
+    },
+    {
+      "id": 1002,
+      "utcDate": "2026-06-28T19:00:00Z",
+      "status": "TIMED",
+      "lastUpdated": "2026-06-20T12:00:00Z",
+      "stage": "LAST_32",
+      "venue": "Example Stadium",
+      "city": "Example City",
+      "homeTeam": {"id": null, "name": null},
+      "awayTeam": {"id": null, "name": null},
+      "score": {"duration": "REGULAR", "fullTime": {"home": null, "away": null}}
+    },
+    {
+      "id": 1003,
+      "utcDate": "2026-06-18T20:00:00Z",
+      "status": "FINISHED",
+      "lastUpdated": "2026-06-18T22:00:00Z",
+      "stage": "GROUP_STAGE",
+      "venue": "BC Place",
+      "city": "Vancouver",
+      "homeTeam": {"name": "Canada"},
+      "awayTeam": {"name": "Japan"},
+      "score": {"duration": "REGULAR", "regularTime": {"home": 2, "away": 1}, "fullTime": {"home": 2, "away": 1}}
+    }
+  ]
+}

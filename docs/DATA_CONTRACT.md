@@ -27,7 +27,7 @@ Version actual del esquema: `international_match_v1`.
 |---|---:|---:|---|
 | `match_id` | string | si | Identificador estable dentro del proyecto. No debe duplicarse en una coleccion. |
 | `schema_version` | string | si | Debe ser `international_match_v1`. |
-| `match_status` | enum | si | `played`, `scheduled`, `postponed`, `cancelled`, `suspended`, `abandoned`. |
+| `match_status` | enum | si | `played`, `in_progress`, `scheduled`, `postponed`, `cancelled`, `suspended`, `abandoned`. |
 | `match_date` | date | si | Fecha nominal/local del partido segun la fuente o competicion. Puede diferir de la fecha UTC. |
 | `kickoff_utc` | datetime UTC nullable | segun precision | Obligatorio si `kickoff_time_status=exact_utc`; nulo en registros de solo fecha u hora local sin zona. |
 | `kickoff_local_time` | string `HH:MM` nullable | no | Hora local observada cuando no se puede convertir de forma segura a UTC. |
@@ -57,6 +57,8 @@ Version actual del esquema: `international_match_v1`.
 | `source` | string | si | Nombre estable de la fuente original. |
 | `source_match_id` | string | si | Identificador estable de la fuente. No debe repetirse dentro de la misma fuente. |
 | `retrieved_at_utc` | datetime UTC | si | Momento de adquisicion del dato, en UTC. |
+| `source_updated_at_utc` | datetime UTC nullable | no | Ultima actualizacion declarada por la fuente; no sustituye el instante de adquisicion. |
+| `data_cutoff_utc` | datetime UTC nullable | no | Cutoff del snapshot derivado; en ingesta viva equivale a `fetched_at`. |
 
 ## Fuente historica inicial
 
@@ -160,6 +162,8 @@ aleatorio de partidos.
 - `result_90` debe coincidir con los goles a 90 minutos.
 - Partidos `scheduled`, `postponed`, `cancelled`, `suspended` y `abandoned` no deben incluir
   marcadores, resultado a 90, tiempo extra ni penales.
+- Un partido `in_progress` puede tener marcador parcial a 90 minutos, pero no `result_90`,
+  prorroga ni penales. Ese marcador no representa un resultado final.
 - Si `extra_time_played=false`, los campos `*_goals_after_extra_time` deben ser nulos.
 - Si `extra_time_played=true`, el marcador a 90 debe estar empatado y ambos campos de goles tras
   tiempo extra son obligatorios y no pueden ser menores que los goles a 90.

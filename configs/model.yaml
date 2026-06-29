@@ -40,6 +40,7 @@ elo_evaluation:
   random_seed: 2026
   calibration_bins: 10
   final_holdout_start: "2026-01-01"
+  folds_version: tournament_validation_v1
   folds:
     - name: world_cup_2018
       start: "2018-06-14"
@@ -113,7 +114,7 @@ elo_evaluation:
     metrics_by_fold_path: artifacts/evaluation/elo/metrics_by_fold.csv
     segment_metrics_path: artifacts/evaluation/elo/metrics_by_segment.csv
     out_of_fold_predictions_path: artifacts/evaluation/elo/predictions_out_of_fold.parquet
-    prospective_2026_predictions_path: artifacts/evaluation/elo/predictions_2026_prospective.parquet
+    holdout_2026_predictions_path: artifacts/evaluation/elo/predictions_2026_holdout.parquet
     calibration_curves_path: artifacts/evaluation/elo/calibration_curves.csv
     report_path: artifacts/evaluation/elo/report.md
 
@@ -122,19 +123,20 @@ poisson:
   time_decay_half_life_days: 365
 
 dixon_coles:
-  model_version: dixon_coles_v1
+  model_version: poisson_goal_v1
   input_matches_path: data/processed/modeling_matches.parquet
   output_model_path: artifacts/models/dixon_coles/model.json
   report_output: artifacts/models/dixon_coles/report.json
   final_holdout_start: "2026-01-01"
-  model_type: dixon_coles
-  time_decay_half_life_days: 365
+  model_type: poisson
+  time_decay_half_life_days: 730
   regularization_strength: 0.05
   max_goals: 10
 
 dixon_coles_evaluation:
   input_matches_path: data/processed/modeling_matches.parquet
   random_seed: 2026
+  bootstrap_iterations: 10000
   search:
     model_types:
       - poisson
@@ -147,12 +149,27 @@ dixon_coles_evaluation:
     regularization_strength:
       - 0.05
     max_goals: 10
+  selection:
+    selected_model_type: poisson
+    selected_half_life_days: 730
+    regularization_strength: 0.05
+    max_goals: 10
+    folds_version: tournament_validation_v1
+    selected_by: mean_validation_log_loss
+    metrics:
+      - log_loss
+      - brier_score
+      - ranked_probability_score
   outputs:
     root: artifacts/evaluation/dixon_coles
     selected_config_path: artifacts/evaluation/dixon_coles/selected_config.json
     search_metrics_path: artifacts/evaluation/dixon_coles/search_metrics.csv
     metrics_by_fold_path: artifacts/evaluation/dixon_coles/metrics_by_fold.csv
     comparison_with_elo_path: artifacts/evaluation/dixon_coles/comparison_with_elo.csv
+    fold_report_path: artifacts/evaluation/dixon_coles/fold_report.csv
+    paired_match_comparisons_path: artifacts/evaluation/dixon_coles/paired_match_comparisons.csv
+    paired_comparison_summary_path: artifacts/evaluation/dixon_coles/paired_comparison_summary.csv
+    evaluation_summary_path: artifacts/evaluation/dixon_coles/evaluation_summary.json
     out_of_fold_predictions_path: artifacts/evaluation/dixon_coles/predictions_out_of_fold.parquet
-    prospective_2026_predictions_path: artifacts/evaluation/dixon_coles/predictions_2026_prospective.parquet
+    holdout_2026_predictions_path: artifacts/evaluation/dixon_coles/predictions_2026_holdout.parquet
     report_path: artifacts/evaluation/dixon_coles/report.md
