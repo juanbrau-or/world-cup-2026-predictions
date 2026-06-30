@@ -1,25 +1,25 @@
 {
-  "checksum": "e1f9374f0cea2889bad041f48cfec32233402ea3cbfee203a0a4f7475b133e84",
+  "checksum": "860840cb02d1a040921e8e37f5a7c0b1a9c9cd56a3cbec0880bdc1d0510cbc5c",
   "checksums": {
-    "history/20260630T072507Z_e1f9374f0cea.csv.gz": "dc4198c31ddbd65f3dc2c34b6d50fc592ffa629e33dc94dd317289669e373f2f",
-    "latest.csv": "e1f9374f0cea2889bad041f48cfec32233402ea3cbfee203a0a4f7475b133e84",
-    "latest.json": "b7cad73a387020528c3a665ec9041169e4cb497d0dff04e9f95899a72983bb0b",
+    "history/20260630T105917Z_860840cb02d1.csv.gz": "10399d74ba064dec625952722094d88733c0779a85aacfd33ed35f1eb323bfa2",
+    "latest.csv": "860840cb02d1a040921e8e37f5a7c0b1a9c9cd56a3cbec0880bdc1d0510cbc5c",
+    "latest.json": "19b1bc3b007d4bc4fb7fb4e73707ace8036fe3bfa412cb70d4c609e39e91efd7",
     "prospective_evaluation.json": "b71ca788f9f57ab1708a5eb6e4c8ba3bb6824ccda7bf31dfb738c39edd3dd18b",
     "prospective_evaluation.md": "82733a385fde82926175997bea806a6587f183c2f4040595d8dc17f1c16a16b8",
-    "upcoming.md": "998939d68da59a7244e29a40bb8e095a181f51e24919e4641cd2377447035cd2"
+    "upcoming.md": "f34a21cbd872525a22d5bd0611d188ea98d531e869f5180b5bd4cde5b2c9ea4e"
   },
-  "data_cutoff": "2026-06-30T07:25:07Z",
-  "generated_at": "2026-06-30T07:25:47Z",
-  "history_path": "history/20260630T072507Z_e1f9374f0cea.csv.gz",
+  "data_cutoff": "2026-06-30T10:59:17Z",
+  "generated_at": "2026-06-30T10:59:50Z",
+  "history_path": "history/20260630T105917Z_860840cb02d1.csv.gz",
   "model": {
     "family": "poisson",
     "version": "poisson_goal_v1"
   },
   "prediction_count": 13,
   "prospective_evaluation_observations": 0,
-  "publication_fingerprint": "0954b68226ef157dc271087006931623ec0090d2f69716410eedd754b2feeafa",
+  "publication_fingerprint": "dd241a8e8982e846aed72cd0fd4e5d57ebc8132db869d7da263142a072327137",
   "published_files": [
-    "history/20260630T072507Z_e1f9374f0cea.csv.gz",
+    "history/20260630T105917Z_860840cb02d1.csv.gz",
     "latest.csv",
     "latest.json",
     "prospective_evaluation.json",
