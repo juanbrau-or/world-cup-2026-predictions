@@ -44,6 +44,20 @@ def test_operational_predictions_workflow_syntax_and_contract() -> None:
     assert "Commit and push data branch" in publish_steps
 
 
+def test_predictions_data_worktree_uses_authenticated_remote() -> None:
+    payload = _workflow_payload()
+    publish_data = _mapping(_mapping(payload["jobs"])["publish-data"])
+    step = _step(publish_data, "Prepare predictions-data worktree")
+    script = _step_run(publish_data, "Prepare predictions-data worktree")
+    env = _mapping(step["env"])
+
+    assert env["GITHUB_TOKEN"] == "${{ github.token }}"
+    assert "GITHUB_TOKEN is required for predictions-data push" in script
+    assert "x-access-token:${GITHUB_TOKEN}" in script
+    assert "${GITHUB_REPOSITORY}.git" in script
+    assert "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git" not in script
+
+
 def test_operational_pipeline_rebuilds_clean_checkout_inputs_before_prediction() -> None:
     payload = _workflow_payload()
     run_pipeline = _mapping(_mapping(payload["jobs"])["run-pipeline"])
