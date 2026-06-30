@@ -73,3 +73,13 @@ resueltos y discrepancias de validación se escriben bajo `data/interim/`.
 solo resultados terminados disponibles antes del cutoff vivo y escribe vistas actuales más snapshots
 históricos bajo `predictions/`. `evaluate prospective` evalúa únicamente predicciones históricas ya
 guardadas cuyos fixtures estén terminados en la vista viva actual.
+
+## Automatizacion operativa
+
+GitHub Actions ejecuta el flujo operativo manual cada 4 horas en UTC y tambien bajo demanda. Los
+outputs pequenos se publican en la rama `predictions-data`; Parquet, logs, reportes completos,
+manifests y modelos de auditoria quedan como artifacts de la ejecucion.
+
+Consulta `docs/OPERATIONS.md` para configurar secrets, ejecutar el workflow manualmente, leer
+`predictions-data`, recuperar fallos, desactivar temporalmente el schedule y reproducir el flujo en
+local.
