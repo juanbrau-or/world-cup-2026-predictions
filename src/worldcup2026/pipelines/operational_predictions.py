@@ -649,8 +649,12 @@ def _prediction_schema() -> pa.Schema:
 
 def _prediction_csv_fields() -> list[str]:
     return [
+        "schema_version",
         "prediction_id",
+        "prediction_run_id",
         "source_fixture_id",
+        "match_id",
+        "source",
         "prediction_created_at_utc",
         "data_cutoff_utc",
         "kickoff_utc",
@@ -667,12 +671,22 @@ def _prediction_csv_fields() -> list[str]:
         "probability_draw",
         "probability_away_win",
         "modal_score",
+        "score_probabilities_json",
+        "score_probability_mass",
+        "residual_probability",
         "model_family",
         "model_version",
+        "selected_config_json",
+        "selected_config_checksum",
         "dataset_revision",
+        "dataset_checksum",
         "live_snapshot_checksum",
         "prediction_context",
         "prediction_status",
+        "competition",
+        "stage",
+        "training_matches",
+        "live_finished_2026_matches",
     ]
 
 

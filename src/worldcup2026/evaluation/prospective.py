@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import csv
+import gzip
 import hashlib
 import json
 import math
@@ -10,6 +11,7 @@ from collections import Counter, defaultdict
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from datetime import UTC, date, datetime, timedelta
+from io import StringIO
 from pathlib import Path
 from typing import Any
 
@@ -29,6 +31,7 @@ LEDGER_SCHEMA_VERSION = "prediction_ledger_v1"
 SCORECARD_SCHEMA_VERSION = "prospective_scorecard_v1"
 DEFAULT_CONFIG_PATH = Path("configs/prospective_evaluation.yaml")
 DEFAULT_RESULTS_CUTOFF_PATH = Path("data/interim/world_cup_2026_ingest_report.json")
+DEFAULT_PUBLISHED_HISTORY_ROOT = Path("predictions/published-history/history")
 LEGACY_ID_REPAIR_REASON = "legacy_prediction_id_omitted_created_at"
 
 
@@ -191,6 +194,7 @@ def run_prospective_evaluation(
     ledger_path: Path = Path("predictions/prediction_ledger.parquet"),
     config_path: Path = DEFAULT_CONFIG_PATH,
     results_cutoff_path: Path = DEFAULT_RESULTS_CUTOFF_PATH,
+    published_history_root: Path | None = DEFAULT_PUBLISHED_HISTORY_ROOT,
     generated_at: datetime | None = None,
 ) -> ProspectiveEvaluationResult:
     """Build the prediction ledger and evaluate the official prospective policy."""
@@ -199,7 +203,10 @@ def run_prospective_evaluation(
     if config.result_metric_basis != RESULT_METRIC_BASIS:
         raise ProspectiveEvaluationError("only result_90 is currently supported for 1X2 metrics")
     created_at = _utc_now() if generated_at is None else _require_utc(generated_at)
-    prediction_rows = _read_prediction_history(predictions_history_root)
+    prediction_rows = [
+        *_read_prediction_history(predictions_history_root),
+        *_read_published_prediction_history(published_history_root),
+    ]
     existing_ledger_rows = _read_existing_ledger(ledger_path)
     ledger_rows = build_prediction_ledger_rows(
         prediction_rows,
@@ -405,6 +412,81 @@ def _read_prediction_history(root: Path) -> list[dict[str, Any]]:
             item["_prediction_snapshot_checksum"] = snapshot_checksum
             rows.append(item)
     return rows
+
+
+def _read_published_prediction_history(root: Path | None) -> list[dict[str, Any]]:
+    if root is None or not root.is_dir():
+        return []
+    rows: list[dict[str, Any]] = []
+    for path in sorted(root.glob("*.csv.gz")):
+        try:
+            compressed = path.read_bytes()
+            text = gzip.decompress(compressed).decode("utf-8")
+        except (OSError, gzip.BadGzipFile, UnicodeDecodeError) as exc:
+            msg = f"failed to read published prediction history {path}: {exc}"
+            raise ProspectiveEvaluationError(msg) from exc
+        reader = csv.DictReader(StringIO(text))
+        if reader.fieldnames is None:
+            raise ProspectiveEvaluationError(f"published prediction history has no header: {path}")
+        snapshot_checksum = hashlib.sha256(compressed).hexdigest()
+        for row in reader:
+            item = _published_prediction_row(row)
+            item["_history_path"] = path.as_posix()
+            item["_prediction_snapshot_checksum"] = snapshot_checksum
+            rows.append(item)
+    return rows
+
+
+def _published_prediction_row(row: Mapping[str, str | None]) -> dict[str, Any]:
+    item: dict[str, Any] = {
+        key: value if value not in {None, ""} else None for key, value in row.items()
+    }
+    for field in (
+        "hours_before_kickoff",
+        "home_elo_pre",
+        "away_elo_pre",
+        "expected_home_goals",
+        "expected_away_goals",
+        "probability_home_win",
+        "probability_draw",
+        "probability_away_win",
+        "score_probability_mass",
+        "residual_probability",
+    ):
+        if item.get(field) is not None:
+            item[field] = _parse_float_field(item[field], field_name=field)
+    for field in ("training_matches", "live_finished_2026_matches"):
+        if item.get(field) is not None:
+            item[field] = _parse_int_field(item[field], field_name=field)
+    if item.get("selected_config_json") is None:
+        config_payload = {
+            "schema_version": "published_prediction_history_legacy_config_v1",
+            "source": "predictions-data/history",
+            "model_family": item.get("model_family"),
+            "model_version": item.get("model_version"),
+            "dataset_revision": item.get("dataset_revision"),
+        }
+        encoded = json.dumps(config_payload, sort_keys=True, separators=(",", ":"))
+        item["selected_config_json"] = encoded
+        item["selected_config_checksum"] = hashlib.sha256(encoded.encode("utf-8")).hexdigest()
+    return item
+
+
+def _parse_float_field(value: object, *, field_name: str) -> float:
+    try:
+        parsed = float(str(value))
+    except (TypeError, ValueError) as exc:
+        raise ProspectiveEvaluationError(f"{field_name} must be a finite number") from exc
+    if not math.isfinite(parsed):
+        raise ProspectiveEvaluationError(f"{field_name} must be a finite number")
+    return parsed
+
+
+def _parse_int_field(value: object, *, field_name: str) -> int:
+    try:
+        return int(str(value))
+    except (TypeError, ValueError) as exc:
+        raise ProspectiveEvaluationError(f"{field_name} must be an integer") from exc
 
 
 def _read_existing_ledger(path: Path) -> list[dict[str, Any]]:

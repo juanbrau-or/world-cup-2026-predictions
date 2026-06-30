@@ -139,6 +139,11 @@ aplica la politica versionada de `configs/prospective_evaluation.yaml`. La polit
 reciente generada al menos 6 horas antes del kickoff; si no existe, usa la prediccion valida mas
 temprana disponible antes del kickoff.
 
+En GitHub Actions, el job operativo restaura `predictions-data/history/*.csv.gz` en
+`predictions/published-history/history/` antes de evaluar. Ese directorio es temporal y permite que
+el ledger acumulado incluya snapshots publicados por runs anteriores sin guardar Parquet en la rama
+publica.
+
 Los reportes oficiales son:
 
 - `predictions/prospective_scorecard.json`

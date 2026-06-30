@@ -40,6 +40,20 @@ jobs:
       - name: Install dependencies
         run: uv sync --group dev
 
+      - name: Restore published prediction history
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git ls-remote --exit-code --heads origin predictions-data >/dev/null 2>&1; then
+            mkdir -p predictions/published-history
+            git fetch --depth=1 origin predictions-data
+            if git cat-file -e FETCH_HEAD:history 2>/dev/null; then
+              git archive FETCH_HEAD history | tar -x -C predictions/published-history
+            fi
+          else
+            echo "No predictions-data branch exists yet; starting without published history."
+          fi
+
       - name: Run operational pipeline
         shell: bash
         run: |
