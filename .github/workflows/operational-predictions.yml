@@ -59,6 +59,14 @@ jobs:
       - name: Validate publisher output and secret scan
         run: uv run wc2026 publish prepare --predictions-root predictions --output-root dist/predictions-data
 
+      - name: Package manifests
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          find data/raw dist/predictions-data -type f \( -name 'manifest*.json' -o -name '*manifest*.json' \) -print0 \
+            | tar --null -czf dist/operational-manifests.tgz --files-from -
+
       - name: Package publication inputs
         run: |
           mkdir -p dist
@@ -100,11 +108,8 @@ jobs:
         uses: actions/upload-artifact@v7.0.1
         with:
           name: operational-manifests
-          if-no-files-found: ignore
-          path: |
-            data/raw/**/manifest*.json
-            data/raw/**/*manifest*.json
-            dist/predictions-data/manifest.json
+          if-no-files-found: error
+          path: dist/operational-manifests.tgz
 
       - name: Upload audit models
         uses: actions/upload-artifact@v7.0.1
