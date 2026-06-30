@@ -1,23 +1,19 @@
 {
   "baselines": {
-    "elo_operational": {
-      "matches": 1,
-      "status": "not_available"
-    },
     "historical_frequency_frozen": {
       "metrics": {
-        "accuracy": 0.0,
-        "average_hours_before_kickoff": 6.011388888888889,
-        "brier_score": 0.795451052592568,
+        "accuracy": null,
+        "average_hours_before_kickoff": null,
+        "brier_score": null,
         "calibration_error": null,
         "calibration_minimum_matches": 30,
         "calibration_status": "insufficient_sample",
-        "kickoff_end": "2026-06-30T17:00:00Z",
-        "kickoff_start": "2026-06-30T17:00:00Z",
-        "log_loss": 1.2455902195378175,
-        "matches": 1,
-        "median_hours_before_kickoff": 6.011388888888889,
-        "ranked_probability_score": 0.37248317930870234
+        "kickoff_end": null,
+        "kickoff_start": null,
+        "log_loss": null,
+        "matches": 0,
+        "median_hours_before_kickoff": null,
+        "ranked_probability_score": null
       },
       "probabilities": {
         "away_win": 0.2877710099246071,
@@ -28,18 +24,18 @@
     },
     "uniform_1x2": {
       "metrics": {
-        "accuracy": 0.0,
-        "average_hours_before_kickoff": 6.011388888888889,
-        "brier_score": 0.6666666666666667,
+        "accuracy": null,
+        "average_hours_before_kickoff": null,
+        "brier_score": null,
         "calibration_error": null,
         "calibration_minimum_matches": 30,
         "calibration_status": "insufficient_sample",
-        "kickoff_end": "2026-06-30T17:00:00Z",
-        "kickoff_start": "2026-06-30T17:00:00Z",
-        "log_loss": 1.0986122886681098,
-        "matches": 1,
-        "median_hours_before_kickoff": 6.011388888888889,
-        "ranked_probability_score": 0.2777777777777778
+        "kickoff_end": null,
+        "kickoff_start": null,
+        "log_loss": null,
+        "matches": 0,
+        "median_hours_before_kickoff": null,
+        "ranked_probability_score": null
       },
       "probabilities": {
         "away_win": 0.3333333333333333,
@@ -49,37 +45,8 @@
       "status": "computed"
     }
   },
-  "descriptive_metrics_by_horizon_all_valid_predictions": {
-    "1_to_6h": {
-      "accuracy": 1.0,
-      "average_hours_before_kickoff": 2.5944444444444446,
-      "brier_score": 0.45636067909205225,
-      "calibration_error": null,
-      "calibration_minimum_matches": 30,
-      "calibration_status": "insufficient_sample",
-      "kickoff_end": "2026-06-30T17:00:00Z",
-      "kickoff_start": "2026-06-30T17:00:00Z",
-      "log_loss": 0.8001743583277889,
-      "matches": 1,
-      "median_hours_before_kickoff": 2.5944444444444446,
-      "ranked_probability_score": 0.1971374941491802
-    },
-    "6_to_24h": {
-      "accuracy": 1.0,
-      "average_hours_before_kickoff": 7.795972222222222,
-      "brier_score": 0.45636067909205225,
-      "calibration_error": null,
-      "calibration_minimum_matches": 30,
-      "calibration_status": "insufficient_sample",
-      "kickoff_end": "2026-06-30T17:00:00Z",
-      "kickoff_start": "2026-06-30T17:00:00Z",
-      "log_loss": 0.8001743583277889,
-      "matches": 2,
-      "median_hours_before_kickoff": 7.795972222222222,
-      "ranked_probability_score": 0.1971374941491802
-    }
-  },
-  "generated_at_utc": "2026-06-30T19:34:53Z",
+  "descriptive_metrics_by_horizon_all_valid_predictions": {},
+  "generated_at_utc": "2026-06-30T19:48:41Z",
   "horizons": {
     "buckets": [
       {
@@ -119,117 +86,33 @@
   },
   "ledger": {
     "invalidity_counts": {},
-    "predictions": 75,
+    "predictions": 87,
     "schema_version": "prediction_ledger_v1",
-    "snapshots": 6,
+    "snapshots": 7,
     "unique_fixtures": 13,
     "validity_counts": {
-      "valid": 75
+      "valid": 87
     }
   },
-  "matches": [
-    {
-      "actual_result_90": "away_win",
-      "away_goals_90": 2,
-      "away_goals_after_extra_time": null,
-      "away_penalty_goals": null,
-      "away_team_name": "Norway",
-      "data_cutoff_utc": "2026-06-30T19:34:43.369804Z",
-      "dataset_revision": "operational_dataset_v1:d49605a7933845c7",
-      "extra_time_played": false,
-      "historical_frequency_frozen_probability_away_win": 0.2877710099246071,
-      "historical_frequency_frozen_probability_draw": 0.2246879925033011,
-      "historical_frequency_frozen_probability_home_win": 0.48754099757209185,
-      "home_goals_90": 1,
-      "home_goals_after_extra_time": null,
-      "home_penalty_goals": null,
-      "home_team_name": "Ivory Coast",
-      "horizon_bucket": "6_to_24h",
-      "hours_before_kickoff": 6.011388888888889,
-      "kickoff_utc": "2026-06-30T17:00:00Z",
-      "metric_result_1x2": "away_win",
-      "model_name": "poisson",
-      "model_version": "poisson_goal_v1",
-      "official_selection_rule": "latest_valid_at_least_6h_before_kickoff",
-      "penalty_shootout": false,
-      "predicted_result": "away_win",
-      "prediction_created_at_utc": "2026-06-30T10:59:19Z",
-      "prediction_id": "f4a14222fb875f84e0d3afde",
-      "probability_away_win": 0.4492506267,
-      "probability_draw": 0.2491700038,
-      "probability_home_win": 0.3015793695,
-      "qualification_winner": "away",
-      "source_fixture_id": "537424",
-      "source_snapshot_checksum": "49ee9f74c0281cd15472256f6505182f365f637db3a0d5a11bf3376ae6fc1635",
-      "stage": "LAST_32",
-      "uniform_1x2_probability_away_win": 0.3333333333333333,
-      "uniform_1x2_probability_draw": 0.3333333333333333,
-      "uniform_1x2_probability_home_win": 0.3333333333333333
-    }
-  ],
+  "matches": [],
   "metrics": {
-    "accuracy": 1.0,
-    "average_hours_before_kickoff": 6.011388888888889,
-    "brier_score": 0.45636067909205225,
+    "accuracy": null,
+    "average_hours_before_kickoff": null,
+    "brier_score": null,
     "calibration_error": null,
     "calibration_minimum_matches": 30,
     "calibration_status": "insufficient_sample",
-    "kickoff_end": "2026-06-30T17:00:00Z",
-    "kickoff_start": "2026-06-30T17:00:00Z",
-    "log_loss": 0.8001743583277889,
-    "matches": 1,
-    "median_hours_before_kickoff": 6.011388888888889,
-    "ranked_probability_score": 0.1971374941491802
+    "kickoff_end": null,
+    "kickoff_start": null,
+    "log_loss": null,
+    "matches": 0,
+    "median_hours_before_kickoff": null,
+    "ranked_probability_score": null
   },
-  "metrics_by_favorite_segment": {
-    "favorite": {
-      "accuracy": 1.0,
-      "average_hours_before_kickoff": 6.011388888888889,
-      "brier_score": 0.45636067909205225,
-      "calibration_error": null,
-      "calibration_minimum_matches": 30,
-      "calibration_status": "insufficient_sample",
-      "kickoff_end": "2026-06-30T17:00:00Z",
-      "kickoff_start": "2026-06-30T17:00:00Z",
-      "log_loss": 0.8001743583277889,
-      "matches": 1,
-      "median_hours_before_kickoff": 6.011388888888889,
-      "ranked_probability_score": 0.1971374941491802
-    }
-  },
-  "metrics_by_horizon": {
-    "6_to_24h": {
-      "accuracy": 1.0,
-      "average_hours_before_kickoff": 6.011388888888889,
-      "brier_score": 0.45636067909205225,
-      "calibration_error": null,
-      "calibration_minimum_matches": 30,
-      "calibration_status": "insufficient_sample",
-      "kickoff_end": "2026-06-30T17:00:00Z",
-      "kickoff_start": "2026-06-30T17:00:00Z",
-      "log_loss": 0.8001743583277889,
-      "matches": 1,
-      "median_hours_before_kickoff": 6.011388888888889,
-      "ranked_probability_score": 0.1971374941491802
-    }
-  },
-  "metrics_by_stage": {
-    "LAST_32": {
-      "accuracy": 1.0,
-      "average_hours_before_kickoff": 6.011388888888889,
-      "brier_score": 0.45636067909205225,
-      "calibration_error": null,
-      "calibration_minimum_matches": 30,
-      "calibration_status": "insufficient_sample",
-      "kickoff_end": "2026-06-30T17:00:00Z",
-      "kickoff_start": "2026-06-30T17:00:00Z",
-      "log_loss": 0.8001743583277889,
-      "matches": 1,
-      "median_hours_before_kickoff": 6.011388888888889,
-      "ranked_probability_score": 0.1971374941491802
-    }
-  },
-  "official_predictions_evaluated": 1,
+  "metrics_by_favorite_segment": {},
+  "metrics_by_horizon": {},
+  "metrics_by_stage": {},
+  "official_predictions_evaluated": 0,
   "official_predictions_selected": 13,
   "official_selection_policy": {
     "fallback_rule": {
@@ -247,7 +130,7 @@
   },
   "result_metric_basis": "result_90",
   "result_metric_basis_description": "1X2 metrics use the 90-minute result only.",
-  "results_cutoff_utc": "2026-06-30T19:34:43.369804Z",
+  "results_cutoff_utc": "2026-06-30T19:48:31.344184Z",
   "schema_version": "prospective_scorecard_v1",
   "small_sample_warning": {
     "applies": true,
