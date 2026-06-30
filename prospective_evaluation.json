@@ -1,0 +1,33 @@
+{
+  "evaluated_predictions": [],
+  "metrics": {
+    "accuracy": null,
+    "average_hours_before_kickoff": null,
+    "brier_score": null,
+    "evaluation_sets": {
+      "fixtures_offline": {
+        "evaluated_by_this_command": false,
+        "predictions": 0
+      },
+      "holdout_retrospective": {
+        "evaluated_by_this_command": false,
+        "predictions": 0
+      },
+      "out_of_fold": {
+        "evaluated_by_this_command": false,
+        "predictions": 0
+      },
+      "prospective_real": {
+        "evaluated_by_this_command": true,
+        "predictions": 0
+      }
+    },
+    "kickoff_end": null,
+    "kickoff_start": null,
+    "log_loss": null,
+    "predictions": 0,
+    "ranked_probability_score": null
+  },
+  "saved_predictions_seen": 13,
+  "schema_version": "prospective_evaluation_v1"
+}

@@ -1,0 +1,31 @@
+{
+  "checksum": "e1f9374f0cea2889bad041f48cfec32233402ea3cbfee203a0a4f7475b133e84",
+  "checksums": {
+    "history/20260630T072507Z_e1f9374f0cea.csv.gz": "dc4198c31ddbd65f3dc2c34b6d50fc592ffa629e33dc94dd317289669e373f2f",
+    "latest.csv": "e1f9374f0cea2889bad041f48cfec32233402ea3cbfee203a0a4f7475b133e84",
+    "latest.json": "b7cad73a387020528c3a665ec9041169e4cb497d0dff04e9f95899a72983bb0b",
+    "prospective_evaluation.json": "b71ca788f9f57ab1708a5eb6e4c8ba3bb6824ccda7bf31dfb738c39edd3dd18b",
+    "prospective_evaluation.md": "82733a385fde82926175997bea806a6587f183c2f4040595d8dc17f1c16a16b8",
+    "upcoming.md": "998939d68da59a7244e29a40bb8e095a181f51e24919e4641cd2377447035cd2"
+  },
+  "data_cutoff": "2026-06-30T07:25:07Z",
+  "generated_at": "2026-06-30T07:25:47Z",
+  "history_path": "history/20260630T072507Z_e1f9374f0cea.csv.gz",
+  "model": {
+    "family": "poisson",
+    "version": "poisson_goal_v1"
+  },
+  "prediction_count": 13,
+  "prospective_evaluation_observations": 0,
+  "publication_fingerprint": "0954b68226ef157dc271087006931623ec0090d2f69716410eedd754b2feeafa",
+  "published_files": [
+    "history/20260630T072507Z_e1f9374f0cea.csv.gz",
+    "latest.csv",
+    "latest.json",
+    "prospective_evaluation.json",
+    "prospective_evaluation.md",
+    "upcoming.md"
+  ],
+  "schema_version": "prediction_publication_manifest_v1",
+  "version": "publication_v1"
+}
