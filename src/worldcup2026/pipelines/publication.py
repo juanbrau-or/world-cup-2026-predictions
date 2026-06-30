@@ -20,6 +20,12 @@ PUBLICATION_SCHEMA_VERSION = "prediction_publication_manifest_v1"
 LATEST_JSON_SCHEMA_VERSION = "predictions_latest_v1"
 PUBLICATION_VERSION = "publication_v1"
 MAX_BRANCH_FILE_BYTES = 2_000_000
+OBSOLETE_PUBLICATION_FILES = frozenset(
+    {
+        "prospective_evaluation.json",
+        "prospective_evaluation.md",
+    }
+)
 SECRET_ASSIGNMENT_PATTERN = re.compile(
     r"(?i)\b(football_data_api_key|api_football_key|api[-_ ]?key|authorization|bearer|token)"
     r"\b\s*[:=]\s*['\"]?[A-Za-z0-9_./+=-]{16,}"
@@ -45,11 +51,13 @@ class PublicationResult:
     latest_csv_path: Path
     latest_json_path: Path
     upcoming_report_path: Path
-    prospective_evaluation_json_path: Path
-    prospective_evaluation_report_path: Path
+    prospective_scorecard_json_path: Path
+    prospective_scorecard_report_path: Path
+    prospective_matches_csv_path: Path
     history_path: Path | None
     prediction_count: int
-    prospective_evaluation_observations: int
+    prospective_scorecard_observations: int
+    prospective_scorecard_summary: Mapping[str, Any]
     data_cutoff: str
     checksum: str
 
@@ -67,7 +75,8 @@ def prepare_predictions_publication(
     source = _read_source_outputs(predictions_root)
     rows = _read_prediction_rows(source.latest_csv_bytes)
     metadata = _publication_metadata(rows, source.upcoming_report)
-    evaluation_count = _prospective_evaluation_count(source.prospective_evaluation_json)
+    scorecard_summary = _prospective_scorecard_summary(source.prospective_scorecard_json)
+    scorecard_count = int(scorecard_summary["official_predictions_evaluated"])
     latest_checksum = _sha256(source.latest_csv_bytes)
     source_fingerprint = _source_fingerprint(source)
     history_path = _history_path(
@@ -79,6 +88,7 @@ def prepare_predictions_publication(
     history_bytes = _history_bytes(source.latest_csv_bytes) if history_path is not None else None
 
     output_root.mkdir(parents=True, exist_ok=True)
+    _remove_obsolete_publication_files(output_root)
     assert_allowed_publication_tree(output_root)
     if history_path is not None and history_path.exists():
         assert history_bytes is not None
@@ -103,11 +113,13 @@ def prepare_predictions_publication(
             latest_csv_path=output_root / "latest.csv",
             latest_json_path=output_root / "latest.json",
             upcoming_report_path=output_root / "upcoming.md",
-            prospective_evaluation_json_path=output_root / "prospective_evaluation.json",
-            prospective_evaluation_report_path=output_root / "prospective_evaluation.md",
+            prospective_scorecard_json_path=output_root / "prospective_scorecard.json",
+            prospective_scorecard_report_path=output_root / "prospective_scorecard.md",
+            prospective_matches_csv_path=output_root / "prospective_matches.csv",
             history_path=history_path,
             prediction_count=len(rows),
-            prospective_evaluation_observations=evaluation_count,
+            prospective_scorecard_observations=scorecard_count,
+            prospective_scorecard_summary=scorecard_summary,
             data_cutoff=str(metadata["data_cutoff"]),
             checksum=latest_checksum,
         )
@@ -124,8 +136,9 @@ def prepare_predictions_publication(
         "latest.csv": source.latest_csv_bytes,
         "latest.json": latest_json_bytes,
         "upcoming.md": source.upcoming_report_bytes,
-        "prospective_evaluation.json": source.prospective_evaluation_json_bytes,
-        "prospective_evaluation.md": source.prospective_evaluation_report_bytes,
+        "prospective_scorecard.json": source.prospective_scorecard_json_bytes,
+        "prospective_scorecard.md": source.prospective_scorecard_report_bytes,
+        "prospective_matches.csv": source.prospective_matches_csv_bytes,
     }
     if history_path is not None:
         assert history_bytes is not None
@@ -144,7 +157,15 @@ def prepare_predictions_publication(
         "checksum": latest_checksum,
         "checksums": checksums,
         "prediction_count": len(rows),
-        "prospective_evaluation_observations": evaluation_count,
+        "prospective_scorecard_observations": scorecard_count,
+        "prospective_scorecard": scorecard_summary,
+        "prospective_policy_version": scorecard_summary["policy_version"],
+        "prospective_snapshots": scorecard_summary["snapshots"],
+        "prospective_official_predictions": scorecard_summary[
+            "official_predictions_selected"
+        ],
+        "prospective_observations": scorecard_summary["official_predictions_evaluated"],
+        "prospective_results_cutoff": scorecard_summary["results_cutoff_utc"],
         "history_path": str(history_path.relative_to(output_root)) if history_path else None,
         "publication_fingerprint": source_fingerprint,
         "published_files": sorted(files),
@@ -170,11 +191,13 @@ def prepare_predictions_publication(
         latest_csv_path=output_root / "latest.csv",
         latest_json_path=output_root / "latest.json",
         upcoming_report_path=output_root / "upcoming.md",
-        prospective_evaluation_json_path=output_root / "prospective_evaluation.json",
-        prospective_evaluation_report_path=output_root / "prospective_evaluation.md",
+        prospective_scorecard_json_path=output_root / "prospective_scorecard.json",
+        prospective_scorecard_report_path=output_root / "prospective_scorecard.md",
+        prospective_matches_csv_path=output_root / "prospective_matches.csv",
         history_path=history_path,
         prediction_count=len(rows),
-        prospective_evaluation_observations=evaluation_count,
+        prospective_scorecard_observations=scorecard_count,
+        prospective_scorecard_summary=scorecard_summary,
         data_cutoff=str(metadata["data_cutoff"]),
         checksum=latest_checksum,
     )
@@ -192,6 +215,13 @@ def assert_allowed_publication_tree(root: Path) -> None:
             continue
         relative_path = path.relative_to(root)
         assert_allowed_publication_path(relative_path, size_bytes=path.stat().st_size)
+
+
+def _remove_obsolete_publication_files(root: Path) -> None:
+    for relative_path in OBSOLETE_PUBLICATION_FILES:
+        path = root / relative_path
+        if path.is_file():
+            path.unlink()
 
 
 def assert_allowed_publication_path(relative_path: Path, *, size_bytes: int) -> None:
@@ -213,8 +243,9 @@ def assert_allowed_publication_path(relative_path: Path, *, size_bytes: int) -> 
         "latest.csv",
         "latest.json",
         "upcoming.md",
-        "prospective_evaluation.json",
-        "prospective_evaluation.md",
+        "prospective_scorecard.json",
+        "prospective_scorecard.md",
+        "prospective_matches.csv",
         "manifest.json",
     }
     if normalized in exact:
@@ -249,18 +280,19 @@ def assert_no_secrets(root: Path, *, secret_values: Sequence[str] = ()) -> None:
 class _SourceOutputs:
     latest_csv_bytes: bytes
     upcoming_report_bytes: bytes
-    prospective_evaluation_json_bytes: bytes
-    prospective_evaluation_report_bytes: bytes
+    prospective_scorecard_json_bytes: bytes
+    prospective_scorecard_report_bytes: bytes
+    prospective_matches_csv_bytes: bytes
 
     @property
     def upcoming_report(self) -> str:
         return self.upcoming_report_bytes.decode("utf-8")
 
     @property
-    def prospective_evaluation_json(self) -> Mapping[str, Any]:
-        payload = json.loads(self.prospective_evaluation_json_bytes.decode("utf-8"))
+    def prospective_scorecard_json(self) -> Mapping[str, Any]:
+        payload = json.loads(self.prospective_scorecard_json_bytes.decode("utf-8"))
         if not isinstance(payload, Mapping):
-            raise PublicationError("prospective evaluation JSON must contain an object")
+            raise PublicationError("prospective scorecard JSON must contain an object")
         return payload
 
 
@@ -268,8 +300,9 @@ def _read_source_outputs(predictions_root: Path) -> _SourceOutputs:
     files = {
         "latest_csv_bytes": predictions_root / "latest.csv",
         "upcoming_report_bytes": predictions_root / "upcoming.md",
-        "prospective_evaluation_json_bytes": predictions_root / "prospective_evaluation.json",
-        "prospective_evaluation_report_bytes": predictions_root / "prospective_evaluation.md",
+        "prospective_scorecard_json_bytes": predictions_root / "prospective_scorecard.json",
+        "prospective_scorecard_report_bytes": predictions_root / "prospective_scorecard.md",
+        "prospective_matches_csv_bytes": predictions_root / "prospective_matches.csv",
     }
     values: dict[str, bytes] = {}
     for key, path in files.items():
@@ -369,16 +402,78 @@ def _publication_metadata(
     }
 
 
-def _prospective_evaluation_count(payload: Mapping[str, Any]) -> int:
+def _prospective_scorecard_count(payload: Mapping[str, Any]) -> int:
     metrics = payload.get("metrics")
     if not isinstance(metrics, Mapping):
-        raise PublicationError("prospective evaluation JSON must include metrics")
-    predictions = metrics.get("predictions")
+        raise PublicationError("prospective scorecard JSON must include metrics")
+    predictions = metrics.get("matches")
     if not isinstance(predictions, int) or isinstance(predictions, bool) or predictions < 0:
         raise PublicationError(
-            "prospective evaluation predictions count must be a non-negative integer"
+            "prospective scorecard matches count must be a non-negative integer"
         )
     return predictions
+
+
+def _prospective_scorecard_summary(payload: Mapping[str, Any]) -> dict[str, Any]:
+    scorecard_count = _prospective_scorecard_count(payload)
+    policy = payload.get("official_selection_policy")
+    if not isinstance(policy, Mapping):
+        raise PublicationError("prospective scorecard JSON must include official_selection_policy")
+    ledger = payload.get("ledger")
+    if not isinstance(ledger, Mapping):
+        raise PublicationError("prospective scorecard JSON must include ledger")
+
+    official_predictions_evaluated = _non_negative_int(
+        payload.get("official_predictions_evaluated"),
+        field="official_predictions_evaluated",
+    )
+    if official_predictions_evaluated != scorecard_count:
+        raise PublicationError(
+            "prospective scorecard metrics match count must match official predictions evaluated"
+        )
+    return {
+        "policy_id": _required_string(policy, field="policy_id"),
+        "policy_version": _required_string(policy, field="policy_version"),
+        "prediction_context": _required_string(policy, field="prediction_context"),
+        "snapshots": _non_negative_int(ledger.get("snapshots"), field="ledger.snapshots"),
+        "ledger_predictions": _non_negative_int(
+            ledger.get("predictions"),
+            field="ledger.predictions",
+        ),
+        "unique_fixtures": _non_negative_int(
+            ledger.get("unique_fixtures"),
+            field="ledger.unique_fixtures",
+        ),
+        "official_predictions_selected": _non_negative_int(
+            payload.get("official_predictions_selected"),
+            field="official_predictions_selected",
+        ),
+        "official_predictions_evaluated": official_predictions_evaluated,
+        "results_cutoff_utc": _optional_utc_string(payload.get("results_cutoff_utc")),
+    }
+
+
+def _required_string(payload: Mapping[str, Any], *, field: str) -> str:
+    value = payload.get(field)
+    if not isinstance(value, str) or not value:
+        raise PublicationError(f"prospective scorecard field is required: {field}")
+    return value
+
+
+def _non_negative_int(value: object, *, field: str) -> int:
+    if not isinstance(value, int) or isinstance(value, bool) or value < 0:
+        raise PublicationError(
+            f"prospective scorecard field must be a non-negative integer: {field}"
+        )
+    return value
+
+
+def _optional_utc_string(value: object) -> str | None:
+    if value is None:
+        return None
+    if not isinstance(value, str) or not value:
+        raise PublicationError("prospective scorecard results cutoff must be a UTC string or null")
+    return _format_utc(_parse_utc(value))
 
 
 def _history_path(
@@ -429,8 +524,9 @@ def _source_fingerprint(source: _SourceOutputs) -> str:
     for content in (
         source.latest_csv_bytes,
         source.upcoming_report_bytes,
-        source.prospective_evaluation_json_bytes,
-        source.prospective_evaluation_report_bytes,
+        source.prospective_scorecard_json_bytes,
+        source.prospective_scorecard_report_bytes,
+        source.prospective_matches_csv_bytes,
     ):
         digest.update(len(content).to_bytes(8, "big"))
         digest.update(content)
@@ -459,8 +555,9 @@ def _required_outputs_match(
         output_root / "latest.csv",
         output_root / "latest.json",
         output_root / "upcoming.md",
-        output_root / "prospective_evaluation.json",
-        output_root / "prospective_evaluation.md",
+        output_root / "prospective_scorecard.json",
+        output_root / "prospective_scorecard.md",
+        output_root / "prospective_matches.csv",
         output_root / "manifest.json",
     ]
     if history_path is not None:

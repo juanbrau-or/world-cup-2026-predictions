@@ -45,20 +45,23 @@ La rama `predictions-data` se crea automaticamente si no existe. Contiene solo:
 - `latest.csv`
 - `latest.json`
 - `upcoming.md`
-- `prospective_evaluation.json`
-- `prospective_evaluation.md`
+- `prospective_scorecard.json`
+- `prospective_scorecard.md`
+- `prospective_matches.csv`
 - `manifest.json`
 - `history/*.csv.gz`
 
 `manifest.json` registra `generated_at`, `data_cutoff`, modelo, version, checksums, numero de
-predicciones y observaciones prospectivas evaluadas. El historial usa nombres deterministas:
+predicciones, version de politica prospectiva, snapshots vistos, predicciones oficiales,
+observaciones evaluables y cutoff de resultados. El historial usa nombres deterministas:
 
 ```text
 history/<DATA_CUTOFF_UTC>_<CHECKSUM>.csv.gz
 ```
 
-El publicador no escribe Parquet, snapshots raw ni modelos en la rama. Esos archivos quedan como
-GitHub Actions artifacts.
+El publicador no escribe Parquet, snapshots raw ni modelos en la rama. El ledger
+`predictions/prediction_ledger.parquet` queda como GitHub Actions artifact junto con el resto de
+Parquet operativo.
 
 Para leer la rama localmente:
 
@@ -126,3 +129,21 @@ uv run wc2026 publish prepare --predictions-root predictions --output-root ../pr
 ```
 
 No hagas commit ni push desde local salvo que la tarea lo pida explicitamente.
+
+## Evaluacion prospectiva oficial
+
+La evaluacion prospectiva no elige retrospectivamente el snapshot mas favorable. Primero construye
+`predictions/prediction_ledger.parquet` con todas las predicciones historicas validas y despues
+aplica la politica versionada de `configs/prospective_evaluation.yaml`. La politica actual
+`early_v1_2026_06_30` selecciona, para cada fixture y contexto `early_v1`, la prediccion valida mas
+reciente generada al menos 6 horas antes del kickoff; si no existe, usa la prediccion valida mas
+temprana disponible antes del kickoff.
+
+Los reportes oficiales son:
+
+- `predictions/prospective_scorecard.json`
+- `predictions/prospective_scorecard.md`
+- `predictions/prospective_matches.csv`
+
+La metrica 1X2 usa exclusivamente el resultado a 90 minutos (`result_90`). Prorroga, penales y
+ganador de clasificacion se conservan como campos separados para auditoria.

@@ -364,6 +364,7 @@ def _prediction_row(
         "schema_version": PREDICTION_SCHEMA_VERSION,
         "prediction_id": _stable_prediction_id(
             source_fixture_id=_require_str(fixture, "source_match_id"),
+            prediction_created_at_utc=prediction_created_at,
             data_cutoff_utc=data_cutoff_utc,
             model_version=model_version,
             dataset_revision=dataset_revision,
@@ -781,6 +782,7 @@ def _prediction_run_id(
 def _stable_prediction_id(
     *,
     source_fixture_id: str,
+    prediction_created_at_utc: datetime,
     data_cutoff_utc: datetime,
     model_version: str,
     dataset_revision: str,
@@ -789,6 +791,7 @@ def _stable_prediction_id(
     payload = "|".join(
         (
             source_fixture_id,
+            prediction_created_at_utc.isoformat(),
             data_cutoff_utc.isoformat(),
             model_version,
             dataset_revision,

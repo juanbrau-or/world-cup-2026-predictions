@@ -32,7 +32,7 @@ def test_prepare_publication_writes_allowed_outputs_and_manifest(tmp_path: Path)
 
     assert result.changed is True
     assert result.prediction_count == 1
-    assert result.prospective_evaluation_observations == 2
+    assert result.prospective_scorecard_observations == 2
     assert result.history_path is not None
     assert result.history_path.is_file()
     assert not (output_root / "latest.parquet").exists()
@@ -46,8 +46,9 @@ def test_prepare_publication_writes_allowed_outputs_and_manifest(tmp_path: Path)
         "latest.csv",
         "latest.json",
         "manifest.json",
-        "prospective_evaluation.json",
-        "prospective_evaluation.md",
+        "prospective_matches.csv",
+        "prospective_scorecard.json",
+        "prospective_scorecard.md",
         "upcoming.md",
     ]
 
@@ -56,7 +57,23 @@ def test_prepare_publication_writes_allowed_outputs_and_manifest(tmp_path: Path)
     assert manifest["data_cutoff"] == CUTOFF
     assert manifest["model"] == {"family": "poisson", "version": "poisson_goal_v1"}
     assert manifest["prediction_count"] == 1
-    assert manifest["prospective_evaluation_observations"] == 2
+    assert manifest["prospective_scorecard_observations"] == 2
+    assert manifest["prospective_policy_version"] == "early_v1_2026_06_30"
+    assert manifest["prospective_snapshots"] == 6
+    assert manifest["prospective_official_predictions"] == 15
+    assert manifest["prospective_observations"] == 2
+    assert manifest["prospective_results_cutoff"] == "2026-06-29T23:00:00Z"
+    assert manifest["prospective_scorecard"] == {
+        "policy_id": "early_v1",
+        "policy_version": "early_v1_2026_06_30",
+        "prediction_context": "early_v1",
+        "snapshots": 6,
+        "ledger_predictions": 54,
+        "unique_fixtures": 15,
+        "official_predictions_selected": 15,
+        "official_predictions_evaluated": 2,
+        "results_cutoff_utc": "2026-06-29T23:00:00Z",
+    }
     assert manifest["history_path"] == "history/20260629T180000Z_98c5baae3cef.csv.gz"
     assert manifest["checksum"] == result.checksum
     assert "latest.csv" in manifest["checksums"]
@@ -186,6 +203,25 @@ def test_disallowed_existing_paths_are_rejected(tmp_path: Path) -> None:
         )
 
 
+def test_prepare_publication_removes_legacy_prospective_evaluation_files(
+    tmp_path: Path,
+) -> None:
+    predictions_root = _write_predictions_root(tmp_path, rows=[_prediction_row()])
+    output_root = tmp_path / "branch"
+    output_root.mkdir()
+    (output_root / "prospective_evaluation.json").write_text("{}", encoding="utf-8")
+    (output_root / "prospective_evaluation.md").write_text("old", encoding="utf-8")
+
+    prepare_predictions_publication(
+        predictions_root=predictions_root,
+        output_root=output_root,
+        generated_at=GENERATED_AT,
+    )
+
+    assert not (output_root / "prospective_evaluation.json").exists()
+    assert not (output_root / "prospective_evaluation.md").exists()
+
+
 def test_allowed_path_validation_rejects_parquet_raw_and_large_models() -> None:
     assert_allowed_publication_path(Path("latest.csv"), size_bytes=100)
     assert_allowed_publication_path(Path("history/20260629T180000Z_abc123.csv.gz"), size_bytes=100)
@@ -240,20 +276,39 @@ def _write_predictions_root(tmp_path: Path, *, rows: list[dict[str, str]]) -> Pa
     root.mkdir(parents=True)
     _write_latest_csv(root / "latest.csv", rows=rows)
     (root / "upcoming.md").write_text(_upcoming_report(rows=rows), encoding="utf-8")
-    (root / "prospective_evaluation.json").write_text(
+    (root / "prospective_scorecard.json").write_text(
         json.dumps(
             {
-                "schema_version": "prospective_evaluation_v1",
-                "saved_predictions_seen": 3,
-                "metrics": {"predictions": 2},
-                "evaluated_predictions": [],
+                "schema_version": "prospective_scorecard_v1",
+                "results_cutoff_utc": "2026-06-29T23:00:00Z",
+                "ledger": {
+                    "schema_version": "prediction_ledger_v1",
+                    "predictions": 54,
+                    "unique_fixtures": 15,
+                    "snapshots": 6,
+                    "validity_counts": {"valid": 54},
+                    "invalidity_counts": {},
+                },
+                "official_selection_policy": {
+                    "policy_id": "early_v1",
+                    "policy_version": "early_v1_2026_06_30",
+                    "prediction_context": "early_v1",
+                },
+                "official_predictions_selected": 15,
+                "official_predictions_evaluated": 2,
+                "metrics": {"matches": 2},
+                "matches": [],
             },
             sort_keys=True,
         )
         + "\n",
         encoding="utf-8",
     )
-    (root / "prospective_evaluation.md").write_text("# Prospective Evaluation\n", encoding="utf-8")
+    (root / "prospective_scorecard.md").write_text("# Prospective Scorecard\n", encoding="utf-8")
+    (root / "prospective_matches.csv").write_text(
+        "source_fixture_id,prediction_id\n",
+        encoding="utf-8",
+    )
     return root
 
 

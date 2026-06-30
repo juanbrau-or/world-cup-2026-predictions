@@ -49,6 +49,10 @@ from worldcup2026.pipelines.operational_predictions import (
     OperationalPredictionError,
     run_predict_upcoming,
 )
+from worldcup2026.pipelines.operational_summary import (
+    OperationalSummaryError,
+    write_operational_step_summary,
+)
 from worldcup2026.pipelines.publication import PublicationError, prepare_predictions_publication
 
 app = typer.Typer(no_args_is_help=True)
@@ -59,6 +63,7 @@ model_app = typer.Typer(no_args_is_help=True)
 predict_app = typer.Typer(no_args_is_help=True)
 evaluate_app = typer.Typer(no_args_is_help=True)
 publish_app = typer.Typer(no_args_is_help=True)
+operational_app = typer.Typer(no_args_is_help=True)
 console = Console()
 
 MIN_PYTHON = (3, 11)
@@ -97,6 +102,7 @@ app.add_typer(model_app, name="model", help="Build model-stage derived artifacts
 app.add_typer(predict_app, name="predict", help="Generate operational predictions.")
 app.add_typer(evaluate_app, name="evaluate", help="Evaluate probabilistic model stages.")
 app.add_typer(publish_app, name="publish", help="Prepare branch-safe prediction publications.")
+app.add_typer(operational_app, name="operational", help="Operational workflow helpers.")
 
 
 @app.command()
@@ -606,6 +612,10 @@ def evaluate_elo(
 
 @evaluate_app.command("prospective")
 def evaluate_prospective(
+    config_path: Annotated[
+        Path,
+        typer.Option("--config", help="Prospective evaluation policy configuration."),
+    ] = Path("configs/prospective_evaluation.yaml"),
     predictions_history_root: Annotated[
         Path,
         typer.Option("--predictions-history", help="Prediction history directory."),
@@ -614,25 +624,39 @@ def evaluate_prospective(
         Path,
         typer.Option("--live-matches", help="Current World Cup canonical live Parquet input."),
     ] = Path("data/processed/world_cup_2026/matches.parquet"),
+    predictions_root: Annotated[
+        Path,
+        typer.Option("--predictions-root", help="Prediction output root."),
+    ] = Path("predictions"),
 ) -> None:
     """Evaluate saved prospective predictions whose fixtures are now finished."""
 
     try:
         result = run_prospective_evaluation(
+            config_path=config_path,
             predictions_history_root=predictions_history_root,
             live_matches_path=live_matches_path,
+            report_path=predictions_root / "prospective_scorecard.md",
+            json_path=predictions_root / "prospective_scorecard.json",
+            matches_csv_path=predictions_root / "prospective_matches.csv",
+            ledger_path=predictions_root / "prediction_ledger.parquet",
         )
     except ProspectiveEvaluationError as exc:
         console.print(f"[red]{exc}[/red]")
         raise typer.Exit(code=1) from exc
 
-    console.print(f"Evaluable predictions: {result.evaluable_predictions}")
+    console.print(f"Ledger predictions: {result.ledger_predictions}")
+    console.print(f"Official predictions selected: {result.official_predictions_selected}")
+    console.print(f"Evaluable official predictions: {result.evaluable_predictions}")
     console.print(f"Log loss: {result.log_loss if result.log_loss is not None else 'n/a'}")
     console.print(f"Brier score: {result.brier_score if result.brier_score is not None else 'n/a'}")
     rps = result.ranked_probability_score if result.ranked_probability_score is not None else "n/a"
     console.print(f"RPS: {rps}")
     console.print(f"Accuracy: {result.accuracy if result.accuracy is not None else 'n/a'}")
-    console.print(f"Report: {result.report_path}")
+    console.print(f"Scorecard JSON: {result.json_path}")
+    console.print(f"Scorecard report: {result.report_path}")
+    console.print(f"Matches CSV: {result.matches_path}")
+    console.print(f"Ledger Parquet: {result.ledger_path}")
 
 
 @evaluate_app.command("dixon-coles")
@@ -701,13 +725,55 @@ def publish_prepare(
     console.print(f"Data cutoff UTC: {result.data_cutoff}")
     console.print(f"Predictions: {result.prediction_count}")
     console.print(
-        "Prospective observations evaluated: "
-        f"{result.prospective_evaluation_observations}"
+        "Prospective scorecard observations: "
+        f"{result.prospective_scorecard_observations}"
     )
     console.print(f"Checksum: {result.checksum}")
     console.print(f"Manifest: {result.manifest_path}")
     if result.history_path is not None:
         console.print(f"History: {result.history_path}")
+
+
+@operational_app.command("summary")
+def operational_summary(
+    predictions_root: Annotated[
+        Path,
+        typer.Option("--predictions-root", help="Prediction output root."),
+    ] = Path("predictions"),
+    interim_root: Annotated[
+        Path,
+        typer.Option("--interim-root", help="Interim report root."),
+    ] = Path("data/interim"),
+    publication_root: Annotated[
+        Path,
+        typer.Option("--publication-root", help="Prepared publication root."),
+    ] = Path("dist/predictions-data"),
+    logs_root: Annotated[
+        Path,
+        typer.Option("--logs-root", help="Operational logs root."),
+    ] = Path("logs"),
+    summary_path: Annotated[
+        Path | None,
+        typer.Option("--summary-path", help="Override GitHub Step Summary path."),
+    ] = None,
+) -> None:
+    """Write the GitHub Step Summary for an operational run."""
+
+    try:
+        result = write_operational_step_summary(
+            summary_path=summary_path,
+            predictions_root=predictions_root,
+            interim_root=interim_root,
+            publication_root=publication_root,
+            logs_root=logs_root,
+        )
+    except OperationalSummaryError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise typer.Exit(code=1) from exc
+
+    console.print(f"Step summary: {result.summary_path}")
+    console.print(f"Predictable fixtures: {result.predictable_fixtures}")
+    console.print(f"Publication ready: {result.publication_ready}")
 
 
 if __name__ == "__main__":
