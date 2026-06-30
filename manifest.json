@@ -1,25 +1,25 @@
 {
-  "checksum": "a5b2874c9414757a988e3a8611a19e026cd019252f07618783c2cc3199a0990b",
+  "checksum": "f6022354dbc0e5999dca0098acd783b0f0545ac8bc177f3bf1512cf7401cb4d5",
   "checksums": {
-    "history/20260630T142417Z_a5b2874c9414.csv.gz": "b6c3bd7202e57a303bd68ae75b7f646be9ce9dbc3dad263fcad7322d21716502",
-    "latest.csv": "a5b2874c9414757a988e3a8611a19e026cd019252f07618783c2cc3199a0990b",
-    "latest.json": "7ceda6469041498494d88ecc9dedb84a28c36f41bd5e5bdf98e1c87eea01a809",
-    "prospective_evaluation.json": "b71ca788f9f57ab1708a5eb6e4c8ba3bb6824ccda7bf31dfb738c39edd3dd18b",
-    "prospective_evaluation.md": "82733a385fde82926175997bea806a6587f183c2f4040595d8dc17f1c16a16b8",
-    "upcoming.md": "c25c77b227a0172b7e077c9dbb8ad1edc27f68e2719d4dde6d21b6dac812c6f6"
+    "history/20260630T175801Z_f6022354dbc0.csv.gz": "1f4a39fab7d12d4e4c872864c305f8ca3a23360792d75a452ddf803d76a4ccb9",
+    "latest.csv": "f6022354dbc0e5999dca0098acd783b0f0545ac8bc177f3bf1512cf7401cb4d5",
+    "latest.json": "4ecde05195d4b577b171348fd194c7191bbbd88b94e0dd2ac39dfa87fa42d2a1",
+    "prospective_evaluation.json": "d56948c903b9e2d63a61c23248043c94b824d5732a57fd0cc73373c3bea069c3",
+    "prospective_evaluation.md": "75be6583cd2d06e1b0f5a81f43ef8409dfde76e535a6237c3cade81f9be7e4d9",
+    "upcoming.md": "fb739a651f1771eae991eac315213f6adbfcbb1067a75252d24ad219fd84ec71"
   },
-  "data_cutoff": "2026-06-30T14:24:17Z",
-  "generated_at": "2026-06-30T14:24:58Z",
-  "history_path": "history/20260630T142417Z_a5b2874c9414.csv.gz",
+  "data_cutoff": "2026-06-30T17:58:01Z",
+  "generated_at": "2026-06-30T17:58:42Z",
+  "history_path": "history/20260630T175801Z_f6022354dbc0.csv.gz",
   "model": {
     "family": "poisson",
     "version": "poisson_goal_v1"
   },
-  "prediction_count": 13,
+  "prediction_count": 12,
   "prospective_evaluation_observations": 0,
-  "publication_fingerprint": "f5c091f995185644b608f0c9d23f4ac2df3ff9f7d0e5e4435d493cde37e67819",
+  "publication_fingerprint": "ba7a279d28a97d3d68e82a2392ac57d58ed7acddbb6a4a6578c80893268795ef",
   "published_files": [
-    "history/20260630T142417Z_a5b2874c9414.csv.gz",
+    "history/20260630T175801Z_f6022354dbc0.csv.gz",
     "latest.csv",
     "latest.json",
     "prospective_evaluation.json",

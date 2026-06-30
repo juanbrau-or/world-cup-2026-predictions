@@ -1,18 +1,17 @@
 # Upcoming World Cup 2026 Predictions
 
-Data cutoff UTC: 2026-06-30T14:24:17.923645+00:00
+Data cutoff UTC: 2026-06-30T17:58:01.944777+00:00
 Model: poisson (poisson_goal_v1)
 Half-life days: 730.0
 Training matches: 23826
 World Cup 2026 finished matches incorporated: 62
-Dataset revision: operational_dataset_v1:af2a97016ff19f04
-Live snapshot checksum: 49ee9f74c0281cd15472256f6505182f365f637db3a0d5a11bf3376ae6fc1635
+Dataset revision: operational_dataset_v1:f80599aec195c6f7
+Live snapshot checksum: 48bdca32964a00c16559a91025a0a29796f2ffb1ac3818bd144f2b4feb9ef1ad
 
 ## Predictions
 
 | Kickoff UTC | Home | Away | P(home) | P(draw) | P(away) | xG home | xG away | Modal |
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
-| 2026-06-30T17:00:00+00:00 | Ivory Coast | Norway | 0.3016 | 0.2492 | 0.4493 | 1.2349 | 1.5617 | 1-1 |
 | 2026-06-30T21:00:00+00:00 | France | Sweden | 0.6952 | 0.1620 | 0.1428 | 2.6894 | 1.1719 | 2-1 |
 | 2026-07-01T01:00:00+00:00 | Mexico | Ecuador | 0.3072 | 0.3284 | 0.3644 | 0.8468 | 0.9516 | 0-0 |
 | 2026-07-01T16:00:00+00:00 | England | Congo DR | 0.6183 | 0.2523 | 0.1294 | 1.5424 | 0.5460 | 1-0 |
@@ -31,9 +30,10 @@ Live snapshot checksum: 49ee9f74c0281cd15472256f6505182f365f637db3a0d5a11bf3376a
 | Reason | Fixtures |
 | --- | ---: |
 | finished | 74 |
+| in_progress | 1 |
 
 ## Files
 
 - Latest CSV: `predictions/latest.csv`
 - Latest Parquet: `predictions/latest.parquet`
-- Historical snapshot: `predictions/history/20260630T142420000000Z_948658f30e45.parquet`
+- Historical snapshot: `predictions/history/20260630T175807000000Z_9765767dd74a.parquet`

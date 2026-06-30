@@ -28,6 +28,6 @@
     "predictions": 0,
     "ranked_probability_score": null
   },
-  "saved_predictions_seen": 13,
+  "saved_predictions_seen": 12,
   "schema_version": "prospective_evaluation_v1"
 }
