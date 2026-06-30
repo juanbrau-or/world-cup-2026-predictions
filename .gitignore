@@ -40,8 +40,12 @@ Thumbs.db
 /predictions/latest.*
 /predictions/upcoming.md
 /predictions/prospective_evaluation.*
+/predictions/prospective_scorecard.*
+/predictions/prospective_matches.csv
+/predictions/prediction_ledger.parquet
 /predictions/history/**
 !/predictions/history/.gitkeep
+/dist/
 
 # Logs and temporary files
 logs/

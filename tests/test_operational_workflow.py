@@ -10,6 +10,7 @@ from typing import Any
 
 import yaml  # type: ignore[import-untyped]
 
+from worldcup2026.pipelines.operational_summary import write_operational_step_summary
 from worldcup2026.pipelines.publication import prepare_predictions_publication
 
 
@@ -32,6 +33,7 @@ def test_operational_predictions_workflow_syntax_and_contract() -> None:
     assert "Run operational pipeline" in run_steps
     assert "Test publisher" in run_steps
     assert "Validate publisher output and secret scan" in run_steps
+    assert "Write operational step summary" in run_steps
     assert "Package manifests" in run_steps
     assert "Upload Parquet artifacts" in run_steps
     assert "Upload logs" in run_steps
@@ -130,8 +132,9 @@ def test_publication_payload_extracts_under_predictions_root(tmp_path: Path) -> 
 
     assert sorted(members) == [
         "predictions/latest.csv",
-        "predictions/prospective_evaluation.json",
-        "predictions/prospective_evaluation.md",
+        "predictions/prospective_matches.csv",
+        "predictions/prospective_scorecard.json",
+        "predictions/prospective_scorecard.md",
         "predictions/upcoming.md",
     ]
     assert (publish_repo / "predictions" / "latest.csv").is_file()
@@ -151,6 +154,52 @@ def test_manifest_artifact_is_packaged_with_portable_upload_path() -> None:
     assert "--null -czf dist/operational-manifests.tgz --files-from -" in package_script
     assert upload_with["path"] == "dist/operational-manifests.tgz"
     assert upload_with["if-no-files-found"] == "error"
+
+
+def test_operational_step_summary_reports_core_monitoring_fields(tmp_path: Path) -> None:
+    predictions_root = tmp_path / "predictions"
+    interim_root = tmp_path / "interim"
+    publication_root = tmp_path / "publication"
+    logs_root = tmp_path / "logs"
+    interim_root.mkdir()
+    publication_root.mkdir()
+    logs_root.mkdir()
+    _write_publication_inputs(predictions_root)
+    (interim_root / "world_cup_2026_ingest_report.json").write_text(
+        json.dumps(
+            {
+                "provider_fixtures_received": 104,
+                "fixtures_with_tbd_participants": 13,
+                "pending_fixtures": 13,
+                "freshness": {"next_kickoff_utc": "2026-06-30T17:00:00Z"},
+                "validation_discrepancies": [
+                    {"kind": "secondary_provider_unavailable", "detail": "timeout"}
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    (publication_root / "manifest.json").write_text("{}", encoding="utf-8")
+    summary_path = tmp_path / "summary.md"
+
+    result = write_operational_step_summary(
+        summary_path=summary_path,
+        predictions_root=predictions_root,
+        interim_root=interim_root,
+        publication_root=publication_root,
+        logs_root=logs_root,
+    )
+
+    text = summary_path.read_text(encoding="utf-8")
+    assert result.predictable_fixtures == 1
+    assert result.official_selected == 1
+    assert result.official_evaluated == 0
+    assert "| Fixtures received | 104 |" in text
+    assert "| Fixtures TBD | 13 |" in text
+    assert "| Predictable fixtures | 1 |" in text
+    assert "| Official predictions selected | 1 |" in text
+    assert "| Official matches evaluable | 0 |" in text
+    assert "Secondary provider unavailable" in text
 
 
 def _workflow_payload() -> dict[str, Any]:
@@ -237,20 +286,39 @@ def _write_publication_inputs(predictions_root: Path) -> None:
         "# Upcoming World Cup 2026 Predictions\n",
         encoding="utf-8",
     )
-    (predictions_root / "prospective_evaluation.json").write_text(
+    (predictions_root / "prospective_scorecard.json").write_text(
         json.dumps(
             {
-                "schema_version": "prospective_evaluation_v1",
-                "saved_predictions_seen": 0,
-                "metrics": {"predictions": 0},
-                "evaluated_predictions": [],
+                "schema_version": "prospective_scorecard_v1",
+                "results_cutoff_utc": None,
+                "ledger": {
+                    "schema_version": "prediction_ledger_v1",
+                    "predictions": 1,
+                    "unique_fixtures": 1,
+                    "snapshots": 1,
+                    "validity_counts": {"valid": 1},
+                    "invalidity_counts": {},
+                },
+                "official_selection_policy": {
+                    "policy_id": "early_v1",
+                    "policy_version": "early_v1_2026_06_30",
+                    "prediction_context": "early_v1",
+                },
+                "official_predictions_selected": 1,
+                "official_predictions_evaluated": 0,
+                "metrics": {"matches": 0},
+                "matches": [],
             },
             sort_keys=True,
         )
         + "\n",
         encoding="utf-8",
     )
-    (predictions_root / "prospective_evaluation.md").write_text(
-        "# Prospective Evaluation\n",
+    (predictions_root / "prospective_scorecard.md").write_text(
+        "# Prospective Scorecard\n",
+        encoding="utf-8",
+    )
+    (predictions_root / "prospective_matches.csv").write_text(
+        "source_fixture_id,prediction_id\n",
         encoding="utf-8",
     )

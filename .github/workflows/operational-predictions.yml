@@ -59,6 +59,10 @@ jobs:
       - name: Validate publisher output and secret scan
         run: uv run wc2026 publish prepare --predictions-root predictions --output-root dist/predictions-data
 
+      - name: Write operational step summary
+        if: always()
+        run: uv run wc2026 operational summary
+
       - name: Package manifests
         shell: bash
         run: |
@@ -73,8 +77,9 @@ jobs:
           tar -czf dist/predictions-data-inputs.tgz \
             predictions/latest.csv \
             predictions/upcoming.md \
-            predictions/prospective_evaluation.json \
-            predictions/prospective_evaluation.md
+            predictions/prospective_scorecard.json \
+            predictions/prospective_scorecard.md \
+            predictions/prospective_matches.csv
 
       - name: Upload Parquet artifacts
         uses: actions/upload-artifact@v7.0.1
@@ -102,6 +107,7 @@ jobs:
             data/interim/**
             predictions/**/*.md
             predictions/**/*.json
+            predictions/**/*.csv
             artifacts/evaluation/**
 
       - name: Upload manifests
