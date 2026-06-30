@@ -31,6 +31,7 @@ def test_operational_predictions_workflow_syntax_and_contract() -> None:
 
     run_steps = _step_names(run_pipeline)
     assert "Run operational pipeline" in run_steps
+    assert "Restore published prediction history" in run_steps
     assert "Test publisher" in run_steps
     assert "Validate publisher output and secret scan" in run_steps
     assert "Write operational step summary" in run_steps
@@ -79,6 +80,22 @@ def test_operational_pipeline_rebuilds_clean_checkout_inputs_before_prediction()
     assert positions == sorted(positions)
     assert "|| true" not in script
     assert "data/processed/modeling_matches.parquet" not in script
+
+
+def test_operational_workflow_restores_published_history_before_evaluation() -> None:
+    payload = _workflow_payload()
+    run_pipeline = _mapping(_mapping(payload["jobs"])["run-pipeline"])
+    restore_script = _step_run(run_pipeline, "Restore published prediction history")
+    pipeline_script = _step_run(run_pipeline, "Run operational pipeline")
+    run_steps = [str(step["name"]) for step in run_pipeline["steps"] if isinstance(step, dict)]
+
+    assert run_steps.index("Restore published prediction history") < run_steps.index(
+        "Run operational pipeline"
+    )
+    assert "git ls-remote --exit-code --heads origin predictions-data" in restore_script
+    assert "git archive FETCH_HEAD history" in restore_script
+    assert "predictions/published-history" in restore_script
+    assert "uv run wc2026 evaluate prospective" in pipeline_script
 
 
 def test_operational_workflow_uses_current_official_action_versions() -> None:

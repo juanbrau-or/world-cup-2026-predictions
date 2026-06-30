@@ -45,6 +45,7 @@ Thumbs.db
 /predictions/prediction_ledger.parquet
 /predictions/history/**
 !/predictions/history/.gitkeep
+/predictions/published-history/**
 /dist/
 
 # Logs and temporary files

@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 import csv
+import gzip
 import json
 import math
 from datetime import UTC, date, datetime
+from io import StringIO
 from pathlib import Path
 from typing import Any
 
@@ -139,6 +141,120 @@ def test_prospective_evaluation_scores_saved_predictions(tmp_path: Path) -> None
     assert payload["official_selection_policy"]["policy_version"] == "early_v1_test"
     uniform = payload["baselines"]["uniform_1x2"]["metrics"]
     assert uniform["log_loss"] == pytest.approx(-math.log(1 / 3))
+
+
+def test_prospective_evaluation_reads_published_csv_history(
+    tmp_path: Path,
+) -> None:
+    history = tmp_path / "predictions" / "history"
+    published_history = tmp_path / "published" / "history"
+    history.mkdir(parents=True)
+    published_history.mkdir(parents=True)
+    live_path = tmp_path / "live.parquet"
+    config_path = _write_prospective_config(tmp_path)
+    fixture_id = "future-known"
+    kickoff = datetime(2026, 6, 19, 18, tzinfo=UTC)
+    _write_published_history_csv(
+        published_history / "20260618T100000Z_old.csv.gz",
+        [
+            _published_history_row(
+                prediction_id="published-1",
+                source_fixture_id=fixture_id,
+                created=datetime(2026, 6, 18, 10, tzinfo=UTC),
+                kickoff=kickoff,
+            )
+        ],
+    )
+    _write_rows(
+        history / "current.parquet",
+        [
+            _prediction_history_row(
+                prediction_id="current-1",
+                source_fixture_id=fixture_id,
+                created=datetime(2026, 6, 18, 12, tzinfo=UTC),
+                kickoff=kickoff,
+            )
+        ],
+    )
+    _write_rows(live_path, [_scheduled_live_row(source_fixture_id=fixture_id, kickoff=kickoff)])
+
+    result = run_prospective_evaluation(
+        config_path=config_path,
+        predictions_history_root=history,
+        published_history_root=published_history,
+        live_matches_path=live_path,
+        report_path=tmp_path / "prospective.md",
+        json_path=tmp_path / "prospective.json",
+        matches_csv_path=tmp_path / "matches.csv",
+        ledger_path=tmp_path / "ledger.parquet",
+        generated_at=datetime(2026, 6, 18, 13, tzinfo=UTC),
+    )
+
+    ledger = pq.read_table(result.ledger_path).to_pylist()
+    payload = json.loads(result.json_path.read_text(encoding="utf-8"))
+    assert result.ledger_predictions == 2
+    assert result.official_predictions_selected == 1
+    assert {row["source_history_path"] for row in ledger} == {
+        (published_history / "20260618T100000Z_old.csv.gz").as_posix(),
+        (history / "current.parquet").as_posix(),
+    }
+    assert payload["ledger"]["snapshots"] == 2
+
+
+def test_published_csv_legacy_prediction_ids_are_repaired(
+    tmp_path: Path,
+) -> None:
+    published_history = tmp_path / "published" / "history"
+    published_history.mkdir(parents=True)
+    live_path = tmp_path / "live.parquet"
+    config_path = _write_prospective_config(tmp_path)
+    fixture_id = "future-known"
+    kickoff = datetime(2026, 6, 19, 18, tzinfo=UTC)
+    _write_published_history_csv(
+        published_history / "20260618T100000Z_old.csv.gz",
+        [
+            _published_history_row(
+                prediction_id="legacy-id",
+                source_fixture_id=fixture_id,
+                created=datetime(2026, 6, 18, 10, tzinfo=UTC),
+                cutoff=datetime(2026, 6, 18, 9, tzinfo=UTC),
+                kickoff=kickoff,
+            )
+        ],
+    )
+    _write_published_history_csv(
+        published_history / "20260618T110000Z_old.csv.gz",
+        [
+            _published_history_row(
+                prediction_id="legacy-id",
+                source_fixture_id=fixture_id,
+                created=datetime(2026, 6, 18, 11, tzinfo=UTC),
+                cutoff=datetime(2026, 6, 18, 9, tzinfo=UTC),
+                kickoff=kickoff,
+            )
+        ],
+    )
+    _write_rows(live_path, [_scheduled_live_row(source_fixture_id=fixture_id, kickoff=kickoff)])
+
+    result = run_prospective_evaluation(
+        config_path=config_path,
+        predictions_history_root=tmp_path / "missing-history",
+        published_history_root=published_history,
+        live_matches_path=live_path,
+        report_path=tmp_path / "prospective.md",
+        json_path=tmp_path / "prospective.json",
+        matches_csv_path=tmp_path / "matches.csv",
+        ledger_path=tmp_path / "ledger.parquet",
+        generated_at=datetime(2026, 6, 18, 13, tzinfo=UTC),
+    )
+
+    ledger = pq.read_table(result.ledger_path).to_pylist()
+    assert len(ledger) == 2
+    assert {row["source_prediction_id"] for row in ledger} == {"legacy-id"}
+    assert len({row["prediction_id"] for row in ledger}) == 2
+    assert {row["prediction_id_repair_reason"] for row in ledger} == {
+        "legacy_prediction_id_omitted_created_at"
+    }
 
 
 def test_official_selection_uses_latest_prediction_at_least_six_hours(
@@ -719,6 +835,69 @@ def _prediction_history_row(
         "training_matches": 3,
         "live_finished_2026_matches": 0,
     }
+
+
+def _published_history_row(
+    *,
+    prediction_id: str = "prediction-1",
+    source_fixture_id: str = "future-known",
+    created: datetime = datetime(2026, 6, 18, 12, tzinfo=UTC),
+    cutoff: datetime = datetime(2026, 6, 18, 10, tzinfo=UTC),
+    kickoff: datetime = datetime(2026, 6, 19, 18, tzinfo=UTC),
+) -> dict[str, Any]:
+    full = _prediction_history_row(
+        prediction_id=prediction_id,
+        source_fixture_id=source_fixture_id,
+        created=created,
+        cutoff=cutoff,
+        kickoff=kickoff,
+    )
+    return {field: full[field] for field in _published_history_fields()}
+
+
+def _write_published_history_csv(path: Path, rows: list[dict[str, Any]]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    buffer = StringIO()
+    writer = csv.DictWriter(buffer, fieldnames=_published_history_fields())
+    writer.writeheader()
+    for row in rows:
+        writer.writerow({field: _history_csv_value(row.get(field)) for field in writer.fieldnames})
+    path.write_bytes(gzip.compress(buffer.getvalue().encode("utf-8"), compresslevel=9, mtime=0))
+
+
+def _published_history_fields() -> list[str]:
+    return [
+        "prediction_id",
+        "source_fixture_id",
+        "prediction_created_at_utc",
+        "data_cutoff_utc",
+        "kickoff_utc",
+        "hours_before_kickoff",
+        "home_team_id",
+        "away_team_id",
+        "home_team_name",
+        "away_team_name",
+        "home_elo_pre",
+        "away_elo_pre",
+        "expected_home_goals",
+        "expected_away_goals",
+        "probability_home_win",
+        "probability_draw",
+        "probability_away_win",
+        "modal_score",
+        "model_family",
+        "model_version",
+        "dataset_revision",
+        "live_snapshot_checksum",
+        "prediction_context",
+        "prediction_status",
+    ]
+
+
+def _history_csv_value(value: object) -> object:
+    if isinstance(value, datetime):
+        return value.isoformat().replace("+00:00", "Z")
+    return value
 
 
 def _write_rows(path: Path, rows: list[dict[str, Any]]) -> None:

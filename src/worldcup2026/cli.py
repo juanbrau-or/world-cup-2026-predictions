@@ -628,6 +628,13 @@ def evaluate_prospective(
         Path,
         typer.Option("--predictions-root", help="Prediction output root."),
     ] = Path("predictions"),
+    published_history_root: Annotated[
+        Path | None,
+        typer.Option(
+            "--published-history",
+            help="Restored predictions-data history directory with published CSV gzip snapshots.",
+        ),
+    ] = Path("predictions/published-history/history"),
 ) -> None:
     """Evaluate saved prospective predictions whose fixtures are now finished."""
 
@@ -640,6 +647,7 @@ def evaluate_prospective(
             json_path=predictions_root / "prospective_scorecard.json",
             matches_csv_path=predictions_root / "prospective_matches.csv",
             ledger_path=predictions_root / "prediction_ledger.parquet",
+            published_history_root=published_history_root,
         )
     except ProspectiveEvaluationError as exc:
         console.print(f"[red]{exc}[/red]")
