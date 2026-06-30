@@ -22,17 +22,17 @@ jobs:
       API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
     steps:
       - name: Checkout main
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7.0.0
         with:
           ref: main
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6.3.0
         with:
           python-version: "3.11"
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@v8.2.0
         with:
           enable-cache: true
           cache-dependency-glob: uv.lock
@@ -46,9 +46,12 @@ jobs:
           set -euo pipefail
           mkdir -p logs
           uv run wc2026 doctor 2>&1 | tee logs/01_doctor.log
-          uv run wc2026 ingest world-cup 2>&1 | tee logs/02_ingest_world_cup.log
-          uv run wc2026 predict upcoming 2>&1 | tee logs/03_predict_upcoming.log
-          uv run wc2026 evaluate prospective 2>&1 | tee logs/04_evaluate_prospective.log
+          uv run wc2026 ingest historical 2>&1 | tee logs/02_ingest_historical.log
+          uv run wc2026 prepare modeling-data 2>&1 | tee logs/03_prepare_modeling_data.log
+          uv run wc2026 model dixon-coles 2>&1 | tee logs/04_model_dixon_coles.log
+          uv run wc2026 ingest world-cup 2>&1 | tee logs/05_ingest_world_cup.log
+          uv run wc2026 predict upcoming 2>&1 | tee logs/06_predict_upcoming.log
+          uv run wc2026 evaluate prospective 2>&1 | tee logs/07_evaluate_prospective.log
 
       - name: Test publisher
         run: uv run pytest tests/test_publication.py
@@ -66,7 +69,7 @@ jobs:
             predictions/prospective_evaluation.md
 
       - name: Upload Parquet artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: prediction-parquet
           if-no-files-found: ignore
@@ -76,14 +79,14 @@ jobs:
             artifacts/**/*.parquet
 
       - name: Upload logs
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: operational-logs
           if-no-files-found: error
           path: logs/**/*.log
 
       - name: Upload reports
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: operational-reports
           if-no-files-found: ignore
@@ -94,7 +97,7 @@ jobs:
             artifacts/evaluation/**
 
       - name: Upload manifests
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: operational-manifests
           if-no-files-found: ignore
@@ -104,14 +107,14 @@ jobs:
             dist/predictions-data/manifest.json
 
       - name: Upload audit models
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: audit-models
           if-no-files-found: ignore
           path: artifacts/models/**
 
       - name: Upload branch publication payload
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: predictions-data-payload
           if-no-files-found: error
@@ -127,18 +130,18 @@ jobs:
       TZ: UTC
     steps:
       - name: Checkout main
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7.0.0
         with:
           ref: main
           path: repo
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6.3.0
         with:
           python-version: "3.11"
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@v8.2.0
         with:
           enable-cache: true
           cache-dependency-glob: repo/uv.lock
@@ -148,7 +151,7 @@ jobs:
         run: uv sync --group dev
 
       - name: Download publication payload
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8.0.1
         with:
           name: predictions-data-payload
           path: repo/dist
