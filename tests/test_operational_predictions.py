@@ -141,6 +141,10 @@ def test_prospective_evaluation_scores_saved_predictions(tmp_path: Path) -> None
     assert payload["official_selection_policy"]["policy_version"] == "early_v1_test"
     uniform = payload["baselines"]["uniform_1x2"]["metrics"]
     assert uniform["log_loss"] == pytest.approx(-math.log(1 / 3))
+    with result.matches_path.open(encoding="utf-8", newline="") as file:
+        match_rows = list(csv.DictReader(file))
+    assert match_rows[0]["data_cutoff_utc"] == "2026-06-18T10:00:00Z"
+    assert match_rows[0]["result_data_cutoff_utc"] == "2026-06-20T10:00:00Z"
 
 
 def test_prospective_evaluation_reads_published_csv_history(

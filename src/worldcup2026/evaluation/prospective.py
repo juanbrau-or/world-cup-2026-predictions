@@ -194,7 +194,7 @@ def run_prospective_evaluation(
     ledger_path: Path = Path("predictions/prediction_ledger.parquet"),
     config_path: Path = DEFAULT_CONFIG_PATH,
     results_cutoff_path: Path = DEFAULT_RESULTS_CUTOFF_PATH,
-    published_history_root: Path | None = DEFAULT_PUBLISHED_HISTORY_ROOT,
+    published_history_root: Path | None = None,
     generated_at: datetime | None = None,
 ) -> ProspectiveEvaluationResult:
     """Build the prediction ledger and evaluate the official prospective policy."""
@@ -781,7 +781,7 @@ def _canonical_result_contract(row: Mapping[str, Any], *, fixture_id: str) -> di
         "penalty_shootout": _optional_bool(row.get("penalty_shootout")),
         "home_penalty_goals": _optional_int(row.get("home_penalty_goals")),
         "away_penalty_goals": _optional_int(row.get("away_penalty_goals")),
-        "data_cutoff_utc": _optional_utc_datetime(row.get("data_cutoff_utc")),
+        "result_data_cutoff_utc": _optional_utc_datetime(row.get("data_cutoff_utc")),
     }
     if status in {"cancelled", "postponed", "suspended", "abandoned"}:
         return {**base, "result_status": "not_evaluable", "result_status_reason": status}
@@ -1109,6 +1109,7 @@ def _match_payload(
             _require_utc_datetime(row["prediction_created_at_utc"])
         ),
         "data_cutoff_utc": _format_utc(_require_utc_datetime(row["data_cutoff_utc"])),
+        "result_data_cutoff_utc": _format_optional_utc(row.get("result_data_cutoff_utc")),
         "kickoff_utc": _format_utc(_require_utc_datetime(row["kickoff_utc"])),
         "hours_before_kickoff": row["hours_before_kickoff"],
         "horizon_bucket": row["horizon_bucket"],
@@ -1297,6 +1298,7 @@ def _matches_csv_fields(
         "prediction_id",
         "prediction_created_at_utc",
         "data_cutoff_utc",
+        "result_data_cutoff_utc",
         "kickoff_utc",
         "hours_before_kickoff",
         "horizon_bucket",
@@ -1560,6 +1562,11 @@ def _require_utc(value: datetime) -> datetime:
 
 def _format_utc(value: datetime) -> str:
     return _require_utc(value).isoformat().replace("+00:00", "Z")
+
+
+def _format_optional_utc(value: object) -> str | None:
+    parsed = _optional_utc_datetime(value)
+    return _format_utc(parsed) if parsed is not None else None
 
 
 def _utc_now() -> datetime:
