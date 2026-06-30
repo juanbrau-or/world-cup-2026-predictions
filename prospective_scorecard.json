@@ -1,0 +1,140 @@
+{
+  "baselines": {
+    "historical_frequency_frozen": {
+      "metrics": {
+        "accuracy": null,
+        "average_hours_before_kickoff": null,
+        "brier_score": null,
+        "calibration_error": null,
+        "calibration_minimum_matches": 30,
+        "calibration_status": "insufficient_sample",
+        "kickoff_end": null,
+        "kickoff_start": null,
+        "log_loss": null,
+        "matches": 0,
+        "median_hours_before_kickoff": null,
+        "ranked_probability_score": null
+      },
+      "probabilities": {
+        "away_win": 0.2877710099246071,
+        "draw": 0.2246879925033011,
+        "home_win": 0.48754099757209185
+      },
+      "status": "computed"
+    },
+    "uniform_1x2": {
+      "metrics": {
+        "accuracy": null,
+        "average_hours_before_kickoff": null,
+        "brier_score": null,
+        "calibration_error": null,
+        "calibration_minimum_matches": 30,
+        "calibration_status": "insufficient_sample",
+        "kickoff_end": null,
+        "kickoff_start": null,
+        "log_loss": null,
+        "matches": 0,
+        "median_hours_before_kickoff": null,
+        "ranked_probability_score": null
+      },
+      "probabilities": {
+        "away_win": 0.3333333333333333,
+        "draw": 0.3333333333333333,
+        "home_win": 0.3333333333333333
+      },
+      "status": "computed"
+    }
+  },
+  "descriptive_metrics_by_horizon_all_valid_predictions": {},
+  "generated_at_utc": "2026-06-30T19:18:43Z",
+  "horizons": {
+    "buckets": [
+      {
+        "id": "gt_24h",
+        "label": "> 24 hours before kickoff",
+        "max_hours": null,
+        "max_inclusive": false,
+        "min_hours": 24.0,
+        "min_inclusive": false
+      },
+      {
+        "id": "6_to_24h",
+        "label": "6 to 24 hours before kickoff",
+        "max_hours": 24.0,
+        "max_inclusive": true,
+        "min_hours": 6.0,
+        "min_inclusive": true
+      },
+      {
+        "id": "1_to_6h",
+        "label": "1 to less than 6 hours before kickoff",
+        "max_hours": 6.0,
+        "max_inclusive": false,
+        "min_hours": 1.0,
+        "min_inclusive": true
+      },
+      {
+        "id": "lt_1h",
+        "label": "Less than 1 hour before kickoff",
+        "max_hours": 1.0,
+        "max_inclusive": false,
+        "min_hours": 0.0,
+        "min_inclusive": true
+      }
+    ],
+    "version": "prediction_horizons_v1"
+  },
+  "ledger": {
+    "invalidity_counts": {},
+    "predictions": 12,
+    "schema_version": "prediction_ledger_v1",
+    "snapshots": 1,
+    "unique_fixtures": 12,
+    "validity_counts": {
+      "valid": 12
+    }
+  },
+  "matches": [],
+  "metrics": {
+    "accuracy": null,
+    "average_hours_before_kickoff": null,
+    "brier_score": null,
+    "calibration_error": null,
+    "calibration_minimum_matches": 30,
+    "calibration_status": "insufficient_sample",
+    "kickoff_end": null,
+    "kickoff_start": null,
+    "log_loss": null,
+    "matches": 0,
+    "median_hours_before_kickoff": null,
+    "ranked_probability_score": null
+  },
+  "metrics_by_favorite_segment": {},
+  "metrics_by_horizon": {},
+  "metrics_by_stage": {},
+  "official_predictions_evaluated": 0,
+  "official_predictions_selected": 12,
+  "official_selection_policy": {
+    "fallback_rule": {
+      "description": "earliest valid prediction before kickoff when the primary rule has no candidate",
+      "id": "earliest_valid_before_kickoff"
+    },
+    "policy_id": "early_v1",
+    "policy_version": "early_v1_2026_06_30",
+    "prediction_context": "early_v1",
+    "primary_rule": {
+      "description": "latest valid prediction generated at least the configured hours before kickoff",
+      "id": "latest_valid_at_least_6h_before_kickoff",
+      "min_hours_before_kickoff": 6.0
+    }
+  },
+  "result_metric_basis": "result_90",
+  "result_metric_basis_description": "1X2 metrics use the 90-minute result only.",
+  "results_cutoff_utc": "2026-06-30T19:18:33.567493Z",
+  "schema_version": "prospective_scorecard_v1",
+  "small_sample_warning": {
+    "applies": true,
+    "message": "Sample is too small for firm statistical conclusions.",
+    "threshold": 30
+  }
+}
