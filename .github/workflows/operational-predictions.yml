@@ -167,12 +167,16 @@ jobs:
 
       - name: Prepare predictions-data worktree
         shell: bash
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
+          : "${GITHUB_TOKEN:?GITHUB_TOKEN is required for predictions-data push}"
+          remote_host="${GITHUB_SERVER_URL#https://}"
           mkdir -p predictions-data
           cd predictions-data
           git init
-          git remote add origin "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git"
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@${remote_host}/${GITHUB_REPOSITORY}.git"
           if git ls-remote --exit-code --heads origin predictions-data >/dev/null 2>&1; then
             git fetch --depth=1 origin predictions-data
             git checkout -B predictions-data origin/predictions-data
