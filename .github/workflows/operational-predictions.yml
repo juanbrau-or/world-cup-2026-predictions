@@ -1,0 +1,193 @@
+name: Operational Predictions
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 */4 * * *"
+
+concurrency:
+  group: world-cup-2026-operational-predictions
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  run-pipeline:
+    name: Run prediction pipeline
+    runs-on: ubuntu-latest
+    env:
+      TZ: UTC
+      FOOTBALL_DATA_API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}
+      API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+
+      - name: Install dependencies
+        run: uv sync --group dev
+
+      - name: Run operational pipeline
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p logs
+          uv run wc2026 doctor 2>&1 | tee logs/01_doctor.log
+          uv run wc2026 ingest world-cup 2>&1 | tee logs/02_ingest_world_cup.log
+          uv run wc2026 predict upcoming 2>&1 | tee logs/03_predict_upcoming.log
+          uv run wc2026 evaluate prospective 2>&1 | tee logs/04_evaluate_prospective.log
+
+      - name: Test publisher
+        run: uv run pytest tests/test_publication.py
+
+      - name: Validate publisher output and secret scan
+        run: uv run wc2026 publish prepare --predictions-root predictions --output-root dist/predictions-data
+
+      - name: Package publication inputs
+        run: |
+          mkdir -p dist
+          tar -czf dist/predictions-data-inputs.tgz \
+            predictions/latest.csv \
+            predictions/upcoming.md \
+            predictions/prospective_evaluation.json \
+            predictions/prospective_evaluation.md
+
+      - name: Upload Parquet artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: prediction-parquet
+          if-no-files-found: ignore
+          path: |
+            data/processed/**/*.parquet
+            predictions/**/*.parquet
+            artifacts/**/*.parquet
+
+      - name: Upload logs
+        uses: actions/upload-artifact@v4
+        with:
+          name: operational-logs
+          if-no-files-found: error
+          path: logs/**/*.log
+
+      - name: Upload reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: operational-reports
+          if-no-files-found: ignore
+          path: |
+            data/interim/**
+            predictions/**/*.md
+            predictions/**/*.json
+            artifacts/evaluation/**
+
+      - name: Upload manifests
+        uses: actions/upload-artifact@v4
+        with:
+          name: operational-manifests
+          if-no-files-found: ignore
+          path: |
+            data/raw/**/manifest*.json
+            data/raw/**/*manifest*.json
+            dist/predictions-data/manifest.json
+
+      - name: Upload audit models
+        uses: actions/upload-artifact@v4
+        with:
+          name: audit-models
+          if-no-files-found: ignore
+          path: artifacts/models/**
+
+      - name: Upload branch publication payload
+        uses: actions/upload-artifact@v4
+        with:
+          name: predictions-data-payload
+          if-no-files-found: error
+          path: dist/predictions-data-inputs.tgz
+
+  publish-data:
+    name: Publish predictions-data branch
+    runs-on: ubuntu-latest
+    needs: run-pipeline
+    permissions:
+      contents: write
+    env:
+      TZ: UTC
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: repo
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          cache-dependency-glob: repo/uv.lock
+
+      - name: Install dependencies
+        working-directory: repo
+        run: uv sync --group dev
+
+      - name: Download publication payload
+        uses: actions/download-artifact@v4
+        with:
+          name: predictions-data-payload
+          path: repo/dist
+
+      - name: Unpack publication payload
+        working-directory: repo
+        run: tar -xzf dist/predictions-data-inputs.tgz
+
+      - name: Prepare predictions-data worktree
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p predictions-data
+          cd predictions-data
+          git init
+          git remote add origin "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY.git"
+          if git ls-remote --exit-code --heads origin predictions-data >/dev/null 2>&1; then
+            git fetch --depth=1 origin predictions-data
+            git checkout -B predictions-data origin/predictions-data
+          else
+            git checkout --orphan predictions-data
+            git rm -rf . >/dev/null 2>&1 || true
+          fi
+
+      - name: Prepare branch-safe publication
+        working-directory: repo
+        run: uv run wc2026 publish prepare --predictions-root predictions --output-root ../predictions-data
+
+      - name: Commit and push data branch
+        shell: bash
+        working-directory: predictions-data
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No predictions-data changes to publish."
+            exit 0
+          fi
+          git commit -m "Update World Cup 2026 predictions data"
+          git push origin HEAD:predictions-data

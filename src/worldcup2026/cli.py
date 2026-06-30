@@ -49,6 +49,7 @@ from worldcup2026.pipelines.operational_predictions import (
     OperationalPredictionError,
     run_predict_upcoming,
 )
+from worldcup2026.pipelines.publication import PublicationError, prepare_predictions_publication
 
 app = typer.Typer(no_args_is_help=True)
 ingest_app = typer.Typer(no_args_is_help=True)
@@ -57,6 +58,7 @@ prepare_app = typer.Typer(no_args_is_help=True)
 model_app = typer.Typer(no_args_is_help=True)
 predict_app = typer.Typer(no_args_is_help=True)
 evaluate_app = typer.Typer(no_args_is_help=True)
+publish_app = typer.Typer(no_args_is_help=True)
 console = Console()
 
 MIN_PYTHON = (3, 11)
@@ -94,6 +96,7 @@ app.add_typer(prepare_app, name="prepare", help="Prepare deterministic derived d
 app.add_typer(model_app, name="model", help="Build model-stage derived artifacts.")
 app.add_typer(predict_app, name="predict", help="Generate operational predictions.")
 app.add_typer(evaluate_app, name="evaluate", help="Evaluate probabilistic model stages.")
+app.add_typer(publish_app, name="publish", help="Prepare branch-safe prediction publications.")
 
 
 @app.command()
@@ -669,6 +672,42 @@ def evaluate_dixon_coles(
     console.print(f"Evaluation summary: {result.evaluation_summary_path}")
     console.print(f"Out-of-fold predictions: {result.out_of_fold_predictions_path}")
     console.print(f"Report: {result.report_path}")
+
+
+@publish_app.command("prepare")
+def publish_prepare(
+    predictions_root: Annotated[
+        Path,
+        typer.Option("--predictions-root", help="Root containing generated prediction outputs."),
+    ] = Path("predictions"),
+    output_root: Annotated[
+        Path,
+        typer.Option("--output-root", help="Data-branch worktree or staging output root."),
+    ] = Path("dist/predictions-data"),
+) -> None:
+    """Prepare small branch-safe files for predictions-data."""
+
+    try:
+        result = prepare_predictions_publication(
+            predictions_root=predictions_root,
+            output_root=output_root,
+        )
+    except PublicationError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise typer.Exit(code=1) from exc
+
+    console.print(f"Output root: {result.output_root}")
+    console.print(f"Changed: {result.changed}")
+    console.print(f"Data cutoff UTC: {result.data_cutoff}")
+    console.print(f"Predictions: {result.prediction_count}")
+    console.print(
+        "Prospective observations evaluated: "
+        f"{result.prospective_evaluation_observations}"
+    )
+    console.print(f"Checksum: {result.checksum}")
+    console.print(f"Manifest: {result.manifest_path}")
+    if result.history_path is not None:
+        console.print(f"History: {result.history_path}")
 
 
 if __name__ == "__main__":
