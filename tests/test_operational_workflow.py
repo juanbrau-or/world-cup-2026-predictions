@@ -32,6 +32,7 @@ def test_operational_predictions_workflow_syntax_and_contract() -> None:
     assert "Run operational pipeline" in run_steps
     assert "Test publisher" in run_steps
     assert "Validate publisher output and secret scan" in run_steps
+    assert "Package manifests" in run_steps
     assert "Upload Parquet artifacts" in run_steps
     assert "Upload logs" in run_steps
     assert "Upload reports" in run_steps
@@ -122,6 +123,20 @@ def test_publication_payload_extracts_under_predictions_root(tmp_path: Path) -> 
     assert (publish_repo / "predictions" / "latest.csv").is_file()
     assert result.manifest_path.is_file()
     assert result.latest_json_path.is_file()
+
+
+def test_manifest_artifact_is_packaged_with_portable_upload_path() -> None:
+    payload = _workflow_payload()
+    run_pipeline = _mapping(_mapping(payload["jobs"])["run-pipeline"])
+    package_script = _step_run(run_pipeline, "Package manifests")
+    upload_step = _step(run_pipeline, "Upload manifests")
+    upload_with = _mapping(upload_step["with"])
+
+    assert "dist/operational-manifests.tgz" in package_script
+    assert "find data/raw dist/predictions-data" in package_script
+    assert "--null -czf dist/operational-manifests.tgz --files-from -" in package_script
+    assert upload_with["path"] == "dist/operational-manifests.tgz"
+    assert upload_with["if-no-files-found"] == "error"
 
 
 def _workflow_payload() -> dict[str, Any]:
