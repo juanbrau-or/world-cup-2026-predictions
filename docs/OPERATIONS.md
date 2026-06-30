@@ -3,6 +3,9 @@
 Este flujo automatiza el MVP manual:
 
 ```bash
+uv run wc2026 ingest historical
+uv run wc2026 prepare modeling-data
+uv run wc2026 model dixon-coles
 uv run wc2026 ingest world-cup
 uv run wc2026 predict upcoming
 uv run wc2026 evaluate prospective
@@ -104,6 +107,9 @@ Desde la raiz del repositorio:
 ```bash
 uv sync --group dev
 uv run wc2026 doctor
+uv run wc2026 ingest historical
+uv run wc2026 prepare modeling-data
+uv run wc2026 model dixon-coles
 uv run wc2026 ingest world-cup
 uv run wc2026 predict upcoming
 uv run wc2026 evaluate prospective
