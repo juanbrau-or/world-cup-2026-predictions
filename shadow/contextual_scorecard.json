@@ -46,7 +46,7 @@
     }
   },
   "descriptive_metrics_by_horizon_all_valid_predictions": {},
-  "generated_at_utc": "2026-07-01T02:13:54Z",
+  "generated_at_utc": "2026-07-01T04:07:09Z",
   "horizons": {
     "buckets": [
       {
@@ -130,7 +130,7 @@
   },
   "result_metric_basis": "result_90",
   "result_metric_basis_description": "1X2 metrics use the 90-minute result only.",
-  "results_cutoff_utc": "2026-07-01T02:12:31.862767Z",
+  "results_cutoff_utc": "2026-07-01T04:05:49.927079Z",
   "schema_version": "prospective_scorecard_v1",
   "small_sample_warning": {
     "applies": true,
