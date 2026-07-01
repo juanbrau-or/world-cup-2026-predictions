@@ -116,6 +116,7 @@ uv run wc2026 model dixon-coles
 uv run wc2026 ingest world-cup
 uv run wc2026 predict upcoming
 uv run wc2026 evaluate prospective
+uv run wc2026 prepare contextual-features
 uv run pytest tests/test_publication.py
 uv run wc2026 publish prepare --predictions-root predictions --output-root dist/predictions-data
 ```
