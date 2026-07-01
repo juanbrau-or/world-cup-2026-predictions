@@ -56,6 +56,8 @@ class PublicationResult:
     prospective_scorecard_report_path: Path
     prospective_matches_csv_path: Path
     history_path: Path | None
+    simulation_manifest_path: Path | None
+    simulation_run_id: str | None
     prediction_count: int
     prospective_scorecard_observations: int
     prospective_scorecard_summary: Mapping[str, Any]
@@ -66,6 +68,7 @@ class PublicationResult:
 def prepare_predictions_publication(
     *,
     predictions_root: Path = Path("predictions"),
+    simulations_root: Path = Path("simulations"),
     output_root: Path = Path("dist/predictions-data"),
     generated_at: datetime | None = None,
     secret_values: Sequence[str] = (),
@@ -75,12 +78,17 @@ def prepare_predictions_publication(
     generated = _utc_now() if generated_at is None else _require_utc(generated_at)
     source = _read_source_outputs(predictions_root)
     shadow_source = _read_shadow_source_outputs(predictions_root)
+    simulation_source = _read_simulation_source_outputs(simulations_root)
     rows = _read_prediction_rows(source.latest_csv_bytes)
     metadata = _publication_metadata(rows, source.upcoming_report)
     scorecard_summary = _prospective_scorecard_summary(source.prospective_scorecard_json)
     scorecard_count = int(scorecard_summary["official_predictions_evaluated"])
     latest_checksum = _sha256(source.latest_csv_bytes)
-    source_fingerprint = _source_fingerprint(source, shadow_source=shadow_source)
+    source_fingerprint = _source_fingerprint(
+        source,
+        shadow_source=shadow_source,
+        simulation_source=simulation_source,
+    )
     history_path = _history_path(
         output_root,
         data_cutoff=metadata["data_cutoff"],
@@ -119,6 +127,14 @@ def prepare_predictions_publication(
             prospective_scorecard_report_path=output_root / "prospective_scorecard.md",
             prospective_matches_csv_path=output_root / "prospective_matches.csv",
             history_path=history_path,
+            simulation_manifest_path=(
+                output_root / "simulation" / "manifest.json"
+                if simulation_source is not None
+                else None
+            ),
+            simulation_run_id=(
+                simulation_source.simulation_run_id if simulation_source is not None else None
+            ),
             prediction_count=len(rows),
             prospective_scorecard_observations=scorecard_count,
             prospective_scorecard_summary=scorecard_summary,
@@ -153,6 +169,10 @@ def prepare_predictions_publication(
             generated_at=generated,
         )
         files.update(shadow_files)
+    simulation_manifest: dict[str, Any] | None = None
+    if simulation_source is not None:
+        simulation_files, simulation_manifest = _simulation_publication_files(simulation_source)
+        files.update(simulation_files)
 
     checksums = {relative_path: _sha256(content) for relative_path, content in files.items()}
     manifest = {
@@ -177,6 +197,7 @@ def prepare_predictions_publication(
         "prospective_observations": scorecard_summary["official_predictions_evaluated"],
         "prospective_results_cutoff": scorecard_summary["results_cutoff_utc"],
         "shadow": shadow_manifest,
+        "simulation": simulation_manifest,
         "history_path": str(history_path.relative_to(output_root)) if history_path else None,
         "publication_fingerprint": source_fingerprint,
         "published_files": sorted(files),
@@ -206,6 +227,12 @@ def prepare_predictions_publication(
         prospective_scorecard_report_path=output_root / "prospective_scorecard.md",
         prospective_matches_csv_path=output_root / "prospective_matches.csv",
         history_path=history_path,
+        simulation_manifest_path=(
+            output_root / "simulation" / "manifest.json" if simulation_source is not None else None
+        ),
+        simulation_run_id=(
+            simulation_source.simulation_run_id if simulation_source is not None else None
+        ),
         prediction_count=len(rows),
         prospective_scorecard_observations=scorecard_count,
         prospective_scorecard_summary=scorecard_summary,
@@ -265,6 +292,13 @@ def assert_allowed_publication_path(relative_path: Path, *, size_bytes: int) -> 
         "shadow/contextual_scorecard.md",
         "shadow/contextual_comparison.md",
         "shadow/manifest.json",
+        "simulation/manifest.json",
+        "simulation/team_probabilities.csv",
+        "simulation/team_probabilities.json",
+        "simulation/champion_probabilities.md",
+        "simulation/round_probabilities.md",
+        "simulation/group_tables_summary.md",
+        "simulation/bracket_summary.md",
     }
     if normalized in exact:
         return
@@ -334,6 +368,31 @@ class _ShadowSourceOutputs:
         return payload
 
 
+@dataclass(frozen=True)
+class _SimulationSourceOutputs:
+    manifest_bytes: bytes
+    team_probabilities_csv_bytes: bytes
+    team_probabilities_json_bytes: bytes
+    champion_probabilities_md_bytes: bytes
+    round_probabilities_md_bytes: bytes
+    group_tables_summary_md_bytes: bytes
+    bracket_summary_md_bytes: bytes
+
+    @property
+    def manifest(self) -> Mapping[str, Any]:
+        payload = json.loads(self.manifest_bytes.decode("utf-8"))
+        if not isinstance(payload, Mapping):
+            raise PublicationError("simulation manifest JSON must contain an object")
+        return payload
+
+    @property
+    def simulation_run_id(self) -> str:
+        value = self.manifest.get("simulation_run_id")
+        if not isinstance(value, str) or not value:
+            raise PublicationError("simulation manifest must include simulation_run_id")
+        return value
+
+
 def _read_source_outputs(predictions_root: Path) -> _SourceOutputs:
     files = {
         "latest_csv_bytes": predictions_root / "latest.csv",
@@ -373,6 +432,32 @@ def _read_shadow_source_outputs(predictions_root: Path) -> _ShadowSourceOutputs 
         _reject_source_path(path)
         values[key] = path.read_bytes()
     return _ShadowSourceOutputs(**values)
+
+
+def _read_simulation_source_outputs(simulations_root: Path) -> _SimulationSourceOutputs | None:
+    latest = simulations_root / "latest"
+    files = {
+        "manifest_bytes": latest / "manifest.json",
+        "team_probabilities_csv_bytes": latest / "team_probabilities.csv",
+        "team_probabilities_json_bytes": latest / "team_probabilities.json",
+        "champion_probabilities_md_bytes": latest / "champion_probabilities.md",
+        "round_probabilities_md_bytes": latest / "round_probabilities.md",
+        "group_tables_summary_md_bytes": latest / "group_tables_summary.md",
+        "bracket_summary_md_bytes": latest / "bracket_summary.md",
+    }
+    present = {key: path.is_file() for key, path in files.items()}
+    if not any(present.values()):
+        return None
+    missing = [path.as_posix() for key, path in files.items() if not present[key]]
+    if missing:
+        raise PublicationError("incomplete simulation publication files: " + ", ".join(missing))
+    values: dict[str, bytes] = {}
+    for key, path in files.items():
+        _reject_source_path(path)
+        values[key] = path.read_bytes()
+    source = _SimulationSourceOutputs(**values)
+    _validate_simulation_manifest(source.manifest)
+    return source
 
 
 def _reject_source_path(path: Path) -> None:
@@ -625,6 +710,41 @@ def _shadow_publication_files(
     return files, manifest
 
 
+def _simulation_publication_files(
+    source: _SimulationSourceOutputs,
+) -> tuple[dict[str, bytes], dict[str, Any]]:
+    manifest = source.manifest
+    files = {
+        "simulation/manifest.json": source.manifest_bytes,
+        "simulation/team_probabilities.csv": source.team_probabilities_csv_bytes,
+        "simulation/team_probabilities.json": source.team_probabilities_json_bytes,
+        "simulation/champion_probabilities.md": source.champion_probabilities_md_bytes,
+        "simulation/round_probabilities.md": source.round_probabilities_md_bytes,
+        "simulation/group_tables_summary.md": source.group_tables_summary_md_bytes,
+        "simulation/bracket_summary.md": source.bracket_summary_md_bytes,
+    }
+    checksums = {relative_path: _sha256(content) for relative_path, content in files.items()}
+    branch_manifest = {
+        "schema_version": "simulation_publication_manifest_v1",
+        "version": PUBLICATION_VERSION,
+        "simulation_run_id": source.simulation_run_id,
+        "data_cutoff_utc": manifest.get("data_cutoff_utc"),
+        "model": manifest.get("model"),
+        "rules": manifest.get("rules"),
+        "runs": manifest.get("runs"),
+        "seed": manifest.get("seed"),
+        "checksums": checksums,
+        "published_files": sorted(files),
+    }
+    return files, branch_manifest
+
+
+def _validate_simulation_manifest(payload: Mapping[str, Any]) -> None:
+    for field in ("simulation_run_id", "data_cutoff_utc", "runs", "seed", "model", "rules"):
+        if field not in payload:
+            raise PublicationError(f"simulation manifest is missing {field}")
+
+
 def _json_bytes(payload: Mapping[str, Any]) -> bytes:
     return (json.dumps(payload, indent=2, sort_keys=True) + "\n").encode("utf-8")
 
@@ -633,6 +753,7 @@ def _source_fingerprint(
     source: _SourceOutputs,
     *,
     shadow_source: _ShadowSourceOutputs | None,
+    simulation_source: _SimulationSourceOutputs | None,
 ) -> str:
     digest = hashlib.sha256()
     for content in (
@@ -651,6 +772,18 @@ def _source_fingerprint(
             shadow_source.scorecard_json_bytes,
             shadow_source.scorecard_report_bytes,
             shadow_source.comparison_report_bytes,
+        ):
+            digest.update(len(content).to_bytes(8, "big"))
+            digest.update(content)
+    if simulation_source is not None:
+        for content in (
+            simulation_source.manifest_bytes,
+            simulation_source.team_probabilities_csv_bytes,
+            simulation_source.team_probabilities_json_bytes,
+            simulation_source.champion_probabilities_md_bytes,
+            simulation_source.round_probabilities_md_bytes,
+            simulation_source.group_tables_summary_md_bytes,
+            simulation_source.bracket_summary_md_bytes,
         ):
             digest.update(len(content).to_bytes(8, "big"))
             digest.update(content)
@@ -689,7 +822,9 @@ def _required_outputs_match(
     published_files = manifest.get("published_files")
     if isinstance(published_files, list):
         for item in published_files:
-            if isinstance(item, str) and item.startswith("shadow/"):
+            if isinstance(item, str) and (
+                item.startswith("shadow/") or item.startswith("simulation/")
+            ):
                 required.append(output_root / item)
     checksums = manifest.get("checksums")
     if not isinstance(checksums, Mapping):

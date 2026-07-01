@@ -71,6 +71,12 @@ from worldcup2026.pipelines.shadow_contextual import (
     run_evaluate_shadow_contextual,
     run_predict_shadow_contextual,
 )
+from worldcup2026.simulation.tournament import (
+    TournamentSimulationError,
+    audit_simulation_outputs,
+    run_tournament_simulation,
+    simulation_report_summary,
+)
 
 app = typer.Typer(no_args_is_help=True)
 ingest_app = typer.Typer(no_args_is_help=True)
@@ -82,6 +88,7 @@ evaluate_app = typer.Typer(no_args_is_help=True)
 publish_app = typer.Typer(no_args_is_help=True)
 operational_app = typer.Typer(no_args_is_help=True)
 report_app = typer.Typer(no_args_is_help=True)
+simulate_app = typer.Typer(no_args_is_help=True)
 console = Console()
 
 MIN_PYTHON = (3, 11)
@@ -122,6 +129,7 @@ app.add_typer(evaluate_app, name="evaluate", help="Evaluate probabilistic model 
 app.add_typer(publish_app, name="publish", help="Prepare branch-safe prediction publications.")
 app.add_typer(operational_app, name="operational", help="Operational workflow helpers.")
 app.add_typer(report_app, name="report", help="Read generated reports.")
+app.add_typer(simulate_app, name="simulate", help="Run tournament simulations.")
 
 
 @app.command()
@@ -393,6 +401,27 @@ def audit_aliases(
         console.print(f"Audit report: {report_path}")
     if report.unresolved_team_names or report.orphan_canonical_team_ids:
         raise typer.Exit(code=1)
+
+
+@audit_app.command("simulation")
+def audit_simulation(
+    simulations_root: Annotated[
+        Path,
+        typer.Option("--simulations-root", help="Simulation output root."),
+    ] = Path("simulations"),
+) -> None:
+    """Audit latest tournament simulation outputs."""
+
+    try:
+        summary = audit_simulation_outputs(simulations_root=simulations_root)
+    except TournamentSimulationError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise typer.Exit(code=1) from exc
+
+    console.print(f"Simulation run ID: {summary['simulation_run_id']}")
+    console.print(f"Team rows: {summary['team_rows']}")
+    console.print(f"Rules: {summary['rule_version']}")
+    console.print(f"Model: {summary['model_version']}")
 
 
 @audit_app.command("contextual-features")
@@ -793,6 +822,90 @@ def predict_shadow_contextual(
     console.print(f"Report: {result.report_path}")
 
 
+@simulate_app.command("tournament")
+def simulate_tournament(
+    config_path: Annotated[
+        Path,
+        typer.Option("--config", help="Path to simulation configuration."),
+    ] = Path("configs/simulation.yaml"),
+    runs: Annotated[
+        int | None,
+        typer.Option("--runs", min=0, help="Override Monte Carlo simulation count."),
+    ] = None,
+    seed: Annotated[
+        int | None,
+        typer.Option("--seed", min=0, help="Override deterministic random seed."),
+    ] = None,
+    as_of: Annotated[
+        str | None,
+        typer.Option("--as-of", help="Simulation data cutoff timestamp, UTC ISO 8601."),
+    ] = None,
+    offline_fixture: Annotated[
+        bool,
+        typer.Option("--offline-fixture", help="Use a local raw Football-Data fixture snapshot."),
+    ] = False,
+    offline_fixture_path: Annotated[
+        Path | None,
+        typer.Option("--offline-fixture-path", help="Football-Data-compatible fixture JSON."),
+    ] = None,
+    official_model: Annotated[
+        bool,
+        typer.Option(
+            "--official-model/--no-official-model",
+            help="Require official Poisson model.",
+        ),
+    ] = True,
+    shadow_contextual: Annotated[
+        bool,
+        typer.Option(
+            "--shadow-contextual",
+            help="Attempt a separate contextual shadow simulation if valid.",
+        ),
+    ] = False,
+    predictions_root: Annotated[
+        Path,
+        typer.Option("--predictions-root", help="Official prediction output root."),
+    ] = Path("predictions"),
+    output_root: Annotated[
+        Path | None,
+        typer.Option("--output-root", help="Override simulation output root."),
+    ] = None,
+) -> None:
+    """Run the official World Cup 2026 tournament simulation."""
+
+    try:
+        offline_fixture_override = (
+            offline_fixture_path if offline_fixture or offline_fixture_path is not None else None
+        )
+        result = run_tournament_simulation(
+            config_path=config_path,
+            runs=runs,
+            seed=seed,
+            as_of=_parse_optional_utc(as_of, field_name="--as-of"),
+            offline_fixture=offline_fixture_override,
+            official_model=official_model,
+            shadow_contextual=shadow_contextual,
+            predictions_root=predictions_root,
+            output_root=output_root,
+        )
+    except TournamentSimulationError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise typer.Exit(code=1) from exc
+
+    console.print(f"Simulation run ID: {result.simulation_run_id}")
+    console.print(f"Data cutoff UTC: {result.cutoff.isoformat()}")
+    console.print(f"Runs: {result.runs}")
+    console.print(f"Seed: {result.seed}")
+    if result.favorite_team_id is not None and result.favorite_champion_probability is not None:
+        console.print(
+            "Title favorite: "
+            f"{result.favorite_team_id} ({result.favorite_champion_probability:.4f})"
+        )
+    console.print(f"Fallbacks: {dict(result.fallback_counts)}")
+    console.print(f"Latest outputs: {result.latest_root}")
+    console.print(f"Manifest: {result.manifest_path}")
+
+
 @evaluate_app.command("elo")
 def evaluate_elo(
     config_path: Annotated[
@@ -987,6 +1100,10 @@ def publish_prepare(
         Path,
         typer.Option("--predictions-root", help="Root containing generated prediction outputs."),
     ] = Path("predictions"),
+    simulations_root: Annotated[
+        Path,
+        typer.Option("--simulations-root", help="Root containing generated simulation outputs."),
+    ] = Path("simulations"),
     output_root: Annotated[
         Path,
         typer.Option("--output-root", help="Data-branch worktree or staging output root."),
@@ -997,6 +1114,7 @@ def publish_prepare(
     try:
         result = prepare_predictions_publication(
             predictions_root=predictions_root,
+            simulations_root=simulations_root,
             output_root=output_root,
         )
     except PublicationError as exc:
@@ -1015,6 +1133,8 @@ def publish_prepare(
     console.print(f"Manifest: {result.manifest_path}")
     if result.history_path is not None:
         console.print(f"History: {result.history_path}")
+    if result.simulation_run_id is not None:
+        console.print(f"Simulation run ID: {result.simulation_run_id}")
 
 
 @operational_app.command("summary")
@@ -1023,6 +1143,10 @@ def operational_summary(
         Path,
         typer.Option("--predictions-root", help="Prediction output root."),
     ] = Path("predictions"),
+    simulations_root: Annotated[
+        Path,
+        typer.Option("--simulations-root", help="Simulation output root."),
+    ] = Path("simulations"),
     interim_root: Annotated[
         Path,
         typer.Option("--interim-root", help="Interim report root."),
@@ -1046,6 +1170,7 @@ def operational_summary(
         result = write_operational_step_summary(
             summary_path=summary_path,
             predictions_root=predictions_root,
+            simulations_root=simulations_root,
             interim_root=interim_root,
             publication_root=publication_root,
             logs_root=logs_root,
@@ -1093,6 +1218,42 @@ def report_contextual_features(
                 counts[category] = counts.get(category, 0) + 1
         for category, count in sorted(counts.items()):
             console.print(f"{category}: {count}")
+
+
+@report_app.command("simulation")
+def report_simulation(
+    simulations_root: Annotated[
+        Path,
+        typer.Option("--simulations-root", help="Simulation output root."),
+    ] = Path("simulations"),
+) -> None:
+    """Print a compact latest simulation summary."""
+
+    try:
+        summary = simulation_report_summary(simulations_root=simulations_root)
+    except TournamentSimulationError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise typer.Exit(code=1) from exc
+
+    console.print(f"Simulation run ID: {summary['simulation_run_id']}")
+    console.print(f"Data cutoff UTC: {summary['data_cutoff_utc']}")
+    console.print(f"Runs: {summary['runs']}")
+    console.print(f"Seed: {summary['seed']}")
+    console.print(f"Fallbacks: {summary['fallback_counts']}")
+    console.print("Top champion probabilities:")
+    top_champions = summary.get("top_champions")
+    if isinstance(top_champions, list):
+        for row in top_champions:
+            if isinstance(row, dict):
+                console.print(f"  {row['team_id']}: {float(str(row['champion'])):.4f}")
+    mexico = summary.get("mexico")
+    if isinstance(mexico, dict):
+        console.print(
+            "Mexico: "
+            f"champion={float(str(mexico['champion'])):.4f}, "
+            f"final={float(str(mexico['final'])):.4f}, "
+            f"round_of_16={float(str(mexico['round_of_16'])):.4f}"
+        )
 
 
 def _parse_optional_utc(value: str | None, *, field_name: str) -> datetime | None:

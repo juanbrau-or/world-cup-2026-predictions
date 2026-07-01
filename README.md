@@ -65,6 +65,8 @@ uv run wc2026 model contextual-challenger
 uv run wc2026 evaluate contextual-challenger
 uv run wc2026 predict shadow-contextual
 uv run wc2026 evaluate shadow-contextual
+uv run wc2026 simulate tournament
+uv run wc2026 audit simulation
 ```
 
 Cada respuesta de colección y cada miembro de fixture se conserva sin sobrescribir en
@@ -87,6 +89,10 @@ Consulta `docs/CONTEXTUAL_FEATURES.md`.
 `contextual-challenger` entrena y evalua modelos challenger en modo shadow (`contextual_logit_v1` y
 `contextual_lgbm_v1`) contra `poisson_goal_v1`. Las predicciones shadow se escriben separadas bajo
 `predictions/shadow/`; no reemplazan `predictions/latest.*` ni el scorecard oficial.
+
+`simulate tournament` calcula probabilidades de grupo, rondas eliminatorias y campeon usando
+exclusivamente el modelo oficial `poisson_goal_v1`. Conserva partidos observados, simula solo lo no
+observado y escribe resultados en `simulations/`. Consulta `docs/TOURNAMENT_SIMULATION.md`.
 
 ## Automatizacion operativa
 

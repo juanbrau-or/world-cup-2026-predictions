@@ -342,6 +342,39 @@ def test_invalid_score_contract_is_reported(tmp_path: Path) -> None:
     assert len(result.matches) == 1
 
 
+def test_football_data_penalty_shootout_preserves_90_extra_time_and_penalties(
+    tmp_path: Path,
+) -> None:
+    payload = json.loads(FIXTURE.read_text(encoding="utf-8"))
+    match = next(item for item in payload["matches"] if item["id"] == 1003)
+    match["score"] = {
+        "winner": "AWAY_TEAM",
+        "duration": "PENALTY_SHOOTOUT",
+        "regularTime": {"home": 1, "away": 1},
+        "extraTime": {"home": 0, "away": 0},
+        "penalties": {"home": 3, "away": 4},
+        "fullTime": {"home": 4, "away": 5},
+    }
+    path = tmp_path / "penalties.json"
+    path.write_text(json.dumps(payload), encoding="utf-8")
+
+    result = run_world_cup_ingest(
+        offline_provider(path),
+        raw_root=tmp_path / "raw",
+        processed_root=tmp_path / "processed",
+        interim_root=tmp_path / "interim",
+        fetched_at=datetime(2026, 6, 20, 18, tzinfo=UTC),
+    )
+
+    penalty_match = next(item for item in result.matches if item.source_match_id == "1003")
+    assert penalty_match.home_goals_90 == 1
+    assert penalty_match.away_goals_90 == 1
+    assert penalty_match.home_goals_after_extra_time == 1
+    assert penalty_match.away_goals_after_extra_time == 1
+    assert penalty_match.home_penalty_goals == 3
+    assert penalty_match.away_penalty_goals == 4
+
+
 def test_partially_determined_fixture_is_reported_separately(tmp_path: Path) -> None:
     payload = json.loads(FIXTURE.read_text(encoding="utf-8"))
     tbd = next(item for item in payload["matches"] if item["id"] == 1002)

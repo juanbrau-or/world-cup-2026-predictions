@@ -751,6 +751,15 @@ def _football_data_fixture(value: Mapping[str, object]) -> ProviderFixture:
     regular_time = _mapping(score.get("regularTime")) or full_time
     extra_time = _mapping(score.get("extraTime"))
     penalties = _mapping(score.get("penalties"))
+    home_goals_90 = _optional_int(regular_time.get("home"))
+    away_goals_90 = _optional_int(regular_time.get("away"))
+    home_after_extra_time, away_after_extra_time = _football_data_after_extra_time(
+        duration=duration,
+        home_goals_90=home_goals_90,
+        away_goals_90=away_goals_90,
+        full_time=full_time,
+        extra_time=extra_time,
+    )
     return ProviderFixture(
         source_fixture_id=_required_fixture_id(value),
         participants_status=_participant_status(home_name, away_name, source_status),
@@ -763,15 +772,41 @@ def _football_data_fixture(value: Mapping[str, object]) -> ProviderFixture:
         source_status=source_status,
         stage=_optional_str(value.get("stage")) or _optional_str(value.get("group")),
         source_updated_at_utc=_optional_datetime(value.get("lastUpdated")),
-        home_goals_90=_optional_int(regular_time.get("home")),
-        away_goals_90=_optional_int(regular_time.get("away")),
+        home_goals_90=home_goals_90,
+        away_goals_90=away_goals_90,
         extra_time_played=duration in {"EXTRA_TIME", "PENALTY_SHOOTOUT"},
-        home_goals_after_extra_time=_optional_int(extra_time.get("home")),
-        away_goals_after_extra_time=_optional_int(extra_time.get("away")),
+        home_goals_after_extra_time=home_after_extra_time,
+        away_goals_after_extra_time=away_after_extra_time,
         penalty_shootout=duration == "PENALTY_SHOOTOUT",
         home_penalty_goals=_optional_int(penalties.get("home")),
         away_penalty_goals=_optional_int(penalties.get("away")),
     )
+
+
+def _football_data_after_extra_time(
+    *,
+    duration: str,
+    home_goals_90: int | None,
+    away_goals_90: int | None,
+    full_time: Mapping[str, object],
+    extra_time: Mapping[str, object],
+) -> tuple[int | None, int | None]:
+    if duration not in {"EXTRA_TIME", "PENALTY_SHOOTOUT"}:
+        return None, None
+    home_extra = _optional_int(extra_time.get("home"))
+    away_extra = _optional_int(extra_time.get("away"))
+    if duration == "EXTRA_TIME":
+        home_full = _optional_int(full_time.get("home"))
+        away_full = _optional_int(full_time.get("away"))
+        if home_full is not None and away_full is not None:
+            return home_full, away_full
+    if home_goals_90 is None or away_goals_90 is None:
+        return home_extra, away_extra
+    if home_extra is None or away_extra is None:
+        return home_goals_90, away_goals_90
+    if home_extra < home_goals_90 or away_extra < away_goals_90:
+        return home_goals_90 + home_extra, away_goals_90 + away_extra
+    return home_extra, away_extra
 
 
 def _api_football_fixture(value: Mapping[str, object]) -> ProviderFixture:

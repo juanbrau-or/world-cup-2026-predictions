@@ -62,6 +62,9 @@ Cada grupo de features debe pasar una prueba de ablación.
 - Monte Carlo reproducible.
 - Probabilidades de clasificar, llegar a cada ronda y ser campeón.
 
+**Estado:** implementada como `world_cup_2026_rules_v1` con simulacion oficial basada en
+`poisson_goal_v1`. Ver `docs/TOURNAMENT_SIMULATION.md`.
+
 ## Fase 8 — Publicación
 
 - GitHub Actions para tests y actualización programada.
