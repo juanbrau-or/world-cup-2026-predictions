@@ -65,17 +65,32 @@ jobs:
           uv run wc2026 model dixon-coles 2>&1 | tee logs/04_model_dixon_coles.log
           uv run wc2026 ingest world-cup 2>&1 | tee logs/05_ingest_world_cup.log
           uv run wc2026 predict upcoming 2>&1 | tee logs/06_predict_upcoming.log
-          uv run wc2026 prepare contextual-features 2>&1 | tee logs/07_prepare_contextual_features.log
-          uv run wc2026 model contextual-challenger 2>&1 | tee logs/08_model_contextual_challenger.log
-          uv run wc2026 predict shadow-contextual 2>&1 | tee logs/09_predict_shadow_contextual.log
-          uv run wc2026 evaluate prospective 2>&1 | tee logs/10_evaluate_prospective.log
+          uv run wc2026 evaluate prospective 2>&1 | tee logs/07_evaluate_prospective.log
+          uv run wc2026 prepare contextual-features 2>&1 | tee logs/08_prepare_contextual_features.log
+          uv run wc2026 model contextual-challenger 2>&1 | tee logs/09_model_contextual_challenger.log
+          uv run wc2026 predict shadow-contextual 2>&1 | tee logs/10_predict_shadow_contextual.log
           uv run wc2026 evaluate shadow-contextual 2>&1 | tee logs/11_evaluate_shadow_contextual.log
+
+      - name: Run official tournament simulation
+        id: tournament-simulation
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p logs
+          rm -rf simulations-candidate simulations
+          if uv run wc2026 simulate tournament --runs 25000 --seed 2026 --output-root simulations-candidate 2>&1 | tee logs/12_simulate_tournament.log; then
+            mv simulations-candidate simulations
+          else
+            echo "Simulation failed; baseline prediction publication will continue without simulation files." | tee -a logs/12_simulate_tournament.log
+            exit 1
+          fi
 
       - name: Test publisher
         run: uv run pytest tests/test_publication.py
 
       - name: Validate publisher output and secret scan
-        run: uv run wc2026 publish prepare --predictions-root predictions --output-root dist/predictions-data
+        run: uv run wc2026 publish prepare --predictions-root predictions --simulations-root simulations --output-root dist/predictions-data
 
       - name: Write operational step summary
         if: always()
@@ -86,13 +101,19 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p dist
-          find data/raw data/interim dist/predictions-data -type f \( -name 'manifest*.json' -o -name '*manifest*.json' \) -print0 \
+          roots=(data/raw data/interim dist/predictions-data)
+          if [ -d simulations ]; then
+            roots+=(simulations)
+          fi
+          find "${roots[@]}" -type f \( -name 'manifest*.json' -o -name '*manifest*.json' \) -print0 \
             | tar --null -czf dist/operational-manifests.tgz --files-from -
 
       - name: Package publication inputs
+        shell: bash
         run: |
+          set -euo pipefail
           mkdir -p dist
-          tar -czf dist/predictions-data-inputs.tgz \
+          files=(
             predictions/latest.csv \
             predictions/upcoming.md \
             predictions/prospective_scorecard.json \
@@ -103,6 +124,19 @@ jobs:
             predictions/shadow/contextual_scorecard.json \
             predictions/shadow/contextual_scorecard.md \
             predictions/shadow/contextual_comparison.md
+          )
+          if [ -d simulations/latest ]; then
+            files+=(
+              simulations/latest/manifest.json
+              simulations/latest/team_probabilities.csv
+              simulations/latest/team_probabilities.json
+              simulations/latest/champion_probabilities.md
+              simulations/latest/round_probabilities.md
+              simulations/latest/group_tables_summary.md
+              simulations/latest/bracket_summary.md
+            )
+          fi
+          tar -czf dist/predictions-data-inputs.tgz "${files[@]}"
 
       - name: Upload Parquet artifacts
         uses: actions/upload-artifact@v7.0.1
@@ -112,6 +146,7 @@ jobs:
           path: |
             data/processed/**/*.parquet
             predictions/**/*.parquet
+            simulations/**/*.parquet
             artifacts/**/*.parquet
 
       - name: Upload logs
@@ -131,6 +166,9 @@ jobs:
             predictions/**/*.md
             predictions/**/*.json
             predictions/**/*.csv
+            simulations/**/*.md
+            simulations/**/*.json
+            simulations/**/*.csv
             artifacts/evaluation/**
 
       - name: Upload manifests

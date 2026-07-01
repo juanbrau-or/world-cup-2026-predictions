@@ -48,6 +48,7 @@ Thumbs.db
 /predictions/history/**
 !/predictions/history/.gitkeep
 /predictions/published-history/**
+/simulations/**
 /dist/
 
 # Logs and temporary files

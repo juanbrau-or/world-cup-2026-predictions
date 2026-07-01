@@ -26,6 +26,7 @@ def test_prepare_publication_writes_allowed_outputs_and_manifest(tmp_path: Path)
 
     result = prepare_predictions_publication(
         predictions_root=predictions_root,
+        simulations_root=tmp_path / "missing-simulations",
         output_root=output_root,
         generated_at=GENERATED_AT,
     )
@@ -121,6 +122,47 @@ def test_prepare_publication_includes_shadow_contextual_outputs(tmp_path: Path) 
     shadow_latest = _json(output_root / "shadow" / "contextual_latest.json")
     assert shadow_latest["schema_version"] == "shadow_contextual_latest_v1"
     assert shadow_latest["model"]["family"] == "contextual_challenger"
+
+
+def test_prepare_publication_includes_small_simulation_outputs(tmp_path: Path) -> None:
+    predictions_root = _write_predictions_root(tmp_path, rows=[_prediction_row()])
+    simulations_root = _write_simulation_outputs(tmp_path)
+    output_root = tmp_path / "branch"
+
+    result = prepare_predictions_publication(
+        predictions_root=predictions_root,
+        simulations_root=simulations_root,
+        output_root=output_root,
+        generated_at=GENERATED_AT,
+    )
+
+    assert result.simulation_run_id == "sim-run-1"
+    assert result.simulation_manifest_path == output_root / "simulation" / "manifest.json"
+    assert (output_root / "simulation" / "team_probabilities.csv").is_file()
+    assert (output_root / "simulation" / "team_probabilities.json").is_file()
+    assert (output_root / "simulation" / "champion_probabilities.md").is_file()
+    assert (output_root / "simulation" / "round_probabilities.md").is_file()
+    assert (output_root / "simulation" / "group_tables_summary.md").is_file()
+    assert (output_root / "simulation" / "bracket_summary.md").is_file()
+    assert not (output_root / "simulation" / "simulation_results.parquet").exists()
+    manifest = _json(output_root / "manifest.json")
+    assert manifest["simulation"]["simulation_run_id"] == "sim-run-1"
+    assert "simulation/team_probabilities.csv" in manifest["published_files"]
+
+
+def test_incomplete_simulation_publication_files_are_rejected(tmp_path: Path) -> None:
+    predictions_root = _write_predictions_root(tmp_path, rows=[_prediction_row()])
+    latest = tmp_path / "simulations" / "latest"
+    latest.mkdir(parents=True)
+    (latest / "manifest.json").write_text("{}", encoding="utf-8")
+
+    with pytest.raises(PublicationError, match="incomplete simulation"):
+        prepare_predictions_publication(
+            predictions_root=predictions_root,
+            simulations_root=tmp_path / "simulations",
+            output_root=tmp_path / "branch",
+            generated_at=GENERATED_AT,
+        )
 
 
 def test_history_is_immutable(tmp_path: Path) -> None:
@@ -252,6 +294,7 @@ def test_allowed_path_validation_rejects_parquet_raw_and_large_models() -> None:
     assert_allowed_publication_path(Path("latest.csv"), size_bytes=100)
     assert_allowed_publication_path(Path("history/20260629T180000Z_abc123.csv.gz"), size_bytes=100)
     assert_allowed_publication_path(Path("shadow/contextual_latest.csv"), size_bytes=100)
+    assert_allowed_publication_path(Path("simulation/team_probabilities.csv"), size_bytes=100)
 
     with pytest.raises(PublicationError, match="Parquet"):
         assert_allowed_publication_path(Path("latest.parquet"), size_bytes=100)
@@ -386,6 +429,34 @@ def _write_shadow_outputs(root: Path) -> None:
     )
     (shadow / "contextual_scorecard.md").write_text("# Shadow Scorecard\n", encoding="utf-8")
     (shadow / "contextual_comparison.md").write_text("# Shadow Comparison\n", encoding="utf-8")
+
+
+def _write_simulation_outputs(tmp_path: Path) -> Path:
+    root = tmp_path / "simulations"
+    latest = root / "latest"
+    latest.mkdir(parents=True)
+    manifest = {
+        "schema_version": "world_cup_simulation_v1",
+        "simulation_run_id": "sim-run-1",
+        "data_cutoff_utc": CUTOFF,
+        "runs": 10,
+        "seed": 2026,
+        "model": {"family": "poisson", "version": "poisson_goal_v1"},
+        "rules": {"version": "world_cup_2026_rules_v1"},
+    }
+    (latest / "manifest.json").write_text(json.dumps(manifest) + "\n", encoding="utf-8")
+    (latest / "team_probabilities.csv").write_text(
+        "team_id,champion,final,semi_final,quarter_final,round_of_16,round_of_32\n"
+        "mexico,0.1,0.2,0.3,0.4,0.5,0.6\n",
+        encoding="utf-8",
+    )
+    (latest / "team_probabilities.json").write_text('{"teams":[]}\n', encoding="utf-8")
+    (latest / "champion_probabilities.md").write_text("# Champions\n", encoding="utf-8")
+    (latest / "round_probabilities.md").write_text("# Rounds\n", encoding="utf-8")
+    (latest / "group_tables_summary.md").write_text("# Groups\n", encoding="utf-8")
+    (latest / "bracket_summary.md").write_text("# Bracket\n", encoding="utf-8")
+    (latest / "simulation_results.parquet").write_bytes(b"not-for-publication")
+    return root
 
 
 def _write_latest_csv(path: Path, *, rows: list[dict[str, str]]) -> None:

@@ -13,6 +13,7 @@ uv run wc2026 model contextual-challenger
 uv run wc2026 predict shadow-contextual
 uv run wc2026 evaluate prospective
 uv run wc2026 evaluate shadow-contextual
+uv run wc2026 simulate tournament
 ```
 
 El workflow vive en `.github/workflows/operational-predictions.yml`, se ejecuta manualmente con
@@ -61,6 +62,13 @@ La rama `predictions-data` se crea automaticamente si no existe. Contiene solo:
 - `shadow/contextual_scorecard.md`
 - `shadow/contextual_comparison.md`
 - `shadow/manifest.json`
+- `simulation/manifest.json`
+- `simulation/team_probabilities.csv`
+- `simulation/team_probabilities.json`
+- `simulation/champion_probabilities.md`
+- `simulation/round_probabilities.md`
+- `simulation/group_tables_summary.md`
+- `simulation/bracket_summary.md`
 
 `manifest.json` registra `generated_at`, `data_cutoff`, modelo, version, checksums, numero de
 predicciones, version de politica prospectiva, snapshots vistos, predicciones oficiales,
@@ -70,10 +78,11 @@ observaciones evaluables y cutoff de resultados. El historial usa nombres determ
 history/<DATA_CUTOFF_UTC>_<CHECKSUM>.csv.gz
 ```
 
-El publicador no escribe Parquet, snapshots raw ni modelos en la rama. El ledger
+El publicador no escribe Parquet, snapshots raw, trayectorias completas ni modelos en la rama. El ledger
 `predictions/prediction_ledger.parquet` y el ledger shadow
 `predictions/shadow/contextual_ledger.parquet` quedan como GitHub Actions artifacts junto con el
-resto de Parquet operativo.
+resto de Parquet operativo. El Parquet completo del simulador se guarda como artifact, no en
+`predictions-data`.
 
 Para leer la rama localmente:
 
@@ -132,8 +141,9 @@ uv run wc2026 model contextual-challenger
 uv run wc2026 predict shadow-contextual
 uv run wc2026 evaluate prospective
 uv run wc2026 evaluate shadow-contextual
+uv run wc2026 simulate tournament
 uv run pytest tests/test_publication.py
-uv run wc2026 publish prepare --predictions-root predictions --output-root dist/predictions-data
+uv run wc2026 publish prepare --predictions-root predictions --simulations-root simulations --output-root dist/predictions-data
 ```
 
 Para simular la rama de datos con historial existente:

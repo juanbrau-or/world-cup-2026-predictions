@@ -1,0 +1,11 @@
+simulation:
+  schema_version: tournament_simulation_config_v1
+  config_version: world_cup_2026_simulation_v1
+  default_runs: 25000
+  seed: 2026
+  chunk_size: 1000
+  processes: 1
+  official_model_version: poisson_goal_v1
+  rules_version: world_cup_2026_rules_v1
+  extra_time_goal_scale: 0.3333333333333333
+  output_root: simulations

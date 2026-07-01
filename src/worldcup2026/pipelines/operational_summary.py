@@ -32,6 +32,7 @@ def write_operational_step_summary(
     *,
     summary_path: Path | None = None,
     predictions_root: Path = Path("predictions"),
+    simulations_root: Path = Path("simulations"),
     interim_root: Path = Path("data/interim"),
     publication_root: Path = Path("dist/predictions-data"),
     logs_root: Path = Path("logs"),
@@ -43,8 +44,10 @@ def write_operational_step_summary(
     scorecard = _read_json(predictions_root / "prospective_scorecard.json")
     shadow_scorecard = _read_json(predictions_root / "shadow" / "contextual_scorecard.json")
     manifest = _read_json(publication_root / "manifest.json")
+    simulation_manifest = _read_json(simulations_root / "latest" / "manifest.json")
     latest_rows = _read_csv(predictions_root / "latest.csv")
     shadow_latest_rows = _read_csv(predictions_root / "shadow" / "contextual_latest.csv")
+    simulation_team_rows = _read_csv(simulations_root / "latest" / "team_probabilities.csv")
     fixtures_received = _optional_int(ingest_report.get("provider_fixtures_received"))
     fixtures_tbd = _optional_int(ingest_report.get("fixtures_with_tbd_participants"))
     next_kickoff = _nested_value(ingest_report, ("freshness", "next_kickoff_utc"))
@@ -59,6 +62,11 @@ def write_operational_step_summary(
     )
     publication_ready = bool(manifest)
     shadow_publication_ready = isinstance(manifest.get("shadow"), Mapping)
+    simulation_publication_ready = isinstance(manifest.get("simulation"), Mapping)
+    simulation_summary = _simulation_summary(
+        manifest=simulation_manifest,
+        team_rows=simulation_team_rows,
+    )
     status_lines = _status_lines(
         ingest_report=ingest_report,
         scorecard=scorecard,
@@ -88,6 +96,30 @@ def write_operational_step_summary(
         f"| Next kickoff UTC | {_value(next_kickoff)} |",
         f"| Publication ready | {'yes' if publication_ready else 'no'} |",
         f"| Shadow publication ready | {'yes' if shadow_publication_ready else 'no'} |",
+        f"| Simulation publication ready | {'yes' if simulation_publication_ready else 'no'} |",
+        "",
+        "## Simulation",
+        "",
+        "| Item | Value |",
+        "| --- | ---: |",
+        f"| Cutoff UTC | {_value(simulation_summary.get('cutoff'))} |",
+        f"| Finished fixtures | {_value(simulation_summary.get('observed'))} |",
+        f"| Future fixtures | {_value(simulation_summary.get('future'))} |",
+        f"| TBD fixtures | {_value(simulation_summary.get('tbd'))} |",
+        f"| Simulations | {_value(simulation_summary.get('runs'))} |",
+        f"| Seed | {_value(simulation_summary.get('seed'))} |",
+        f"| Title favorite | {_value(simulation_summary.get('favorite'))} |",
+        f"| Mexico | {_value(simulation_summary.get('mexico'))} |",
+        f"| Tie fallback count | {_value(simulation_summary.get('fallback_count'))} |",
+        f"| Bracket status | {_value(simulation_summary.get('bracket_status'))} |",
+        "",
+        "### Top Champion Probabilities",
+        "",
+        *simulation_summary.get("top_lines", ["- n/a"]),
+        "",
+        "### Published Simulation Paths",
+        "",
+        *simulation_summary.get("published_paths", ["- n/a"]),
         "",
         "## Status",
         "",
@@ -146,9 +178,81 @@ def _status_lines(
         lines.append("- Prediction leakage or data corruption detected in logs.")
     if _log_contains(logs_root, ("shadow-contextual", "ShadowContextualError")):
         lines.append("- Shadow contextual path reported a degraded or failed status.")
+    if _log_contains(logs_root, ("Simulation failed", "TournamentSimulationError")):
+        lines.append("- Tournament simulation failed; baseline prediction publication continued.")
     if not lines:
         lines.append("- Operational pipeline completed without reportable warnings.")
     return lines
+
+
+def _simulation_summary(
+    *,
+    manifest: Mapping[str, Any],
+    team_rows: list[dict[str, str]],
+) -> Mapping[str, Any]:
+    if not manifest:
+        return {
+            "bracket_status": "not available",
+            "top_lines": ["- n/a"],
+            "published_paths": ["- n/a"],
+        }
+    raw_fixture_summary = manifest.get("fixtures")
+    fixture_summary = raw_fixture_summary if isinstance(raw_fixture_summary, Mapping) else {}
+    observed = (
+        _optional_int(fixture_summary.get("observed"))
+        if isinstance(fixture_summary, Mapping)
+        else None
+    )
+    future_known = (
+        _optional_int(fixture_summary.get("future_known"))
+        if isinstance(fixture_summary, Mapping)
+        else None
+    )
+    future_tbd = (
+        _optional_int(fixture_summary.get("future_tbd"))
+        if isinstance(fixture_summary, Mapping)
+        else None
+    )
+    future_partial = (
+        _optional_int(fixture_summary.get("future_partially_known"))
+        if isinstance(fixture_summary, Mapping)
+        else None
+    )
+    future = _sum_optional(future_known, future_tbd, future_partial)
+    top = sorted(team_rows, key=lambda row: _float(row.get("champion")), reverse=True)[:10]
+    top_lines = [
+        f"- {row.get('team_id', 'unknown')}: {_probability(row.get('champion'))}"
+        for row in top
+    ]
+    if not top_lines:
+        top_lines = ["- n/a"]
+    favorite = top_lines[0].removeprefix("- ") if top_lines else None
+    mexico = next((row for row in team_rows if row.get("team_id") == "mexico"), None)
+    fallback_counts = manifest.get("fallback_counts")
+    fallback_count = None
+    if isinstance(fallback_counts, Mapping):
+        fallback_count = sum(value for value in fallback_counts.values() if isinstance(value, int))
+    outputs = manifest.get("outputs")
+    published_paths: list[str] = []
+    if isinstance(outputs, Mapping):
+        for key in ("team_csv", "team_json", "champions", "rounds", "group_summary", "bracket"):
+            value = outputs.get(key)
+            if isinstance(value, str):
+                published_paths.append(f"- {value}")
+    return {
+        "cutoff": manifest.get("data_cutoff_utc"),
+        "observed": observed,
+        "future": future,
+        "tbd": future_tbd,
+        "runs": manifest.get("runs"),
+        "seed": manifest.get("seed"),
+        "favorite": favorite,
+        "mexico": _mexico_summary(mexico),
+        "fallback_count": fallback_count,
+        "bracket_status": "valid" if team_rows else "missing team probabilities",
+        "top_lines": top_lines,
+        "published_paths": published_paths or ["- n/a"],
+    }
 
 
 def _read_json(path: Path) -> Mapping[str, Any]:
@@ -208,6 +312,35 @@ def _metric(metrics: object, key: str) -> str:
     if isinstance(value, int) and not isinstance(value, bool):
         return str(value)
     return "n/a"
+
+
+def _sum_optional(*values: int | None) -> int | None:
+    if any(value is None for value in values):
+        return None
+    return sum(value for value in values if value is not None)
+
+
+def _float(value: str | None) -> float:
+    if value is None:
+        return 0.0
+    try:
+        return float(value)
+    except ValueError:
+        return 0.0
+
+
+def _probability(value: str | None) -> str:
+    return f"{_float(value):.4f}"
+
+
+def _mexico_summary(row: Mapping[str, str] | None) -> str:
+    if row is None:
+        return "n/a"
+    return (
+        f"champion={_probability(row.get('champion'))}, "
+        f"final={_probability(row.get('final'))}, "
+        f"round_of_16={_probability(row.get('round_of_16'))}"
+    )
 
 
 def _value(value: object) -> str:
