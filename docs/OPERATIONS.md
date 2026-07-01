@@ -8,7 +8,11 @@ uv run wc2026 prepare modeling-data
 uv run wc2026 model dixon-coles
 uv run wc2026 ingest world-cup
 uv run wc2026 predict upcoming
+uv run wc2026 prepare contextual-features
+uv run wc2026 model contextual-challenger
+uv run wc2026 predict shadow-contextual
 uv run wc2026 evaluate prospective
+uv run wc2026 evaluate shadow-contextual
 ```
 
 El workflow vive en `.github/workflows/operational-predictions.yml`, se ejecuta manualmente con
@@ -50,6 +54,13 @@ La rama `predictions-data` se crea automaticamente si no existe. Contiene solo:
 - `prospective_matches.csv`
 - `manifest.json`
 - `history/*.csv.gz`
+- `shadow/contextual_latest.csv`
+- `shadow/contextual_latest.json`
+- `shadow/contextual_upcoming.md`
+- `shadow/contextual_scorecard.json`
+- `shadow/contextual_scorecard.md`
+- `shadow/contextual_comparison.md`
+- `shadow/manifest.json`
 
 `manifest.json` registra `generated_at`, `data_cutoff`, modelo, version, checksums, numero de
 predicciones, version de politica prospectiva, snapshots vistos, predicciones oficiales,
@@ -60,8 +71,9 @@ history/<DATA_CUTOFF_UTC>_<CHECKSUM>.csv.gz
 ```
 
 El publicador no escribe Parquet, snapshots raw ni modelos en la rama. El ledger
-`predictions/prediction_ledger.parquet` queda como GitHub Actions artifact junto con el resto de
-Parquet operativo.
+`predictions/prediction_ledger.parquet` y el ledger shadow
+`predictions/shadow/contextual_ledger.parquet` quedan como GitHub Actions artifacts junto con el
+resto de Parquet operativo.
 
 Para leer la rama localmente:
 
@@ -115,8 +127,11 @@ uv run wc2026 prepare modeling-data
 uv run wc2026 model dixon-coles
 uv run wc2026 ingest world-cup
 uv run wc2026 predict upcoming
-uv run wc2026 evaluate prospective
 uv run wc2026 prepare contextual-features
+uv run wc2026 model contextual-challenger
+uv run wc2026 predict shadow-contextual
+uv run wc2026 evaluate prospective
+uv run wc2026 evaluate shadow-contextual
 uv run pytest tests/test_publication.py
 uv run wc2026 publish prepare --predictions-root predictions --output-root dist/predictions-data
 ```
@@ -153,3 +168,14 @@ Los reportes oficiales son:
 
 La metrica 1X2 usa exclusivamente el resultado a 90 minutos (`result_90`). Prorroga, penales y
 ganador de clasificacion se conservan como campos separados para auditoria.
+
+## Shadow contextual
+
+El challenger contextual se ejecuta en modo shadow con `prediction_context=shadow_contextual_v1`.
+Usa exactamente los fixtures elegibles del baseline oficial y el mismo `data_cutoff_utc`, pero
+escribe bajo `predictions/shadow/`. No modifica `predictions/latest.csv`,
+`predictions/latest.parquet`, `predictions/upcoming.md`, el ledger oficial ni el scorecard oficial.
+
+El workflow publica solo archivos pequenos y etiquetados bajo `shadow/`; no publica modelos,
+Parquet, datasets contextuales ni el ledger completo. Si no hay observaciones prospectivas
+evaluables, el scorecard shadow reporta muestra cero y la comparacion pareada queda vacia.

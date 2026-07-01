@@ -61,6 +61,10 @@ uv run wc2026 ingest world-cup --offline-fixture --dry-run
 uv run wc2026 predict upcoming
 uv run wc2026 evaluate prospective
 uv run wc2026 prepare contextual-features
+uv run wc2026 model contextual-challenger
+uv run wc2026 evaluate contextual-challenger
+uv run wc2026 predict shadow-contextual
+uv run wc2026 evaluate shadow-contextual
 ```
 
 Cada respuesta de colección y cada miembro de fixture se conserva sin sobrescribir en
@@ -79,6 +83,10 @@ guardadas cuyos fixtures estén terminados en la vista viva actual.
 viaje, timezone y elevación bajo `data/processed/contextual_features/` y
 `data/interim/contextual_features/`. No cambia el modelo operativo ni las probabilidades publicadas.
 Consulta `docs/CONTEXTUAL_FEATURES.md`.
+
+`contextual-challenger` entrena y evalua modelos challenger en modo shadow (`contextual_logit_v1` y
+`contextual_lgbm_v1`) contra `poisson_goal_v1`. Las predicciones shadow se escriben separadas bajo
+`predictions/shadow/`; no reemplazan `predictions/latest.*` ni el scorecard oficial.
 
 ## Automatizacion operativa
 

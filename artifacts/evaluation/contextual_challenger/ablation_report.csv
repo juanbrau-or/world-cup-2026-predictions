@@ -1,0 +1,6 @@
+ablation,accuracy,brier_score,calibration_error,folds_evaluated,folds_not_better_than_poisson,include_contextual,log_loss,matches,mean_true_probability,mean_tune_log_loss,model_kind,model_name,ranked_probability_score
+poisson_official,0.5846153846,0.5520128030,0.0620194915,,,False,0.9449447197,195,0.4344180733,,poisson,poisson_goal_v1,0.1975093452
+logistic_stack,0.6037404157,0.5410455725,0.1040912775,4,2,False,0.9279472876,195,0.4569990683,0.8331262773,logistic,contextual_logit_v1,0.1933018319
+contextual_logistic,0.5859614609,0.5384812338,0.1017822552,4,1,True,0.9203435417,195,0.4555357341,0.8316706296,logistic,contextual_logit_v1,0.1929826658
+lgbm_stack,0.5980856538,0.5504204127,0.1168453594,4,3,False,0.9413570072,195,0.4537930901,0.8415695652,lightgbm,contextual_lgbm_v1,0.1962642371
+lgbm_contextual,0.5980856538,0.5381959116,0.1332975226,4,2,True,0.9191573931,195,0.4662134822,0.8384920968,lightgbm,contextual_lgbm_v1,0.1927363812

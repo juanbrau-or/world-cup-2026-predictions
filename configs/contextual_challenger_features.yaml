@@ -1,0 +1,77 @@
+schema_version: contextual_challenger_feature_whitelist_v1
+feature_set_version: contextual_level_a_v1
+description: >
+  Leakage-safe whitelist for the contextual challenger shadow model. Only features that are
+  available before kickoff and historically trainable are allowed here.
+
+base_features:
+  - base_poisson_prob_home_win
+  - base_poisson_prob_draw
+  - base_poisson_prob_away_win
+  - base_poisson_expected_home_goals
+  - base_poisson_expected_away_goals
+  - base_poisson_logit_home_win
+  - base_poisson_logit_draw
+  - base_poisson_logit_away_win
+  - base_poisson_log_home_away_ratio
+  - home_elo_pre
+  - away_elo_pre
+  - elo_difference_pre
+  - neutral
+  - competition_category
+
+contextual_features:
+  - home_rest_days
+  - away_rest_days
+  - rest_days_diff
+  - home_matches_last_7d
+  - away_matches_last_7d
+  - matches_last_7d_diff
+  - home_matches_last_14d
+  - away_matches_last_14d
+  - matches_last_14d_diff
+  - home_matches_last_30d
+  - away_matches_last_30d
+  - matches_last_30d_diff
+  - home_previous_match_penalty_shootout
+  - away_previous_match_penalty_shootout
+  - home_consecutive_matches_without_7d_rest
+  - away_consecutive_matches_without_7d_rest
+  - consecutive_matches_without_7d_rest_diff
+  - home_tournament_match_number
+  - away_tournament_match_number
+  - home_is_first_tournament_match
+  - away_is_first_tournament_match
+
+categorical_features:
+  - competition_category
+
+excluded_features:
+  - venue_id
+  - venue_city
+  - venue_country
+  - venue_latitude
+  - venue_longitude
+  - venue_elevation_m
+  - venue_timezone
+  - previous_venue_id
+  - travel_distance_km
+  - cumulative_travel_km_7d
+  - cumulative_travel_km_14d
+  - cumulative_travel_km_30d
+  - timezone_delta_hours
+  - elevation_change_m
+  - absolute_elevation_change_m
+  - cross_border_travel
+  - host_country_match
+  - rest_hours
+  - hours_since_previous_match
+  - minutes_equivalent_last_7d
+  - minutes_equivalent_last_14d
+  - minutes_equivalent_last_30d
+  - previous_match_extra_time
+  - home_team_id
+  - away_team_id
+  - home_goals_90
+  - away_goals_90
+  - result_90

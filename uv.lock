@@ -3081,6 +3081,7 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "httpx" },
+    { name = "lightgbm" },
     { name = "numpy" },
     { name = "pandas" },
     { name = "pyarrow" },
@@ -3095,9 +3096,6 @@ dependencies = [
 ]
 
 [package.optional-dependencies]
-modeling = [
-    { name = "lightgbm" },
-]
 notebooks = [
     { name = "ipykernel" },
     { name = "jupyterlab" },
@@ -3118,7 +3116,7 @@ requires-dist = [
     { name = "httpx", specifier = ">=0.27" },
     { name = "ipykernel", marker = "extra == 'notebooks'", specifier = ">=6.29" },
     { name = "jupyterlab", marker = "extra == 'notebooks'", specifier = ">=4.2" },
-    { name = "lightgbm", marker = "extra == 'modeling'", specifier = ">=4.3" },
+    { name = "lightgbm", specifier = ">=4.3" },
     { name = "matplotlib", marker = "extra == 'notebooks'", specifier = ">=3.9" },
     { name = "numpy", specifier = ">=1.26" },
     { name = "pandas", specifier = ">=2.2" },
@@ -3132,7 +3130,7 @@ requires-dist = [
     { name = "statsmodels", specifier = ">=0.14" },
     { name = "typer", specifier = ">=0.12" },
 ]
-provides-extras = ["modeling", "notebooks"]
+provides-extras = ["notebooks"]
 
 [package.metadata.requires-dev]
 dev = [

@@ -28,6 +28,11 @@ from worldcup2026.data.world_cup_ingest import (
     run_world_cup_ingest,
     secondary_provider_from_settings,
 )
+from worldcup2026.evaluation.contextual_challenger import (
+    ContextualChallengerError,
+    run_contextual_challenger_evaluation,
+    run_contextual_challenger_model,
+)
 from worldcup2026.evaluation.dixon_coles_backtest import (
     DixonColesBacktestError,
     load_dixon_coles_config,
@@ -61,6 +66,11 @@ from worldcup2026.pipelines.operational_summary import (
     write_operational_step_summary,
 )
 from worldcup2026.pipelines.publication import PublicationError, prepare_predictions_publication
+from worldcup2026.pipelines.shadow_contextual import (
+    ShadowContextualError,
+    run_evaluate_shadow_contextual,
+    run_predict_shadow_contextual,
+)
 
 app = typer.Typer(no_args_is_help=True)
 ingest_app = typer.Typer(no_args_is_help=True)
@@ -667,6 +677,28 @@ def model_dixon_coles(
     console.print(f"Report: {result.report_path}")
 
 
+@model_app.command("contextual-challenger")
+def model_contextual_challenger(
+    config_path: Annotated[
+        Path,
+        typer.Option("--config", help="Path to the declarative model configuration."),
+    ] = Path("configs/model.yaml"),
+) -> None:
+    """Write the frozen contextual challenger shadow manifest."""
+
+    try:
+        result = run_contextual_challenger_model(config_path=config_path)
+    except ContextualChallengerError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise typer.Exit(code=1) from exc
+
+    console.print(f"Selected model: {result.selected_model_name}")
+    console.print(f"Selected ablation: {result.selected_ablation}")
+    console.print(f"Feature set: {result.feature_set_version}")
+    console.print(f"Training cutoff: {result.training_cutoff.isoformat()}")
+    console.print(f"Manifest: {result.manifest_path}")
+
+
 @predict_app.command("upcoming")
 def predict_upcoming(
     config_path: Annotated[
@@ -712,6 +744,55 @@ def predict_upcoming(
     console.print(f"Report: {result.report_path}")
 
 
+@predict_app.command("shadow-contextual")
+def predict_shadow_contextual(
+    config_path: Annotated[
+        Path,
+        typer.Option("--config", help="Path to the declarative model configuration."),
+    ] = Path("configs/model.yaml"),
+    modeling_matches_path: Annotated[
+        Path,
+        typer.Option("--modeling-matches", help="Eligible historical modeling Parquet input."),
+    ] = Path("data/processed/modeling_matches.parquet"),
+    live_matches_path: Annotated[
+        Path,
+        typer.Option("--live-matches", help="Current World Cup canonical live Parquet input."),
+    ] = Path("data/processed/world_cup_2026/matches.parquet"),
+    contextual_match_features_path: Annotated[
+        Path,
+        typer.Option("--contextual-matches", help="Match-level contextual feature Parquet."),
+    ] = Path("data/processed/contextual_features/match_contextual_features.parquet"),
+    predictions_root: Annotated[
+        Path,
+        typer.Option("--predictions-root", help="Prediction output root."),
+    ] = Path("predictions"),
+) -> None:
+    """Generate shadow contextual challenger predictions for official fixtures."""
+
+    try:
+        result = run_predict_shadow_contextual(
+            model_config_path=config_path,
+            modeling_matches_path=modeling_matches_path,
+            live_matches_path=live_matches_path,
+            contextual_match_features_path=contextual_match_features_path,
+            predictions_root=predictions_root,
+        )
+    except (ShadowContextualError, ContextualChallengerError) as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise typer.Exit(code=1) from exc
+
+    console.print(f"Model: {result.model_family} ({result.model_version})")
+    console.print(f"Data cutoff UTC: {result.data_cutoff_utc.isoformat()}")
+    console.print(f"Official baseline fixtures: {result.baseline_fixture_count}")
+    console.print(f"Shadow predictions: {len(result.predictions)}")
+    console.print(f"Training matches: {result.training_matches}")
+    console.print(f"World Cup 2026 finished matches used: {result.live_finished_2026_matches}")
+    console.print(f"Latest CSV: {result.latest_csv_path}")
+    console.print(f"Latest Parquet: {result.latest_parquet_path}")
+    console.print(f"History: {result.history_path}")
+    console.print(f"Report: {result.report_path}")
+
+
 @evaluate_app.command("elo")
 def evaluate_elo(
     config_path: Annotated[
@@ -739,6 +820,33 @@ def evaluate_elo(
     console.print(f"Fold metrics: {result.metrics_by_fold_path}")
     console.print(f"Out-of-fold predictions: {result.out_of_fold_predictions_path}")
     console.print(f"Calibration curves: {result.calibration_curves_path}")
+    console.print(f"Report: {result.report_path}")
+
+
+@evaluate_app.command("contextual-challenger")
+def evaluate_contextual_challenger(
+    config_path: Annotated[
+        Path,
+        typer.Option("--config", help="Path to the declarative model and evaluation config."),
+    ] = Path("configs/model.yaml"),
+) -> None:
+    """Evaluate contextual challengers with nested temporal validation."""
+
+    try:
+        result = run_contextual_challenger_evaluation(config_path=config_path)
+    except ContextualChallengerError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise typer.Exit(code=1) from exc
+
+    console.print(f"Selected shadow model: {result.selected_model_name}")
+    console.print(f"Selected ablation: {result.selected_ablation}")
+    console.print(f"Promotion status: {result.promotion_status}")
+    console.print(f"Validation matches: {result.validation_matches}")
+    console.print(f"Holdout 2026 matches: {result.holdout_2026_matches}")
+    console.print(f"Selected config: {result.selected_config_path}")
+    console.print(f"Fold metrics: {result.fold_metrics_path}")
+    console.print(f"Paired comparison: {result.paired_comparison_path}")
+    console.print(f"Bootstrap report: {result.bootstrap_report_path}")
     console.print(f"Report: {result.report_path}")
 
 
@@ -797,6 +905,41 @@ def evaluate_prospective(
     console.print(f"Scorecard report: {result.report_path}")
     console.print(f"Matches CSV: {result.matches_path}")
     console.print(f"Ledger Parquet: {result.ledger_path}")
+
+
+@evaluate_app.command("shadow-contextual")
+def evaluate_shadow_contextual(
+    config_path: Annotated[
+        Path,
+        typer.Option("--config", help="Shadow prospective evaluation policy configuration."),
+    ] = Path("configs/shadow_contextual_evaluation.yaml"),
+    predictions_root: Annotated[
+        Path,
+        typer.Option("--predictions-root", help="Prediction output root."),
+    ] = Path("predictions"),
+    live_matches_path: Annotated[
+        Path,
+        typer.Option("--live-matches", help="Current World Cup canonical live Parquet input."),
+    ] = Path("data/processed/world_cup_2026/matches.parquet"),
+) -> None:
+    """Evaluate shadow contextual prospective predictions separately."""
+
+    try:
+        result = run_evaluate_shadow_contextual(
+            config_path=config_path,
+            live_matches_path=live_matches_path,
+            predictions_root=predictions_root,
+        )
+    except ShadowContextualError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise typer.Exit(code=1) from exc
+
+    console.print(f"Evaluable shadow predictions: {result.evaluable_predictions}")
+    console.print(f"Paired official/shadow matches: {result.paired_matches}")
+    console.print(f"Scorecard JSON: {result.scorecard_json_path}")
+    console.print(f"Scorecard report: {result.scorecard_report_path}")
+    console.print(f"Ledger Parquet: {result.ledger_path}")
+    console.print(f"Comparison: {result.comparison_path}")
 
 
 @evaluate_app.command("dixon-coles")
