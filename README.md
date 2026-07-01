@@ -60,6 +60,7 @@ uv run wc2026 ingest world-cup --dry-run
 uv run wc2026 ingest world-cup --offline-fixture --dry-run
 uv run wc2026 predict upcoming
 uv run wc2026 evaluate prospective
+uv run wc2026 prepare contextual-features
 ```
 
 Cada respuesta de colección y cada miembro de fixture se conserva sin sobrescribir en
@@ -73,6 +74,11 @@ resueltos y discrepancias de validación se escriben bajo `data/interim/`.
 solo resultados terminados disponibles antes del cutoff vivo y escribe vistas actuales más snapshots
 históricos bajo `predictions/`. `evaluate prospective` evalúa únicamente predicciones históricas ya
 guardadas cuyos fixtures estén terminados en la vista viva actual.
+
+`prepare contextual-features` genera datasets y reportes diagnósticos de descanso, carga, sedes,
+viaje, timezone y elevación bajo `data/processed/contextual_features/` y
+`data/interim/contextual_features/`. No cambia el modelo operativo ni las probabilidades publicadas.
+Consulta `docs/CONTEXTUAL_FEATURES.md`.
 
 ## Automatizacion operativa
 

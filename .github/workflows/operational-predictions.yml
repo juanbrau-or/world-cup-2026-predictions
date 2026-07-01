@@ -66,6 +66,7 @@ jobs:
           uv run wc2026 ingest world-cup 2>&1 | tee logs/05_ingest_world_cup.log
           uv run wc2026 predict upcoming 2>&1 | tee logs/06_predict_upcoming.log
           uv run wc2026 evaluate prospective 2>&1 | tee logs/07_evaluate_prospective.log
+          uv run wc2026 prepare contextual-features 2>&1 | tee logs/08_prepare_contextual_features.log
 
       - name: Test publisher
         run: uv run pytest tests/test_publication.py
@@ -82,7 +83,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p dist
-          find data/raw dist/predictions-data -type f \( -name 'manifest*.json' -o -name '*manifest*.json' \) -print0 \
+          find data/raw data/interim dist/predictions-data -type f \( -name 'manifest*.json' -o -name '*manifest*.json' \) -print0 \
             | tar --null -czf dist/operational-manifests.tgz --files-from -
 
       - name: Package publication inputs

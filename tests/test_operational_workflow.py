@@ -73,6 +73,7 @@ def test_operational_pipeline_rebuilds_clean_checkout_inputs_before_prediction()
         "uv run wc2026 ingest world-cup",
         "uv run wc2026 predict upcoming",
         "uv run wc2026 evaluate prospective",
+        "uv run wc2026 prepare contextual-features",
     ]
 
     positions = [script.index(command) for command in expected_commands]
@@ -167,7 +168,7 @@ def test_manifest_artifact_is_packaged_with_portable_upload_path() -> None:
     upload_with = _mapping(upload_step["with"])
 
     assert "dist/operational-manifests.tgz" in package_script
-    assert "find data/raw dist/predictions-data" in package_script
+    assert "find data/raw data/interim dist/predictions-data" in package_script
     assert "--null -czf dist/operational-manifests.tgz --files-from -" in package_script
     assert upload_with["path"] == "dist/operational-manifests.tgz"
     assert upload_with["if-no-files-found"] == "error"

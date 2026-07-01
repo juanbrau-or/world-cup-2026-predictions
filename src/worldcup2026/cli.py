@@ -2,6 +2,7 @@
 
 import platform
 import sys
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Annotated
 
@@ -45,6 +46,12 @@ from worldcup2026.evaluation.prospective import (
 )
 from worldcup2026.features.elo import EloRatingsError, load_elo_ratings_config, run_elo_ratings
 from worldcup2026.models.dixon_coles import DixonColesModelError
+from worldcup2026.pipelines.contextual_features import (
+    ContextualFeaturePipelineError,
+    audit_contextual_feature_outputs,
+    contextual_feature_report_summary,
+    run_contextual_feature_pipeline,
+)
 from worldcup2026.pipelines.operational_predictions import (
     OperationalPredictionError,
     run_predict_upcoming,
@@ -64,6 +71,7 @@ predict_app = typer.Typer(no_args_is_help=True)
 evaluate_app = typer.Typer(no_args_is_help=True)
 publish_app = typer.Typer(no_args_is_help=True)
 operational_app = typer.Typer(no_args_is_help=True)
+report_app = typer.Typer(no_args_is_help=True)
 console = Console()
 
 MIN_PYTHON = (3, 11)
@@ -103,6 +111,7 @@ app.add_typer(predict_app, name="predict", help="Generate operational prediction
 app.add_typer(evaluate_app, name="evaluate", help="Evaluate probabilistic model stages.")
 app.add_typer(publish_app, name="publish", help="Prepare branch-safe prediction publications.")
 app.add_typer(operational_app, name="operational", help="Operational workflow helpers.")
+app.add_typer(report_app, name="report", help="Read generated reports.")
 
 
 @app.command()
@@ -376,6 +385,34 @@ def audit_aliases(
         raise typer.Exit(code=1)
 
 
+@audit_app.command("contextual-features")
+def audit_contextual_features(
+    team_fixture_path: Annotated[
+        Path,
+        typer.Option("--team-fixture", help="Team-fixture contextual feature Parquet."),
+    ] = Path("data/processed/contextual_features/team_fixture_contextual_features.parquet"),
+    match_path: Annotated[
+        Path,
+        typer.Option("--match", help="Match-level contextual feature Parquet."),
+    ] = Path("data/processed/contextual_features/match_contextual_features.parquet"),
+) -> None:
+    """Audit contextual features for leakage and schema corruption."""
+
+    try:
+        result = audit_contextual_feature_outputs(
+            team_fixture_path=team_fixture_path,
+            match_path=match_path,
+        )
+    except ContextualFeaturePipelineError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise typer.Exit(code=1) from exc
+
+    console.print(f"Team-fixture rows: {result.team_fixture_rows}")
+    console.print(f"Match rows: {result.match_rows}")
+    console.print(f"Leakage audit passed: {'yes' if result.leakage_audit_passed else 'no'}")
+    console.print(f"Violations: {result.violations}")
+
+
 @prepare_app.command("modeling-data")
 def prepare_modeling_data(
     config_path: Annotated[
@@ -434,6 +471,101 @@ def prepare_modeling_data(
             "[yellow]Unresolved competitions: "
             f"{len(report.unresolved_competitions)}[/yellow]"
         )
+
+
+@prepare_app.command("contextual-features")
+def prepare_contextual_features(
+    historical_matches_path: Annotated[
+        Path,
+        typer.Option("--historical-matches", help="Canonical historical Parquet input."),
+    ] = Path("data/processed/international_matches.parquet"),
+    live_matches_path: Annotated[
+        Path,
+        typer.Option("--live-matches", help="Canonical World Cup live Parquet input."),
+    ] = Path("data/processed/world_cup_2026/matches.parquet"),
+    venue_catalog_path: Annotated[
+        Path,
+        typer.Option("--venue-catalog", help="Audited World Cup 2026 venue catalog CSV."),
+    ] = Path("data/static/venues.csv"),
+    output_root: Annotated[
+        Path,
+        typer.Option("--output-root", help="Contextual feature Parquet output directory."),
+    ] = Path("data/processed/contextual_features"),
+    interim_root: Annotated[
+        Path,
+        typer.Option("--interim-root", help="Contextual report output directory."),
+    ] = Path("data/interim/contextual_features"),
+    as_of: Annotated[
+        str | None,
+        typer.Option("--as-of", help="Feature generation timestamp, UTC ISO 8601."),
+    ] = None,
+    data_cutoff: Annotated[
+        str | None,
+        typer.Option("--data-cutoff", help="Maximum source data cutoff, UTC ISO 8601."),
+    ] = None,
+    include_historical: Annotated[
+        bool,
+        typer.Option("--historical/--no-historical", help="Include historical canonical matches."),
+    ] = True,
+    include_live: Annotated[
+        bool,
+        typer.Option("--live/--no-live", help="Include current World Cup live matches."),
+    ] = True,
+    offline_fixture: Annotated[
+        bool,
+        typer.Option("--offline-fixture", help="Build live input from an offline fixture JSON."),
+    ] = False,
+    offline_fixture_path: Annotated[
+        Path,
+        typer.Option(
+            "--offline-fixture-path",
+            help="Football-Data-compatible offline fixture JSON.",
+        ),
+    ] = Path("tests/fixtures/world_cup_2026/football_data_matches.json"),
+) -> None:
+    """Prepare auditable as-of contextual features."""
+
+    try:
+        generated_at = _parse_optional_utc(as_of, field_name="--as-of")
+        cutoff = _parse_optional_utc(data_cutoff, field_name="--data-cutoff")
+        effective_live_matches_path: Path | None = live_matches_path
+        if offline_fixture:
+            fetched_at = cutoff or generated_at or datetime.now(UTC).replace(microsecond=0)
+            offline_processed_root = output_root / "offline_world_cup_2026"
+            run_world_cup_ingest(
+                offline_provider(offline_fixture_path),
+                raw_root=output_root / "offline_raw",
+                processed_root=offline_processed_root,
+                interim_root=interim_root / "offline_ingest",
+                dry_run=False,
+                fetched_at=fetched_at,
+            )
+            effective_live_matches_path = offline_processed_root / "matches.parquet"
+            if generated_at is None:
+                generated_at = fetched_at
+        result = run_contextual_feature_pipeline(
+            historical_matches_path=historical_matches_path if include_historical else None,
+            live_matches_path=effective_live_matches_path if include_live else None,
+            venue_catalog_path=venue_catalog_path,
+            output_root=output_root,
+            interim_root=interim_root,
+            feature_generated_at_utc=generated_at,
+            data_cutoff_utc=cutoff,
+            include_historical=include_historical,
+            include_live=include_live,
+        )
+    except (ContextualFeaturePipelineError, WorldCupIngestError) as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise typer.Exit(code=1) from exc
+
+    console.print(f"Team-fixture rows: {result.team_fixture_rows}")
+    console.print(f"Match rows: {result.match_rows}")
+    console.print(f"Team-fixture Parquet: {result.team_fixture_parquet}")
+    console.print(f"Match Parquet: {result.match_parquet}")
+    console.print(f"Manifest: {result.manifest_path}")
+    console.print(f"Coverage report: {result.coverage_markdown_path}")
+    console.print(f"Missing-data report: {result.missing_data_report_path}")
+    console.print(f"Leakage audit: {result.leakage_audit_path}")
 
 
 @model_app.command("elo-ratings")
@@ -782,6 +914,54 @@ def operational_summary(
     console.print(f"Step summary: {result.summary_path}")
     console.print(f"Predictable fixtures: {result.predictable_fixtures}")
     console.print(f"Publication ready: {result.publication_ready}")
+
+
+@report_app.command("contextual-features")
+def report_contextual_features(
+    coverage_report_path: Annotated[
+        Path,
+        typer.Option("--coverage", help="Contextual coverage JSON report."),
+    ] = Path("data/interim/contextual_features/contextual_features_coverage.json"),
+    leakage_audit_path: Annotated[
+        Path,
+        typer.Option("--leakage-audit", help="Contextual leakage audit JSON report."),
+    ] = Path("data/interim/contextual_features/contextual_features_leakage_audit.json"),
+) -> None:
+    """Print a compact contextual feature report summary."""
+
+    try:
+        summary = contextual_feature_report_summary(
+            coverage_report_path=coverage_report_path,
+            leakage_audit_path=leakage_audit_path,
+        )
+    except ContextualFeaturePipelineError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise typer.Exit(code=1) from exc
+
+    console.print(f"Rows total: {summary['rows_total']}")
+    console.print(f"Leakage audit passed: {'yes' if summary['leakage_audit_passed'] else 'no'}")
+    console.print(f"Leakage violations: {summary['leakage_violations']}")
+    classifications = summary.get("feature_classification")
+    if isinstance(classifications, dict):
+        counts: dict[str, int] = {}
+        for item in classifications.values():
+            if isinstance(item, dict):
+                category = str(item.get("category"))
+                counts[category] = counts.get(category, 0) + 1
+        for category, count in sorted(counts.items()):
+            console.print(f"{category}: {count}")
+
+
+def _parse_optional_utc(value: str | None, *, field_name: str) -> datetime | None:
+    if value is None:
+        return None
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise ContextualFeaturePipelineError(f"{field_name} must be an ISO 8601 timestamp") from exc
+    if parsed.tzinfo is None or parsed.utcoffset() != datetime.min.replace(tzinfo=UTC).utcoffset():
+        raise ContextualFeaturePipelineError(f"{field_name} must be timezone-aware UTC")
+    return parsed.astimezone(UTC)
 
 
 if __name__ == "__main__":
