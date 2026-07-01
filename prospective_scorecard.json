@@ -79,7 +79,7 @@
       "ranked_probability_score": 0.11285306244059909
     }
   },
-  "generated_at_utc": "2026-07-01T01:04:37Z",
+  "generated_at_utc": "2026-07-01T02:13:48Z",
   "horizons": {
     "buckets": [
       {
@@ -119,12 +119,12 @@
   },
   "ledger": {
     "invalidity_counts": {},
-    "predictions": 108,
+    "predictions": 118,
     "schema_version": "prediction_ledger_v1",
-    "snapshots": 9,
+    "snapshots": 10,
     "unique_fixtures": 13,
     "validity_counts": {
-      "valid": 108
+      "valid": 118
     }
   },
   "matches": [
@@ -159,7 +159,7 @@
       "probability_draw": 0.2491700038,
       "probability_home_win": 0.3015793695,
       "qualification_winner": "away",
-      "result_data_cutoff_utc": "2026-07-01T01:04:27.996693Z",
+      "result_data_cutoff_utc": "2026-07-01T02:12:31.862767Z",
       "source_fixture_id": "537424",
       "source_snapshot_checksum": "49ee9f74c0281cd15472256f6505182f365f637db3a0d5a11bf3376ae6fc1635",
       "stage": "LAST_32",
@@ -198,7 +198,7 @@
       "probability_draw": 0.1620044927,
       "probability_home_win": 0.6951628203,
       "qualification_winner": "home",
-      "result_data_cutoff_utc": "2026-07-01T01:04:27.996693Z",
+      "result_data_cutoff_utc": "2026-07-01T02:12:31.862767Z",
       "source_fixture_id": "537416",
       "source_snapshot_checksum": "49ee9f74c0281cd15472256f6505182f365f637db3a0d5a11bf3376ae6fc1635",
       "stage": "LAST_32",
@@ -287,7 +287,7 @@
   },
   "result_metric_basis": "result_90",
   "result_metric_basis_description": "1X2 metrics use the 90-minute result only.",
-  "results_cutoff_utc": "2026-07-01T01:04:27.996693Z",
+  "results_cutoff_utc": "2026-07-01T02:12:31.862767Z",
   "schema_version": "prospective_scorecard_v1",
   "small_sample_warning": {
     "applies": true,

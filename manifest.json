@@ -1,17 +1,24 @@
 {
-  "checksum": "2ee56f48397f8be4a13cba9148eaf6f0dec5f2041ed9213da383ddaa126f9eac",
+  "checksum": "60492970a2153b27b78de11786a18dfaf46394b7dcd38de76ba089ad862a7862",
   "checksums": {
-    "history/20260701T010427Z_2ee56f48397f.csv.gz": "42c8c0038b4f643e65126743c6a2e3baccd7bd85a760f5791e1b66c49d702c75",
-    "latest.csv": "2ee56f48397f8be4a13cba9148eaf6f0dec5f2041ed9213da383ddaa126f9eac",
-    "latest.json": "e60195e6cc504b749bf3bc34805665a42c8f5525b40acd41a6772c512dc4b143",
-    "prospective_matches.csv": "d0d4016f6261a2e25128a70763c9548cbd581aba3651092dd611ad58615945e9",
-    "prospective_scorecard.json": "21d6b269a043d32f43c7fc82b2d26ee0ee9acdc5cd040bf6098a15a765ef9641",
-    "prospective_scorecard.md": "91f0fc0e3063e1204104792c44f2766994a0be99fc1d4cf57f880c63e0d87ed8",
-    "upcoming.md": "eed0f0340f1fa65d7a3357c5e4857ee0122c1e60ec607a49352984eee0781593"
+    "history/20260701T021231Z_60492970a215.csv.gz": "a55b29711ab0b4e1d1363491ae60fdd9155ce23d260f2e4f4c1ce945c43ec824",
+    "latest.csv": "60492970a2153b27b78de11786a18dfaf46394b7dcd38de76ba089ad862a7862",
+    "latest.json": "91fc4b4f281ebfd03866f4a7ca37c2a9f7499e3c87705dab5646d8e12b3f7b76",
+    "prospective_matches.csv": "ae133bf024481cac61c4589593821525421a722432d22988f348d2b354b7f805",
+    "prospective_scorecard.json": "78464eef6f7c98d3abc16a96020839667e3aa7df84de795fa4e2ea78f4de17df",
+    "prospective_scorecard.md": "58284a05f89c6005227efa9a72164cdedbd95b3731ba8a0788dea35d2c7f5b72",
+    "shadow/contextual_comparison.md": "4020b7cdd03f2defcab90834279bf77c48e013c439df58f9a5164d1e46d18f4b",
+    "shadow/contextual_latest.csv": "94d16b930ac9a57c21667f78dcae60a8fa83a6b1f640ecfa518414bc93231a38",
+    "shadow/contextual_latest.json": "e5670301469a68e1d25cbc16af804efeda5d8e2730b36be76d6569968f642db7",
+    "shadow/contextual_scorecard.json": "e547b878b06a14a1846a21ef59a7a81ca49670b916d919796c1fd134e771864e",
+    "shadow/contextual_scorecard.md": "8c46128eefd345162cd42ec1853bbcd737546d85f70d80a2a39ce0717a18a254",
+    "shadow/contextual_upcoming.md": "86d865e1078cc8e7a40775c4ebbc967c7a108c650eb1f55a456f5e90b0fec67b",
+    "shadow/manifest.json": "cbc085342ed42bd2530f2ad2e63427cea853d69462342c12b449edecadcf0ed7",
+    "upcoming.md": "4c6426126b8fd496174b25e21d939adc32479aaafde1a31649898c4bdd9c7090"
   },
-  "data_cutoff": "2026-07-01T01:04:27Z",
-  "generated_at": "2026-07-01T01:05:52Z",
-  "history_path": "history/20260701T010427Z_2ee56f48397f.csv.gz",
+  "data_cutoff": "2026-07-01T02:12:31Z",
+  "generated_at": "2026-07-01T02:14:23Z",
+  "history_path": "history/20260701T021231Z_60492970a215.csv.gz",
   "model": {
     "family": "poisson",
     "version": "poisson_goal_v1"
@@ -20,30 +27,77 @@
   "prospective_observations": 2,
   "prospective_official_predictions": 13,
   "prospective_policy_version": "early_v1_2026_06_30",
-  "prospective_results_cutoff": "2026-07-01T01:04:27Z",
+  "prospective_results_cutoff": "2026-07-01T02:12:31Z",
   "prospective_scorecard": {
-    "ledger_predictions": 108,
+    "ledger_predictions": 118,
     "official_predictions_evaluated": 2,
     "official_predictions_selected": 13,
     "policy_id": "early_v1",
     "policy_version": "early_v1_2026_06_30",
     "prediction_context": "early_v1",
-    "results_cutoff_utc": "2026-07-01T01:04:27Z",
-    "snapshots": 9,
+    "results_cutoff_utc": "2026-07-01T02:12:31Z",
+    "snapshots": 10,
     "unique_fixtures": 13
   },
   "prospective_scorecard_observations": 2,
-  "prospective_snapshots": 9,
-  "publication_fingerprint": "4966a7575d35147ca71db402948e998803391cc120b3d212458493623e392844",
+  "prospective_snapshots": 10,
+  "publication_fingerprint": "d3190922449d6fcf30a45e1b62879bcbfe2c78a51c23a2c24eef7b6eae0b5228",
   "published_files": [
-    "history/20260701T010427Z_2ee56f48397f.csv.gz",
+    "history/20260701T021231Z_60492970a215.csv.gz",
     "latest.csv",
     "latest.json",
     "prospective_matches.csv",
     "prospective_scorecard.json",
     "prospective_scorecard.md",
+    "shadow/contextual_comparison.md",
+    "shadow/contextual_latest.csv",
+    "shadow/contextual_latest.json",
+    "shadow/contextual_scorecard.json",
+    "shadow/contextual_scorecard.md",
+    "shadow/contextual_upcoming.md",
+    "shadow/manifest.json",
     "upcoming.md"
   ],
   "schema_version": "prediction_publication_manifest_v1",
+  "shadow": {
+    "checksum": "94d16b930ac9a57c21667f78dcae60a8fa83a6b1f640ecfa518414bc93231a38",
+    "checksums": {
+      "shadow/contextual_comparison.md": "4020b7cdd03f2defcab90834279bf77c48e013c439df58f9a5164d1e46d18f4b",
+      "shadow/contextual_latest.csv": "94d16b930ac9a57c21667f78dcae60a8fa83a6b1f640ecfa518414bc93231a38",
+      "shadow/contextual_latest.json": "e5670301469a68e1d25cbc16af804efeda5d8e2730b36be76d6569968f642db7",
+      "shadow/contextual_scorecard.json": "e547b878b06a14a1846a21ef59a7a81ca49670b916d919796c1fd134e771864e",
+      "shadow/contextual_scorecard.md": "8c46128eefd345162cd42ec1853bbcd737546d85f70d80a2a39ce0717a18a254",
+      "shadow/contextual_upcoming.md": "86d865e1078cc8e7a40775c4ebbc967c7a108c650eb1f55a456f5e90b0fec67b"
+    },
+    "data_cutoff": "2026-07-01T02:12:31Z",
+    "generated_at": "2026-07-01T02:14:23Z",
+    "model": {
+      "family": "contextual_challenger",
+      "version": "contextual_logit_v1"
+    },
+    "prediction_context": "shadow_contextual_v1",
+    "prediction_count": 10,
+    "published_files": [
+      "shadow/contextual_comparison.md",
+      "shadow/contextual_latest.csv",
+      "shadow/contextual_latest.json",
+      "shadow/contextual_scorecard.json",
+      "shadow/contextual_scorecard.md",
+      "shadow/contextual_upcoming.md"
+    ],
+    "schema_version": "shadow_contextual_publication_manifest_v1",
+    "scorecard": {
+      "ledger_predictions": 10,
+      "official_predictions_evaluated": 0,
+      "official_predictions_selected": 10,
+      "policy_id": "shadow_contextual_early_v1",
+      "policy_version": "shadow_contextual_early_v1_2026_06_30",
+      "prediction_context": "shadow_contextual_v1",
+      "results_cutoff_utc": "2026-07-01T02:12:31Z",
+      "snapshots": 1,
+      "unique_fixtures": 10
+    },
+    "version": "publication_v1"
+  },
   "version": "publication_v1"
 }
