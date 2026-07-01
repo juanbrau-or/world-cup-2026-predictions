@@ -79,7 +79,7 @@
       "ranked_probability_score": 0.1988807912018597
     }
   },
-  "generated_at_utc": "2026-07-01T06:35:09Z",
+  "generated_at_utc": "2026-07-01T11:26:31Z",
   "horizons": {
     "buckets": [
       {
@@ -119,12 +119,12 @@
   },
   "ledger": {
     "invalidity_counts": {},
-    "predictions": 140,
+    "predictions": 152,
     "schema_version": "prediction_ledger_v1",
-    "snapshots": 12,
+    "snapshots": 13,
     "unique_fixtures": 15,
     "validity_counts": {
-      "valid": 140
+      "valid": 152
     }
   },
   "matches": [
@@ -159,7 +159,7 @@
       "probability_draw": 0.2491700038,
       "probability_home_win": 0.3015793695,
       "qualification_winner": "away",
-      "result_data_cutoff_utc": "2026-07-01T06:34:58.748311Z",
+      "result_data_cutoff_utc": "2026-07-01T11:26:22.557963Z",
       "source_fixture_id": "537424",
       "source_snapshot_checksum": "49ee9f74c0281cd15472256f6505182f365f637db3a0d5a11bf3376ae6fc1635",
       "stage": "LAST_32",
@@ -198,7 +198,7 @@
       "probability_draw": 0.1620044927,
       "probability_home_win": 0.6951628203,
       "qualification_winner": "home",
-      "result_data_cutoff_utc": "2026-07-01T06:34:58.748311Z",
+      "result_data_cutoff_utc": "2026-07-01T11:26:22.557963Z",
       "source_fixture_id": "537416",
       "source_snapshot_checksum": "49ee9f74c0281cd15472256f6505182f365f637db3a0d5a11bf3376ae6fc1635",
       "stage": "LAST_32",
@@ -237,7 +237,7 @@
       "probability_draw": 0.3283907644,
       "probability_home_win": 0.3071692722,
       "qualification_winner": "home",
-      "result_data_cutoff_utc": "2026-07-01T06:34:58.748311Z",
+      "result_data_cutoff_utc": "2026-07-01T11:26:22.557963Z",
       "source_fixture_id": "537425",
       "source_snapshot_checksum": "48bdca32964a00c16559a91025a0a29796f2ffb1ac3818bd144f2b4feb9ef1ad",
       "stage": "LAST_32",
@@ -340,7 +340,7 @@
   },
   "result_metric_basis": "result_90",
   "result_metric_basis_description": "1X2 metrics use the 90-minute result only.",
-  "results_cutoff_utc": "2026-07-01T06:34:58.748311Z",
+  "results_cutoff_utc": "2026-07-01T11:26:22.557963Z",
   "schema_version": "prospective_scorecard_v1",
   "small_sample_warning": {
     "applies": true,
