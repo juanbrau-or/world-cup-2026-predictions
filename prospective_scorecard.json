@@ -1,23 +1,23 @@
 {
   "baselines": {
     "elo_operational": {
-      "matches": 3,
+      "matches": 4,
       "status": "not_available"
     },
     "historical_frequency_frozen": {
       "metrics": {
-        "accuracy": 0.6666666666666666,
-        "average_hours_before_kickoff": 6.54574074074074,
-        "brier_score": 0.5290910690625883,
+        "accuracy": 0.75,
+        "average_hours_before_kickoff": 7.263402777777777,
+        "brier_score": 0.49579607112134083,
         "calibration_error": null,
         "calibration_minimum_matches": 30,
         "calibration_status": "insufficient_sample",
-        "kickoff_end": "2026-07-01T01:00:00Z",
+        "kickoff_end": "2026-07-01T16:00:00Z",
         "kickoff_start": "2026-06-30T17:00:00Z",
-        "log_loss": 0.8941173361769129,
-        "matches": 3,
-        "median_hours_before_kickoff": 6.594444444444444,
-        "ranked_probability_score": 0.2393031875437124
+        "log_loss": 0.8501832257567998,
+        "matches": 4,
+        "median_hours_before_kickoff": 6.812916666666666,
+        "ranked_probability_score": 0.22265568857308868
       },
       "probabilities": {
         "away_win": 0.2877710099246071,
@@ -28,17 +28,17 @@
     },
     "uniform_1x2": {
       "metrics": {
-        "accuracy": 0.6666666666666666,
-        "average_hours_before_kickoff": 6.54574074074074,
-        "brier_score": 0.6666666666666666,
+        "accuracy": 0.75,
+        "average_hours_before_kickoff": 7.263402777777777,
+        "brier_score": 0.6666666666666667,
         "calibration_error": null,
         "calibration_minimum_matches": 30,
         "calibration_status": "insufficient_sample",
-        "kickoff_end": "2026-07-01T01:00:00Z",
+        "kickoff_end": "2026-07-01T16:00:00Z",
         "kickoff_start": "2026-06-30T17:00:00Z",
         "log_loss": 1.0986122886681098,
-        "matches": 3,
-        "median_hours_before_kickoff": 6.594444444444444,
+        "matches": 4,
+        "median_hours_before_kickoff": 6.812916666666666,
         "ranked_probability_score": 0.27777777777777785
       },
       "probabilities": {
@@ -51,35 +51,49 @@
   },
   "descriptive_metrics_by_horizon_all_valid_predictions": {
     "1_to_6h": {
-      "accuracy": 0.5555555555555556,
-      "average_hours_before_kickoff": 3.2827777777777776,
-      "brier_score": 0.43302425281435514,
+      "accuracy": 0.6363636363636364,
+      "average_hours_before_kickoff": 3.219292929292929,
+      "brier_score": 0.395523865492771,
       "calibration_error": null,
       "calibration_minimum_matches": 30,
       "calibration_status": "insufficient_sample",
-      "kickoff_end": "2026-07-01T01:00:00Z",
+      "kickoff_end": "2026-07-01T16:00:00Z",
       "kickoff_start": "2026-06-30T17:00:00Z",
-      "log_loss": 0.7750968375705231,
-      "matches": 9,
+      "log_loss": 0.7217312994811228,
+      "matches": 11,
       "median_hours_before_kickoff": 3.031388888888889,
-      "ranked_probability_score": 0.18326636696987633
+      "ranked_probability_score": 0.16474255429263915
     },
     "6_to_24h": {
-      "accuracy": 0.5555555555555556,
-      "average_hours_before_kickoff": 10.555123456790122,
-      "brier_score": 0.4682359963065197,
+      "accuracy": 0.7777777777777778,
+      "average_hours_before_kickoff": 13.704382716049384,
+      "brier_score": 0.3471254910969388,
       "calibration_error": null,
       "calibration_minimum_matches": 30,
       "calibration_status": "insufficient_sample",
-      "kickoff_end": "2026-07-01T01:00:00Z",
+      "kickoff_end": "2026-07-01T16:00:00Z",
       "kickoff_start": "2026-06-30T17:00:00Z",
-      "log_loss": 0.82362239002119,
-      "matches": 9,
-      "median_hours_before_kickoff": 10.011388888888888,
-      "ranked_probability_score": 0.1988807912018597
+      "log_loss": 0.6521214772303705,
+      "matches": 18,
+      "median_hours_before_kickoff": 13.685555555555556,
+      "ranked_probability_score": 0.1400190015817886
+    },
+    "gt_24h": {
+      "accuracy": 1.0,
+      "average_hours_before_kickoff": 29.062129629629627,
+      "brier_score": 0.2261365642448683,
+      "calibration_error": null,
+      "calibration_minimum_matches": 30,
+      "calibration_status": "insufficient_sample",
+      "kickoff_end": "2026-07-01T16:00:00Z",
+      "kickoff_start": "2026-07-01T16:00:00Z",
+      "log_loss": 0.48082857776144844,
+      "matches": 3,
+      "median_hours_before_kickoff": 29.011388888888888,
+      "ranked_probability_score": 0.08122804312970026
     }
   },
-  "generated_at_utc": "2026-07-01T17:59:25Z",
+  "generated_at_utc": "2026-07-01T21:40:19Z",
   "horizons": {
     "buckets": [
       {
@@ -119,12 +133,12 @@
   },
   "ledger": {
     "invalidity_counts": {},
-    "predictions": 175,
+    "predictions": 185,
     "schema_version": "prediction_ledger_v1",
-    "snapshots": 15,
+    "snapshots": 16,
     "unique_fixtures": 15,
     "validity_counts": {
-      "valid": 175
+      "valid": 185
     }
   },
   "matches": [
@@ -159,7 +173,7 @@
       "probability_draw": 0.2491700038,
       "probability_home_win": 0.3015793695,
       "qualification_winner": "away",
-      "result_data_cutoff_utc": "2026-07-01T17:59:14.883757Z",
+      "result_data_cutoff_utc": "2026-07-01T21:40:07.099957Z",
       "source_fixture_id": "537424",
       "source_snapshot_checksum": "49ee9f74c0281cd15472256f6505182f365f637db3a0d5a11bf3376ae6fc1635",
       "stage": "LAST_32",
@@ -198,7 +212,7 @@
       "probability_draw": 0.1620044927,
       "probability_home_win": 0.6951628203,
       "qualification_winner": "home",
-      "result_data_cutoff_utc": "2026-07-01T17:59:14.883757Z",
+      "result_data_cutoff_utc": "2026-07-01T21:40:07.099957Z",
       "source_fixture_id": "537416",
       "source_snapshot_checksum": "49ee9f74c0281cd15472256f6505182f365f637db3a0d5a11bf3376ae6fc1635",
       "stage": "LAST_32",
@@ -237,9 +251,48 @@
       "probability_draw": 0.3283907644,
       "probability_home_win": 0.3071692722,
       "qualification_winner": "home",
-      "result_data_cutoff_utc": "2026-07-01T17:59:14.883757Z",
+      "result_data_cutoff_utc": "2026-07-01T21:40:07.099957Z",
       "source_fixture_id": "537425",
       "source_snapshot_checksum": "48bdca32964a00c16559a91025a0a29796f2ffb1ac3818bd144f2b4feb9ef1ad",
+      "stage": "LAST_32",
+      "uniform_1x2_probability_away_win": 0.3333333333333333,
+      "uniform_1x2_probability_draw": 0.3333333333333333,
+      "uniform_1x2_probability_home_win": 0.3333333333333333
+    },
+    {
+      "actual_result_90": "home_win",
+      "away_goals_90": 1,
+      "away_goals_after_extra_time": null,
+      "away_penalty_goals": null,
+      "away_team_name": "Congo DR",
+      "data_cutoff_utc": "2026-07-01T06:34:58.748311Z",
+      "dataset_revision": "operational_dataset_v1:0ab17e3bcf58e2c4",
+      "extra_time_played": false,
+      "historical_frequency_frozen_probability_away_win": 0.2877710099246071,
+      "historical_frequency_frozen_probability_draw": 0.2246879925033011,
+      "historical_frequency_frozen_probability_home_win": 0.48754099757209185,
+      "home_goals_90": 2,
+      "home_goals_after_extra_time": null,
+      "home_penalty_goals": null,
+      "home_team_name": "England",
+      "horizon_bucket": "6_to_24h",
+      "hours_before_kickoff": 9.41638888888889,
+      "kickoff_utc": "2026-07-01T16:00:00Z",
+      "metric_result_1x2": "home_win",
+      "model_name": "poisson",
+      "model_version": "poisson_goal_v1",
+      "official_selection_rule": "latest_valid_at_least_6h_before_kickoff",
+      "penalty_shootout": false,
+      "predicted_result": "home_win",
+      "prediction_created_at_utc": "2026-07-01T06:35:01Z",
+      "prediction_id": "2a3373e78fe00c8d9337f53a",
+      "probability_away_win": 0.1292126168,
+      "probability_draw": 0.2529848376,
+      "probability_home_win": 0.6178025456,
+      "qualification_winner": "home",
+      "result_data_cutoff_utc": "2026-07-01T21:40:07.099957Z",
+      "source_fixture_id": "537426",
+      "source_snapshot_checksum": "14826e52f778ee9e2dbb6fc5becbda4958f8fd8d755dc4fe2052bc0eba952067",
       "stage": "LAST_32",
       "uniform_1x2_probability_away_win": 0.3333333333333333,
       "uniform_1x2_probability_draw": 0.3333333333333333,
@@ -247,33 +300,33 @@
     }
   ],
   "metrics": {
-    "accuracy": 0.6666666666666666,
-    "average_hours_before_kickoff": 6.54574074074074,
-    "brier_score": 0.4388681386000714,
+    "accuracy": 0.75,
+    "average_hours_before_kickoff": 7.263402777777777,
+    "brier_score": 0.38584413458646405,
     "calibration_error": null,
     "calibration_minimum_matches": 30,
     "calibration_status": "insufficient_sample",
-    "kickoff_end": "2026-07-01T01:00:00Z",
+    "kickoff_end": "2026-07-01T16:00:00Z",
     "kickoff_start": "2026-06-30T17:00:00Z",
-    "log_loss": 0.7813799511573757,
-    "matches": 3,
-    "median_hours_before_kickoff": 6.594444444444444,
-    "ranked_probability_score": 0.18673879586805356
+    "log_loss": 0.7064315578877371,
+    "matches": 4,
+    "median_hours_before_kickoff": 6.812916666666666,
+    "ranked_probability_score": 0.16040044621230815
   },
   "metrics_by_favorite_segment": {
     "favorite": {
       "accuracy": 1.0,
-      "average_hours_before_kickoff": 6.3029166666666665,
-      "brier_score": 0.29796650867506336,
+      "average_hours_before_kickoff": 7.340740740740741,
+      "brier_score": 0.27423504663192294,
       "calibration_error": null,
       "calibration_minimum_matches": 30,
       "calibration_status": "insufficient_sample",
-      "kickoff_end": "2026-06-30T21:00:00Z",
+      "kickoff_end": "2026-07-01T16:00:00Z",
       "kickoff_start": "2026-06-30T17:00:00Z",
-      "log_loss": 0.5818917726850044,
-      "matches": 2,
-      "median_hours_before_kickoff": 6.3029166666666665,
-      "ranked_probability_score": 0.12690046772536262
+      "log_loss": 0.5484566411496102,
+      "matches": 3,
+      "median_hours_before_kickoff": 6.594444444444444,
+      "ranked_probability_score": 0.11172877756526571
     },
     "non_favorite": {
       "accuracy": 0.0,
@@ -292,37 +345,37 @@
   },
   "metrics_by_horizon": {
     "6_to_24h": {
-      "accuracy": 0.6666666666666666,
-      "average_hours_before_kickoff": 6.54574074074074,
-      "brier_score": 0.4388681386000714,
+      "accuracy": 0.75,
+      "average_hours_before_kickoff": 7.263402777777777,
+      "brier_score": 0.38584413458646405,
       "calibration_error": null,
       "calibration_minimum_matches": 30,
       "calibration_status": "insufficient_sample",
-      "kickoff_end": "2026-07-01T01:00:00Z",
+      "kickoff_end": "2026-07-01T16:00:00Z",
       "kickoff_start": "2026-06-30T17:00:00Z",
-      "log_loss": 0.7813799511573757,
-      "matches": 3,
-      "median_hours_before_kickoff": 6.594444444444444,
-      "ranked_probability_score": 0.18673879586805356
+      "log_loss": 0.7064315578877371,
+      "matches": 4,
+      "median_hours_before_kickoff": 6.812916666666666,
+      "ranked_probability_score": 0.16040044621230815
     }
   },
   "metrics_by_stage": {
     "LAST_32": {
-      "accuracy": 0.6666666666666666,
-      "average_hours_before_kickoff": 6.54574074074074,
-      "brier_score": 0.4388681386000714,
+      "accuracy": 0.75,
+      "average_hours_before_kickoff": 7.263402777777777,
+      "brier_score": 0.38584413458646405,
       "calibration_error": null,
       "calibration_minimum_matches": 30,
       "calibration_status": "insufficient_sample",
-      "kickoff_end": "2026-07-01T01:00:00Z",
+      "kickoff_end": "2026-07-01T16:00:00Z",
       "kickoff_start": "2026-06-30T17:00:00Z",
-      "log_loss": 0.7813799511573757,
-      "matches": 3,
-      "median_hours_before_kickoff": 6.594444444444444,
-      "ranked_probability_score": 0.18673879586805356
+      "log_loss": 0.7064315578877371,
+      "matches": 4,
+      "median_hours_before_kickoff": 6.812916666666666,
+      "ranked_probability_score": 0.16040044621230815
     }
   },
-  "official_predictions_evaluated": 3,
+  "official_predictions_evaluated": 4,
   "official_predictions_selected": 15,
   "official_selection_policy": {
     "fallback_rule": {
@@ -340,7 +393,7 @@
   },
   "result_metric_basis": "result_90",
   "result_metric_basis_description": "1X2 metrics use the 90-minute result only.",
-  "results_cutoff_utc": "2026-07-01T17:59:14.883757Z",
+  "results_cutoff_utc": "2026-07-01T21:40:07.099957Z",
   "schema_version": "prospective_scorecard_v1",
   "small_sample_warning": {
     "applies": true,

@@ -1,21 +1,21 @@
 {
-  "checksum": "d6a1b641eb1291c690f25c111fddbdc93bcfb8c1de092ff225b309a22d66e91b",
+  "checksum": "c27c9e8b391622b2677d9144c6c226fddbe97154d0829600cbfe2132eecbafe0",
   "checksums": {
     "shadow/contextual_comparison.md": "4020b7cdd03f2defcab90834279bf77c48e013c439df58f9a5164d1e46d18f4b",
-    "shadow/contextual_latest.csv": "d6a1b641eb1291c690f25c111fddbdc93bcfb8c1de092ff225b309a22d66e91b",
-    "shadow/contextual_latest.json": "e7559f6b8eca181fbda0079a233fa74b8f687ac4ef984426f9d62bb12bf04eca",
-    "shadow/contextual_scorecard.json": "4f68fcbe7e7d36808c496daf227a020e54ccd4d7b9f640f2a09bdf8b0ddd8600",
-    "shadow/contextual_scorecard.md": "39c041ad152b58565c52c516b08b64a7b2f90cd71eca9bf69a325bd6b0ba5555",
-    "shadow/contextual_upcoming.md": "df7ab21990f98f9fe4a8b209262ed0b803642ed6348e02530467e6c39c4363fe"
+    "shadow/contextual_latest.csv": "c27c9e8b391622b2677d9144c6c226fddbe97154d0829600cbfe2132eecbafe0",
+    "shadow/contextual_latest.json": "f40f0b39e77a391d4338ac60dec495448fd866c7d8e4ae8d40fc9fcd8a84bdd7",
+    "shadow/contextual_scorecard.json": "dca27e62e62cce51b0639cff0fff31536442b96965534f029465161baee332b4",
+    "shadow/contextual_scorecard.md": "e5c2fe969801eea1c2d7fabb5711c7cc6192eb20a2d5ea9d2a9ab2170874d5dc",
+    "shadow/contextual_upcoming.md": "b00441c2bdb2eb7412bdbc84302bf04940ed84d6f47b703595c0b93bf50c3f94"
   },
-  "data_cutoff": "2026-07-01T17:59:14Z",
-  "generated_at": "2026-07-01T18:05:46Z",
+  "data_cutoff": "2026-07-01T21:40:07Z",
+  "generated_at": "2026-07-01T21:45:58Z",
   "model": {
     "family": "contextual_challenger",
     "version": "contextual_logit_v1"
   },
   "prediction_context": "shadow_contextual_v1",
-  "prediction_count": 11,
+  "prediction_count": 10,
   "published_files": [
     "shadow/contextual_comparison.md",
     "shadow/contextual_latest.csv",
@@ -26,15 +26,15 @@
   ],
   "schema_version": "shadow_contextual_publication_manifest_v1",
   "scorecard": {
-    "ledger_predictions": 11,
+    "ledger_predictions": 10,
     "official_predictions_evaluated": 0,
-    "official_predictions_selected": 11,
+    "official_predictions_selected": 10,
     "policy_id": "shadow_contextual_early_v1",
     "policy_version": "shadow_contextual_early_v1_2026_06_30",
     "prediction_context": "shadow_contextual_v1",
-    "results_cutoff_utc": "2026-07-01T17:59:14Z",
+    "results_cutoff_utc": "2026-07-01T21:40:07Z",
     "snapshots": 1,
-    "unique_fixtures": 11
+    "unique_fixtures": 10
   },
   "version": "publication_v1"
 }
