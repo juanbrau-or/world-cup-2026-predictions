@@ -43,6 +43,8 @@ Thumbs.db
 /predictions/prospective_scorecard.*
 /predictions/prospective_matches.csv
 /predictions/prediction_ledger.parquet
+/predictions/shadow/contextual_*
+/predictions/shadow/history/**
 /predictions/history/**
 !/predictions/history/.gitkeep
 /predictions/published-history/**

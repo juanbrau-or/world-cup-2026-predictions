@@ -21,6 +21,8 @@ These files can be regenerated locally with:
 ```bash
 uv run wc2026 model dixon-coles
 uv run wc2026 evaluate dixon-coles
+uv run wc2026 model contextual-challenger
+uv run wc2026 evaluate contextual-challenger
 ```
 
 ## Temporal naming
@@ -42,6 +44,32 @@ selection does not inspect the result.
 The official 1X2 metric uses `result_90` only. Extra time and penalties are reported as separate
 columns in the match-level output and are not mixed into the 1X2 outcome.
 
+## Contextual challenger shadow artifacts
+
+`contextual_logit_v1` and `contextual_lgbm_v1` are challenger models only. They are evaluated
+against `poisson_goal_v1` on the same temporal folds and the same `match_id` set, but they do not
+replace the official model.
+
+Versionable inputs:
+
+- `configs/contextual_challenger_features.yaml`, the explicit feature whitelist.
+- `configs/model.yaml`, section `contextual_challenger`.
+- `configs/shadow_contextual_evaluation.yaml`, the shadow prospective selection policy.
+
+Generated evaluation outputs:
+
+- `artifacts/evaluation/contextual_challenger/fold_metrics.csv`
+- `artifacts/evaluation/contextual_challenger/paired_comparison.csv`
+- `artifacts/evaluation/contextual_challenger/bootstrap_report.json`
+- `artifacts/evaluation/contextual_challenger/calibration_report.json`
+- `artifacts/evaluation/contextual_challenger/ablation_report.csv`
+- `artifacts/evaluation/contextual_challenger/feature_importance.csv`
+- `artifacts/evaluation/contextual_challenger/report.md`
+- `artifacts/evaluation/contextual_challenger/predictions_out_of_fold.parquet`
+
+The Parquet prediction files remain ignored and regenerable. Feature importance is diagnostic only
+and must not be read as causal evidence.
+
 Versionable configuration:
 
 - `configs/prospective_evaluation.yaml`, including horizon buckets, official policy and baselines.
@@ -52,6 +80,16 @@ Generated outputs:
 - `predictions/prospective_scorecard.md`
 - `predictions/prospective_matches.csv`
 - `predictions/prediction_ledger.parquet`
+
+Shadow contextual prospective outputs are separate:
+
+- `predictions/shadow/contextual_latest.csv`
+- `predictions/shadow/contextual_latest.parquet`
+- `predictions/shadow/contextual_upcoming.md`
+- `predictions/shadow/contextual_ledger.parquet`
+- `predictions/shadow/contextual_scorecard.json`
+- `predictions/shadow/contextual_scorecard.md`
+- `predictions/shadow/contextual_comparison.md`
 
 The Parquet ledger is an operational artifact, not a `predictions-data` branch file. Aggregates must
 always be read with their sample size; when the official sample is below the configured threshold,

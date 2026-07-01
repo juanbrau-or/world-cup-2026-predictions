@@ -41,15 +41,24 @@ def write_operational_step_summary(
     target = summary_path or _summary_path_from_env()
     ingest_report = _read_json(interim_root / "world_cup_2026_ingest_report.json")
     scorecard = _read_json(predictions_root / "prospective_scorecard.json")
+    shadow_scorecard = _read_json(predictions_root / "shadow" / "contextual_scorecard.json")
     manifest = _read_json(publication_root / "manifest.json")
     latest_rows = _read_csv(predictions_root / "latest.csv")
+    shadow_latest_rows = _read_csv(predictions_root / "shadow" / "contextual_latest.csv")
     fixtures_received = _optional_int(ingest_report.get("provider_fixtures_received"))
     fixtures_tbd = _optional_int(ingest_report.get("fixtures_with_tbd_participants"))
     next_kickoff = _nested_value(ingest_report, ("freshness", "next_kickoff_utc"))
     official_selected = _optional_int(scorecard.get("official_predictions_selected"))
     official_evaluated = _optional_int(scorecard.get("official_predictions_evaluated"))
+    shadow_evaluated = _optional_int(shadow_scorecard.get("official_predictions_evaluated"))
     metrics = scorecard.get("metrics") if isinstance(scorecard.get("metrics"), Mapping) else {}
+    shadow_metrics = (
+        shadow_scorecard.get("metrics")
+        if isinstance(shadow_scorecard.get("metrics"), Mapping)
+        else {}
+    )
     publication_ready = bool(manifest)
+    shadow_publication_ready = isinstance(manifest.get("shadow"), Mapping)
     status_lines = _status_lines(
         ingest_report=ingest_report,
         scorecard=scorecard,
@@ -67,14 +76,18 @@ def write_operational_step_summary(
         f"| Fixtures TBD | {_value(fixtures_tbd)} |",
         f"| Predictable fixtures | {len(latest_rows)} |",
         f"| New predictions | {len(latest_rows)} |",
+        f"| Shadow predictions | {len(shadow_latest_rows)} |",
         f"| Official predictions selected | {_value(official_selected)} |",
         f"| Official matches evaluable | {_value(official_evaluated)} |",
         f"| Accumulated log loss | {_metric(metrics, 'log_loss')} |",
         f"| Accumulated Brier | {_metric(metrics, 'brier_score')} |",
         f"| Accumulated RPS | {_metric(metrics, 'ranked_probability_score')} |",
         f"| Accumulated accuracy | {_metric(metrics, 'accuracy')} |",
+        f"| Shadow matches evaluable | {_value(shadow_evaluated)} |",
+        f"| Shadow log loss | {_metric(shadow_metrics, 'log_loss')} |",
         f"| Next kickoff UTC | {_value(next_kickoff)} |",
         f"| Publication ready | {'yes' if publication_ready else 'no'} |",
+        f"| Shadow publication ready | {'yes' if shadow_publication_ready else 'no'} |",
         "",
         "## Status",
         "",
@@ -131,6 +144,8 @@ def _status_lines(
         lines.append("- Leakage or invalid predictions detected; workflow should fail.")
     if _log_contains(logs_root, ("invalid prospective predictions", "duplicate prediction_id")):
         lines.append("- Prediction leakage or data corruption detected in logs.")
+    if _log_contains(logs_root, ("shadow-contextual", "ShadowContextualError")):
+        lines.append("- Shadow contextual path reported a degraded or failed status.")
     if not lines:
         lines.append("- Operational pipeline completed without reportable warnings.")
     return lines

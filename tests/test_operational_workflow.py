@@ -72,8 +72,11 @@ def test_operational_pipeline_rebuilds_clean_checkout_inputs_before_prediction()
         "uv run wc2026 model dixon-coles",
         "uv run wc2026 ingest world-cup",
         "uv run wc2026 predict upcoming",
-        "uv run wc2026 evaluate prospective",
         "uv run wc2026 prepare contextual-features",
+        "uv run wc2026 model contextual-challenger",
+        "uv run wc2026 predict shadow-contextual",
+        "uv run wc2026 evaluate prospective",
+        "uv run wc2026 evaluate shadow-contextual",
     ]
 
     positions = [script.index(command) for command in expected_commands]
@@ -153,6 +156,11 @@ def test_publication_payload_extracts_under_predictions_root(tmp_path: Path) -> 
         "predictions/prospective_matches.csv",
         "predictions/prospective_scorecard.json",
         "predictions/prospective_scorecard.md",
+        "predictions/shadow/contextual_comparison.md",
+        "predictions/shadow/contextual_latest.csv",
+        "predictions/shadow/contextual_scorecard.json",
+        "predictions/shadow/contextual_scorecard.md",
+        "predictions/shadow/contextual_upcoming.md",
         "predictions/upcoming.md",
     ]
     assert (publish_repo / "predictions" / "latest.csv").is_file()
@@ -271,19 +279,20 @@ def _publication_payload_members(script: str) -> list[str]:
 def _write_publication_inputs(predictions_root: Path) -> None:
     predictions_root.mkdir(parents=True)
     buffer = StringIO()
+    fieldnames = [
+        "prediction_id",
+        "source_fixture_id",
+        "data_cutoff_utc",
+        "kickoff_utc",
+        "probability_home_win",
+        "probability_draw",
+        "probability_away_win",
+        "model_family",
+        "model_version",
+    ]
     writer = csv.DictWriter(
         buffer,
-        fieldnames=[
-            "prediction_id",
-            "source_fixture_id",
-            "data_cutoff_utc",
-            "kickoff_utc",
-            "probability_home_win",
-            "probability_draw",
-            "probability_away_win",
-            "model_family",
-            "model_version",
-        ],
+        fieldnames=fieldnames,
     )
     writer.writeheader()
     writer.writerow(
@@ -338,5 +347,67 @@ def _write_publication_inputs(predictions_root: Path) -> None:
     )
     (predictions_root / "prospective_matches.csv").write_text(
         "source_fixture_id,prediction_id\n",
+        encoding="utf-8",
+    )
+    shadow_root = predictions_root / "shadow"
+    shadow_root.mkdir()
+    shadow_buffer = StringIO()
+    shadow_writer = csv.DictWriter(shadow_buffer, fieldnames=fieldnames)
+    shadow_writer.writeheader()
+    shadow_writer.writerow(
+        {
+            "prediction_id": "shadow-1",
+            "source_fixture_id": "fixture-1",
+            "data_cutoff_utc": "2026-06-30T10:00:00Z",
+            "kickoff_utc": "2026-06-30T18:00:00Z",
+            "probability_home_win": "0.410000",
+            "probability_draw": "0.290000",
+            "probability_away_win": "0.300000",
+            "model_family": "contextual_challenger",
+            "model_version": "contextual_lgbm_v1",
+        }
+    )
+    (shadow_root / "contextual_latest.csv").write_text(
+        shadow_buffer.getvalue(),
+        encoding="utf-8",
+    )
+    (shadow_root / "contextual_upcoming.md").write_text(
+        "# Shadow Contextual Challenger Predictions\n",
+        encoding="utf-8",
+    )
+    (shadow_root / "contextual_scorecard.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "prospective_scorecard_v1",
+                "results_cutoff_utc": None,
+                "ledger": {
+                    "schema_version": "prediction_ledger_v1",
+                    "predictions": 1,
+                    "unique_fixtures": 1,
+                    "snapshots": 1,
+                    "validity_counts": {"valid": 1},
+                    "invalidity_counts": {},
+                },
+                "official_selection_policy": {
+                    "policy_id": "shadow_contextual_early_v1",
+                    "policy_version": "shadow_contextual_early_v1_2026_06_30",
+                    "prediction_context": "shadow_contextual_v1",
+                },
+                "official_predictions_selected": 1,
+                "official_predictions_evaluated": 0,
+                "metrics": {"matches": 0},
+                "matches": [],
+            },
+            sort_keys=True,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (shadow_root / "contextual_scorecard.md").write_text(
+        "# Shadow Scorecard\n",
+        encoding="utf-8",
+    )
+    (shadow_root / "contextual_comparison.md").write_text(
+        "# Shadow Comparison\n",
         encoding="utf-8",
     )

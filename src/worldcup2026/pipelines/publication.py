@@ -18,6 +18,7 @@ from typing import Any
 
 PUBLICATION_SCHEMA_VERSION = "prediction_publication_manifest_v1"
 LATEST_JSON_SCHEMA_VERSION = "predictions_latest_v1"
+SHADOW_LATEST_JSON_SCHEMA_VERSION = "shadow_contextual_latest_v1"
 PUBLICATION_VERSION = "publication_v1"
 MAX_BRANCH_FILE_BYTES = 2_000_000
 OBSOLETE_PUBLICATION_FILES = frozenset(
@@ -73,12 +74,13 @@ def prepare_predictions_publication(
 
     generated = _utc_now() if generated_at is None else _require_utc(generated_at)
     source = _read_source_outputs(predictions_root)
+    shadow_source = _read_shadow_source_outputs(predictions_root)
     rows = _read_prediction_rows(source.latest_csv_bytes)
     metadata = _publication_metadata(rows, source.upcoming_report)
     scorecard_summary = _prospective_scorecard_summary(source.prospective_scorecard_json)
     scorecard_count = int(scorecard_summary["official_predictions_evaluated"])
     latest_checksum = _sha256(source.latest_csv_bytes)
-    source_fingerprint = _source_fingerprint(source)
+    source_fingerprint = _source_fingerprint(source, shadow_source=shadow_source)
     history_path = _history_path(
         output_root,
         data_cutoff=metadata["data_cutoff"],
@@ -131,6 +133,7 @@ def prepare_predictions_publication(
         model_family=str(metadata["model_family"]),
         model_version=str(metadata["model_version"]),
         checksum=latest_checksum,
+        schema_version=LATEST_JSON_SCHEMA_VERSION,
     )
     files: dict[str, bytes] = {
         "latest.csv": source.latest_csv_bytes,
@@ -143,6 +146,13 @@ def prepare_predictions_publication(
     if history_path is not None:
         assert history_bytes is not None
         files[str(history_path.relative_to(output_root))] = history_bytes
+    shadow_manifest: dict[str, Any] | None = None
+    if shadow_source is not None:
+        shadow_files, shadow_manifest = _shadow_publication_files(
+            shadow_source,
+            generated_at=generated,
+        )
+        files.update(shadow_files)
 
     checksums = {relative_path: _sha256(content) for relative_path, content in files.items()}
     manifest = {
@@ -166,6 +176,7 @@ def prepare_predictions_publication(
         ],
         "prospective_observations": scorecard_summary["official_predictions_evaluated"],
         "prospective_results_cutoff": scorecard_summary["results_cutoff_utc"],
+        "shadow": shadow_manifest,
         "history_path": str(history_path.relative_to(output_root)) if history_path else None,
         "publication_fingerprint": source_fingerprint,
         "published_files": sorted(files),
@@ -247,6 +258,13 @@ def assert_allowed_publication_path(relative_path: Path, *, size_bytes: int) -> 
         "prospective_scorecard.md",
         "prospective_matches.csv",
         "manifest.json",
+        "shadow/contextual_latest.csv",
+        "shadow/contextual_latest.json",
+        "shadow/contextual_upcoming.md",
+        "shadow/contextual_scorecard.json",
+        "shadow/contextual_scorecard.md",
+        "shadow/contextual_comparison.md",
+        "shadow/manifest.json",
     }
     if normalized in exact:
         return
@@ -296,6 +314,26 @@ class _SourceOutputs:
         return payload
 
 
+@dataclass(frozen=True)
+class _ShadowSourceOutputs:
+    latest_csv_bytes: bytes
+    upcoming_report_bytes: bytes
+    scorecard_json_bytes: bytes
+    scorecard_report_bytes: bytes
+    comparison_report_bytes: bytes
+
+    @property
+    def upcoming_report(self) -> str:
+        return self.upcoming_report_bytes.decode("utf-8")
+
+    @property
+    def scorecard_json(self) -> Mapping[str, Any]:
+        payload = json.loads(self.scorecard_json_bytes.decode("utf-8"))
+        if not isinstance(payload, Mapping):
+            raise PublicationError("shadow scorecard JSON must contain an object")
+        return payload
+
+
 def _read_source_outputs(predictions_root: Path) -> _SourceOutputs:
     files = {
         "latest_csv_bytes": predictions_root / "latest.csv",
@@ -311,6 +349,30 @@ def _read_source_outputs(predictions_root: Path) -> _SourceOutputs:
         _reject_source_path(path)
         values[key] = path.read_bytes()
     return _SourceOutputs(**values)
+
+
+def _read_shadow_source_outputs(predictions_root: Path) -> _ShadowSourceOutputs | None:
+    shadow_root = predictions_root / "shadow"
+    files = {
+        "latest_csv_bytes": shadow_root / "contextual_latest.csv",
+        "upcoming_report_bytes": shadow_root / "contextual_upcoming.md",
+        "scorecard_json_bytes": shadow_root / "contextual_scorecard.json",
+        "scorecard_report_bytes": shadow_root / "contextual_scorecard.md",
+        "comparison_report_bytes": shadow_root / "contextual_comparison.md",
+    }
+    present = {key: path.is_file() for key, path in files.items()}
+    if not any(present.values()):
+        return None
+    missing = [path.as_posix() for key, path in files.items() if not present[key]]
+    if missing:
+        raise PublicationError(
+            "incomplete shadow contextual publication files: " + ", ".join(missing)
+        )
+    values: dict[str, bytes] = {}
+    for key, path in files.items():
+        _reject_source_path(path)
+        values[key] = path.read_bytes()
+    return _ShadowSourceOutputs(**values)
 
 
 def _reject_source_path(path: Path) -> None:
@@ -502,9 +564,10 @@ def _latest_json_bytes(
     model_family: str,
     model_version: str,
     checksum: str,
+    schema_version: str,
 ) -> bytes:
     payload = {
-        "schema_version": LATEST_JSON_SCHEMA_VERSION,
+        "schema_version": schema_version,
         "generated_at": _format_utc(generated_at),
         "data_cutoff": data_cutoff,
         "model": {"family": model_family, "version": model_version},
@@ -515,11 +578,62 @@ def _latest_json_bytes(
     return _json_bytes(payload)
 
 
+def _shadow_publication_files(
+    source: _ShadowSourceOutputs,
+    *,
+    generated_at: datetime,
+) -> tuple[dict[str, bytes], dict[str, Any]]:
+    rows = _read_prediction_rows(source.latest_csv_bytes)
+    metadata = _publication_metadata(rows, source.upcoming_report)
+    latest_checksum = _sha256(source.latest_csv_bytes)
+    latest_json = _latest_json_bytes(
+        rows,
+        generated_at=generated_at,
+        data_cutoff=str(metadata["data_cutoff"]),
+        model_family=str(metadata["model_family"]),
+        model_version=str(metadata["model_version"]),
+        checksum=latest_checksum,
+        schema_version=SHADOW_LATEST_JSON_SCHEMA_VERSION,
+    )
+    scorecard_summary = _prospective_scorecard_summary(source.scorecard_json)
+    files = {
+        "shadow/contextual_latest.csv": source.latest_csv_bytes,
+        "shadow/contextual_latest.json": latest_json,
+        "shadow/contextual_upcoming.md": source.upcoming_report_bytes,
+        "shadow/contextual_scorecard.json": source.scorecard_json_bytes,
+        "shadow/contextual_scorecard.md": source.scorecard_report_bytes,
+        "shadow/contextual_comparison.md": source.comparison_report_bytes,
+    }
+    checksums = {relative_path: _sha256(content) for relative_path, content in files.items()}
+    manifest = {
+        "schema_version": "shadow_contextual_publication_manifest_v1",
+        "version": PUBLICATION_VERSION,
+        "generated_at": _format_utc(generated_at),
+        "data_cutoff": str(metadata["data_cutoff"]),
+        "model": {
+            "family": str(metadata["model_family"]),
+            "version": str(metadata["model_version"]),
+        },
+        "prediction_context": scorecard_summary["prediction_context"],
+        "checksum": latest_checksum,
+        "checksums": checksums,
+        "prediction_count": len(rows),
+        "scorecard": scorecard_summary,
+        "published_files": sorted(files),
+    }
+    files["shadow/manifest.json"] = _json_bytes(manifest)
+    return files, manifest
+
+
 def _json_bytes(payload: Mapping[str, Any]) -> bytes:
     return (json.dumps(payload, indent=2, sort_keys=True) + "\n").encode("utf-8")
 
 
-def _source_fingerprint(source: _SourceOutputs) -> str:
+def _source_fingerprint(
+    source: _SourceOutputs,
+    *,
+    shadow_source: _ShadowSourceOutputs | None,
+) -> str:
     digest = hashlib.sha256()
     for content in (
         source.latest_csv_bytes,
@@ -530,6 +644,16 @@ def _source_fingerprint(source: _SourceOutputs) -> str:
     ):
         digest.update(len(content).to_bytes(8, "big"))
         digest.update(content)
+    if shadow_source is not None:
+        for content in (
+            shadow_source.latest_csv_bytes,
+            shadow_source.upcoming_report_bytes,
+            shadow_source.scorecard_json_bytes,
+            shadow_source.scorecard_report_bytes,
+            shadow_source.comparison_report_bytes,
+        ):
+            digest.update(len(content).to_bytes(8, "big"))
+            digest.update(content)
     return digest.hexdigest()
 
 
@@ -562,6 +686,11 @@ def _required_outputs_match(
     ]
     if history_path is not None:
         required.append(history_path)
+    published_files = manifest.get("published_files")
+    if isinstance(published_files, list):
+        for item in published_files:
+            if isinstance(item, str) and item.startswith("shadow/"):
+                required.append(output_root / item)
     checksums = manifest.get("checksums")
     if not isinstance(checksums, Mapping):
         return False

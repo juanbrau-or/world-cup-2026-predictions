@@ -97,6 +97,32 @@ def test_latest_json_matches_latest_csv(tmp_path: Path) -> None:
     assert latest["predictions"][0]["home_team_name"] == "Mexico"
 
 
+def test_prepare_publication_includes_shadow_contextual_outputs(tmp_path: Path) -> None:
+    predictions_root = _write_predictions_root(tmp_path, rows=[_prediction_row()])
+    _write_shadow_outputs(predictions_root)
+    output_root = tmp_path / "branch"
+
+    prepare_predictions_publication(
+        predictions_root=predictions_root,
+        output_root=output_root,
+        generated_at=GENERATED_AT,
+    )
+
+    assert (output_root / "shadow" / "contextual_latest.csv").is_file()
+    assert (output_root / "shadow" / "contextual_latest.json").is_file()
+    assert (output_root / "shadow" / "contextual_upcoming.md").is_file()
+    assert (output_root / "shadow" / "contextual_scorecard.json").is_file()
+    assert (output_root / "shadow" / "contextual_scorecard.md").is_file()
+    assert (output_root / "shadow" / "contextual_comparison.md").is_file()
+    assert (output_root / "shadow" / "manifest.json").is_file()
+    assert not (output_root / "shadow" / "contextual_latest.parquet").exists()
+    manifest = _json(output_root / "manifest.json")
+    assert manifest["shadow"]["prediction_context"] == "shadow_contextual_v1"
+    shadow_latest = _json(output_root / "shadow" / "contextual_latest.json")
+    assert shadow_latest["schema_version"] == "shadow_contextual_latest_v1"
+    assert shadow_latest["model"]["family"] == "contextual_challenger"
+
+
 def test_history_is_immutable(tmp_path: Path) -> None:
     predictions_root = _write_predictions_root(tmp_path, rows=[_prediction_row()])
     output_root = tmp_path / "branch"
@@ -225,9 +251,12 @@ def test_prepare_publication_removes_legacy_prospective_evaluation_files(
 def test_allowed_path_validation_rejects_parquet_raw_and_large_models() -> None:
     assert_allowed_publication_path(Path("latest.csv"), size_bytes=100)
     assert_allowed_publication_path(Path("history/20260629T180000Z_abc123.csv.gz"), size_bytes=100)
+    assert_allowed_publication_path(Path("shadow/contextual_latest.csv"), size_bytes=100)
 
     with pytest.raises(PublicationError, match="Parquet"):
         assert_allowed_publication_path(Path("latest.parquet"), size_bytes=100)
+    with pytest.raises(PublicationError, match="Parquet"):
+        assert_allowed_publication_path(Path("shadow/contextual_latest.parquet"), size_bytes=100)
     with pytest.raises(PublicationError, match="raw snapshots and models"):
         assert_allowed_publication_path(Path("data/raw/snapshot.json"), size_bytes=100)
     with pytest.raises(PublicationError, match="too large"):
@@ -310,6 +339,53 @@ def _write_predictions_root(tmp_path: Path, *, rows: list[dict[str, str]]) -> Pa
         encoding="utf-8",
     )
     return root
+
+
+def _write_shadow_outputs(root: Path) -> None:
+    shadow = root / "shadow"
+    shadow.mkdir()
+    row = {
+        **_prediction_row(),
+        "prediction_id": "shadow-1",
+        "model_family": "contextual_challenger",
+        "model_version": "contextual_lgbm_v1",
+        "prediction_context": "shadow_contextual_v1",
+    }
+    _write_latest_csv(shadow / "contextual_latest.csv", rows=[row])
+    (shadow / "contextual_upcoming.md").write_text(
+        "# Shadow Contextual Challenger Predictions\n",
+        encoding="utf-8",
+    )
+    (shadow / "contextual_scorecard.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "prospective_scorecard_v1",
+                "results_cutoff_utc": None,
+                "ledger": {
+                    "schema_version": "prediction_ledger_v1",
+                    "predictions": 1,
+                    "unique_fixtures": 1,
+                    "snapshots": 1,
+                    "validity_counts": {"valid": 1},
+                    "invalidity_counts": {},
+                },
+                "official_selection_policy": {
+                    "policy_id": "shadow_contextual_early_v1",
+                    "policy_version": "shadow_contextual_early_v1_2026_06_30",
+                    "prediction_context": "shadow_contextual_v1",
+                },
+                "official_predictions_selected": 1,
+                "official_predictions_evaluated": 0,
+                "metrics": {"matches": 0},
+                "matches": [],
+            },
+            sort_keys=True,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    (shadow / "contextual_scorecard.md").write_text("# Shadow Scorecard\n", encoding="utf-8")
+    (shadow / "contextual_comparison.md").write_text("# Shadow Comparison\n", encoding="utf-8")
 
 
 def _write_latest_csv(path: Path, *, rows: list[dict[str, str]]) -> None:

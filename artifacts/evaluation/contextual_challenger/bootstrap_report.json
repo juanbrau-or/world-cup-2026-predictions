@@ -1,0 +1,139 @@
+{
+  "baseline_model": "poisson_goal_v1",
+  "favorable_direction": "negative_delta",
+  "rows": [
+    {
+      "bootstrap_iterations": 5000,
+      "ci_high": 0.02835549481871677,
+      "ci_low": -0.037242091364206434,
+      "matches": 195,
+      "mean_delta": -0.005437672873746043,
+      "metric": "log_loss",
+      "pair": "contextual_lgbm_v1::lgbm_contextual_minus_poisson_goal_v1::poisson_official",
+      "proportion_favorable": 0.6358,
+      "random_seed": 2026
+    },
+    {
+      "bootstrap_iterations": 5000,
+      "ci_high": 0.019479741874803683,
+      "ci_low": -0.019445865383191936,
+      "matches": 195,
+      "mean_delta": 0.00026578126416200193,
+      "metric": "brier_score",
+      "pair": "contextual_lgbm_v1::lgbm_contextual_minus_poisson_goal_v1::poisson_official",
+      "proportion_favorable": 0.4966,
+      "random_seed": 2026
+    },
+    {
+      "bootstrap_iterations": 5000,
+      "ci_high": 0.009838332036960018,
+      "ci_low": -0.00410594982390221,
+      "matches": 195,
+      "mean_delta": 0.0027430641860230537,
+      "metric": "ranked_probability_score",
+      "pair": "contextual_lgbm_v1::lgbm_contextual_minus_poisson_goal_v1::poisson_official",
+      "proportion_favorable": 0.224,
+      "random_seed": 2026
+    },
+    {
+      "bootstrap_iterations": 5000,
+      "ci_high": 0.04793804138778919,
+      "ci_low": -0.011955391477492862,
+      "matches": 195,
+      "mean_delta": 0.017448608424070176,
+      "metric": "log_loss",
+      "pair": "contextual_lgbm_v1::lgbm_stack_minus_poisson_goal_v1::poisson_official",
+      "proportion_favorable": 0.133,
+      "random_seed": 2026
+    },
+    {
+      "bootstrap_iterations": 5000,
+      "ci_high": 0.030477445384717868,
+      "ci_low": -0.004350984805620309,
+      "matches": 195,
+      "mean_delta": 0.013488144607007405,
+      "metric": "brier_score",
+      "pair": "contextual_lgbm_v1::lgbm_stack_minus_poisson_goal_v1::poisson_official",
+      "proportion_favorable": 0.0666,
+      "random_seed": 2026
+    },
+    {
+      "bootstrap_iterations": 5000,
+      "ci_high": 0.01304651910575218,
+      "ci_low": 0.0004657625762322079,
+      "matches": 195,
+      "mean_delta": 0.00665547297974135,
+      "metric": "ranked_probability_score",
+      "pair": "contextual_lgbm_v1::lgbm_stack_minus_poisson_goal_v1::poisson_official",
+      "proportion_favorable": 0.0172,
+      "random_seed": 2026
+    },
+    {
+      "bootstrap_iterations": 5000,
+      "ci_high": 0.013253559079248536,
+      "ci_low": -0.026128749546289975,
+      "matches": 195,
+      "mean_delta": -0.006619331721317337,
+      "metric": "log_loss",
+      "pair": "contextual_logit_v1::contextual_logistic_minus_poisson_goal_v1::poisson_official",
+      "proportion_favorable": 0.7434,
+      "random_seed": 2026
+    },
+    {
+      "bootstrap_iterations": 5000,
+      "ci_high": 0.012039231917939663,
+      "ci_low": -0.01329376765837832,
+      "matches": 195,
+      "mean_delta": -0.0008300200759596317,
+      "metric": "brier_score",
+      "pair": "contextual_logit_v1::contextual_logistic_minus_poisson_goal_v1::poisson_official",
+      "proportion_favorable": 0.5504,
+      "random_seed": 2026
+    },
+    {
+      "bootstrap_iterations": 5000,
+      "ci_high": 0.0073632918080619916,
+      "ci_low": -0.002217473006773747,
+      "matches": 195,
+      "mean_delta": 0.0024466590600488933,
+      "metric": "ranked_probability_score",
+      "pair": "contextual_logit_v1::contextual_logistic_minus_poisson_goal_v1::poisson_official",
+      "proportion_favorable": 0.1584,
+      "random_seed": 2026
+    },
+    {
+      "bootstrap_iterations": 5000,
+      "ci_high": 0.026831465196443204,
+      "ci_low": -0.019620496900256627,
+      "matches": 195,
+      "mean_delta": 0.0033260782701372473,
+      "metric": "log_loss",
+      "pair": "contextual_logit_v1::logistic_stack_minus_poisson_goal_v1::poisson_official",
+      "proportion_favorable": 0.4034,
+      "random_seed": 2026
+    },
+    {
+      "bootstrap_iterations": 5000,
+      "ci_high": 0.01810720337728903,
+      "ci_low": -0.011833633022988874,
+      "matches": 195,
+      "mean_delta": 0.0027791871188339702,
+      "metric": "brier_score",
+      "pair": "contextual_logit_v1::logistic_stack_minus_poisson_goal_v1::poisson_official",
+      "proportion_favorable": 0.3678,
+      "random_seed": 2026
+    },
+    {
+      "bootstrap_iterations": 5000,
+      "ci_high": 0.008855679811106059,
+      "ci_low": -0.0023325329381659165,
+      "matches": 195,
+      "mean_delta": 0.0031295974791340528,
+      "metric": "ranked_probability_score",
+      "pair": "contextual_logit_v1::logistic_stack_minus_poisson_goal_v1::poisson_official",
+      "proportion_favorable": 0.1236,
+      "random_seed": 2026
+    }
+  ],
+  "schema_version": "paired_bootstrap_report_v1"
+}

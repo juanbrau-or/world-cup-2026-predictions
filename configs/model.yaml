@@ -173,3 +173,88 @@ dixon_coles_evaluation:
     out_of_fold_predictions_path: artifacts/evaluation/dixon_coles/predictions_out_of_fold.parquet
     holdout_2026_predictions_path: artifacts/evaluation/dixon_coles/predictions_2026_holdout.parquet
     report_path: artifacts/evaluation/dixon_coles/report.md
+
+contextual_challenger:
+  schema_version: contextual_challenger_config_v1
+  official_baseline_model_version: poisson_goal_v1
+  sanity_model_name: contextual_logit_v1
+  primary_model_name: contextual_lgbm_v1
+  shadow_prediction_context: shadow_contextual_v1
+  input_matches_path: data/processed/modeling_matches.parquet
+  contextual_match_features_path: data/processed/contextual_features/match_contextual_features.parquet
+  feature_whitelist_path: configs/contextual_challenger_features.yaml
+  final_holdout_start: "2026-01-01"
+  folds_version: tournament_validation_v1
+  random_seed: 2026
+  bootstrap_iterations: 5000
+  max_threads: 2
+  split:
+    tuning_window_days: 730
+    calibration_window_days: 365
+    minimum_train_matches: 500
+    base_oof_blocks: 5
+  calibration:
+    method: temperature_scaling
+    candidate_temperatures:
+      - 0.75
+      - 0.9
+      - 1.0
+      - 1.1
+      - 1.25
+      - 1.5
+      - 2.0
+  logistic_grid:
+    - name: logit_c_0_3
+      c: 0.3
+      max_iter: 1000
+    - name: logit_c_1_0
+      c: 1.0
+      max_iter: 1000
+  lightgbm_grid:
+    - name: lgbm_compact
+      learning_rate: 0.05
+      n_estimators: 160
+      num_leaves: 15
+      max_depth: 4
+      min_child_samples: 40
+      feature_fraction: 0.9
+      bagging_fraction: 0.9
+      bagging_freq: 1
+      reg_alpha: 0.0
+      reg_lambda: 1.0
+    - name: lgbm_regularized
+      learning_rate: 0.04
+      n_estimators: 220
+      num_leaves: 31
+      max_depth: 5
+      min_child_samples: 60
+      feature_fraction: 0.8
+      bagging_fraction: 0.8
+      bagging_freq: 1
+      reg_alpha: 0.05
+      reg_lambda: 2.0
+  shadow_selection:
+    selected_model_name: contextual_logit_v1
+    selected_ablation: contextual_logistic
+    selected_feature_set: contextual_level_a_v1
+    selected_hyperparameters:
+      name: logit_c_1_0
+      c: 1.0
+      max_iter: 1000
+    calibration_method: temperature_scaling
+    training_cutoff: "2026-01-01"
+    promotion_status: shadow_monitoring
+  outputs:
+    root: artifacts/evaluation/contextual_challenger
+    selected_config_path: artifacts/evaluation/contextual_challenger/selected_config.json
+    model_manifest_path: artifacts/evaluation/contextual_challenger/model_manifest.json
+    fold_metrics_path: artifacts/evaluation/contextual_challenger/fold_metrics.csv
+    segment_metrics_path: artifacts/evaluation/contextual_challenger/segment_metrics.csv
+    paired_comparison_path: artifacts/evaluation/contextual_challenger/paired_comparison.csv
+    bootstrap_report_path: artifacts/evaluation/contextual_challenger/bootstrap_report.json
+    calibration_report_path: artifacts/evaluation/contextual_challenger/calibration_report.json
+    ablation_report_path: artifacts/evaluation/contextual_challenger/ablation_report.csv
+    feature_importance_path: artifacts/evaluation/contextual_challenger/feature_importance.csv
+    out_of_fold_predictions_path: artifacts/evaluation/contextual_challenger/predictions_out_of_fold.parquet
+    holdout_2026_predictions_path: artifacts/evaluation/contextual_challenger/predictions_2026_holdout.parquet
+    report_path: artifacts/evaluation/contextual_challenger/report.md

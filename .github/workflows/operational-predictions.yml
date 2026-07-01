@@ -65,8 +65,11 @@ jobs:
           uv run wc2026 model dixon-coles 2>&1 | tee logs/04_model_dixon_coles.log
           uv run wc2026 ingest world-cup 2>&1 | tee logs/05_ingest_world_cup.log
           uv run wc2026 predict upcoming 2>&1 | tee logs/06_predict_upcoming.log
-          uv run wc2026 evaluate prospective 2>&1 | tee logs/07_evaluate_prospective.log
-          uv run wc2026 prepare contextual-features 2>&1 | tee logs/08_prepare_contextual_features.log
+          uv run wc2026 prepare contextual-features 2>&1 | tee logs/07_prepare_contextual_features.log
+          uv run wc2026 model contextual-challenger 2>&1 | tee logs/08_model_contextual_challenger.log
+          uv run wc2026 predict shadow-contextual 2>&1 | tee logs/09_predict_shadow_contextual.log
+          uv run wc2026 evaluate prospective 2>&1 | tee logs/10_evaluate_prospective.log
+          uv run wc2026 evaluate shadow-contextual 2>&1 | tee logs/11_evaluate_shadow_contextual.log
 
       - name: Test publisher
         run: uv run pytest tests/test_publication.py
@@ -94,7 +97,12 @@ jobs:
             predictions/upcoming.md \
             predictions/prospective_scorecard.json \
             predictions/prospective_scorecard.md \
-            predictions/prospective_matches.csv
+            predictions/prospective_matches.csv \
+            predictions/shadow/contextual_latest.csv \
+            predictions/shadow/contextual_upcoming.md \
+            predictions/shadow/contextual_scorecard.json \
+            predictions/shadow/contextual_scorecard.md \
+            predictions/shadow/contextual_comparison.md
 
       - name: Upload Parquet artifacts
         uses: actions/upload-artifact@v7.0.1
