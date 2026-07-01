@@ -1,7 +1,7 @@
 # Prospective Scorecard
 
-Generated UTC: 2026-07-01T04:07:04Z
-Results cutoff UTC: 2026-07-01T04:05:49.927079Z
+Generated UTC: 2026-07-01T06:35:09Z
+Results cutoff UTC: 2026-07-01T06:34:58.748311Z
 1X2 metric basis: 90-minute result (`result_90`). Extra time and penalties are reported separately and are not mixed into the 1X2 metric.
 
 ## Official Policy
@@ -15,25 +15,25 @@ Fallback rule: earliest_valid_before_kickoff
 
 ## Metrics
 
-Official matches evaluated: 2
+Official matches evaluated: 3
 
 | Metric | Value |
 | --- | ---: |
-| log loss | 0.581892 |
-| Brier score | 0.297967 |
-| RPS | 0.126900 |
-| accuracy | 1.000000 |
+| log loss | 0.781380 |
+| Brier score | 0.438868 |
+| RPS | 0.186739 |
+| accuracy | 0.666667 |
 | calibration error | n/a |
-| mean hours before kickoff | 6.302917 |
-| median hours before kickoff | 6.302917 |
+| mean hours before kickoff | 6.545741 |
+| median hours before kickoff | 6.594444 |
 
 ## Baselines
 
 | Baseline | Status | Matches | Log loss | Brier | RPS | Accuracy |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
-| uniform_1x2 | computed | 2 | 1.098612 | 0.666667 | 0.277778 | 0.500000 |
-| historical_frequency_frozen | computed | 2 | 0.981986 | 0.595681 | 0.272598 | 0.500000 |
-| elo_operational | not_available | 2 | n/a | n/a | n/a | n/a |
+| uniform_1x2 | computed | 3 | 1.098612 | 0.666667 | 0.277778 | 0.666667 |
+| historical_frequency_frozen | computed | 3 | 0.894117 | 0.529091 | 0.239303 | 0.666667 |
+| elo_operational | not_available | 3 | n/a | n/a | n/a | n/a |
 
 ## Matches
 
@@ -41,3 +41,4 @@ Official matches evaluated: 2
 | --- | --- | --- | --- | --- | ---: |
 | 2026-06-30T17:00:00Z | Ivory Coast vs Norway | away_win | away_win | latest_valid_at_least_6h_before_kickoff | 0.449251 |
 | 2026-06-30T21:00:00Z | France vs Sweden | home_win | home_win | latest_valid_at_least_6h_before_kickoff | 0.695163 |
+| 2026-07-01T01:00:00Z | Mexico vs Ecuador | away_win | home_win | latest_valid_at_least_6h_before_kickoff | 0.307169 |

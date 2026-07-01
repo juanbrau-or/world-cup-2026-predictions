@@ -1,23 +1,23 @@
 {
   "baselines": {
     "elo_operational": {
-      "matches": 2,
+      "matches": 3,
       "status": "not_available"
     },
     "historical_frequency_frozen": {
       "metrics": {
-        "accuracy": 0.5,
-        "average_hours_before_kickoff": 6.3029166666666665,
-        "brier_score": 0.5956810649450832,
+        "accuracy": 0.6666666666666666,
+        "average_hours_before_kickoff": 6.54574074074074,
+        "brier_score": 0.5290910690625883,
         "calibration_error": null,
         "calibration_minimum_matches": 30,
         "calibration_status": "insufficient_sample",
-        "kickoff_end": "2026-06-30T21:00:00Z",
+        "kickoff_end": "2026-07-01T01:00:00Z",
         "kickoff_start": "2026-06-30T17:00:00Z",
-        "log_loss": 0.981985557017139,
-        "matches": 2,
-        "median_hours_before_kickoff": 6.3029166666666665,
-        "ranked_probability_score": 0.2725981854849599
+        "log_loss": 0.8941173361769129,
+        "matches": 3,
+        "median_hours_before_kickoff": 6.594444444444444,
+        "ranked_probability_score": 0.2393031875437124
       },
       "probabilities": {
         "away_win": 0.2877710099246071,
@@ -28,18 +28,18 @@
     },
     "uniform_1x2": {
       "metrics": {
-        "accuracy": 0.5,
-        "average_hours_before_kickoff": 6.3029166666666665,
-        "brier_score": 0.6666666666666667,
+        "accuracy": 0.6666666666666666,
+        "average_hours_before_kickoff": 6.54574074074074,
+        "brier_score": 0.6666666666666666,
         "calibration_error": null,
         "calibration_minimum_matches": 30,
         "calibration_status": "insufficient_sample",
-        "kickoff_end": "2026-06-30T21:00:00Z",
+        "kickoff_end": "2026-07-01T01:00:00Z",
         "kickoff_start": "2026-06-30T17:00:00Z",
         "log_loss": 1.0986122886681098,
-        "matches": 2,
-        "median_hours_before_kickoff": 6.3029166666666665,
-        "ranked_probability_score": 0.2777777777777778
+        "matches": 3,
+        "median_hours_before_kickoff": 6.594444444444444,
+        "ranked_probability_score": 0.27777777777777785
       },
       "probabilities": {
         "away_win": 0.3333333333333333,
@@ -51,35 +51,35 @@
   },
   "descriptive_metrics_by_horizon_all_valid_predictions": {
     "1_to_6h": {
-      "accuracy": 1.0,
-      "average_hours_before_kickoff": 1.9855555555555555,
-      "brier_score": 0.2030530181669056,
+      "accuracy": 0.5555555555555556,
+      "average_hours_before_kickoff": 3.2827777777777776,
+      "brier_score": 0.43302425281435514,
       "calibration_error": null,
       "calibration_minimum_matches": 30,
       "calibration_status": "insufficient_sample",
-      "kickoff_end": "2026-06-30T21:00:00Z",
+      "kickoff_end": "2026-07-01T01:00:00Z",
       "kickoff_start": "2026-06-30T17:00:00Z",
-      "log_loss": 0.45111722643247615,
-      "matches": 5,
-      "median_hours_before_kickoff": 1.6902777777777778,
-      "ranked_probability_score": 0.08481301028475839
+      "log_loss": 0.7750968375705231,
+      "matches": 9,
+      "median_hours_before_kickoff": 3.031388888888889,
+      "ranked_probability_score": 0.18326636696987633
     },
     "6_to_24h": {
-      "accuracy": 1.0,
-      "average_hours_before_kickoff": 9.155666666666665,
-      "brier_score": 0.2662876745916656,
+      "accuracy": 0.5555555555555556,
+      "average_hours_before_kickoff": 10.555123456790122,
+      "brier_score": 0.4682359963065197,
       "calibration_error": null,
       "calibration_minimum_matches": 30,
       "calibration_status": "insufficient_sample",
-      "kickoff_end": "2026-06-30T21:00:00Z",
+      "kickoff_end": "2026-07-01T01:00:00Z",
       "kickoff_start": "2026-06-30T17:00:00Z",
-      "log_loss": 0.5382352555564475,
-      "matches": 5,
-      "median_hours_before_kickoff": 9.580555555555556,
-      "ranked_probability_score": 0.11285306244059909
+      "log_loss": 0.82362239002119,
+      "matches": 9,
+      "median_hours_before_kickoff": 10.011388888888888,
+      "ranked_probability_score": 0.1988807912018597
     }
   },
-  "generated_at_utc": "2026-07-01T04:07:04Z",
+  "generated_at_utc": "2026-07-01T06:35:09Z",
   "horizons": {
     "buckets": [
       {
@@ -119,12 +119,12 @@
   },
   "ledger": {
     "invalidity_counts": {},
-    "predictions": 128,
+    "predictions": 140,
     "schema_version": "prediction_ledger_v1",
-    "snapshots": 11,
-    "unique_fixtures": 13,
+    "snapshots": 12,
+    "unique_fixtures": 15,
     "validity_counts": {
-      "valid": 128
+      "valid": 140
     }
   },
   "matches": [
@@ -159,7 +159,7 @@
       "probability_draw": 0.2491700038,
       "probability_home_win": 0.3015793695,
       "qualification_winner": "away",
-      "result_data_cutoff_utc": "2026-07-01T04:05:49.927079Z",
+      "result_data_cutoff_utc": "2026-07-01T06:34:58.748311Z",
       "source_fixture_id": "537424",
       "source_snapshot_checksum": "49ee9f74c0281cd15472256f6505182f365f637db3a0d5a11bf3376ae6fc1635",
       "stage": "LAST_32",
@@ -198,9 +198,48 @@
       "probability_draw": 0.1620044927,
       "probability_home_win": 0.6951628203,
       "qualification_winner": "home",
-      "result_data_cutoff_utc": "2026-07-01T04:05:49.927079Z",
+      "result_data_cutoff_utc": "2026-07-01T06:34:58.748311Z",
       "source_fixture_id": "537416",
       "source_snapshot_checksum": "49ee9f74c0281cd15472256f6505182f365f637db3a0d5a11bf3376ae6fc1635",
+      "stage": "LAST_32",
+      "uniform_1x2_probability_away_win": 0.3333333333333333,
+      "uniform_1x2_probability_draw": 0.3333333333333333,
+      "uniform_1x2_probability_home_win": 0.3333333333333333
+    },
+    {
+      "actual_result_90": "home_win",
+      "away_goals_90": 0,
+      "away_goals_after_extra_time": null,
+      "away_penalty_goals": null,
+      "away_team_name": "Ecuador",
+      "data_cutoff_utc": "2026-06-30T17:58:01.944777Z",
+      "dataset_revision": "operational_dataset_v1:f80599aec195c6f7",
+      "extra_time_played": false,
+      "historical_frequency_frozen_probability_away_win": 0.2877710099246071,
+      "historical_frequency_frozen_probability_draw": 0.2246879925033011,
+      "historical_frequency_frozen_probability_home_win": 0.48754099757209185,
+      "home_goals_90": 2,
+      "home_goals_after_extra_time": null,
+      "home_penalty_goals": null,
+      "home_team_name": "Mexico",
+      "horizon_bucket": "6_to_24h",
+      "hours_before_kickoff": 7.0313888888888885,
+      "kickoff_utc": "2026-07-01T01:00:00Z",
+      "metric_result_1x2": "home_win",
+      "model_name": "poisson",
+      "model_version": "poisson_goal_v1",
+      "official_selection_rule": "latest_valid_at_least_6h_before_kickoff",
+      "penalty_shootout": false,
+      "predicted_result": "away_win",
+      "prediction_created_at_utc": "2026-06-30T17:58:07Z",
+      "prediction_id": "ca6a67e67226acf2c7d382c5",
+      "probability_away_win": 0.3644399634,
+      "probability_draw": 0.3283907644,
+      "probability_home_win": 0.3071692722,
+      "qualification_winner": "home",
+      "result_data_cutoff_utc": "2026-07-01T06:34:58.748311Z",
+      "source_fixture_id": "537425",
+      "source_snapshot_checksum": "48bdca32964a00c16559a91025a0a29796f2ffb1ac3818bd144f2b4feb9ef1ad",
       "stage": "LAST_32",
       "uniform_1x2_probability_away_win": 0.3333333333333333,
       "uniform_1x2_probability_draw": 0.3333333333333333,
@@ -208,18 +247,18 @@
     }
   ],
   "metrics": {
-    "accuracy": 1.0,
-    "average_hours_before_kickoff": 6.3029166666666665,
-    "brier_score": 0.29796650867506336,
+    "accuracy": 0.6666666666666666,
+    "average_hours_before_kickoff": 6.54574074074074,
+    "brier_score": 0.4388681386000714,
     "calibration_error": null,
     "calibration_minimum_matches": 30,
     "calibration_status": "insufficient_sample",
-    "kickoff_end": "2026-06-30T21:00:00Z",
+    "kickoff_end": "2026-07-01T01:00:00Z",
     "kickoff_start": "2026-06-30T17:00:00Z",
-    "log_loss": 0.5818917726850044,
-    "matches": 2,
-    "median_hours_before_kickoff": 6.3029166666666665,
-    "ranked_probability_score": 0.12690046772536262
+    "log_loss": 0.7813799511573757,
+    "matches": 3,
+    "median_hours_before_kickoff": 6.594444444444444,
+    "ranked_probability_score": 0.18673879586805356
   },
   "metrics_by_favorite_segment": {
     "favorite": {
@@ -235,42 +274,56 @@
       "matches": 2,
       "median_hours_before_kickoff": 6.3029166666666665,
       "ranked_probability_score": 0.12690046772536262
+    },
+    "non_favorite": {
+      "accuracy": 0.0,
+      "average_hours_before_kickoff": 7.0313888888888885,
+      "brier_score": 0.7206713984500874,
+      "calibration_error": null,
+      "calibration_minimum_matches": 30,
+      "calibration_status": "insufficient_sample",
+      "kickoff_end": "2026-07-01T01:00:00Z",
+      "kickoff_start": "2026-07-01T01:00:00Z",
+      "log_loss": 1.180356308102118,
+      "matches": 1,
+      "median_hours_before_kickoff": 7.0313888888888885,
+      "ranked_probability_score": 0.30641545215343546
     }
   },
   "metrics_by_horizon": {
     "6_to_24h": {
-      "accuracy": 1.0,
-      "average_hours_before_kickoff": 6.3029166666666665,
-      "brier_score": 0.29796650867506336,
+      "accuracy": 0.6666666666666666,
+      "average_hours_before_kickoff": 6.54574074074074,
+      "brier_score": 0.4388681386000714,
       "calibration_error": null,
       "calibration_minimum_matches": 30,
       "calibration_status": "insufficient_sample",
-      "kickoff_end": "2026-06-30T21:00:00Z",
+      "kickoff_end": "2026-07-01T01:00:00Z",
       "kickoff_start": "2026-06-30T17:00:00Z",
-      "log_loss": 0.5818917726850044,
-      "matches": 2,
-      "median_hours_before_kickoff": 6.3029166666666665,
-      "ranked_probability_score": 0.12690046772536262
+      "log_loss": 0.7813799511573757,
+      "matches": 3,
+      "median_hours_before_kickoff": 6.594444444444444,
+      "ranked_probability_score": 0.18673879586805356
     }
   },
   "metrics_by_stage": {
     "LAST_32": {
-      "accuracy": 1.0,
-      "average_hours_before_kickoff": 6.3029166666666665,
-      "brier_score": 0.29796650867506336,
+      "accuracy": 0.6666666666666666,
+      "average_hours_before_kickoff": 6.54574074074074,
+      "brier_score": 0.4388681386000714,
       "calibration_error": null,
       "calibration_minimum_matches": 30,
       "calibration_status": "insufficient_sample",
-      "kickoff_end": "2026-06-30T21:00:00Z",
+      "kickoff_end": "2026-07-01T01:00:00Z",
       "kickoff_start": "2026-06-30T17:00:00Z",
-      "log_loss": 0.5818917726850044,
-      "matches": 2,
-      "median_hours_before_kickoff": 6.3029166666666665,
-      "ranked_probability_score": 0.12690046772536262
+      "log_loss": 0.7813799511573757,
+      "matches": 3,
+      "median_hours_before_kickoff": 6.594444444444444,
+      "ranked_probability_score": 0.18673879586805356
     }
   },
-  "official_predictions_evaluated": 2,
-  "official_predictions_selected": 13,
+  "official_predictions_evaluated": 3,
+  "official_predictions_selected": 15,
   "official_selection_policy": {
     "fallback_rule": {
       "description": "earliest valid prediction before kickoff when the primary rule has no candidate",
@@ -287,7 +340,7 @@
   },
   "result_metric_basis": "result_90",
   "result_metric_basis_description": "1X2 metrics use the 90-minute result only.",
-  "results_cutoff_utc": "2026-07-01T04:05:49.927079Z",
+  "results_cutoff_utc": "2026-07-01T06:34:58.748311Z",
   "schema_version": "prospective_scorecard_v1",
   "small_sample_warning": {
     "applies": true,
