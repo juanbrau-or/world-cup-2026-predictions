@@ -1,10 +1,10 @@
 # Shadow Contextual Challenger Predictions
 
-Data cutoff UTC: 2026-07-01T14:41:30.700881+00:00
+Data cutoff UTC: 2026-07-01T17:59:14.883757+00:00
 Model: contextual_challenger (contextual_logit_v1)
 Prediction context: shadow_contextual_v1
-Official baseline fixtures: 12
-Shadow predictions: 12
+Official baseline fixtures: 11
+Shadow predictions: 11
 Training matches: 23831
 World Cup 2026 finished matches incorporated: 67
 
@@ -12,7 +12,6 @@ World Cup 2026 finished matches incorporated: 67
 
 | Kickoff UTC | Home | Away | P(home) | P(draw) | P(away) |
 | --- | --- | --- | ---: | ---: | ---: |
-| 2026-07-01T16:00:00+00:00 | England | Congo DR | 0.7599 | 0.1276 | 0.1125 |
 | 2026-07-01T20:00:00+00:00 | Belgium | Senegal | 0.4942 | 0.1736 | 0.3322 |
 | 2026-07-02T00:00:00+00:00 | United States | Bosnia-Herzegovina | 0.7646 | 0.1134 | 0.1220 |
 | 2026-07-02T19:00:00+00:00 | Spain | Austria | 0.7716 | 0.1130 | 0.1155 |
