@@ -19,6 +19,12 @@ uv run wc2026 simulate tournament
 El workflow vive en `.github/workflows/operational-predictions.yml`, se ejecuta manualmente con
 `workflow_dispatch` y cada 4 horas con el cron UTC `0 */4 * * *`.
 
+El dashboard estatico vive en `.github/workflows/deploy-dashboard.yml`. Ese workflow se ejecuta
+manualmente, despues de un `Operational Predictions` exitoso y con un schedule de respaldo. Hace
+checkout de `main`, obtiene `predictions-data`, ejecuta
+`uv run wc2026 site build --data-root predictions-data --output-root site-dist` y despliega el
+artifact mediante GitHub Pages Actions. Pages debe estar configurado con source `GitHub Actions`.
+
 ## Secrets de GitHub
 
 Configura los secrets en GitHub:

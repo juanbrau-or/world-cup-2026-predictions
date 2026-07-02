@@ -39,3 +39,20 @@ def test_doctor_fails_outside_project_root(
     assert result.exit_code == 1
     assert "Missing directories" in result.stdout
     assert "Missing files" in result.stdout
+
+
+def test_site_build_reports_missing_data_root() -> None:
+    result = runner.invoke(
+        app,
+        [
+            "site",
+            "build",
+            "--data-root",
+            "missing-predictions-data",
+            "--output-root",
+            "site-dist-test",
+        ],
+    )
+
+    assert result.exit_code == 1
+    assert "data root is missing" in result.stdout

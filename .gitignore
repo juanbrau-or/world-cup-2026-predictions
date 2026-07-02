@@ -50,6 +50,7 @@ Thumbs.db
 /predictions/published-history/**
 /simulations/**
 /dist/
+/site-dist/
 
 # Logs and temporary files
 logs/
