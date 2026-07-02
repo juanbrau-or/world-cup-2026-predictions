@@ -31,6 +31,7 @@ def test_dashboard_workflow_checks_operational_success_and_fetches_data_branch()
     check_script = _step_run(build, "Check Operational Predictions success")
     assert "github.event.workflow_run.conclusion" in check_script
     assert "operational-predictions.yml" in check_script
+    assert '--repo "$GITHUB_REPOSITORY"' in check_script
     assert "exit 1" in check_script
     assert '!= "success"' in check_script
 

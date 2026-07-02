@@ -37,7 +37,7 @@ jobs:
             fi
             echo "Operational Predictions succeeded: ${run_url}"
           else
-            conclusion="$(gh run list --workflow operational-predictions.yml --branch main --limit 1 --json conclusion --jq '.[0].conclusion')"
+            conclusion="$(gh run list --repo "$GITHUB_REPOSITORY" --workflow operational-predictions.yml --branch main --limit 1 --json conclusion --jq '.[0].conclusion')"
             if [ "${conclusion}" != "success" ]; then
               echo "Latest Operational Predictions run on main did not succeed: ${conclusion}" >&2
               exit 1
