@@ -1,37 +1,36 @@
 # Upcoming World Cup 2026 Predictions
 
-Data cutoff UTC: 2026-07-02T17:51:08.709616+00:00
+Data cutoff UTC: 2026-07-02T21:10:25.155145+00:00
 Model: poisson (poisson_goal_v1)
 Half-life days: 730.0
-Training matches: 23834
-World Cup 2026 finished matches incorporated: 70
-Dataset revision: operational_dataset_v1:f75b1fc605d78580
-Live snapshot checksum: a9dfd35935ec9a92f7d6974e751a147edbba412d82fc2e592e3cf53b0f34da28
+Training matches: 23835
+World Cup 2026 finished matches incorporated: 71
+Dataset revision: operational_dataset_v1:abc8ad5f48d69f84
+Live snapshot checksum: baa7d5a6065cbe724c8182847949822d4d795031338d8d218b9764a28fdad1a4
 
 ## Predictions
 
 | Kickoff UTC | Home | Away | P(home) | P(draw) | P(away) | xG home | xG away | Modal |
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
-| 2026-07-02T19:00:00+00:00 | Spain | Austria | 0.6497 | 0.1972 | 0.1531 | 2.1291 | 0.9260 | 2-0 |
-| 2026-07-02T23:00:00+00:00 | Portugal | Croatia | 0.5585 | 0.2203 | 0.2212 | 1.9328 | 1.1389 | 1-1 |
-| 2026-07-03T03:00:00+00:00 | Switzerland | Algeria | 0.4316 | 0.2352 | 0.3332 | 1.6844 | 1.4554 | 1-1 |
-| 2026-07-03T18:00:00+00:00 | Australia | Egypt | 0.3983 | 0.3105 | 0.2912 | 1.0791 | 0.8761 | 1-0 |
-| 2026-07-03T22:00:00+00:00 | Argentina | Cape Verde Islands | 0.8642 | 0.1052 | 0.0306 | 2.6843 | 0.3508 | 2-0 |
-| 2026-07-04T01:30:00+00:00 | Colombia | Ghana | 0.7511 | 0.1631 | 0.0858 | 2.3143 | 0.6401 | 2-0 |
-| 2026-07-04T17:00:00+00:00 | Canada | Morocco | 0.2273 | 0.3051 | 0.4677 | 0.7300 | 1.1857 | 0-1 |
-| 2026-07-04T21:00:00+00:00 | Paraguay | France | 0.1395 | 0.2181 | 0.6423 | 0.7218 | 1.8487 | 0-1 |
-| 2026-07-05T20:00:00+00:00 | Brazil | Norway | 0.6201 | 0.1910 | 0.1889 | 2.3220 | 1.2197 | 2-1 |
-| 2026-07-06T00:00:00+00:00 | Mexico | England | 0.2228 | 0.2692 | 0.5080 | 0.8508 | 1.4357 | 0-1 |
-| 2026-07-07T00:00:00+00:00 | United States | Belgium | 0.2281 | 0.2123 | 0.5596 | 1.2440 | 2.0489 | 1-2 |
+| 2026-07-02T23:00:00+00:00 | Portugal | Croatia | 0.5586 | 0.2203 | 0.2211 | 1.9324 | 1.1380 | 1-1 |
+| 2026-07-03T03:00:00+00:00 | Switzerland | Algeria | 0.4324 | 0.2352 | 0.3325 | 1.6855 | 1.4533 | 1-1 |
+| 2026-07-03T18:00:00+00:00 | Australia | Egypt | 0.3981 | 0.3106 | 0.2913 | 1.0781 | 0.8758 | 1-0 |
+| 2026-07-03T22:00:00+00:00 | Argentina | Cape Verde Islands | 0.8637 | 0.1056 | 0.0308 | 2.6797 | 0.3511 | 2-0 |
+| 2026-07-04T01:30:00+00:00 | Colombia | Ghana | 0.7514 | 0.1629 | 0.0856 | 2.3154 | 0.6395 | 2-0 |
+| 2026-07-04T17:00:00+00:00 | Canada | Morocco | 0.2272 | 0.3052 | 0.4676 | 0.7296 | 1.1851 | 0-1 |
+| 2026-07-04T21:00:00+00:00 | Paraguay | France | 0.1395 | 0.2182 | 0.6423 | 0.7214 | 1.8480 | 0-1 |
+| 2026-07-05T20:00:00+00:00 | Brazil | Norway | 0.6204 | 0.1909 | 0.1886 | 2.3223 | 1.2185 | 2-1 |
+| 2026-07-06T00:00:00+00:00 | Mexico | England | 0.2227 | 0.2692 | 0.5080 | 0.8503 | 1.4355 | 0-1 |
+| 2026-07-07T00:00:00+00:00 | United States | Belgium | 0.2284 | 0.2124 | 0.5592 | 1.2441 | 2.0469 | 1-2 |
 
 ## Exclusions
 
 | Reason | Fixtures |
 | --- | ---: |
-| finished | 82 |
+| finished | 83 |
 
 ## Files
 
 - Latest CSV: `predictions/latest.csv`
 - Latest Parquet: `predictions/latest.parquet`
-- Historical snapshot: `predictions/history/20260702T175111000000Z_d30cf64ec3fe.parquet`
+- Historical snapshot: `predictions/history/20260702T211027000000Z_4789b1002066.parquet`
