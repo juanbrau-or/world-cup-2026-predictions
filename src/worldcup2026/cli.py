@@ -77,6 +77,7 @@ from worldcup2026.simulation.tournament import (
     run_tournament_simulation,
     simulation_report_summary,
 )
+from worldcup2026.site import SiteBuildError, build_site
 
 app = typer.Typer(no_args_is_help=True)
 ingest_app = typer.Typer(no_args_is_help=True)
@@ -89,6 +90,7 @@ publish_app = typer.Typer(no_args_is_help=True)
 operational_app = typer.Typer(no_args_is_help=True)
 report_app = typer.Typer(no_args_is_help=True)
 simulate_app = typer.Typer(no_args_is_help=True)
+site_app = typer.Typer(no_args_is_help=True)
 console = Console()
 
 MIN_PYTHON = (3, 11)
@@ -130,6 +132,7 @@ app.add_typer(publish_app, name="publish", help="Prepare branch-safe prediction 
 app.add_typer(operational_app, name="operational", help="Operational workflow helpers.")
 app.add_typer(report_app, name="report", help="Read generated reports.")
 app.add_typer(simulate_app, name="simulate", help="Run tournament simulations.")
+app.add_typer(site_app, name="site", help="Build the static public dashboard.")
 
 
 @app.command()
@@ -162,6 +165,40 @@ def doctor() -> None:
         raise typer.Exit(code=1)
 
     console.print("[green]Initial environment looks healthy for Phase 0.[/green]")
+
+
+@site_app.command("build")
+def site_build(
+    data_root: Annotated[
+        Path,
+        typer.Option(
+            "--data-root",
+            help="Checked-out predictions-data root containing manifest.json.",
+        ),
+    ],
+    output_root: Annotated[
+        Path,
+        typer.Option(
+            "--output-root",
+            help="Static site output directory for GitHub Pages artifact upload.",
+        ),
+    ] = Path("site-dist"),
+) -> None:
+    """Build the static dashboard from public prediction outputs."""
+
+    try:
+        result = build_site(data_root=data_root, output_root=output_root)
+    except SiteBuildError as exc:
+        console.print(f"[red]{exc}[/red]")
+        raise typer.Exit(code=1) from exc
+
+    console.print(f"Site output: {result.output_root}")
+    console.print(f"Pages: {result.page_count}")
+    console.print(f"Build manifest: {result.manifest_path}")
+    console.print(f"Checksum report: {result.checksum_report_path}")
+    console.print(f"Site checksum: {result.site_checksum}")
+    for warning in result.warnings:
+        console.print(f"[yellow]Warning: {warning}[/yellow]")
 
 
 @ingest_app.command("historical")
@@ -422,6 +459,9 @@ def audit_simulation(
     console.print(f"Team rows: {summary['team_rows']}")
     console.print(f"Rules: {summary['rule_version']}")
     console.print(f"Model: {summary['model_version']}")
+    console.print(f"Fallback counts: {summary['fallback_counts']}")
+    if summary["runs_with_random_lot_proxy"] is not None:
+        console.print(f"Runs with random_lot_proxy: {summary['runs_with_random_lot_proxy']}")
 
 
 @audit_app.command("contextual-features")

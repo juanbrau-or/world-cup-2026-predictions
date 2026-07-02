@@ -1908,11 +1908,35 @@ def audit_simulation_outputs(simulations_root: Path = Path("simulations")) -> Ma
     if not isinstance(model, Mapping) or model.get("version") != OFFICIAL_MODEL_VERSION:
         raise TournamentSimulationError("simulation manifest has unexpected model version")
     annex_c_table()
+    fallback_counts = manifest.get("fallback_counts")
+    fallback_summary: Mapping[str, object] = (
+        fallback_counts if isinstance(fallback_counts, Mapping) else {}
+    )
+    parquet_path = latest / "simulation_results.parquet"
+    runs_with_random_lot_proxy: int | None = None
+    if parquet_path.is_file():
+        simulation_rows = _read_parquet_rows(parquet_path)
+        random_lot_total = sum(
+            int(row.get("random_lot_proxy_count") or 0)
+            for row in simulation_rows
+        )
+        runs_with_random_lot_proxy = sum(
+            1
+            for row in simulation_rows
+            if int(row.get("random_lot_proxy_count") or 0) > 0
+        )
+        manifest_random_lot = int(_object_float(fallback_summary.get("random_lot_proxy") or 0))
+        if manifest_random_lot != random_lot_total:
+            raise TournamentSimulationError(
+                "simulation fallback count does not match trajectory rows"
+            )
     return {
         "team_rows": len(rows),
         "rule_version": RULE_VERSION,
         "model_version": OFFICIAL_MODEL_VERSION,
         "simulation_run_id": manifest.get("simulation_run_id"),
+        "fallback_counts": dict(fallback_summary),
+        "runs_with_random_lot_proxy": runs_with_random_lot_proxy,
     }
 
 

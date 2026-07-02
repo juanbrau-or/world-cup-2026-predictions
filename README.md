@@ -67,6 +67,7 @@ uv run wc2026 predict shadow-contextual
 uv run wc2026 evaluate shadow-contextual
 uv run wc2026 simulate tournament
 uv run wc2026 audit simulation
+uv run wc2026 site build --data-root <predictions-data-root> --output-root site-dist
 ```
 
 Cada respuesta de colección y cada miembro de fixture se conserva sin sobrescribir en
@@ -93,6 +94,9 @@ Consulta `docs/CONTEXTUAL_FEATURES.md`.
 `simulate tournament` calcula probabilidades de grupo, rondas eliminatorias y campeon usando
 exclusivamente el modelo oficial `poisson_goal_v1`. Conserva partidos observados, simula solo lo no
 observado y escribe resultados en `simulations/`. Consulta `docs/TOURNAMENT_SIMULATION.md`.
+
+`site build` genera un dashboard estatico de solo lectura desde la rama publica `predictions-data`.
+No lee raw payloads, Parquet, modelos ni secrets. Consulta `docs/STATIC_DASHBOARD.md`.
 
 ## Automatizacion operativa
 

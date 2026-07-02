@@ -70,3 +70,6 @@ Cada grupo de features debe pasar una prueba de ablación.
 - GitHub Actions para tests y actualización programada.
 - Artefactos CSV/JSON y reporte legible.
 - Opcional: dashboard estático o Streamlit.
+
+**Estado:** dashboard estatico implementado con `wc2026 site build` y despliegue por GitHub Pages
+Actions desde la rama publica `predictions-data`. Ver `docs/STATIC_DASHBOARD.md`.
