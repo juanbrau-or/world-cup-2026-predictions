@@ -46,7 +46,7 @@
     }
   },
   "descriptive_metrics_by_horizon_all_valid_predictions": {},
-  "generated_at_utc": "2026-07-02T03:48:30Z",
+  "generated_at_utc": "2026-07-02T07:36:53Z",
   "horizons": {
     "buckets": [
       {
@@ -86,12 +86,12 @@
   },
   "ledger": {
     "invalidity_counts": {},
-    "predictions": 9,
+    "predictions": 11,
     "schema_version": "prediction_ledger_v1",
     "snapshots": 1,
-    "unique_fixtures": 9,
+    "unique_fixtures": 11,
     "validity_counts": {
-      "valid": 9
+      "valid": 11
     }
   },
   "matches": [],
@@ -113,7 +113,7 @@
   "metrics_by_horizon": {},
   "metrics_by_stage": {},
   "official_predictions_evaluated": 0,
-  "official_predictions_selected": 9,
+  "official_predictions_selected": 11,
   "official_selection_policy": {
     "fallback_rule": {
       "description": "earliest valid prediction before kickoff when the primary rule has no candidate",
@@ -130,7 +130,7 @@
   },
   "result_metric_basis": "result_90",
   "result_metric_basis_description": "1X2 metrics use the 90-minute result only.",
-  "results_cutoff_utc": "2026-07-02T03:47:05.735921Z",
+  "results_cutoff_utc": "2026-07-02T07:35:28.558834Z",
   "schema_version": "prospective_scorecard_v1",
   "small_sample_warning": {
     "applies": true,

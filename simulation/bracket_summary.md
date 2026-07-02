@@ -1,4 +1,4 @@
-Data cutoff UTC: 2026-07-01T21:40:07.099957Z
+Data cutoff UTC: 2026-07-02T07:35:28.558834Z
 Model: poisson (poisson_goal_v1)
 Rules: world_cup_2026_rules_v1
 Simulations: 25000
@@ -31,13 +31,13 @@ Unmodelled fair play/FIFA-ranking ties use deterministic random_lot_proxy.
 | round_of_16:canada v morocco | 1.000 |
 | round_of_16:brazil v norway | 1.000 |
 | round_of_16:mexico v england | 1.000 |
-| round_of_16:argentina v australia | 0.536 |
-| round_of_16:portugal v spain | 0.534 |
-| quarter_final:france v morocco | 0.498 |
-| quarter_final:brazil v england | 0.482 |
-| round_of_16:switzerland v colombia | 0.478 |
-| round_of_16:united_states v belgium | 0.458 |
-| quarter_final:argentina v colombia | 0.440 |
-| round_of_16:argentina v egypt | 0.407 |
-| round_of_16:algeria v colombia | 0.383 |
-| round_of_16:united_states v senegal | 0.299 |
+| round_of_16:united_states v belgium | 1.000 |
+| round_of_16:portugal v spain | 0.529 |
+| round_of_16:argentina v australia | 0.529 |
+| quarter_final:france v morocco | 0.500 |
+| quarter_final:brazil v england | 0.489 |
+| round_of_16:switzerland v colombia | 0.483 |
+| quarter_final:argentina v colombia | 0.442 |
+| round_of_16:argentina v egypt | 0.414 |
+| round_of_16:algeria v colombia | 0.378 |
+| quarter_final:spain v belgium | 0.340 |
