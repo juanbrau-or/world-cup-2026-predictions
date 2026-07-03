@@ -1,7 +1,7 @@
 # Prospective Scorecard
 
-Generated UTC: 2026-07-02T21:10:34Z
-Results cutoff UTC: 2026-07-02T21:10:25.155145Z
+Generated UTC: 2026-07-03T03:27:53Z
+Results cutoff UTC: 2026-07-03T03:27:44.834130Z
 1X2 metric basis: 90-minute result (`result_90`). Extra time and penalties are reported separately and are not mixed into the 1X2 metric.
 
 ## Official Policy
@@ -15,25 +15,25 @@ Fallback rule: earliest_valid_before_kickoff
 
 ## Metrics
 
-Official matches evaluated: 7
+Official matches evaluated: 8
 
 | Metric | Value |
 | --- | ---: |
-| log loss | 0.731510 |
-| Brier score | 0.400395 |
-| RPS | 0.135200 |
-| accuracy | 0.714286 |
+| log loss | 0.712892 |
+| Brier score | 0.386900 |
+| RPS | 0.133544 |
+| accuracy | 0.750000 |
 | calibration error | n/a |
-| mean hours before kickoff | 7.414643 |
-| median hours before kickoff | 7.031389 |
+| mean hours before kickoff | 7.599271 |
+| median hours before kickoff | 7.654306 |
 
 ## Baselines
 
 | Baseline | Status | Matches | Log loss | Brier | RPS | Accuracy |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
-| uniform_1x2 | computed | 7 | 1.098612 | 0.666667 | 0.253968 | 0.714286 |
-| historical_frequency_frozen | computed | 7 | 0.904362 | 0.528089 | 0.199472 | 0.714286 |
-| elo_operational | not_available | 7 | n/a | n/a | n/a | n/a |
+| uniform_1x2 | computed | 8 | 1.098612 | 0.666667 | 0.256944 | 0.750000 |
+| historical_frequency_frozen | computed | 8 | 0.881115 | 0.511567 | 0.196127 | 0.750000 |
+| elo_operational | not_available | 8 | n/a | n/a | n/a | n/a |
 
 ## Matches
 
@@ -46,3 +46,4 @@ Official matches evaluated: 7
 | 2026-07-01T20:00:00Z | Belgium vs Senegal | home_win | draw | latest_valid_at_least_6h_before_kickoff | 0.243586 |
 | 2026-07-02T00:00:00Z | United States vs Bosnia-Herzegovina | home_win | home_win | latest_valid_at_least_6h_before_kickoff | 0.636751 |
 | 2026-07-02T19:00:00Z | Spain vs Austria | home_win | home_win | latest_valid_at_least_6h_before_kickoff | 0.649742 |
+| 2026-07-02T23:00:00Z | Portugal vs Croatia | home_win | home_win | latest_valid_at_least_6h_before_kickoff | 0.558464 |
