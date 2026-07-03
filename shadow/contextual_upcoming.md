@@ -1,10 +1,10 @@
 # Shadow Contextual Challenger Predictions
 
-Data cutoff UTC: 2026-07-03T17:28:25.329766+00:00
+Data cutoff UTC: 2026-07-03T21:10:04.743922+00:00
 Model: contextual_challenger (contextual_logit_v1)
 Prediction context: shadow_contextual_v1
-Official baseline fixtures: 8
-Shadow predictions: 8
+Official baseline fixtures: 7
+Shadow predictions: 7
 Training matches: 23837
 World Cup 2026 finished matches incorporated: 73
 
@@ -12,7 +12,6 @@ World Cup 2026 finished matches incorporated: 73
 
 | Kickoff UTC | Home | Away | P(home) | P(draw) | P(away) |
 | --- | --- | --- | ---: | ---: | ---: |
-| 2026-07-03T18:00:00+00:00 | Australia | Egypt | 0.5093 | 0.2038 | 0.2869 |
 | 2026-07-03T22:00:00+00:00 | Argentina | Cape Verde Islands | 0.9322 | 0.0438 | 0.0239 |
 | 2026-07-04T01:30:00+00:00 | Colombia | Ghana | 0.8515 | 0.0828 | 0.0656 |
 | 2026-07-04T17:00:00+00:00 | Canada | Morocco | 0.1819 | 0.1773 | 0.6408 |
