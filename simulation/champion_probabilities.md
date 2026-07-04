@@ -1,4 +1,4 @@
-Data cutoff UTC: 2026-07-04T13:38:03.829738Z
+Data cutoff UTC: 2026-07-04T17:08:46.306141Z
 Model: poisson (poisson_goal_v1)
 Rules: world_cup_2026_rules_v1
 Simulations: 25000
@@ -11,21 +11,21 @@ Unmodelled fair play/FIFA-ranking ties use deterministic random_lot_proxy.
 
 | Rank | Team | Champion | Final | Semi-final |
 | ---: | --- | ---: | ---: | ---: |
-| 1 | argentina | 0.255 | 0.386 | 0.590 |
-| 2 | spain | 0.152 | 0.288 | 0.441 |
-| 3 | brazil | 0.123 | 0.219 | 0.438 |
-| 4 | france | 0.108 | 0.238 | 0.479 |
-| 5 | england | 0.082 | 0.157 | 0.340 |
-| 6 | portugal | 0.062 | 0.140 | 0.248 |
-| 7 | colombia | 0.058 | 0.119 | 0.249 |
-| 8 | morocco | 0.057 | 0.140 | 0.317 |
-| 9 | belgium | 0.045 | 0.119 | 0.247 |
-| 10 | switzerland | 0.014 | 0.038 | 0.107 |
-| 11 | mexico | 0.013 | 0.036 | 0.119 |
-| 12 | norway | 0.010 | 0.029 | 0.102 |
-| 13 | canada | 0.010 | 0.038 | 0.131 |
+| 1 | argentina | 0.255 | 0.387 | 0.590 |
+| 2 | spain | 0.149 | 0.286 | 0.440 |
+| 3 | brazil | 0.124 | 0.220 | 0.439 |
+| 4 | france | 0.108 | 0.239 | 0.480 |
+| 5 | england | 0.082 | 0.155 | 0.340 |
+| 6 | portugal | 0.063 | 0.140 | 0.250 |
+| 7 | colombia | 0.058 | 0.119 | 0.248 |
+| 8 | morocco | 0.058 | 0.142 | 0.316 |
+| 9 | belgium | 0.044 | 0.118 | 0.245 |
+| 10 | switzerland | 0.013 | 0.038 | 0.107 |
+| 11 | mexico | 0.013 | 0.036 | 0.120 |
+| 12 | canada | 0.010 | 0.039 | 0.130 |
+| 13 | norway | 0.010 | 0.029 | 0.102 |
 | 14 | egypt | 0.005 | 0.016 | 0.055 |
-| 15 | united_states | 0.004 | 0.019 | 0.064 |
+| 15 | united_states | 0.004 | 0.020 | 0.065 |
 | 16 | paraguay | 0.004 | 0.017 | 0.073 |
 | 17 | algeria | 0.000 | 0.000 | 0.000 |
 | 18 | australia | 0.000 | 0.000 | 0.000 |
@@ -34,4 +34,4 @@ Unmodelled fair play/FIFA-ranking ties use deterministic random_lot_proxy.
 
 ## Mexico
 
-Mexico champion probability: 0.013; final: 0.036; semi-final: 0.119.
+Mexico champion probability: 0.013; final: 0.036; semi-final: 0.120.
