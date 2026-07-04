@@ -1,7 +1,7 @@
 # Prospective Scorecard
 
-Generated UTC: 2026-07-04T03:21:07Z
-Results cutoff UTC: 2026-07-04T03:20:57.593918Z
+Generated UTC: 2026-07-04T06:48:57Z
+Results cutoff UTC: 2026-07-04T06:48:51.247283Z
 1X2 metric basis: 90-minute result (`result_90`). Extra time and penalties are reported separately and are not mixed into the 1X2 metric.
 
 ## Official Policy
@@ -15,25 +15,25 @@ Fallback rule: earliest_valid_before_kickoff
 
 ## Metrics
 
-Official matches evaluated: 9
+Official matches evaluated: 12
 
 | Metric | Value |
 | --- | ---: |
-| log loss | 0.727031 |
-| Brier score | 0.398282 |
-| RPS | 0.142818 |
-| accuracy | 0.777778 |
+| log loss | 0.853561 |
+| Brier score | 0.495331 |
+| RPS | 0.151226 |
+| accuracy | 0.666667 |
 | calibration error | n/a |
-| mean hours before kickoff | 7.771235 |
-| median hours before kickoff | 8.277222 |
+| mean hours before kickoff | 7.761713 |
+| median hours before kickoff | 7.924028 |
 
 ## Baselines
 
 | Baseline | Status | Matches | Log loss | Brier | RPS | Accuracy |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
-| uniform_1x2 | computed | 9 | 1.098612 | 0.666667 | 0.259259 | 0.777778 |
-| historical_frequency_frozen | computed | 9 | 0.863033 | 0.498716 | 0.193526 | 0.777778 |
-| elo_operational | not_available | 9 | n/a | n/a | n/a | n/a |
+| uniform_1x2 | computed | 12 | 1.098612 | 0.666667 | 0.236111 | 0.666667 |
+| historical_frequency_frozen | computed | 12 | 0.955980 | 0.560633 | 0.186246 | 0.666667 |
+| elo_operational | not_available | 12 | n/a | n/a | n/a | n/a |
 
 ## Matches
 
@@ -48,3 +48,6 @@ Official matches evaluated: 9
 | 2026-07-02T19:00:00Z | Spain vs Austria | home_win | home_win | latest_valid_at_least_6h_before_kickoff | 0.649742 |
 | 2026-07-02T23:00:00Z | Portugal vs Croatia | home_win | home_win | latest_valid_at_least_6h_before_kickoff | 0.558464 |
 | 2026-07-03T03:00:00Z | Switzerland vs Algeria | home_win | home_win | latest_valid_at_least_6h_before_kickoff | 0.431648 |
+| 2026-07-03T18:00:00Z | Australia vs Egypt | home_win | draw | latest_valid_at_least_6h_before_kickoff | 0.311112 |
+| 2026-07-03T22:00:00Z | Argentina vs Cape Verde Islands | home_win | draw | latest_valid_at_least_6h_before_kickoff | 0.105834 |
+| 2026-07-04T01:30:00Z | Colombia vs Ghana | home_win | home_win | latest_valid_at_least_6h_before_kickoff | 0.751287 |
