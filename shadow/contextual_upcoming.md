@@ -1,6 +1,6 @@
 # Shadow Contextual Challenger Predictions
 
-Data cutoff UTC: 2026-07-04T06:48:51.247283+00:00
+Data cutoff UTC: 2026-07-04T10:12:49.254928+00:00
 Model: contextual_challenger (contextual_logit_v1)
 Prediction context: shadow_contextual_v1
 Official baseline fixtures: 8
@@ -12,13 +12,13 @@ World Cup 2026 finished matches incorporated: 76
 
 | Kickoff UTC | Home | Away | P(home) | P(draw) | P(away) |
 | --- | --- | --- | ---: | ---: | ---: |
-| 2026-07-04T17:00:00+00:00 | Canada | Morocco | 0.1800 | 0.1732 | 0.6468 |
-| 2026-07-04T21:00:00+00:00 | Paraguay | France | 0.1100 | 0.1216 | 0.7684 |
-| 2026-07-05T20:00:00+00:00 | Brazil | Norway | 0.6402 | 0.1348 | 0.2250 |
-| 2026-07-06T00:00:00+00:00 | Mexico | England | 0.2879 | 0.1910 | 0.5211 |
-| 2026-07-06T19:00:00+00:00 | Portugal | Spain | 0.2290 | 0.1647 | 0.6064 |
-| 2026-07-07T00:00:00+00:00 | United States | Belgium | 0.3263 | 0.1689 | 0.5048 |
-| 2026-07-07T16:00:00+00:00 | Argentina | Egypt | 0.8213 | 0.1010 | 0.0777 |
-| 2026-07-07T20:00:00+00:00 | Switzerland | Colombia | 0.2663 | 0.1721 | 0.5616 |
+| 2026-07-04T17:00:00+00:00 | Canada | Morocco | 0.1785 | 0.1727 | 0.6489 |
+| 2026-07-04T21:00:00+00:00 | Paraguay | France | 0.1092 | 0.1212 | 0.7696 |
+| 2026-07-05T20:00:00+00:00 | Brazil | Norway | 0.6380 | 0.1349 | 0.2271 |
+| 2026-07-06T00:00:00+00:00 | Mexico | England | 0.2864 | 0.1905 | 0.5230 |
+| 2026-07-06T19:00:00+00:00 | Portugal | Spain | 0.2282 | 0.1645 | 0.6073 |
+| 2026-07-07T00:00:00+00:00 | United States | Belgium | 0.3258 | 0.1689 | 0.5053 |
+| 2026-07-07T16:00:00+00:00 | Argentina | Egypt | 0.8200 | 0.1015 | 0.0785 |
+| 2026-07-07T20:00:00+00:00 | Switzerland | Colombia | 0.2656 | 0.1719 | 0.5625 |
 
 poisson_goal_v1 remains the official model; these predictions are shadow only.
