@@ -1,7 +1,7 @@
 # Prospective Scorecard
 
-Generated UTC: 2026-07-04T21:00:36Z
-Results cutoff UTC: 2026-07-04T21:00:25.905569Z
+Generated UTC: 2026-07-05T03:37:15Z
+Results cutoff UTC: 2026-07-05T03:37:05.027128Z
 1X2 metric basis: 90-minute result (`result_90`). Extra time and penalties are reported separately and are not mixed into the 1X2 metric.
 
 ## Official Policy
@@ -15,25 +15,25 @@ Fallback rule: earliest_valid_before_kickoff
 
 ## Metrics
 
-Official matches evaluated: 13
+Official matches evaluated: 14
 
 | Metric | Value |
 | --- | ---: |
-| log loss | 0.846534 |
-| Brier score | 0.490298 |
-| RPS | 0.152514 |
-| accuracy | 0.692308 |
+| log loss | 0.817578 |
+| Brier score | 0.469138 |
+| RPS | 0.146848 |
+| accuracy | 0.714286 |
 | calibration error | n/a |
-| mean hours before kickoff | 7.686645 |
-| median hours before kickoff | 7.822222 |
+| mean hours before kickoff | 7.663671 |
+| median hours before kickoff | 7.593611 |
 
 ## Baselines
 
 | Baseline | Status | Matches | Log loss | Brier | RPS | Accuracy |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
-| uniform_1x2 | computed | 13 | 1.098612 | 0.666667 | 0.239316 | 0.615385 |
-| historical_frequency_frozen | computed | 13 | 0.978258 | 0.578696 | 0.200572 | 0.615385 |
-| elo_operational | not_available | 13 | n/a | n/a | n/a | n/a |
+| uniform_1x2 | computed | 14 | 1.098612 | 0.666667 | 0.242063 | 0.571429 |
+| historical_frequency_frozen | computed | 14 | 0.997353 | 0.594178 | 0.212851 | 0.571429 |
+| elo_operational | not_available | 14 | n/a | n/a | n/a | n/a |
 
 ## Matches
 
@@ -52,3 +52,4 @@ Official matches evaluated: 13
 | 2026-07-03T22:00:00Z | Argentina vs Cape Verde Islands | home_win | draw | latest_valid_at_least_6h_before_kickoff | 0.105834 |
 | 2026-07-04T01:30:00Z | Colombia vs Ghana | home_win | home_win | latest_valid_at_least_6h_before_kickoff | 0.751287 |
 | 2026-07-04T17:00:00Z | Canada vs Morocco | away_win | away_win | latest_valid_at_least_6h_before_kickoff | 0.466634 |
+| 2026-07-04T21:00:00Z | Paraguay vs France | away_win | away_win | latest_valid_at_least_6h_before_kickoff | 0.643298 |
