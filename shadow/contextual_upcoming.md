@@ -1,10 +1,10 @@
 # Shadow Contextual Challenger Predictions
 
-Data cutoff UTC: 2026-07-05T03:37:05.027128+00:00
+Data cutoff UTC: 2026-07-05T07:28:58.282959+00:00
 Model: contextual_challenger (contextual_logit_v1)
 Prediction context: shadow_contextual_v1
-Official baseline fixtures: 6
-Shadow predictions: 6
+Official baseline fixtures: 7
+Shadow predictions: 7
 Training matches: 23842
 World Cup 2026 finished matches incorporated: 78
 
@@ -18,5 +18,6 @@ World Cup 2026 finished matches incorporated: 78
 | 2026-07-07T00:00:00+00:00 | United States | Belgium | 0.3264 | 0.1688 | 0.5049 |
 | 2026-07-07T16:00:00+00:00 | Argentina | Egypt | 0.8209 | 0.1014 | 0.0777 |
 | 2026-07-07T20:00:00+00:00 | Switzerland | Colombia | 0.2663 | 0.1720 | 0.5616 |
+| 2026-07-09T20:00:00+00:00 | France | Morocco | 0.4871 | 0.2001 | 0.3128 |
 
 poisson_goal_v1 remains the official model; these predictions are shadow only.
