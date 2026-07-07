@@ -1,12 +1,12 @@
 # Upcoming World Cup 2026 Predictions
 
-Data cutoff UTC: 2026-07-07T03:36:00.105071+00:00
+Data cutoff UTC: 2026-07-07T07:41:49.165667+00:00
 Model: poisson (poisson_goal_v1)
 Half-life days: 730.0
 Training matches: 23846
 World Cup 2026 finished matches incorporated: 82
-Dataset revision: operational_dataset_v1:6363c26de067dc3a
-Live snapshot checksum: ce445bd6424f2866cd64289b14571c231eadf16586bcdd74918fd89648b3848a
+Dataset revision: operational_dataset_v1:3993c58fe3ff9e20
+Live snapshot checksum: 37e41bd7d3d4d228ba8de97e9350bc0d538339ca69a82f147bac2052f3e9049f
 
 ## Predictions
 
@@ -15,6 +15,7 @@ Live snapshot checksum: ce445bd6424f2866cd64289b14571c231eadf16586bcdd74918fd896
 | 2026-07-07T16:00:00+00:00 | Argentina | Egypt | 0.6787 | 0.2233 | 0.0980 | 1.7176 | 0.4797 | 1-0 |
 | 2026-07-07T20:00:00+00:00 | Switzerland | Colombia | 0.2705 | 0.2410 | 0.4885 | 1.1897 | 1.6801 | 1-1 |
 | 2026-07-09T20:00:00+00:00 | France | Morocco | 0.3952 | 0.2964 | 0.3084 | 1.1449 | 0.9748 | 1-0 |
+| 2026-07-10T19:00:00+00:00 | Spain | Belgium | 0.5493 | 0.2262 | 0.2245 | 1.8596 | 1.1081 | 1-1 |
 | 2026-07-11T21:00:00+00:00 | Norway | England | 0.2429 | 0.2306 | 0.5265 | 1.1583 | 1.8109 | 1-1 |
 
 ## Exclusions
@@ -27,4 +28,4 @@ Live snapshot checksum: ce445bd6424f2866cd64289b14571c231eadf16586bcdd74918fd896
 
 - Latest CSV: `predictions/latest.csv`
 - Latest Parquet: `predictions/latest.parquet`
-- Historical snapshot: `predictions/history/20260707T033602000000Z_05af7282b4f7.parquet`
+- Historical snapshot: `predictions/history/20260707T074151000000Z_a7a28fd7b83f.parquet`
