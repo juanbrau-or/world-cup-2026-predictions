@@ -1,31 +1,30 @@
 # Upcoming World Cup 2026 Predictions
 
-Data cutoff UTC: 2026-07-07T18:02:11.910111+00:00
+Data cutoff UTC: 2026-07-07T21:26:54.176842+00:00
 Model: poisson (poisson_goal_v1)
 Half-life days: 730.0
-Training matches: 23846
-World Cup 2026 finished matches incorporated: 82
-Dataset revision: operational_dataset_v1:48e9834c7deddb89
-Live snapshot checksum: f0cba952a69ab8a5746a4f80822cbd3c8bfb9d8a093accc11c3a203ee028e92e
+Training matches: 23847
+World Cup 2026 finished matches incorporated: 83
+Dataset revision: operational_dataset_v1:3b9bc03c75aff3f8
+Live snapshot checksum: 0f5cdf79c2288c8f8b0ff76d07da9252acea4079520ba32337d51746f8242cff
 
 ## Predictions
 
 | Kickoff UTC | Home | Away | P(home) | P(draw) | P(away) | xG home | xG away | Modal |
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
-| 2026-07-07T20:00:00+00:00 | Switzerland | Colombia | 0.2705 | 0.2410 | 0.4885 | 1.1897 | 1.6801 | 1-1 |
-| 2026-07-09T20:00:00+00:00 | France | Morocco | 0.3952 | 0.2964 | 0.3084 | 1.1449 | 0.9748 | 1-0 |
-| 2026-07-10T19:00:00+00:00 | Spain | Belgium | 0.5493 | 0.2262 | 0.2245 | 1.8596 | 1.1081 | 1-1 |
-| 2026-07-11T21:00:00+00:00 | Norway | England | 0.2429 | 0.2306 | 0.5265 | 1.1583 | 1.8109 | 1-1 |
+| 2026-07-09T20:00:00+00:00 | France | Morocco | 0.3951 | 0.2956 | 0.3094 | 1.1493 | 0.9811 | 1-0 |
+| 2026-07-10T19:00:00+00:00 | Spain | Belgium | 0.5497 | 0.2257 | 0.2246 | 1.8657 | 1.1124 | 1-1 |
+| 2026-07-11T21:00:00+00:00 | Norway | England | 0.2429 | 0.2298 | 0.5272 | 1.1642 | 1.8200 | 1-1 |
 
 ## Exclusions
 
 | Reason | Fixtures |
 | --- | ---: |
-| finished | 94 |
+| finished | 95 |
 | in_progress | 1 |
 
 ## Files
 
 - Latest CSV: `predictions/latest.csv`
 - Latest Parquet: `predictions/latest.parquet`
-- Historical snapshot: `predictions/history/20260707T180214000000Z_eac0516b41ce.parquet`
+- Historical snapshot: `predictions/history/20260707T212656000000Z_58a51f46c624.parquet`
