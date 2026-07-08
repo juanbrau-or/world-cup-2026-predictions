@@ -1,7 +1,7 @@
 # Prospective Scorecard
 
-Generated UTC: 2026-07-08T02:51:31Z
-Results cutoff UTC: 2026-07-08T02:51:21.711913Z
+Generated UTC: 2026-07-08T06:30:32Z
+Results cutoff UTC: 2026-07-08T06:30:22.549673Z
 1X2 metric basis: 90-minute result (`result_90`). Extra time and penalties are reported separately and are not mixed into the 1X2 metric.
 
 ## Official Policy
@@ -15,25 +15,25 @@ Fallback rule: earliest_valid_before_kickoff
 
 ## Metrics
 
-Official matches evaluated: 19
+Official matches evaluated: 20
 
 | Metric | Value |
 | --- | ---: |
-| log loss | 0.815216 |
-| Brier score | 0.466845 |
-| RPS | 0.161841 |
-| accuracy | 0.736842 |
+| log loss | 0.845606 |
+| Brier score | 0.487897 |
+| RPS | 0.161544 |
+| accuracy | 0.700000 |
 | calibration error | n/a |
-| mean hours before kickoff | 7.767617 |
-| median hours before kickoff | 7.822222 |
+| mean hours before kickoff | 7.820944 |
+| median hours before kickoff | 7.924028 |
 
 ## Baselines
 
 | Baseline | Status | Matches | Log loss | Brier | RPS | Accuracy |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
-| uniform_1x2 | computed | 19 | 1.098612 | 0.666667 | 0.251462 | 0.473684 |
-| historical_frequency_frozen | computed | 19 | 1.034931 | 0.626116 | 0.244345 | 0.473684 |
-| elo_operational | not_available | 19 | n/a | n/a | n/a | n/a |
+| uniform_1x2 | computed | 20 | 1.098612 | 0.666667 | 0.244444 | 0.450000 |
+| historical_frequency_frozen | computed | 20 | 1.057836 | 0.640891 | 0.240141 | 0.450000 |
+| elo_operational | not_available | 20 | n/a | n/a | n/a | n/a |
 
 ## Matches
 
@@ -58,3 +58,4 @@ Official matches evaluated: 19
 | 2026-07-06T19:00:00Z | Portugal vs Spain | away_win | away_win | latest_valid_at_least_6h_before_kickoff | 0.472595 |
 | 2026-07-07T00:00:00Z | United States vs Belgium | away_win | away_win | latest_valid_at_least_6h_before_kickoff | 0.562494 |
 | 2026-07-07T16:00:00Z | Argentina vs Egypt | home_win | home_win | latest_valid_at_least_6h_before_kickoff | 0.678693 |
+| 2026-07-07T20:00:00Z | Switzerland vs Colombia | away_win | draw | latest_valid_at_least_6h_before_kickoff | 0.240988 |

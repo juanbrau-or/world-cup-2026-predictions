@@ -1,4 +1,4 @@
-Data cutoff UTC: 2026-07-07T21:26:54.176842Z
+Data cutoff UTC: 2026-07-08T06:30:22.549673Z
 Model: poisson (poisson_goal_v1)
 Rules: world_cup_2026_rules_v1
 Simulations: 25000
@@ -38,6 +38,6 @@ Unmodelled fair play/FIFA-ranking ties use deterministic random_lot_proxy.
 | quarter_final:france v morocco | 1.000 |
 | quarter_final:spain v belgium | 1.000 |
 | quarter_final:norway v england | 1.000 |
-| quarter_final:argentina v colombia | 0.618 |
-| semi_final:england v argentina | 0.455 |
-| quarter_final:argentina v switzerland | 0.382 |
+| quarter_final:argentina v switzerland | 1.000 |
+| semi_final:england v argentina | 0.499 |
+| semi_final:france v spain | 0.373 |
