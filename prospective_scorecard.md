@@ -1,7 +1,7 @@
 # Prospective Scorecard
 
-Generated UTC: 2026-07-10T17:49:39Z
-Results cutoff UTC: 2026-07-10T17:49:29.401682Z
+Generated UTC: 2026-07-10T21:08:05Z
+Results cutoff UTC: 2026-07-10T21:07:54.962302Z
 1X2 metric basis: 90-minute result (`result_90`). Extra time and penalties are reported separately and are not mixed into the 1X2 metric.
 
 ## Official Policy
@@ -15,25 +15,25 @@ Fallback rule: earliest_valid_before_kickoff
 
 ## Metrics
 
-Official matches evaluated: 21
+Official matches evaluated: 22
 
 | Metric | Value |
 | --- | ---: |
-| log loss | 0.849582 |
-| Brier score | 0.490821 |
-| RPS | 0.164837 |
-| accuracy | 0.714286 |
+| log loss | 0.838217 |
+| Brier score | 0.482376 |
+| RPS | 0.163112 |
+| accuracy | 0.727273 |
 | calibration error | n/a |
-| mean hours before kickoff | 7.871402 |
-| median hours before kickoff | 8.025833 |
+| mean hours before kickoff | 7.879268 |
+| median hours before kickoff | 8.035139 |
 
 ## Baselines
 
 | Baseline | Status | Matches | Log loss | Brier | RPS | Accuracy |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
-| uniform_1x2 | computed | 21 | 1.098612 | 0.666667 | 0.246032 | 0.476190 |
-| historical_frequency_frozen | computed | 21 | 1.041672 | 0.629226 | 0.236930 | 0.476190 |
-| elo_operational | not_available | 21 | n/a | n/a | n/a | n/a |
+| uniform_1x2 | computed | 22 | 1.098612 | 0.666667 | 0.247475 | 0.500000 |
+| historical_frequency_frozen | computed | 22 | 1.026977 | 0.618620 | 0.234011 | 0.500000 |
+| elo_operational | not_available | 22 | n/a | n/a | n/a | n/a |
 
 ## Matches
 
@@ -60,3 +60,4 @@ Official matches evaluated: 21
 | 2026-07-07T16:00:00Z | Argentina vs Egypt | home_win | home_win | latest_valid_at_least_6h_before_kickoff | 0.678693 |
 | 2026-07-07T20:00:00Z | Switzerland vs Colombia | away_win | draw | latest_valid_at_least_6h_before_kickoff | 0.240988 |
 | 2026-07-09T20:00:00Z | France vs Morocco | home_win | home_win | latest_valid_at_least_6h_before_kickoff | 0.394904 |
+| 2026-07-10T19:00:00Z | Spain vs Belgium | home_win | home_win | latest_valid_at_least_6h_before_kickoff | 0.549056 |

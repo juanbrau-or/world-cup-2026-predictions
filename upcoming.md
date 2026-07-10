@@ -1,29 +1,28 @@
 # Upcoming World Cup 2026 Predictions
 
-Data cutoff UTC: 2026-07-10T17:49:29.401682+00:00
+Data cutoff UTC: 2026-07-10T21:07:54.962302+00:00
 Model: poisson (poisson_goal_v1)
 Half-life days: 730.0
-Training matches: 23849
-World Cup 2026 finished matches incorporated: 85
-Dataset revision: operational_dataset_v1:179b1bd1c4dd318b
-Live snapshot checksum: bdfdc14d1b9ee9f68bd67dbdca0ed665fa233b62245293c5a0b3a503b2f6eba3
+Training matches: 23850
+World Cup 2026 finished matches incorporated: 86
+Dataset revision: operational_dataset_v1:ef34f8b639294597
+Live snapshot checksum: 4d15d787de87f2085986b8bdd887998636f256f5fe0da438e95e0d9c5913e4f9
 
 ## Predictions
 
 | Kickoff UTC | Home | Away | P(home) | P(draw) | P(away) | xG home | xG away | Modal |
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
-| 2026-07-10T19:00:00+00:00 | Spain | Belgium | 0.5491 | 0.2264 | 0.2245 | 1.8572 | 1.1070 | 1-1 |
-| 2026-07-11T21:00:00+00:00 | Norway | England | 0.2430 | 0.2307 | 0.5263 | 1.1577 | 1.8093 | 1-1 |
-| 2026-07-12T01:00:00+00:00 | Argentina | Switzerland | 0.6133 | 0.2291 | 0.1576 | 1.7681 | 0.7642 | 1-0 |
+| 2026-07-11T21:00:00+00:00 | Norway | England | 0.2431 | 0.2307 | 0.5262 | 1.1578 | 1.8092 | 1-1 |
+| 2026-07-12T01:00:00+00:00 | Argentina | Switzerland | 0.6130 | 0.2292 | 0.1578 | 1.7675 | 0.7648 | 1-0 |
 
 ## Exclusions
 
 | Reason | Fixtures |
 | --- | ---: |
-| finished | 97 |
+| finished | 98 |
 
 ## Files
 
 - Latest CSV: `predictions/latest.csv`
 - Latest Parquet: `predictions/latest.parquet`
-- Historical snapshot: `predictions/history/20260710T174932000000Z_e286f20ca438.parquet`
+- Historical snapshot: `predictions/history/20260710T210757000000Z_be5278006b94.parquet`
