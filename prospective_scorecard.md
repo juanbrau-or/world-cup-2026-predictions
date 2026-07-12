@@ -1,7 +1,7 @@
 # Prospective Scorecard
 
-Generated UTC: 2026-07-11T20:52:01Z
-Results cutoff UTC: 2026-07-11T20:51:51.403336Z
+Generated UTC: 2026-07-12T02:56:15Z
+Results cutoff UTC: 2026-07-12T02:56:04.688036Z
 1X2 metric basis: 90-minute result (`result_90`). Extra time and penalties are reported separately and are not mixed into the 1X2 metric.
 
 ## Official Policy
@@ -15,25 +15,25 @@ Fallback rule: earliest_valid_before_kickoff
 
 ## Metrics
 
-Official matches evaluated: 22
+Official matches evaluated: 21
 
 | Metric | Value |
 | --- | ---: |
-| log loss | 0.838217 |
-| Brier score | 0.482376 |
-| RPS | 0.163112 |
-| accuracy | 0.727273 |
+| log loss | 0.845978 |
+| Brier score | 0.488071 |
+| RPS | 0.163978 |
+| accuracy | 0.714286 |
 | calibration error | n/a |
-| mean hours before kickoff | 7.879268 |
-| median hours before kickoff | 8.035139 |
+| mean hours before kickoff | 7.932394 |
+| median hours before kickoff | 8.044444 |
 
 ## Baselines
 
 | Baseline | Status | Matches | Log loss | Brier | RPS | Accuracy |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
-| uniform_1x2 | computed | 22 | 1.098612 | 0.666667 | 0.247475 | 0.500000 |
-| historical_frequency_frozen | computed | 22 | 1.026977 | 0.618620 | 0.234011 | 0.500000 |
-| elo_operational | not_available | 22 | n/a | n/a | n/a | n/a |
+| uniform_1x2 | computed | 21 | 1.098612 | 0.666667 | 0.246032 | 0.523810 |
+| historical_frequency_frozen | computed | 21 | 1.016567 | 0.610200 | 0.227417 | 0.523810 |
+| elo_operational | not_available | 21 | n/a | n/a | n/a | n/a |
 
 ## Matches
 
@@ -54,7 +54,6 @@ Official matches evaluated: 22
 | 2026-07-04T17:00:00Z | Canada vs Morocco | away_win | away_win | latest_valid_at_least_6h_before_kickoff | 0.466634 |
 | 2026-07-04T21:00:00Z | Paraguay vs France | away_win | away_win | latest_valid_at_least_6h_before_kickoff | 0.643298 |
 | 2026-07-05T20:00:00Z | Brazil vs Norway | home_win | away_win | latest_valid_at_least_6h_before_kickoff | 0.191035 |
-| 2026-07-06T01:00:00Z | Mexico vs England | away_win | away_win | latest_valid_at_least_6h_before_kickoff | 0.509034 |
 | 2026-07-06T19:00:00Z | Portugal vs Spain | away_win | away_win | latest_valid_at_least_6h_before_kickoff | 0.472595 |
 | 2026-07-07T00:00:00Z | United States vs Belgium | away_win | away_win | latest_valid_at_least_6h_before_kickoff | 0.562494 |
 | 2026-07-07T16:00:00Z | Argentina vs Egypt | home_win | home_win | latest_valid_at_least_6h_before_kickoff | 0.678693 |
