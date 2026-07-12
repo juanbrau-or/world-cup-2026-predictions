@@ -1,4 +1,4 @@
-Data cutoff UTC: 2026-07-11T20:51:51.403336Z
+Data cutoff UTC: 2026-07-12T06:35:10.233262Z
 Model: poisson (poisson_goal_v1)
 Rules: world_cup_2026_rules_v1
 Simulations: 25000
@@ -11,26 +11,26 @@ Unmodelled fair play/FIFA-ranking ties use deterministic random_lot_proxy.
 
 | Rank | Team | Champion | Final | Semi-final |
 | ---: | --- | ---: | ---: | ---: |
-| 1 | spain | 0.327 | 0.581 | 1.000 |
-| 2 | argentina | 0.290 | 0.508 | 0.750 |
-| 3 | france | 0.205 | 0.419 | 1.000 |
-| 4 | england | 0.126 | 0.293 | 0.660 |
-| 5 | switzerland | 0.027 | 0.100 | 0.250 |
-| 6 | norway | 0.025 | 0.099 | 0.340 |
-| 7 | algeria | 0.000 | 0.000 | 0.000 |
-| 8 | australia | 0.000 | 0.000 | 0.000 |
-| 9 | austria | 0.000 | 0.000 | 0.000 |
-| 10 | belgium | 0.000 | 0.000 | 0.000 |
-| 11 | bosnia_and_herzegovina | 0.000 | 0.000 | 0.000 |
-| 12 | brazil | 0.000 | 0.000 | 0.000 |
-| 13 | canada | 0.000 | 0.000 | 0.000 |
-| 14 | cape_verde | 0.000 | 0.000 | 0.000 |
-| 15 | colombia | 0.000 | 0.000 | 0.000 |
-| 16 | croatia | 0.000 | 0.000 | 0.000 |
-| 17 | curacao | 0.000 | 0.000 | 0.000 |
-| 18 | czech_republic | 0.000 | 0.000 | 0.000 |
-| 19 | dr_congo | 0.000 | 0.000 | 0.000 |
-| 20 | ecuador | 0.000 | 0.000 | 0.000 |
+| 1 | argentina | 0.346 | 0.617 | 1.000 |
+| 2 | spain | 0.307 | 0.587 | 1.000 |
+| 3 | france | 0.182 | 0.413 | 1.000 |
+| 4 | england | 0.166 | 0.383 | 1.000 |
+| 5 | algeria | 0.000 | 0.000 | 0.000 |
+| 6 | australia | 0.000 | 0.000 | 0.000 |
+| 7 | austria | 0.000 | 0.000 | 0.000 |
+| 8 | belgium | 0.000 | 0.000 | 0.000 |
+| 9 | bosnia_and_herzegovina | 0.000 | 0.000 | 0.000 |
+| 10 | brazil | 0.000 | 0.000 | 0.000 |
+| 11 | canada | 0.000 | 0.000 | 0.000 |
+| 12 | cape_verde | 0.000 | 0.000 | 0.000 |
+| 13 | colombia | 0.000 | 0.000 | 0.000 |
+| 14 | croatia | 0.000 | 0.000 | 0.000 |
+| 15 | curacao | 0.000 | 0.000 | 0.000 |
+| 16 | czech_republic | 0.000 | 0.000 | 0.000 |
+| 17 | dr_congo | 0.000 | 0.000 | 0.000 |
+| 18 | ecuador | 0.000 | 0.000 | 0.000 |
+| 19 | egypt | 0.000 | 0.000 | 0.000 |
+| 20 | germany | 0.000 | 0.000 | 0.000 |
 
 ## Mexico
 
