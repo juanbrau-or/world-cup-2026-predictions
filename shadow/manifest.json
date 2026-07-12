@@ -1,15 +1,15 @@
 {
-  "checksum": "d5b62e723dccfea419f7a056af0c8ced0eafb801f73ee878dafc10aa38cf0ade",
+  "checksum": "c7191f92e835487ee1bab3c43bb28ec4978f956d1f7deb269a0270c796d26404",
   "checksums": {
     "shadow/contextual_comparison.md": "4020b7cdd03f2defcab90834279bf77c48e013c439df58f9a5164d1e46d18f4b",
-    "shadow/contextual_latest.csv": "d5b62e723dccfea419f7a056af0c8ced0eafb801f73ee878dafc10aa38cf0ade",
-    "shadow/contextual_latest.json": "e765eaffec4b93226b00a26b27bb3dfc3f438046cf52cbd60ead358ba70251a5",
-    "shadow/contextual_scorecard.json": "701b4b32ab457a167575af8667b9b57c0d080d54e3cac12e0d95f8a995c3d4e0",
-    "shadow/contextual_scorecard.md": "b2181c366e642e38668cdf767564d5fc647204102739da17c9531742c3d55626",
-    "shadow/contextual_upcoming.md": "7011115814b58041e8cd7bffeff0fba289db264cc312165d7d1356d95cbeac75"
+    "shadow/contextual_latest.csv": "c7191f92e835487ee1bab3c43bb28ec4978f956d1f7deb269a0270c796d26404",
+    "shadow/contextual_latest.json": "74ac280a4250721a8b06e41dd46278a5373dbb9d540439568e3aa3b224cbc919",
+    "shadow/contextual_scorecard.json": "92b2192d7a4ba3507303be0a958ccca9f54d2d8fb1f3670cc11dd7cd15b74b32",
+    "shadow/contextual_scorecard.md": "ed4f6a6d6ab61bc832bbc476ecbfe02e9896d391b0c573b118fc03ee2fbd6581",
+    "shadow/contextual_upcoming.md": "6da159a2b5bb698fd543e4247bccf55ebed7ffeb6c9f0d8e67bd57865d0e3f46"
   },
-  "data_cutoff": "2026-07-12T17:00:49Z",
-  "generated_at": "2026-07-12T17:04:46Z",
+  "data_cutoff": "2026-07-12T20:52:32Z",
+  "generated_at": "2026-07-12T20:56:06Z",
   "model": {
     "family": "contextual_challenger",
     "version": "contextual_logit_v1"
@@ -32,7 +32,7 @@
     "policy_id": "shadow_contextual_early_v1",
     "policy_version": "shadow_contextual_early_v1_2026_06_30",
     "prediction_context": "shadow_contextual_v1",
-    "results_cutoff_utc": "2026-07-12T17:00:49Z",
+    "results_cutoff_utc": "2026-07-12T20:52:32Z",
     "snapshots": 1,
     "unique_fixtures": 2
   },
