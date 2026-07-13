@@ -1,4 +1,4 @@
-Data cutoff UTC: 2026-07-13T06:55:40.188415Z
+Data cutoff UTC: 2026-07-13T11:14:19.182437Z
 Model: poisson (poisson_goal_v1)
 Rules: world_cup_2026_rules_v1
 Simulations: 25000
@@ -12,9 +12,9 @@ Unmodelled fair play/FIFA-ranking ties use deterministic random_lot_proxy.
 | Rank | Team | Champion | Final | Semi-final |
 | ---: | --- | ---: | ---: | ---: |
 | 1 | argentina | 0.346 | 0.617 | 1.000 |
-| 2 | spain | 0.306 | 0.587 | 1.000 |
-| 3 | france | 0.181 | 0.413 | 1.000 |
-| 4 | england | 0.166 | 0.383 | 1.000 |
+| 2 | spain | 0.308 | 0.589 | 1.000 |
+| 3 | france | 0.181 | 0.411 | 1.000 |
+| 4 | england | 0.165 | 0.383 | 1.000 |
 | 5 | algeria | 0.000 | 0.000 | 0.000 |
 | 6 | australia | 0.000 | 0.000 | 0.000 |
 | 7 | austria | 0.000 | 0.000 | 0.000 |
