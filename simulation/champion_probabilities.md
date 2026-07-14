@@ -1,4 +1,4 @@
-Data cutoff UTC: 2026-07-14T17:17:27.109544Z
+Data cutoff UTC: 2026-07-14T21:02:38.230020Z
 Model: poisson (poisson_goal_v1)
 Rules: world_cup_2026_rules_v1
 Simulations: 25000
