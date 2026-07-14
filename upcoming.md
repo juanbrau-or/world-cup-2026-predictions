@@ -1,11 +1,11 @@
 # Upcoming World Cup 2026 Predictions
 
-Data cutoff UTC: 2026-07-13T20:58:50.342190+00:00
+Data cutoff UTC: 2026-07-14T02:38:42.369474+00:00
 Model: poisson (poisson_goal_v1)
 Half-life days: 730.0
 Training matches: 23852
 World Cup 2026 finished matches incorporated: 88
-Dataset revision: operational_dataset_v1:6674fdbf3b5903d8
+Dataset revision: operational_dataset_v1:8055a64899d6ec8b
 Live snapshot checksum: bb0dff52e80425769f203e4bba6be63e87871d077e8bd7ca8618fae767d68441
 
 ## Predictions
@@ -13,7 +13,7 @@ Live snapshot checksum: bb0dff52e80425769f203e4bba6be63e87871d077e8bd7ca8618fae7
 | Kickoff UTC | Home | Away | P(home) | P(draw) | P(away) | xG home | xG away | Modal |
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
 | 2026-07-14T19:00:00+00:00 | France | Spain | 0.2971 | 0.2549 | 0.4480 | 1.1790 | 1.5071 | 1-1 |
-| 2026-07-15T19:00:00+00:00 | England | Argentina | 0.2494 | 0.2906 | 0.4601 | 0.8450 | 1.2592 | 0-1 |
+| 2026-07-15T19:00:00+00:00 | England | Argentina | 0.2494 | 0.2906 | 0.4600 | 0.8450 | 1.2591 | 0-1 |
 
 ## Exclusions
 
@@ -25,4 +25,4 @@ Live snapshot checksum: bb0dff52e80425769f203e4bba6be63e87871d077e8bd7ca8618fae7
 
 - Latest CSV: `predictions/latest.csv`
 - Latest Parquet: `predictions/latest.parquet`
-- Historical snapshot: `predictions/history/20260713T205853000000Z_ce63ac15dc18.parquet`
+- Historical snapshot: `predictions/history/20260714T023844000000Z_502c6f34ae17.parquet`
