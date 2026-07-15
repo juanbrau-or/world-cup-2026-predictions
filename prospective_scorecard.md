@@ -1,7 +1,7 @@
 # Prospective Scorecard
 
-Generated UTC: 2026-07-14T21:02:48Z
-Results cutoff UTC: 2026-07-14T21:02:38.230020Z
+Generated UTC: 2026-07-15T02:36:56Z
+Results cutoff UTC: 2026-07-15T02:36:46.173627Z
 1X2 metric basis: 90-minute result (`result_90`). Extra time and penalties are reported separately and are not mixed into the 1X2 metric.
 
 ## Official Policy
@@ -15,25 +15,25 @@ Fallback rule: earliest_valid_before_kickoff
 
 ## Metrics
 
-Official matches evaluated: 24
+Official matches evaluated: 25
 
 | Metric | Value |
 | --- | ---: |
-| log loss | 0.890875 |
-| Brier score | 0.522300 |
-| RPS | 0.164870 |
-| accuracy | 0.666667 |
+| log loss | 0.887361 |
+| Brier score | 0.519728 |
+| RPS | 0.166136 |
+| accuracy | 0.680000 |
 | calibration error | n/a |
-| mean hours before kickoff | 7.872384 |
-| median hours before kickoff | 8.007083 |
+| mean hours before kickoff | 7.916911 |
+| median hours before kickoff | 8.025833 |
 
 ## Baselines
 
 | Baseline | Status | Matches | Log loss | Brier | RPS | Accuracy |
 | --- | --- | ---: | ---: | ---: | ---: | ---: |
-| uniform_1x2 | computed | 24 | 1.098612 | 0.666667 | 0.236111 | 0.458333 |
-| historical_frequency_frozen | computed | 24 | 1.065816 | 0.643870 | 0.227865 | 0.458333 |
-| elo_operational | not_available | 24 | n/a | n/a | n/a | n/a |
+| uniform_1x2 | computed | 25 | 1.098612 | 0.666667 | 0.237778 | 0.440000 |
+| historical_frequency_frozen | computed | 25 | 1.073007 | 0.649933 | 0.233649 | 0.440000 |
+| elo_operational | not_available | 25 | n/a | n/a | n/a | n/a |
 
 ## Matches
 
@@ -63,3 +63,4 @@ Official matches evaluated: 24
 | 2026-07-10T19:00:00Z | Spain vs Belgium | home_win | home_win | latest_valid_at_least_6h_before_kickoff | 0.549056 |
 | 2026-07-11T21:00:00Z | Norway vs England | away_win | draw | latest_valid_at_least_6h_before_kickoff | 0.230692 |
 | 2026-07-12T01:00:00Z | Argentina vs Switzerland | home_win | draw | latest_valid_at_least_6h_before_kickoff | 0.229109 |
+| 2026-07-14T19:00:00Z | France vs Spain | away_win | away_win | latest_valid_at_least_6h_before_kickoff | 0.447977 |

@@ -1,4 +1,4 @@
-Data cutoff UTC: 2026-07-14T21:02:38.230020Z
+Data cutoff UTC: 2026-07-15T02:36:46.173627Z
 Model: poisson (poisson_goal_v1)
 Rules: world_cup_2026_rules_v1
 Simulations: 25000
@@ -11,25 +11,25 @@ Unmodelled fair play/FIFA-ranking ties use deterministic random_lot_proxy.
 
 | Rank | Team | Champion | Final | Semi-final |
 | ---: | --- | ---: | ---: | ---: |
-| 1 | argentina | 0.346 | 0.616 | 1.000 |
-| 2 | spain | 0.306 | 0.588 | 1.000 |
-| 3 | france | 0.181 | 0.412 | 1.000 |
-| 4 | england | 0.166 | 0.384 | 1.000 |
-| 5 | algeria | 0.000 | 0.000 | 0.000 |
-| 6 | australia | 0.000 | 0.000 | 0.000 |
-| 7 | austria | 0.000 | 0.000 | 0.000 |
-| 8 | belgium | 0.000 | 0.000 | 0.000 |
-| 9 | bosnia_and_herzegovina | 0.000 | 0.000 | 0.000 |
-| 10 | brazil | 0.000 | 0.000 | 0.000 |
-| 11 | canada | 0.000 | 0.000 | 0.000 |
-| 12 | cape_verde | 0.000 | 0.000 | 0.000 |
-| 13 | colombia | 0.000 | 0.000 | 0.000 |
-| 14 | croatia | 0.000 | 0.000 | 0.000 |
-| 15 | curacao | 0.000 | 0.000 | 0.000 |
-| 16 | czech_republic | 0.000 | 0.000 | 0.000 |
-| 17 | dr_congo | 0.000 | 0.000 | 0.000 |
-| 18 | ecuador | 0.000 | 0.000 | 0.000 |
-| 19 | egypt | 0.000 | 0.000 | 0.000 |
+| 1 | spain | 0.533 | 1.000 | 1.000 |
+| 2 | argentina | 0.320 | 0.620 | 1.000 |
+| 3 | england | 0.147 | 0.380 | 1.000 |
+| 4 | algeria | 0.000 | 0.000 | 0.000 |
+| 5 | australia | 0.000 | 0.000 | 0.000 |
+| 6 | austria | 0.000 | 0.000 | 0.000 |
+| 7 | belgium | 0.000 | 0.000 | 0.000 |
+| 8 | bosnia_and_herzegovina | 0.000 | 0.000 | 0.000 |
+| 9 | brazil | 0.000 | 0.000 | 0.000 |
+| 10 | canada | 0.000 | 0.000 | 0.000 |
+| 11 | cape_verde | 0.000 | 0.000 | 0.000 |
+| 12 | colombia | 0.000 | 0.000 | 0.000 |
+| 13 | croatia | 0.000 | 0.000 | 0.000 |
+| 14 | curacao | 0.000 | 0.000 | 0.000 |
+| 15 | czech_republic | 0.000 | 0.000 | 0.000 |
+| 16 | dr_congo | 0.000 | 0.000 | 0.000 |
+| 17 | ecuador | 0.000 | 0.000 | 0.000 |
+| 18 | egypt | 0.000 | 0.000 | 0.000 |
+| 19 | france | 0.000 | 0.000 | 1.000 |
 | 20 | germany | 0.000 | 0.000 | 0.000 |
 
 ## Mexico
