@@ -1,4 +1,4 @@
-Data cutoff UTC: 2026-07-15T10:05:06.978180Z
+Data cutoff UTC: 2026-07-15T13:47:46.821101Z
 Model: poisson (poisson_goal_v1)
 Rules: world_cup_2026_rules_v1
 Simulations: 25000
@@ -12,7 +12,7 @@ Unmodelled fair play/FIFA-ranking ties use deterministic random_lot_proxy.
 | Team | R32 | R16 | QF | SF | Final | Champion |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | algeria | 1.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
-| argentina | 1.000 | 1.000 | 1.000 | 1.000 | 0.621 | 0.320 |
+| argentina | 1.000 | 1.000 | 1.000 | 1.000 | 0.620 | 0.320 |
 | australia | 1.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
 | austria | 1.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
 | belgium | 1.000 | 1.000 | 1.000 | 0.000 | 0.000 | 0.000 |
@@ -25,7 +25,7 @@ Unmodelled fair play/FIFA-ranking ties use deterministic random_lot_proxy.
 | dr_congo | 1.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
 | ecuador | 1.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
 | egypt | 1.000 | 1.000 | 0.000 | 0.000 | 0.000 | 0.000 |
-| england | 1.000 | 1.000 | 1.000 | 1.000 | 0.379 | 0.146 |
+| england | 1.000 | 1.000 | 1.000 | 1.000 | 0.380 | 0.147 |
 | france | 1.000 | 1.000 | 1.000 | 1.000 | 0.000 | 0.000 |
 | germany | 1.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
 | ghana | 1.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
@@ -39,7 +39,7 @@ Unmodelled fair play/FIFA-ranking ties use deterministic random_lot_proxy.
 | portugal | 1.000 | 1.000 | 0.000 | 0.000 | 0.000 | 0.000 |
 | senegal | 1.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
 | south_africa | 1.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
-| spain | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 0.534 |
+| spain | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | 0.533 |
 | sweden | 1.000 | 0.000 | 0.000 | 0.000 | 0.000 | 0.000 |
 | switzerland | 1.000 | 1.000 | 1.000 | 0.000 | 0.000 | 0.000 |
 | united_states | 1.000 | 1.000 | 0.000 | 0.000 | 0.000 | 0.000 |
