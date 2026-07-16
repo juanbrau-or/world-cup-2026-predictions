@@ -1,4 +1,4 @@
-Data cutoff UTC: 2026-07-15T17:20:05.139002Z
+Data cutoff UTC: 2026-07-16T06:21:17.479176Z
 Model: poisson (poisson_goal_v1)
 Rules: world_cup_2026_rules_v1
 Simulations: 25000
@@ -11,24 +11,24 @@ Unmodelled fair play/FIFA-ranking ties use deterministic random_lot_proxy.
 
 | Rank | Team | Champion | Final | Semi-final |
 | ---: | --- | ---: | ---: | ---: |
-| 1 | spain | 0.533 | 1.000 | 1.000 |
-| 2 | argentina | 0.320 | 0.620 | 1.000 |
-| 3 | england | 0.147 | 0.380 | 1.000 |
-| 4 | algeria | 0.000 | 0.000 | 0.000 |
-| 5 | australia | 0.000 | 0.000 | 0.000 |
-| 6 | austria | 0.000 | 0.000 | 0.000 |
-| 7 | belgium | 0.000 | 0.000 | 0.000 |
-| 8 | bosnia_and_herzegovina | 0.000 | 0.000 | 0.000 |
-| 9 | brazil | 0.000 | 0.000 | 0.000 |
-| 10 | canada | 0.000 | 0.000 | 0.000 |
-| 11 | cape_verde | 0.000 | 0.000 | 0.000 |
-| 12 | colombia | 0.000 | 0.000 | 0.000 |
-| 13 | croatia | 0.000 | 0.000 | 0.000 |
-| 14 | curacao | 0.000 | 0.000 | 0.000 |
-| 15 | czech_republic | 0.000 | 0.000 | 0.000 |
-| 16 | dr_congo | 0.000 | 0.000 | 0.000 |
-| 17 | ecuador | 0.000 | 0.000 | 0.000 |
-| 18 | egypt | 0.000 | 0.000 | 0.000 |
+| 1 | argentina | 0.517 | 1.000 | 1.000 |
+| 2 | spain | 0.483 | 1.000 | 1.000 |
+| 3 | algeria | 0.000 | 0.000 | 0.000 |
+| 4 | australia | 0.000 | 0.000 | 0.000 |
+| 5 | austria | 0.000 | 0.000 | 0.000 |
+| 6 | belgium | 0.000 | 0.000 | 0.000 |
+| 7 | bosnia_and_herzegovina | 0.000 | 0.000 | 0.000 |
+| 8 | brazil | 0.000 | 0.000 | 0.000 |
+| 9 | canada | 0.000 | 0.000 | 0.000 |
+| 10 | cape_verde | 0.000 | 0.000 | 0.000 |
+| 11 | colombia | 0.000 | 0.000 | 0.000 |
+| 12 | croatia | 0.000 | 0.000 | 0.000 |
+| 13 | curacao | 0.000 | 0.000 | 0.000 |
+| 14 | czech_republic | 0.000 | 0.000 | 0.000 |
+| 15 | dr_congo | 0.000 | 0.000 | 0.000 |
+| 16 | ecuador | 0.000 | 0.000 | 0.000 |
+| 17 | egypt | 0.000 | 0.000 | 0.000 |
+| 18 | england | 0.000 | 0.000 | 1.000 |
 | 19 | france | 0.000 | 0.000 | 1.000 |
 | 20 | germany | 0.000 | 0.000 | 0.000 |
 
