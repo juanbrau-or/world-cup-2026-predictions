@@ -1,6 +1,6 @@
 # Shadow Contextual Challenger Predictions
 
-Data cutoff UTC: 2026-07-16T17:19:18.909357+00:00
+Data cutoff UTC: 2026-07-16T21:02:01.781377+00:00
 Model: contextual_challenger (contextual_logit_v1)
 Prediction context: shadow_contextual_v1
 Official baseline fixtures: 2
