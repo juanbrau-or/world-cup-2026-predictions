@@ -1,31 +1,31 @@
 {
-  "checksum": "049fc10f9bc462283db3f29d00a7dd532a56b0b8b4e7b045a551be0e2bbca07a",
+  "checksum": "0e0d83523f60953329d6b0231b060fe8f764d2a8d51f2af39320b8c024cf97fe",
   "checksums": {
-    "history/20260716T062117Z_049fc10f9bc4.csv.gz": "e7e5009883d81a7ed715302bd0529944eb271d0670dbfbb16ff98a5b4266edd2",
-    "latest.csv": "049fc10f9bc462283db3f29d00a7dd532a56b0b8b4e7b045a551be0e2bbca07a",
-    "latest.json": "7e8581a074a91c579de64dac76a967310f3047c24b5e443cf9b9e18188cb6695",
-    "prospective_matches.csv": "7271ea81c06f347bc02a1ab407ac359c4c6d51d6219938b5d529fd21a95922e1",
-    "prospective_scorecard.json": "c792e4ad86deb4c7565f72265b3968877b5ebc92c06945d3659cb7837c064b55",
-    "prospective_scorecard.md": "98cfab1ed05ae39afdb3b869569bc7160277b9812922ad6bf9931fc04b834a8d",
+    "history/20260716T101144Z_0e0d83523f60.csv.gz": "ab2241e72c6cb7c663edf8e56f91226c023c2a4922d2fd587e7b0257ebcbb786",
+    "latest.csv": "0e0d83523f60953329d6b0231b060fe8f764d2a8d51f2af39320b8c024cf97fe",
+    "latest.json": "69109e1c3c5ef0603b4b984dff01dee342e09ba32985b1eda41d203e57b108b7",
+    "prospective_matches.csv": "2fe42bb4dc69dd4eef1809199da21ce9bad35aabcb571474c5a9305b1fcaf2c6",
+    "prospective_scorecard.json": "8fe720cf506852f33c1ef987a773cf27d5e605d656e44a7bb1f100ce1b481d52",
+    "prospective_scorecard.md": "0e6f921965abfd6ebfaac4910af9e41eb679563d3c933e5d71d6a3136b4ada6f",
     "shadow/contextual_comparison.md": "4020b7cdd03f2defcab90834279bf77c48e013c439df58f9a5164d1e46d18f4b",
-    "shadow/contextual_latest.csv": "944880f12cf7cf43dc1c734d5344d5d59dfae084536243ae0e8192d339121a3a",
-    "shadow/contextual_latest.json": "551fb1b0413cc3243cc2d11722515d8e645eb8d38e7be45f469ae6d8d15f7045",
-    "shadow/contextual_scorecard.json": "053484772ade11c991cd41effd84bf46bbd040875c82ae7db6b1664ea856dc72",
-    "shadow/contextual_scorecard.md": "41e8945d8d0b2a3ee196bc3aaadc1a5893a104ea8155f2604b0a617d5b3eb248",
-    "shadow/contextual_upcoming.md": "607fa49cf81cf7f39a5c75ef4bdf5073410faf765cf94c2541ea9ede486974fc",
-    "shadow/manifest.json": "dbbec4a2b6771ad6eeb23cb8bc3d83b5f18f1002cb40b724137f1879e639e1de",
-    "simulation/bracket_summary.md": "5f50c757a36e37b1905cd57e0c4df081bbc786916d2d8fa82f1788f5359356d4",
-    "simulation/champion_probabilities.md": "4cae87fd7fe01c9ff03d1b981ab341a701e1d8574428c1b0615be3284f68c4bc",
-    "simulation/group_tables_summary.md": "b50e109f4fd4d45fcb27494ec2f38315b0e2305fbdcb0cfe5a7032e2bb9cf72b",
-    "simulation/manifest.json": "2ffe9dd116b9567a6c7014e4af28ce3c3c0e4380b9358e49e0cc078014a0b3fc",
-    "simulation/round_probabilities.md": "2952cf4caafd8a19e6ae19d9125bb7978deb36ad76f9f3581127a7cfdf22d393",
+    "shadow/contextual_latest.csv": "af65c5aba084fc9c280f2405a1339f06c9fd4527e685a28fcfec2dddc191558a",
+    "shadow/contextual_latest.json": "b4f217e24db566a22384f765d86596f39aeb830ebe9ccdbe53d6f5ae6856e586",
+    "shadow/contextual_scorecard.json": "346e67c3df840f85adb82039a5b0888dbe291e05610397d839d547102eaa2422",
+    "shadow/contextual_scorecard.md": "9c83122f2496e25e1da458af55fd75f202681841db471fb4b6bb5f35a8e40e8f",
+    "shadow/contextual_upcoming.md": "381897398a952cd97eb8283a440f0fdb80ebe9d71e132c510be4fdf6c3a40179",
+    "shadow/manifest.json": "77db15ff9383cb1186b28fc8857c9abc90777f0726375c940da280119b772270",
+    "simulation/bracket_summary.md": "fe3066aec2ba2211da89486c8991cfb3ceeb925c7f5875b7496caaf2f64ec141",
+    "simulation/champion_probabilities.md": "50755c1523e543a0ab3a0aba63860636841b0b6699bf188391c5afffa5793c92",
+    "simulation/group_tables_summary.md": "76e518e49f702ed0745ab227dcc4122d8706e6d1ed07c19771b31605c3df4a34",
+    "simulation/manifest.json": "f501683081ec537a97b4478a3a47daf87d048046204cd5d825bf2fa2493b340f",
+    "simulation/round_probabilities.md": "fd85a7015f026a61cbd9511ff6cc2c793421a065494b7f86fa5cc001f276c1d4",
     "simulation/team_probabilities.csv": "1aac8d38650c4fa15d662df8ca3920e778643dd27a20ee7b4e05358b2ba52b41",
-    "simulation/team_probabilities.json": "33fb7d33a4239dc276ab16a92f9904c83c69ab1b953facf07a748159a8d1c485",
-    "upcoming.md": "1a84f8816270c7215e300e1f9cfb417d5a3b73f89318f75c0ef5b5c5b9924a96"
+    "simulation/team_probabilities.json": "f7f7d9fe97152412a11fc336c5473048a807e57411806d1daa56a219b4b6ffd9",
+    "upcoming.md": "35bfaabad12816dfca64be127f23a0d0793192307e1e8a5206e1541f96a3f9cd"
   },
-  "data_cutoff": "2026-07-16T06:21:17Z",
-  "generated_at": "2026-07-16T06:24:59Z",
-  "history_path": "history/20260716T062117Z_049fc10f9bc4.csv.gz",
+  "data_cutoff": "2026-07-16T10:11:44Z",
+  "generated_at": "2026-07-16T10:15:33Z",
+  "history_path": "history/20260716T101144Z_0e0d83523f60.csv.gz",
   "model": {
     "family": "poisson",
     "version": "poisson_goal_v1"
@@ -34,23 +34,23 @@
   "prospective_observations": 26,
   "prospective_official_predictions": 28,
   "prospective_policy_version": "early_v1_2026_06_30",
-  "prospective_results_cutoff": "2026-07-16T06:21:17Z",
+  "prospective_results_cutoff": "2026-07-16T10:11:44Z",
   "prospective_scorecard": {
-    "ledger_predictions": 552,
+    "ledger_predictions": 554,
     "official_predictions_evaluated": 26,
     "official_predictions_selected": 28,
     "policy_id": "early_v1",
     "policy_version": "early_v1_2026_06_30",
     "prediction_context": "early_v1",
-    "results_cutoff_utc": "2026-07-16T06:21:17Z",
-    "snapshots": 99,
+    "results_cutoff_utc": "2026-07-16T10:11:44Z",
+    "snapshots": 100,
     "unique_fixtures": 28
   },
   "prospective_scorecard_observations": 26,
-  "prospective_snapshots": 99,
-  "publication_fingerprint": "28337a460f0928c80aabbbf73993c92ee546876699d8acafe1c1bacc359d2d2b",
+  "prospective_snapshots": 100,
+  "publication_fingerprint": "58497b4b5f0dd87d1b00341c6991db066da71f615b4a18e494a667b784c13319",
   "published_files": [
-    "history/20260716T062117Z_049fc10f9bc4.csv.gz",
+    "history/20260716T101144Z_0e0d83523f60.csv.gz",
     "latest.csv",
     "latest.json",
     "prospective_matches.csv",
@@ -74,17 +74,17 @@
   ],
   "schema_version": "prediction_publication_manifest_v1",
   "shadow": {
-    "checksum": "944880f12cf7cf43dc1c734d5344d5d59dfae084536243ae0e8192d339121a3a",
+    "checksum": "af65c5aba084fc9c280f2405a1339f06c9fd4527e685a28fcfec2dddc191558a",
     "checksums": {
       "shadow/contextual_comparison.md": "4020b7cdd03f2defcab90834279bf77c48e013c439df58f9a5164d1e46d18f4b",
-      "shadow/contextual_latest.csv": "944880f12cf7cf43dc1c734d5344d5d59dfae084536243ae0e8192d339121a3a",
-      "shadow/contextual_latest.json": "551fb1b0413cc3243cc2d11722515d8e645eb8d38e7be45f469ae6d8d15f7045",
-      "shadow/contextual_scorecard.json": "053484772ade11c991cd41effd84bf46bbd040875c82ae7db6b1664ea856dc72",
-      "shadow/contextual_scorecard.md": "41e8945d8d0b2a3ee196bc3aaadc1a5893a104ea8155f2604b0a617d5b3eb248",
-      "shadow/contextual_upcoming.md": "607fa49cf81cf7f39a5c75ef4bdf5073410faf765cf94c2541ea9ede486974fc"
+      "shadow/contextual_latest.csv": "af65c5aba084fc9c280f2405a1339f06c9fd4527e685a28fcfec2dddc191558a",
+      "shadow/contextual_latest.json": "b4f217e24db566a22384f765d86596f39aeb830ebe9ccdbe53d6f5ae6856e586",
+      "shadow/contextual_scorecard.json": "346e67c3df840f85adb82039a5b0888dbe291e05610397d839d547102eaa2422",
+      "shadow/contextual_scorecard.md": "9c83122f2496e25e1da458af55fd75f202681841db471fb4b6bb5f35a8e40e8f",
+      "shadow/contextual_upcoming.md": "381897398a952cd97eb8283a440f0fdb80ebe9d71e132c510be4fdf6c3a40179"
     },
-    "data_cutoff": "2026-07-16T06:21:17Z",
-    "generated_at": "2026-07-16T06:24:59Z",
+    "data_cutoff": "2026-07-16T10:11:44Z",
+    "generated_at": "2026-07-16T10:15:33Z",
     "model": {
       "family": "contextual_challenger",
       "version": "contextual_logit_v1"
@@ -107,7 +107,7 @@
       "policy_id": "shadow_contextual_early_v1",
       "policy_version": "shadow_contextual_early_v1_2026_06_30",
       "prediction_context": "shadow_contextual_v1",
-      "results_cutoff_utc": "2026-07-16T06:21:17Z",
+      "results_cutoff_utc": "2026-07-16T10:11:44Z",
       "snapshots": 1,
       "unique_fixtures": 2
     },
@@ -115,15 +115,15 @@
   },
   "simulation": {
     "checksums": {
-      "simulation/bracket_summary.md": "5f50c757a36e37b1905cd57e0c4df081bbc786916d2d8fa82f1788f5359356d4",
-      "simulation/champion_probabilities.md": "4cae87fd7fe01c9ff03d1b981ab341a701e1d8574428c1b0615be3284f68c4bc",
-      "simulation/group_tables_summary.md": "b50e109f4fd4d45fcb27494ec2f38315b0e2305fbdcb0cfe5a7032e2bb9cf72b",
-      "simulation/manifest.json": "2ffe9dd116b9567a6c7014e4af28ce3c3c0e4380b9358e49e0cc078014a0b3fc",
-      "simulation/round_probabilities.md": "2952cf4caafd8a19e6ae19d9125bb7978deb36ad76f9f3581127a7cfdf22d393",
+      "simulation/bracket_summary.md": "fe3066aec2ba2211da89486c8991cfb3ceeb925c7f5875b7496caaf2f64ec141",
+      "simulation/champion_probabilities.md": "50755c1523e543a0ab3a0aba63860636841b0b6699bf188391c5afffa5793c92",
+      "simulation/group_tables_summary.md": "76e518e49f702ed0745ab227dcc4122d8706e6d1ed07c19771b31605c3df4a34",
+      "simulation/manifest.json": "f501683081ec537a97b4478a3a47daf87d048046204cd5d825bf2fa2493b340f",
+      "simulation/round_probabilities.md": "fd85a7015f026a61cbd9511ff6cc2c793421a065494b7f86fa5cc001f276c1d4",
       "simulation/team_probabilities.csv": "1aac8d38650c4fa15d662df8ca3920e778643dd27a20ee7b4e05358b2ba52b41",
-      "simulation/team_probabilities.json": "33fb7d33a4239dc276ab16a92f9904c83c69ab1b953facf07a748159a8d1c485"
+      "simulation/team_probabilities.json": "f7f7d9fe97152412a11fc336c5473048a807e57411806d1daa56a219b4b6ffd9"
     },
-    "data_cutoff_utc": "2026-07-16T06:21:17.479176Z",
+    "data_cutoff_utc": "2026-07-16T10:11:44.429329Z",
     "model": {
       "family": "poisson",
       "version": "poisson_goal_v1"
@@ -146,7 +146,7 @@
     "runs": 25000,
     "schema_version": "simulation_publication_manifest_v1",
     "seed": 2026,
-    "simulation_run_id": "319baf72f93d3826882a35aa",
+    "simulation_run_id": "511771e6f615ac9ed1b065e1",
     "version": "publication_v1"
   },
   "version": "publication_v1"
