@@ -1,12 +1,12 @@
 # Upcoming World Cup 2026 Predictions
 
-Data cutoff UTC: 2026-07-18T06:07:27.780632+00:00
+Data cutoff UTC: 2026-07-18T09:28:11.358143+00:00
 Model: poisson (poisson_goal_v1)
 Half-life days: 730.0
 Training matches: 23854
 World Cup 2026 finished matches incorporated: 90
-Dataset revision: operational_dataset_v1:665c1d9df725a312
-Live snapshot checksum: c0a9550fed4bb7be7c1e2bfe68d7625b82aa8b5619a0e021b403c20283fd11a6
+Dataset revision: operational_dataset_v1:16e6b7bb70ffa46e
+Live snapshot checksum: b47afe23b97c928ec18d36cd95eef9635717cc04e6f8916a58806fd8dca61da8
 
 ## Predictions
 
@@ -25,4 +25,4 @@ Live snapshot checksum: c0a9550fed4bb7be7c1e2bfe68d7625b82aa8b5619a0e021b403c202
 
 - Latest CSV: `predictions/latest.csv`
 - Latest Parquet: `predictions/latest.parquet`
-- Historical snapshot: `predictions/history/20260718T060730000000Z_4f17629a7eb0.parquet`
+- Historical snapshot: `predictions/history/20260718T092813000000Z_05365723589a.parquet`
