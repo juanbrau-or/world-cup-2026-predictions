@@ -1,7 +1,7 @@
 # Prospective Scorecard
 
-Generated UTC: 2026-07-19T06:31:47Z
-Results cutoff UTC: 2026-07-19T06:31:40.594486Z
+Generated UTC: 2026-07-19T09:53:57Z
+Results cutoff UTC: 2026-07-19T09:53:48.291245Z
 1X2 metric basis: 90-minute result (`result_90`). Extra time and penalties are reported separately and are not mixed into the 1X2 metric.
 
 ## Official Policy
