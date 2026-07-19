@@ -1,6 +1,6 @@
 # Shadow Contextual Challenger Predictions
 
-Data cutoff UTC: 2026-07-19T09:53:48.291245+00:00
+Data cutoff UTC: 2026-07-19T13:21:22.936824+00:00
 Model: contextual_challenger (contextual_logit_v1)
 Prediction context: shadow_contextual_v1
 Official baseline fixtures: 1
@@ -12,6 +12,6 @@ World Cup 2026 finished matches incorporated: 91
 
 | Kickoff UTC | Home | Away | P(home) | P(draw) | P(away) |
 | --- | --- | --- | ---: | ---: | ---: |
-| 2026-07-19T19:00:00+00:00 | Spain | Argentina | 0.4256 | 0.2068 | 0.3676 |
+| 2026-07-19T19:00:00+00:00 | Spain | Argentina | 0.4262 | 0.1983 | 0.3755 |
 
 poisson_goal_v1 remains the official model; these predictions are shadow only.
