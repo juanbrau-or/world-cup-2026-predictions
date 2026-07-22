@@ -2,8 +2,6 @@ name: Operational Predictions
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 */4 * * *"
 
 concurrency:
   group: world-cup-2026-operational-predictions
